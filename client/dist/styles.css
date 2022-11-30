@@ -1,0 +1,45 @@
+h1, h2, h3, h4, h5, p {
+  margin: 0px;
+  padding: 0px;
+}
+
+#root {
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+}
+
+.sidebar {
+  width: 20%;
+  height: 800px;
+  border: 2px solid red;
+}
+
+.main {
+  width: 80%;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid yellow;
+}
+
+.header {
+  height: 15%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid blue;
+}
+
+.nav {
+  height: 70%;
+}
+
+.ticker {
+  height: 30%;
+  border: 2px solid green;
+}
+
+.profile {
+  height: 100%;
+  border: 2px solid orange;
+}

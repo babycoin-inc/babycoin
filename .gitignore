@@ -1,0 +1,9 @@
+node_modules
+
+/client/dist/bundle.js
+/client/dist/*.js
+/client/dist/*.json
+/client/src/config.js
+/package-lock.json
+
+.env
