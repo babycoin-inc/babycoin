@@ -61,3 +61,8 @@ td {
   text-align: center;
   vertical-align: center;
 }
+
+.td_sub {
+  display: block;
+  font-size: small;
+}

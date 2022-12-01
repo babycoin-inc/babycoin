@@ -14,22 +14,22 @@ function OpenTrades() {
           <th>P/L</th>
         </tr>
         <tr>
-          <td>Bitcoin</td>
-          <td>$200</td>
+          <td>Bitcoin<i className="td_sub">BTC</i></td>
+          <td>$300<i className="td_sub">.023 BTC</i></td>
           <td>$15,698</td>
           <td>$17,698</td>
           <td>+$400</td>
         </tr>
         <tr>
-          <td>Bitcoin</td>
-          <td>$200</td>
+          <td>Bitcoin<i className="td_sub">BTC</i></td>
+          <td>$300<i className="td_sub">.023 BTC</i></td>
           <td>$15,698</td>
           <td>$17,698</td>
           <td>+$400</td>
         </tr>
         <tr>
-          <td>Bitcoin</td>
-          <td>$200</td>
+          <td>Bitcoin<i className="td_sub">BTC</i></td>
+          <td>$300<i className="td_sub">.023 BTC</i></td>
           <td>$15,698</td>
           <td>$17,698</td>
           <td>+$400</td>
