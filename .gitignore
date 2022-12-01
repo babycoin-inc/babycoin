@@ -4,6 +4,5 @@ node_modules
 /client/dist/*.js
 /client/dist/*.json
 /client/src/config.js
-/package-lock.json
 
 .env
