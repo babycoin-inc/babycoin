@@ -1,5 +1,4 @@
 import React from 'react';
-import './profilestyles.css';
 
 function Balance() {
   return (
