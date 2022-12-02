@@ -8,7 +8,7 @@
     "build": "webpack",
     "test": "jest",
     "dev-build": "webpack --watch",
-    "build-css": "tailwindcss build -i client/src/styles/styles.css -o client/src/styles/tailwind.css --watch"
+    "build-css": "tailwindcss build -i client/dist/styles/styles.css -o client/dist/styles/tailwind.css --watch"
   },
   "repository": {
     "type": "git",
