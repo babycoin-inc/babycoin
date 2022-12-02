@@ -1,5 +1,5 @@
 import React from 'react';
-import './profilestyles.css';
+// import './profilestyles.css';
 
 function OpenTrades() {
   return (

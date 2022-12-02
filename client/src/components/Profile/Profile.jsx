@@ -1,5 +1,5 @@
 import React from 'react';
-import './profilestyles.css'
+// import './profilestyles.css'
 import Balance from './Balance.jsx';
 import AchievementWidget from './AchievementWidget.jsx';
 import OpenTrades from './OpenTrades.jsx';

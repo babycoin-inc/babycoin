@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Sidebar />
-      <div className="main">
+      <div className="bg-white">
         <Header />
         <Profile />
       </div>
