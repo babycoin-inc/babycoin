@@ -2,7 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: path.join(__dirname, "/client/src/index.jsx"),
+  entry: path.join(__dirname, "/client/src/index.tsx"),
   output: {
     path: path.join(__dirname, "/client/dist"),
     filename: "bundle.js"
@@ -19,7 +19,7 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         loader: 'ts-loader'
-      }
+      },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
