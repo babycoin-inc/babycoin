@@ -2,7 +2,7 @@ import React from 'react';
 
 function Header() {
   return (
-    <div className="header">
+    <div className="h-1/6 border-2 border-red-400 w-full">
       <div className="nav">
         <h1>Nav</h1>
       </div>
