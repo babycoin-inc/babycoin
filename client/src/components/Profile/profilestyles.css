@@ -66,3 +66,11 @@ td {
   display: block;
   font-size: small;
 }
+
+.sidebar_content {
+  height: 75%;
+  max-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
