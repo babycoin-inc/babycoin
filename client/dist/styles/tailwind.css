@@ -618,11 +618,6 @@ video {
   border-color: rgb(220 38 38 / var(--tw-border-opacity));
 }
 
-.border-blue-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(37 99 235 / var(--tw-border-opacity));
-}
-
 .p-0 {
   padding: 0px;
 }
@@ -635,3 +630,4 @@ video {
   font-size: 1.5rem;
   line-height: 2rem;
 }
+
