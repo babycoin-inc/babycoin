@@ -10,7 +10,7 @@ function Sidebar() {
         </div>
         <nav className="flex flex-col justify-between items-center mt-16 w-full text-2xl gap-3">
           <h2>Home</h2>
-          <h2>Trade</h2>
+          <h2>Market Watch</h2>
           <h2>Leader Board</h2>
           <h2>Achievements</h2>
           <h2>Support</h2>
