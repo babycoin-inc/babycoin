@@ -7,8 +7,8 @@ import TradeHistory from './TradeHistory.jsx';
 
 function Profile() {
   return (
-    <div className="profile">
-      <div className="top">
+    <div className="flex flex-col justify-around">
+      <div className="flex justify-between">
         <Balance />
         <AchievementWidget />
       </div>
