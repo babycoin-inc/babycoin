@@ -7,7 +7,7 @@ import Profile from './Profile/Profile.jsx';
 
 function App() {
   return (
-    <div className="flex m-0 p-0 max-w-screen-xl mx-auto h-full text-neutral-100 bg-neutral-900 border-2 border-zinc-700">
+    <div className="flex m-0 p-0 max-w-screen-xl mx-auto text-neutral-100 bg-neutral-900 border-2 border-zinc-700">
       <Sidebar />
       <div className="w-full h-full">
         <div className="h-1/6">
