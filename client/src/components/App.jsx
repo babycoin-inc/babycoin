@@ -13,7 +13,7 @@ function App() {
         <div className="h-1/6">
           <Header />
         </div>
-        <div className="p-8">
+        <div className="p-8 h-full">
           <Profile />
         </div>
       </div>
