@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from './Sidebar/Sidebar.jsx';
-import Header from './Header.jsx';
+import Header from './Header/Header.jsx';
 import Profile from './Profile/Profile.jsx';
 
 // YOU WILL CONDITIONALLY REPLACE THE PROFILE COMPONENT WITH TRADE, LEADER BOARD, ETC...
