@@ -6,7 +6,7 @@ function Balance() {
       <h2 className="text-left text-zinc-400">Your Balance:</h2>
       <h1 className="text-center text-7xl text-white mt-6">$800</h1>
       <h3 className="text-center text-xl mt-2 text-green-400">Profits: +$300</h3>
-      <button name="reset" className="text-sm mt-8 bg-orange-500 border border-orange-500 text-zinc-800 font-semibold rounded-3xl w-fit py-2 px-5 mx-auto hover:bg-zinc-700 hover:text-orange-500">RESET TO $500</button>
+      <button name="reset" className="text-sm mt-8 bg-orange-400 text-orange-800 font-semibold rounded-3xl w-fit py-2 px-5 mx-auto hover:bg-zinc-700 hover:text-orange-500">RESET TO $500</button>
     </div>
   )
 }
