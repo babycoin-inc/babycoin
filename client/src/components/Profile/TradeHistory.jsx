@@ -42,10 +42,10 @@ const history = [
 function TradeHistory() {
   return (
     <div>
-      <div className="bg-zinc-700 rounded-t-xl py-3 px-5 w-fit">
+      <div className="bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit">
         <h2>Trade History</h2>
       </div>
-      <div className="bg-zinc-700 rounded-b-xl rounded-tr-xl p-2.5">
+      <div className="bg-zinc-700 rounded-b-xl rounded-tr-xl px-2.5 py-4">
         <table className="w-full mx-auto table-auto">
           <thead className="bg-zinc-600">
             <tr>
