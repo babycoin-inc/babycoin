@@ -13,7 +13,7 @@ function Sidebar() {
   }
 
   const navItems = pages.map((page, index) => (
-    <button onClick={handleNavClick} name={page} key={page + index} className={`text-center w-11/12 py-3 px-2 hover:ml-6 ${activePage === page ? 'bg-neutral-700 rounded-l-3xl ml-6' : ''}`}>{page}</button>
+    <button onClick={handleNavClick} name={page} key={page + index} className={`text-center w-11/12 py-3 px-2 hover:ml-6 ${activePage === page ? 'bg-zinc-700 rounded-l-3xl ml-6' : ''}`}>{page}</button>
   ));
 
   return (
