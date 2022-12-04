@@ -41,7 +41,7 @@ const trades = [
 
 function OpenTrades() {
   return (
-    <div className="bg-zinc-800 border-2 border-zinc-700 rounded-xl p-6">
+    <div className="bg-zinc-700 border-2 border-zinc-700 rounded-xl p-6">
       <h2>Open Trades</h2>
       <table className="w-4/5 mx-auto border-collapse border-spacing-0 table-auto">
         <thead>

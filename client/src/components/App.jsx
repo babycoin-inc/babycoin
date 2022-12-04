@@ -13,7 +13,7 @@ function App() {
         <div className="h-1/6">
           <Header />
         </div>
-        <div className="p-8 h-full bg-zinc-700">
+        <div className="p-8 h-full bg-zinc-800">
           <Profile />
         </div>
       </div>
