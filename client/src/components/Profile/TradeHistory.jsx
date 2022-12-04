@@ -41,7 +41,7 @@ const history = [
 
 function TradeHistory() {
   return (
-    <div className="border-2 border-zinc-700">
+    <div className="bg-neutral-800 border-2 border-zinc-700 rounded">
       <h2>Trade History</h2>
       <table className="w-4/5 mx-auto border-collapse border-spacing-0 table-auto">
         <thead>
