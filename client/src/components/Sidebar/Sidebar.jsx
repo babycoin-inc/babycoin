@@ -17,7 +17,7 @@ function Sidebar() {
   ));
 
   return (
-    <div className="w-1/5 border-r-2 border-zinc-800">
+    <div className="w-1/3 border-r-2 border-zinc-800">
       <div className="h-full">
         <div className="h-1/6">
           <img src={BabyCoinLogo} width="100" className="relative left-4 top-3" />

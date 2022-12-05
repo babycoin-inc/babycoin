@@ -1,7 +1,7 @@
 import React from 'react';
 import Balance from './Balance.jsx';
 import AchievementWidget from './AchievementWidget.jsx';
-import OpenPositions from './OpenPositions.jsx';
+import Portfolio from './Portfolio.jsx';
 import TradeHistory from './TradeHistory.jsx';
 
 function Profile() {
@@ -11,7 +11,7 @@ function Profile() {
         <Balance />
         <AchievementWidget />
       </div>
-        <OpenPositions />
+        <Portfolio />
         <TradeHistory />
     </div>
   )

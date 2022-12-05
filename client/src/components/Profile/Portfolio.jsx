@@ -39,11 +39,11 @@ const trades = [
   }
 ];
 
-function OpenPositions() {
+function Portfolio() {
   return (
     <div>
       <div className="bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit">
-        <h2>Open Positions</h2>
+        <h2>Portfolio</h2>
       </div>
       <div className="bg-zinc-700 rounded-b-xl rounded-tr-xl px-2.5 py-4">
         <table className="w-full mx-auto table-auto">
@@ -65,7 +65,7 @@ function OpenPositions() {
                 <td className="text-center">$300<i className="block text-sm">{`${trade.currAmount} ${trade.symbol}`}</i></td>
                 <td className="text-center">{trade.purchase}</td>
                 <td className="text-center">{trade.current}</td>
-                <td className="text-center text-green-400">{trade.profitloss}</td>
+                <td className="text-center text-green-400">{trade.profitloss} (+5%)</td>
               </tr>
             ))}
           </tbody>
@@ -75,4 +75,4 @@ function OpenPositions() {
   )
 }
 
-export default OpenPositions;
+export default Portfolio;
