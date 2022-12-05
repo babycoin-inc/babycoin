@@ -62,7 +62,7 @@ function TradeHistory() {
               <tr key={trade.coin + index} className="border-t border-zinc-600">
                 <td className="py-2"><img src="https://toppng.com/uploads/preview/bitcoin-png-bitcoin-logo-transparent-background-11562933997uxok6gcqjp.png" className="h-10 mx-auto" /></td>
                 <td className="text-center">{trade.coin}<i className="block text-sm">{trade.symbol}</i></td>
-                <td className="text-center">{trade.amount}<i className="block text-sm">.{`${trade.amount} ${trade.symbol}`}</i></td>
+                <td className="text-center">{trade.amount}<i className="block text-sm">.{`${trade.currAmount} ${trade.symbol}`}</i></td>
                 <td className="text-center">{trade.purchase}</td>
                 <td className="text-center">{trade.order}</td>
                 <td className="text-center">{trade.balance}</td>

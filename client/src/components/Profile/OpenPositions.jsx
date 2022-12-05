@@ -11,31 +11,31 @@ const trades = [
     profitloss: '+$400'
   } ,
   {
-    coin: 'Bitcoin',
-    symbol: 'BTC',
-    amount: '$300',
+    coin: 'Solana',
+    symbol: 'SOL',
+    amount: '$800',
     currAmount: .023,
-    purchase: '$15,698',
-    current: '$16,678',
+    purchase: '$10',
+    current: '$14',
+    profitloss: '+$600'
+  },
+  {
+    coin: 'Ethereum',
+    symbol: 'ETH',
+    amount: '$2000',
+    currAmount: .023,
+    purchase: '$900',
+    current: '$1,200',
     profitloss: '+$400'
   },
   {
-    coin: 'Bitcoin',
-    symbol: 'BTC',
-    amount: '$300',
+    coin: 'Dogecoin',
+    symbol: 'DOGE',
+    amount: '$1500',
     currAmount: .023,
-    purchase: '$15,698',
-    current: '$16,678',
-    profitloss: '+$400'
-  },
-  {
-    coin: 'Bitcoin',
-    symbol: 'BTC',
-    amount: '$300',
-    currAmount: .023,
-    purchase: '$15,698',
-    current: '$16,678',
-    profitloss: '+$400'
+    purchase: '$.006',
+    current: '$.13',
+    profitloss: '+$1200'
   }
 ];
 
@@ -51,7 +51,7 @@ function OpenPositions() {
             <tr>
               <th className="p-6"></th>
               <th>Name</th>
-              <th>Amount</th>
+              <th>Value</th>
               <th>Avg. Entry</th>
               <th>Current Price</th>
               <th>P/L</th>

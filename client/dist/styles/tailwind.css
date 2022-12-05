@@ -1346,6 +1346,11 @@ video {
   color: rgb(39 39 42 / var(--tw-text-opacity));
 }
 
+.text-orange-900 {
+  --tw-text-opacity: 1;
+  color: rgb(124 45 18 / var(--tw-text-opacity));
+}
+
 .mix-blend-overlay {
   mix-blend-mode: overlay;
 }
@@ -1426,6 +1431,11 @@ video {
 .hover\:text-orange-500:hover {
   --tw-text-opacity: 1;
   color: rgb(249 115 22 / var(--tw-text-opacity));
+}
+
+.hover\:text-orange-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(234 88 12 / var(--tw-text-opacity));
 }
 
 .hover\:shadow-xl:hover {
