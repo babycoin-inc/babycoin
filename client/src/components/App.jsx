@@ -3,8 +3,6 @@ import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Profile/Home.jsx';
 
-// YOU WILL CONDITIONALLY REPLACE THE PROFILE COMPONENT WITH TRADE, LEADER BOARD, ETC...
-
 function App() {
 
   const [activePage, setActivePage] = useState('Home');
@@ -16,6 +14,7 @@ function App() {
 
   let activeComponent;
 
+  // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
     activeComponent = (<Home />);
   } else if (activePage === 'Market Watch') {
