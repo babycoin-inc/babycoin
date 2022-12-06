@@ -1,13 +1,15 @@
 import React from 'react';
-import Header from './Card.jsx';
-import Card from './Header.jsx';
+import Header from './Header.jsx';
+import Card from './Card.jsx';
 import Footer from './Footer.jsx';
 
 const Achievements = function () {
 
     return (
-        <div>
+        <div className="flex flex-col">
             <Header />
+            <Card />
+            <Card />
             <Card />
             <Footer />
         </div>
