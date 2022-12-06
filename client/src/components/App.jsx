@@ -8,7 +8,7 @@ import Achievements from "./Achievements/Achievements.jsx";
 
 function App() {
 
-  const [activePage, setActivePage] = useState('Home');
+  const [activePage, setActivePage] = useState('Achievements');
 
   function handleNavClick(e) {
     e.preventDefault();
@@ -25,7 +25,7 @@ function App() {
   } else if (activePage === 'Leader Board') {
     activeComponent = (<h1>Insert Leader Board</h1>);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<h1>Insert Achievements</h1>);
+    activeComponent = (<Achievements />);
   };
 
   return (

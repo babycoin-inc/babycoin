@@ -1,15 +1,16 @@
 import React from 'react';
+import Header from './Card.jsx';
+import Card from './Header.jsx';
+import Footer from './Footer.jsx';
 
 const Achievements = function () {
 
     return (
-        <footer>
-            <div className="flex justify-center">
-                <footer className="text-center text-[50px]">
-                    <span>Icons by website</span>
-                </footer>
-            </div>
-        </footer>
+        <div>
+            <Header />
+            <Card />
+            <Footer />
+        </div>
     );
 };
 
