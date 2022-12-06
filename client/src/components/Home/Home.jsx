@@ -4,7 +4,7 @@ import AchievementWidget from './AchievementWidget.jsx';
 import Portfolio from './Portfolio.jsx';
 import TradeHistory from './TradeHistory.jsx';
 
-function Profile() {
+function Home() {
   return (
     <div className="flex flex-col justify-between gap-8">
       <div className="flex justify-between">
@@ -17,4 +17,4 @@ function Profile() {
   )
 }
 
-export default Profile;
+export default Home;
