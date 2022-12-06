@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
-import Home from './Profile/Home.jsx';
+import Home from './Home/Home.jsx';
 
 function App() {
 
