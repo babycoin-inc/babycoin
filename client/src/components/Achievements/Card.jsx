@@ -3,7 +3,7 @@ import React from 'react';
 const Card = function () {
 
     return (
-        <div className="h-40 w-9/12 p-1 mx-auto my-5 bg-zinc-700 rounded-2xl">
+        <div className="h-40 w-9/12 p-1 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg">
             <div className="flex flex-row h-full">
                 <div className="flex-none w-1/6 mx-4">
                     <img className="object-contain h-full w-24 mx-auto my-auto" 
