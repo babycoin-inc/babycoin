@@ -8,7 +8,7 @@ import Achievements from "./Achievements/Achievements.jsx";
 
 function App() {
 
-  const [activePage, setActivePage] = useState('Achievements');
+  const [activePage, setActivePage] = useState('Home');
 
   function handleNavClick(e) {
     e.preventDefault();

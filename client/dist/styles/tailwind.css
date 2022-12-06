@@ -1420,6 +1420,11 @@ video {
   color: rgb(6 182 212 / var(--tw-text-opacity));
 }
 
+.text-yellow-400 {
+  --tw-text-opacity: 1;
+  color: rgb(250 204 21 / var(--tw-text-opacity));
+}
+
 .mix-blend-overlay {
   mix-blend-mode: overlay;
 }
