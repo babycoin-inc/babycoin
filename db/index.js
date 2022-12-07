@@ -16,5 +16,14 @@ module.exports = {
   clientCommit: (client, text) => client.query('COMMIT'),
   clientRollback: (client, text) => client.query('ROLLBACK'),
   clientRelease: (client) => client.release(),
-  connect: () => pool.connect()
+  connectDb: async() => {
+    try {
+      const poolCheck = new Pool();
+      await poolCheck.connect();
+      console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
+      await poolCheck.end();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 };
