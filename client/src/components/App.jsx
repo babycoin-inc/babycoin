@@ -29,7 +29,7 @@ function App() {
   };
 
   return (
-    <div className="flex m-0 p-0 max-w-screen-xl mx-auto text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
+    <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} />
       <div className="w-full h-full">
         <div className="h-1/6">
