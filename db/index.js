@@ -9,14 +9,13 @@ const pool = new Pool({
     port: process.env.PGPORT,
 });
 
-(async() => {
-  try {
-    await pool.connect();
-    console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
-  } catch(err) {
-    console.log(err);
-  }
-})();
+try {
+  await pool.connect();
+  console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
+} catch(err) {
+  console.log(err);
+}
+
 
 module.exports = {
   query: (text, params) => pool.query(text, params),
