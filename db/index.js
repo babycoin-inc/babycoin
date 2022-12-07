@@ -8,9 +8,7 @@ const pool = new Pool({
     host: process.env.PGHOST,
     port: process.env.PGPORT,
 });
- 
+
 module.exports = {
-  async query(text, params) {
-    return pool.query(text, params);
-  },
+  query: (text, params) => pool.query(text, params),
 };
