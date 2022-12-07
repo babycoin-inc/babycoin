@@ -1,5 +1,5 @@
+require('../db/index.js'); //tests db connection
 const express = require('express');
-require('../db/index.js');
 const app = express();
 const port = 3000;
 
