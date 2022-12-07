@@ -4,6 +4,7 @@ node_modules
 /client/dist/*.js
 /client/dist/*.json
 /client/src/config.js
-# /client/dist/styles/tailwind.css
+/client/dist/styles/tailwind.css
 
 .env
+.DS_Store
