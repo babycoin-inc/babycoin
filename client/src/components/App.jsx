@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
+import Achievements from "./Achievements/Achievements.jsx";
+
+
 
 function App() {
 
@@ -22,7 +25,7 @@ function App() {
   } else if (activePage === 'Leader Board') {
     activeComponent = (<h1>Insert Leader Board</h1>);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<h1>Insert Achievements</h1>);
+    activeComponent = (<Achievements />);
   };
 
   return (
