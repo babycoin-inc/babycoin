@@ -21,9 +21,9 @@ const pool = new Pool({
 module.exports = {
   query: (text, params) => pool.query(text, params),
   clientQuery: (client, text, params) => client.query(text, params),
-  clientBegin: (client, text) => client.query('BEGIN'),
-  clientCommit: (client, text) => client.query('COMMIT'),
-  clientRollback: (client, text) => client.query('ROLLBACK'),
+  clientBegin: (client) => client.query('BEGIN'),
+  clientCommit: (client) => client.query('COMMIT'),
+  clientRollback: (client) => client.query('ROLLBACK'),
   clientRelease: (client) => client.release(),
   connect: () => pool.connect(),
 };
