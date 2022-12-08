@@ -3,8 +3,7 @@ import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
 import Achievements from "./Achievements/Achievements.jsx";
-
-
+import Trade from './Trade/Trade.jsx';
 
 function App() {
 
@@ -21,7 +20,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<h1>Insert Market Watch</h1>);
+    activeComponent = (<Trade />);
   } else if (activePage === 'Leader Board') {
     activeComponent = (<h1>Insert Leader Board</h1>);
   } else if (activePage === 'Achievements') {

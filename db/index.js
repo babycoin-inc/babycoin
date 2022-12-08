@@ -8,9 +8,22 @@ const pool = new Pool({
     host: process.env.PGHOST,
     port: process.env.PGPORT,
 });
- 
+
+(async() => {
+  try {
+    await pool.connect();
+    console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
+  } catch(err) {
+    console.log(err);
+  }
+})();
+
 module.exports = {
-  async query(text, params) {
-    return pool.query(text, params);
-  },
+  query: (text, params) => pool.query(text, params),
+  clientQuery: (client, text, params) => client.query(text, params),
+  clientBegin: (client) => client.query('BEGIN'),
+  clientCommit: (client) => client.query('COMMIT'),
+  clientRollback: (client) => client.query('ROLLBACK'),
+  clientRelease: (client) => client.release(),
+  connect: () => pool.connect(),
 };
