@@ -16,7 +16,7 @@ exports.getTradeHistory = (req, res) => {
   // get recent trade history
 };
 
-exports.postBuyPortofolioUpdate = (req, res) => {
+exports.postBuyPortfolioUpdate = (req, res) => {
   res.send(`Hit post buy ${req.params.id}`);
 };
 
