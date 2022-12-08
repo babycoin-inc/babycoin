@@ -31,25 +31,6 @@ const sql = fs.readFileSync('db/init.sql', 'utf8');
   } 
 })();
 
-
-// db.query(sql, (err, res) => {
-//   if (err) {
-//     console.error(err);
-//   } else {
-//     console.log('SQL file loaded successfully');
-//   }
-// });
-
-// (async() => {
-//   try {
-//     await pool.connect();
-//     console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
-//     await pool.query(sql)
-//   } catch(err) {
-//     console.log(err);
-//   }
-// })();
-
 module.exports = {
   query: (text, params) => pool.query(text, params),
   clientQuery: (client, text, params) => client.query(text, params),
