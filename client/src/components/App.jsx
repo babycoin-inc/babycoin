@@ -20,6 +20,8 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home />);
   } else if (activePage === 'Market Watch') {
+    activeComponent = (<h1>Insert Market Watch</h1>);
+  } else if (activePage === 'Trade') {
     activeComponent = (<Trade />);
   } else if (activePage === 'Leader Board') {
     activeComponent = (<h1>Insert Leader Board</h1>);

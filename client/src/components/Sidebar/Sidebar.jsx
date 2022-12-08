@@ -1,7 +1,7 @@
 import React from 'react';
 import BabyCoinLogo from '../../../dist/assets/BabyCoin.png';
 
-const pages = ['Home', 'Market Watch', 'Leader Board', 'Achievements'];
+const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
 
 function Sidebar({ handleNavClick, activePage }) {
 
