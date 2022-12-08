@@ -48,6 +48,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.13",
     "ci": "^2.2.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",

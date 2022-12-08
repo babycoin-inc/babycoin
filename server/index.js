@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 const express = require('express')
 const app = express()
 const port = 3000
 const nfserver = require('./newsfeed/database.js');
+=======
+require('../db/index.js'); //tests db connection
+const express = require('express');
+const app = express();
+const port = 3000;
+>>>>>>> main
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -13,5 +20,5 @@ app.get("/newsfeed", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening on port ${port}`);
 });
