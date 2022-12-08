@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Balance from './Balance.jsx';
 import AchievementWidget from './AchievementWidget.jsx';
 import Portfolio from './Portfolio.jsx';

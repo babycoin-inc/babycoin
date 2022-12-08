@@ -27,8 +27,8 @@ const sql = fs.readFileSync('db/init.sql', 'utf8');
       const pool = new Pool();
       console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
       pool.query(sql);
-    } 
-  } 
+    }
+  }
 })();
 
 module.exports = {

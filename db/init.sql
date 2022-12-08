@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS portfolio (
   coin_id INTEGER NOT NULL,
   coin_dollar_cost INTEGER NOT NULL,
   coin_avg_price INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
   CONSTRAINT fk_trader
     FOREIGN KEY(trader_id)
       REFERENCES trader(id),
