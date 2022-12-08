@@ -30,10 +30,10 @@ CREATE TABLE IF NOT EXISTS portfolio (
 CREATE TABLE IF NOT EXISTS achievements (
   id SERIAL PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
-  description VARCHAR(255) NOT NULL,
-  lesson VARCHAR(255) NOT NULL,
+  description VARCHAR(200) NOT NULL,
+  lesson VARCHAR(200) NOT NULL,
   points INTEGER NOT NULL,
-  icon VARCHAR(255) NOT NULL
+  icon VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS trader_achievements (
