@@ -9,7 +9,7 @@ const signup = async (req, res) => {
     const usernameAvailable = await isUsernameAvailable(username);
     if(!usernameAvailable) res.status(409).send('Username Already Exists');
     await registerUser(username, encryptedPassword);
-    res.status(201).send('Account Created'):
+    res.status(201).send('Account Created');
   } catch (err) {
     console.log(err);
   }
