@@ -1,3 +1,9 @@
-const { query } = require('../db/index.js');
+const { query } = require('../../db/index.js');
 
-exports.
+exports.calcAveragePrice = (id) => {
+
+};
+
+exports.calcDollarCost = (id) => {
+
+};

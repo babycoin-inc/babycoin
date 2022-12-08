@@ -12,6 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/users/:id/transactions/buy', (req, res) => {
   // Buy transaction takes place
   // Beginning code for home profile section
+  home.postBuyPortofolioUpdate(req, res);
+});
+
+app.post('/users/:id/transactions/sell', (req, res) => {
+  // Buy transaction takes place
+  // Beginning code for home profile section
+  home.postSellPortofolioUpdate(req, res);
 });
 
 

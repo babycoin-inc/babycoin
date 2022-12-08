@@ -1,4 +1,4 @@
-const Home = require('../../models/home/Home.js');
+const Home = require('../../../models/home/Home.js');
 
 exports.getAccountValue = (req, res) => {
   // get SUM of cash balance, and all of current crypto value
@@ -14,4 +14,12 @@ exports.getPortfolioAssets = (req, res) => {
 
 exports.getTradeHistory = (req, res) => {
   // get recent trade history
+};
+
+exports.postBuyPortofolioUpdate = (req, res) => {
+  res.send(`Hit post buy ${req.params.id}`);
+};
+
+exports.postSellPortfolioUpdate = (req, res) => {
+  res.send(`Hit post sell ${req.params.id}`);
 };
