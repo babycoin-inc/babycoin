@@ -9,17 +9,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.post('/users/:id/transactions/buy', (req, res) => {
-  // Buy transaction takes place
-  // Beginning code for home profile section
-  home.postBuyPortfolioUpdate(req, res);
-});
-
-app.post('/users/:id/transactions/sell', (req, res) => {
-  // Buy transaction takes place
-  // Beginning code for home profile section
-  home.postSellPortfolioUpdate(req, res);
-});
+app.post('/users/:id/transactions/buy', home.postBuyPortfolioUpdate);
+app.post('/users/:id/transactions/sell', home.postSellPortfolioUpdate);
 
 
 app.listen(port, () => {
