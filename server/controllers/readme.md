@@ -1,0 +1,1 @@
+Create controller and helper functions within your feature's directory, then import them in the controllers/controllers.js file. This file will house all the exports, which will be imported on server/index.js in a destructured object.
