@@ -19,7 +19,7 @@ const sql = fs.readFileSync('db/init.sql', 'utf8');
   } catch(err) {
     if (err.code === '3D000') {
       console.log(`Database 'babycoin' doesn't exist. Creating database 'babycoin'.`)
-      const client = new Client({ database: 'postgres' || process.env.PGUSER });
+      const client = new Client({ database: 'postgres' });
       await client.connect();
       await client.query('CREATE DATABASE babycoin');
       client.end();

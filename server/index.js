@@ -8,10 +8,10 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-app.post('/users/:id/transactions/buy', home.postBuyPortfolioUpdate);
-app.post('/users/:id/transactions/sell', home.postSellPortfolioUpdate);
-
+//newsfeed
+app.get("/newsfeed", (req, res) => {
+  nfserver.getAll(console.log);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
