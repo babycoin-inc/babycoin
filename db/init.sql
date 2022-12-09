@@ -41,3 +41,21 @@ CREATE TABLE IF NOT EXISTS trader_achievements (
   trader_id INTEGER REFERENCES trader(id),
   achievement_id INTEGER REFERENCES achievements(id)
 );
+
+DO $$ BEGIN
+    CREATE TYPE transaction_type AS ENUM ('buy', 'sell');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
+CREATE TABLE IF NOT EXISTS transactions (
+  id SERIAL PRIMARY KEY,
+  order_type transaction_type,
+  currency VARCHAR(10) NOT NULL,
+  purchase_price INTEGER NOT NULL,
+  total_trade_fiat INTEGER NOT NULL,
+  total_trade_coin INTEGER NOT NULL,
+  order_datetime timestamp,
+  trader_id INTEGER REFERENCES trader(id),
+  coin_id INTEGER REFERENCES coins(id)
+);
