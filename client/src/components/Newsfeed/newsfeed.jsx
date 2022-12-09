@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function newsfeed() {
+function newsfeed(news) {
   return (
     <div>
       <div className="bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit">

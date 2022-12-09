@@ -36,6 +36,16 @@ CREATE TABLE IF NOT EXISTS achievements (
   icon VARCHAR(200) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS newsfeed (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  description TEXT NOT NULL,
+  arthur VARCHAR(200) NOT NULL,
+  URL VARCHAR(200) NOT NULL,
+  tickers TEXT [] NOT NULL,
+  icon VARCHAR(200) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS trader_achievements (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
