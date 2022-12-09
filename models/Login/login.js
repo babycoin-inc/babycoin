@@ -9,7 +9,7 @@ const Login = {
   getUser: (username) => {
     return pool
       .query('SELECT * FROM member WHERE username = $1', [username])
-      .then(result => result.rows[0]); // I think this returns an object
+      .then(result => result.rows[0] || null); // I think this returns an object
   }
 }
 
