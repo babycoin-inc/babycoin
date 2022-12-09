@@ -5,6 +5,7 @@ const flash = require('express-flash');
 require('../passport.config.js');
 const app = express();
 const port = 3000;
+const { home } = require('./controllers/controllers.js');
 
 /**Controllers */
 const { signup } = require('./controllers/Login/controllers.js');
@@ -22,6 +23,10 @@ app.post('/login', passport.authenticate('local', {
 }), (req, res) => {
 
 });
+
+app.post('/users/:id/transactions/buy', home.postBuyPortfolioUpdate);
+app.post('/users/:id/transactions/sell', home.postSellPortfolioUpdate);
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
