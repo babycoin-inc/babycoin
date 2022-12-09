@@ -9,7 +9,6 @@ const pool = new Pool({
     host: process.env.PGHOST,
     port: process.env.PGPORT,
 });
-
 const sql = fs.readFileSync('db/init.sql', 'utf8');
 
 (async() => {
@@ -20,7 +19,7 @@ const sql = fs.readFileSync('db/init.sql', 'utf8');
   } catch(err) {
     if (err.code === '3D000') {
       console.log(`Database 'babycoin' doesn't exist. Creating database 'babycoin'.`)
-      const client = new Client({ database: process.env.PGUSER });
+      const client = new Client({ database: 'postgres' || process.env.PGUSER });
       await client.connect();
       await client.query('CREATE DATABASE babycoin');
       client.end();
@@ -28,6 +27,7 @@ const sql = fs.readFileSync('db/init.sql', 'utf8');
       console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
       pool.query(sql);
     }
+    else console.log(err);
   }
 })();
 
