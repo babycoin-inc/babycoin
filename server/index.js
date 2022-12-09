@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.post('/users/:id/transactions/buy', trade.buyTransactions);
-app.post('/users/:id/transactions/sell', home.postSellPortfolioUpdate);
+app.post('/users/:id/transactions/buy', trade.buyTransaction);
+app.post('/users/:id/transactions/sell', trade.sellTransaction);
 
 
 app.listen(port, () => {

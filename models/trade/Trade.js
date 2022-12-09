@@ -1,16 +1,10 @@
 const { query } = require('../../db/index.js');
 
 exports.fulfillBuyOrder = (id) => {
-  // return {'des': 'Hit fulfillBuyOrder'};
-  return 'string';
+  return 'fulfilled buy order';
 };
 
-// exports.fulfillSellOrder = (req, res) => {
-//   try {
-//     return 'Testing Sell Order';
-//   } catch (err) {
-//     console.log(err);
-//     return err;
-//   }
-// };
+exports.fulfillSellOrder = (id) => {
+  return 'fulfilled sell order';
+};
 
