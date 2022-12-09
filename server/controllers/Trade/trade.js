@@ -1,11 +1,11 @@
 const { Trade } = require('../../../models/models.js')
 
-exports.buyTransaction = async (req, res) => {
-  const result = await Trade.fulfillBuyOrder(req.params.id);
+exports.insertBuyTransaction = async (req, res) => {
+  const result = await Trade.fulfillBuyTransaction(req);
   res.send(result);
 };
 
-exports.sellTransaction = async (req, res) => {
-  const result = await Trade.fulfillSellOrder(req.params.id);
+exports.insertSellTransaction = async (req, res) => {
+  const result = await Trade.fulfillSellTransaction(req);
   res.send(result);
 }

@@ -8,9 +8,8 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-app.post('/users/:id/transactions/buy', trade.buyTransaction);
-app.post('/users/:id/transactions/sell', trade.sellTransaction);
+app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
+app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
 
 app.listen(port, () => {
