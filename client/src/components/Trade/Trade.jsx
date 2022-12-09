@@ -7,6 +7,7 @@ import { IconContext } from "react-icons";
 
 function Trade() {
   const [orderType, setOrderType] = useState('buy');
+  const [coinType, setCoinType] = useState('btc')
 
   return (
     //first element needs to be flex in order to organize containers on trade page
@@ -62,6 +63,7 @@ function Trade() {
           </div>
         </div>
       </div>
+      <Newsfeed ticker = {coinType}/>
     </div>
   )
 }

@@ -1,40 +1,74 @@
-import React from 'react';
+import React , {useState, useEffect} from 'react';
+import News from './newsCard.jsx';
+const axios = require('axios');
+
+function Newsfeed(ticker) {
 
 
-function Newsfeed(news) {
+  const [numNews, setNum] = useState(2);
+  const [newsArr, setFeed] = useState([]);
+  let initialized = false;
+
+  useEffect(()=>{
+    var options = {
+      method:'get',
+      url:  "/newsfeed"
+    }
+    if(!initialized){
+      axios(options).then((result) => {
+        initialized = true;
+        setFeed(result.data);
+      }).catch(err => {
+        console.log(err);
+      })
+    }
+  }, [])
+
+  function loadmore () {
+    console.log('load more ran');
+    if(newsArr.length < numNews + 2) {
+      getNews(numNews + 2)
+    } else {
+      setNum(prevNum => prevNum + 2);
+    }
+  }
+
+  function collapse(){
+    setNum(2);
+    console.log('collapse ran', numNews);
+  }
+
+  function getNews(){
+    var options = {
+      method:'get',
+      url:  "/newsfeed"
+    }
+    axios(options).then((result) => {
+      console.log('get news ran');
+      setFeed(result.data);
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
+  useEffect(() => {
+    if(initialized) {
+      setNum(numNews + 2);
+    }
+    console.log('Line 39', numNews, newsArr);
+  },[newsArr])
+
   return (
-    <div>
-      <div className="bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit">
-        <h2>Newsfeed</h2>
-      </div>
-      <div className="bg-zinc-700 rounded-b-xl rounded-tr-xl px-2.5 py-4">
-        <table className="w-full mx-auto table-auto">
-          <thead className="bg-zinc-600">
-            <tr>
-              <th className="p-6"></th>
-              <th>Name</th>
-              <th>Value</th>
-              <th>Avg. Entry</th>
-              <th>Current Price</th>
-              <th>P/L</th>
-            </tr>
-          </thead>
-          <tbody className="bg-zinc-500">
-            {trades.map((trade, index) => (
-              <tr key={trade.coin + index}className="border-t border-zinc-600 hover:bg-zinc-400">
-                <td className="py-2"><img src="https://toppng.com/uploads/preview/bitcoin-png-bitcoin-logo-transparent-background-11562933997uxok6gcqjp.png" className="h-10 mx-auto" /></td>
-                <td className="text-center py-2">{trade.coin}<i className="block text-sm">{trade.symbol}</i></td>
-                <td className="text-center">$300<i className="block text-sm">{`${trade.currAmount} ${trade.symbol}`}</i></td>
-                <td className="text-center">{trade.purchase}</td>
-                <td className="text-center">{trade.current}</td>
-                <td className="text-center text-green-400">{trade.profitloss} (+5%)</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+    <div className="flex flex-col">
+        <h3 className="text-4xl text-400 font-bold">Newsfeed</h3>
+        <div className="container mx-lg">
+          {newsArr.slice(0, numNews).map((article, i) => {
+            return <News key = {i} art = {article}/>
+          })}
+        </div>
+        <button onClick = {loadmore}>Load More</button><a> | </a><button onClick = {collapse}>Collapse</button>
     </div>
-  )
+  );
 }
 
 export default Newsfeed;
