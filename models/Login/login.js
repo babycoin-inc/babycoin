@@ -10,6 +10,10 @@ const Login = {
     return pool
       .query('SELECT id, username, password FROM users WHERE username = $1', [username])
       .then(result => result.rows[0] || false);
+  },
+  updateToken: (token, id) => {
+    return pool
+      .query('UPDATE users SET refresh_token = $1 WHERE id = $2', [token, id]);
   }
 }
 
