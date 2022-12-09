@@ -17,6 +17,9 @@ exports.getTradeHistory = (req, res) => {
 };
 
 exports.postBuyPortofolioUpdate = (req, res) => {
+  // subtract purchase amount from cash if not already done
+  // add units of coin to quantity in portfolio
+  //
   res.send(`Hit post buy ${req.params.id}`);
 };
 

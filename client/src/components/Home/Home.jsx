@@ -20,7 +20,8 @@ function Home() {
 
   // });
 
-  async function handleResetClick () {
+  function handleResetClick () {
+    // add routes to delete data from database and clear transactions
     setAccountValue(500);
     setProfits(0);
   };
