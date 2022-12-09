@@ -1,8 +1,9 @@
-// const { query } = require('../../db/index.js');
+const { query } = require('../../db/index.js');
 
-// exports.fulfillBuyOrder = (id) => {
-//   return 'Hit fulfillBuyOrder';
-// };
+exports.fulfillBuyOrder = (id) => {
+  // return {'des': 'Hit fulfillBuyOrder'};
+  return 'string';
+};
 
 // exports.fulfillSellOrder = (req, res) => {
 //   try {
