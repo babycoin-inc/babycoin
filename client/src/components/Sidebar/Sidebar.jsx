@@ -1,5 +1,6 @@
 import React from 'react';
 import BabyCoinLogo from '../../../dist/assets/BabyCoin.png';
+import Watchlist from './Watchlist.jsx';
 
 const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
 
@@ -22,7 +23,8 @@ function Sidebar({ handleNavClick, activePage }) {
           </a>
         </nav>
         <div className="mt-36">
-          <h2 className="text-center">Watchlist Placeholder</h2>
+          <h2 className="text-center">Watchlist</h2>
+          <Watchlist />
         </div>
       </div>
      </div>

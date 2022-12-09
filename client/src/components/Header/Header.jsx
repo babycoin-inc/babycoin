@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserIcon } from '@heroicons/react/24/outline';
+import Dropdown from './Dropdown.jsx';
 
 function Header({ activePage }) {
   return (
@@ -9,7 +10,8 @@ function Header({ activePage }) {
           <h1>{activePage}</h1>
         </div>
         <div className="w-1/3">
-          <h1 className="text-center text-2xl">Coin Drop Down Placeholder</h1>
+          {/* <h1 className="text-center text-2xl">Coin Drop Down Placeholder</h1> */}
+          <Dropdown />
         </div>
         <div className="w-1/5">
           <UserIcon className="h-12 ml-auto bg-zinc-800 p-2 rounded-full hover:bg-zinc-600" />
