@@ -52,7 +52,7 @@ function Trade() {
           </div>
           <div className="flex justify-between gap-4">
             <div>
-              <button className="self-start" >
+              <button className="self-start hover:bg-zinc-600" >
                 <IconContext.Provider value={{ size: "2em" }}>
                   <HiOutlineSwitchVertical />
                 </IconContext.Provider>
@@ -60,7 +60,7 @@ function Trade() {
               <div className="self-start text-sm text-center">BTC</div>
             </div>
             <div className="">
-            <input onClick={() => {if(orderAmount === 'Order Amount') {setOrderAmount('')}}} onChange={(event) => {setOrderAmount(event.target.value)}} className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" type="text" value={orderAmount} />
+            <input onClick={() => {if(orderAmount === 'Order Amount' || orderAmount === '') {setOrderAmount('$')}}} onChange={(event) => {setOrderAmount(event.target.value)}} className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" type="text" value={orderAmount} />
               {/* <input onChange={handleOrderAmountChange.bind(this)} className="h-14 text-xl text-center bg-zinc-400 rounded-xl" type="text" value={orderAmount} defaultValue="Order Amount" /> */}
               <div className="text-sm text-center">You can {orderType} up to $X.00</div>
             </div>
