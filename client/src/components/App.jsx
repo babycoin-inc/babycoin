@@ -48,7 +48,6 @@ function App() {
         let accVal = portfolioData.reduce((acc, asset) => {
           return acc + asset.value;
         }, 0);
-        console.log('GET PORTFOLIO accVal', accVal);
         setProfits((accVal - 500).toFixed(2));
         setAccountValue(accVal.toFixed(2));
       })
@@ -75,18 +74,15 @@ function App() {
   }, [tradeHistory]);
 
 
-
   // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
     // Resets portfolio & adds $500 cash
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
-        console.log(res.data);
         // Clears transaction history
         axios.delete(`/users/${authenticatedUser}/transactions/`)
           .then((res) => {
-            console.log('res', res.data);
             setTradeHistory([]);
             res.send(res);
           });
@@ -104,7 +100,7 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} />);
+    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
     activeComponent = (<h1>Insert Market Watch</h1>);
   } else if (activePage === 'Trade') {
