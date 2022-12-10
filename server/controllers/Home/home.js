@@ -1,26 +1,5 @@
 const { Home } = require('../../../models/models.js');
 
-exports.clearTransactions = async (req, res) => {
-  try {
-    const clearTrades = await Home.clearTransactions(req.params.id);
-    res.send(clearTrades);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-exports.clearPortfolio = async (req, res) => {
-  try {
-    const clearPortfolio = await Home.resetPortfolio(req.params.id);
-    res.send(clearPortfolio);
-  } catch (err) {
-    console.error(error);
-  }
-}
-
-exports.getRecentAchievement = (req, res) => {
-  // get recent achievement data from user
-};
 
 exports.getPortfolioAssets = async (req, res) => {
   try {
@@ -39,3 +18,23 @@ exports.getTransactions = async (req, res) => {
     console.error(err);
   }
 };
+
+exports.clearTransactions = async (req, res) => {
+  try {
+    const clearTrades = await Home.clearTransactions(req.params.id);
+    res.send(clearTrades);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+exports.clearPortfolio = async (req, res) => {
+  try {
+    const clearPortfolio = await Home.resetPortfolio(req.params.id);
+    res.send(clearPortfolio);
+  } catch (err) {
+    console.error(error);
+  }
+}
+
+
