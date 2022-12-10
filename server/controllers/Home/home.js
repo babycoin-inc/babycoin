@@ -8,8 +8,10 @@ exports.getRecentAchievement = (req, res) => {
   // get recent achievement data from user
 };
 
-exports.getPortfolioAssets = (req, res) => {
+exports.getPortfolioAssets = async (req, res) => {
   // get current crypto assets
+  const portfolio = await Home.allCoins(req.params.id);
+  res.send(portfolio);
 };
 
 exports.getTradeHistory = (req, res) => {
