@@ -5,6 +5,7 @@ import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
 import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
+import Market from './MarketWatch/Market.jsx';
 
 function App() {
 
@@ -80,7 +81,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<h1>Insert Market Watch</h1>);
+    activeComponent = (<Market />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade />);
   } else if (activePage === 'Leader Board') {

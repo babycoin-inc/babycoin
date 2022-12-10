@@ -2,7 +2,7 @@ require('../db/index.js'); //tests db connection
 const express = require('express');
 const app = express();
 const port = 3000;
-const { home, trade } = require('./controllers/controllers.js');
+const { home, trade, market} = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -18,6 +18,7 @@ app.get('/users/:id/transactions/', home.getTransactions);
 
 app.delete('/users/:id/transactions/', home.clearTransactions);
 
+app.get('/coins/markets', market.getCoins);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
