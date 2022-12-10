@@ -16,3 +16,19 @@ exports.insertTransaction = (transaction) => {
   // user id => trader_id INTEGER REFERENCES trader(id),
   // coin_id INTEGER REFERENCES coins(id)
 };
+
+exports.fulfillBuyTransaction = (transaction) => {
+  // Subtract total_trade_fiat from cash
+  // add total_trade_coin to portfolio
+  // calculations for dollar cost
+  // calculations for avg price
+  return 'Hit Fulfill Buy Transaction';
+}
+
+exports.fulfillSellTransaction = (transaction) => {
+  // add total_trade_fiat from cash
+  // subtract total_trade_coin to portfolio
+  // calculations for dollar cost
+  // calculations for avg price
+  return 'Hit Fulfill Sell Transaction';
+}
