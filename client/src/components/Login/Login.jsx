@@ -46,7 +46,11 @@ const Login = ({ updateUser }) => {
       username: username,
       password: password
     })
-    .catch(err => console.log(err));
+    .then(result => alert('Account Created'))
+    .catch(err => {
+      alert('Something went wrong...')
+      console.log(err)}
+      );
   }
 
   return (
