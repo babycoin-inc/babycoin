@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import Buy from './Buy.jsx';
 import Sell from './Sell.jsx';
-<<<<<<< HEAD
 import Newsfeed from '../Newsfeeds/newsfeed.jsx'
-=======
->>>>>>> main
 import { HiOutlineSwitchVertical } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 

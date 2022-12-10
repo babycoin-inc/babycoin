@@ -3,7 +3,7 @@ const axios = require('axios');
 const schedule = require('node-schedule');
 require("dotenv").config();
 
-var job = schedule.scheduleJob('0 */1 * * *', function(){
+var job = schedule.scheduleJob('0 0 */1 * *', function(){
 
   runAPI((err, result)=>{
     if(err){
