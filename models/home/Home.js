@@ -14,4 +14,17 @@ exports.allCoins = async (user_id) => {
     return coin.json_build_object;
   });
   return formatted;
+
+  /* Data Return Shape
+  [{
+    coin: Bitcoin,
+    acronym: BTC,
+    value: 1122,
+    quantity: 0.05,
+    avg_entry: 1500,
+    curr_price: 1700,
+    profit_loss: 1022,
+    image: 'url'
+  }]
+  */
 };
