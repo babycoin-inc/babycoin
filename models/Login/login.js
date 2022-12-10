@@ -9,11 +9,12 @@ const Login = {
   getUser: (username) => {
     return pool
       .query('SELECT id, username, password FROM users WHERE username = $1', [username])
-      .then(result => result.rows[0] || false);
+      .then(result => result.rows[0] || null);
   },
   getUserByToken: (token) => {
     return pool
-      .query('SELECT id, username, password FROM users WHERE refresh_token = $1', [token]);
+      .query('SELECT id, username, password FROM users WHERE refresh_token = $1', [token])
+      .then(result => result.rows[0] || null);
   },
   updateToken: (token, id) => {
     return pool
