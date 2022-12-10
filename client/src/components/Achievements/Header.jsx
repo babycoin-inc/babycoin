@@ -11,7 +11,7 @@ const Header = function () {
         </div>
         <div className="flex justify-center">
             <select className="select bg-transparent rounded-md text-sm font-bold">
-                <option selected value="all">All</option>
+                <option defaultValue value="all">All</option>
                 <option value="complete">Complete</option>
                 <option value="incomplete">Incomplete</option>
             </select>
