@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Header = function ( { setFilter, ap }) {
+const Header = function ( { userAchievements }) {
+
+  const [ap, setAp] = useState(0);
+
+  useEffect(() => {
+    let points = 0;
+    for (let key in userAchievements) {
+      console.log(key);
+      points += userAchievements[key].points;
+    }
+    setAp(points);
+  }, [userAchievements]);
 
     return (
       <div className="">    

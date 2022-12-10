@@ -20,6 +20,7 @@ function App() {
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
   const [userAchievements, setUserAchievements] = useState([]);
+  const [latestAchievement, setLatestAchievement] = useState([]);
 
   const getAchievements = async () => {
     const achievements = await axios.get(`/achievements`);

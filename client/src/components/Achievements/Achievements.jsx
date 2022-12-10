@@ -7,23 +7,18 @@ import axios from 'axios';
 const Achievements = function ( {achievements, userAchievements }) {
 
     const [filter, setFilter] = useState('all');
-    const [ap, setAp] = useState(0);
 
     return (
-        <div className="flex flex-col smooth-scroll fixed-scroll">
-            <Header setFilter={setFilter} ap={ap}/>
+        <div className="flex flex-col max-h-screen overflow-y-auto">
+            <Header userAchievements={userAchievements} />
             { achievements?.length ? achievements.map((achievement) => {
-
                 const status = userAchievements.some(userAchievement => (
                     userAchievement.achievement_id === achievement.id
                 ));
-
                 if (filter === 'all') return (<Card key={achievement.id} achievement={achievement} status={status} />);
                 if (filter === 'complete' && status) return (<Card key={achievement.id} achievement={achievement} status={status} />);
                 if (filter === 'incomplete' && !status) return (<Card key={achievement.id} achievement={achievement} status={status} />);
-
             }) : null }
-
             <Footer /> 
         </div>
     );
