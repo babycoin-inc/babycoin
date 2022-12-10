@@ -17,20 +17,13 @@ const authenticateUser = async(username, password, done) => {
 };
 
 passport.serializeUser((user, done) => {
-  // done(null, user.id);
   done(null, user);
 })
 
-passport.deserializeUser(async(user, done) => {
-  // const user = await Login.getUserById(id);
+passport.deserializeUser((user, done) => {
   return done(null, user);
 })
 
-// const initialize = (passport) => {
+passport.use(new LocalStrategy(authenticateUser));
 
-  passport.use(new LocalStrategy(authenticateUser));
-  //passport.serializeUser()
-// }
-
-// module.exports = initialize;
 module.exports = passport;
