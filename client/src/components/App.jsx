@@ -34,6 +34,10 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  function getTradeHistory(userId) {
+    axios.get()
+  }
+
   useEffect(() => {
     getPortfolioData(authenticatedUser);
   }, []);
@@ -47,7 +51,8 @@ function App() {
   function handleResetClick (e) {
     e.preventDefault();
     console.log(authenticatedUser);
-    axios.delete(`/users/${authenticatedUser}/transactions/clear`)
+    // clearing transaction history
+    axios.delete(`/users/${authenticatedUser}/transactions/`)
       .then((res) => {
         console.log('res', res);
         setAccountValue(500);

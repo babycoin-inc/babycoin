@@ -13,7 +13,7 @@ app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
 app.get('/users/:id/balances/', home.getPortfolioAssets);
 
-app.delete('/users/:id/transactions/clear', home.clearTransactions);
+app.delete('/users/:id/transactions/', home.clearTransactions);
 
 
 app.listen(port, () => {
