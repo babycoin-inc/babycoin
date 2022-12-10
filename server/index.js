@@ -1,8 +1,9 @@
 require('../db/index.js'); //tests db connection
 const express = require('express');
+
 const app = express();
-const port = 3000;
-const { home, trade } = require('./controllers/controllers.js');
+const port = 4000;
+const { nf, home, trade, market} = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -17,6 +18,29 @@ app.get('/users/:id/balances/', home.getPortfolioAssets);
 app.get('/users/:id/transactions/', home.getTransactions);
 
 app.delete('/users/:id/transactions/', home.clearTransactions);
+
+app.get("/newsfeed", async (req, res) => {
+  console.log(req.body);
+  try {
+    const result = await nf.getNews(n=10);
+    if(result.length > 0) {
+      res.status(200).send(result);
+    }
+  } catch (err) {
+      res.status(500);
+      console.log(err);
+  }
+});
+
+app.get("/nfAPI", (req, res) => {
+  nf.runAPI((err,result) => {
+    if(err){
+      res.status(500);
+    } else {
+      res.status(200).send(result);
+    }
+  })
+})
 
 
 app.listen(port, () => {
