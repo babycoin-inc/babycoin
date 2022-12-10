@@ -1,18 +1,17 @@
 const {Trade} = require('../../../models/models.js')
 
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
+//TEMP function to get random prices
 exports.getCoin = (req, res) => {
   const name = req.query.name;
   const price = Trade.getCoin(name);
   res.send(JSON.stringify(price));
 }
 
-exports.insertBuyTransaction = (req, res) => {
-  console.log('request.body: ', request.body);
-  //req.body shape:
+exports.insertBuyTransaction = async (req, res) => {
+  const result = await Trade.fulfillBuyTransaction(req);
+  res.send(result);
+
+    //req.body shape:
     // currency: 'USD',
     // purchase_price: price,
     // 'total_trade_coin': total_trade_coin,
@@ -30,10 +29,13 @@ exports.insertBuyTransaction = (req, res) => {
     // order_datetime timestamp,
     // user id => trader_id INTEGER REFERENCES trader(id),
     // coin_id INTEGER REFERENCES coins(id)
-}
+};
 
-exports.insertSellTransaction = (req, res) => {
-  //req.body shape:
+exports.insertSellTransaction = async (req, res) => {
+  const result = await Trade.fulfillSellTransaction(req);
+  res.send(result);
+
+    //req.body shape:
     // currency: 'USD',
     // purchase_price: price,
     // 'total_trade_coin': total_trade_coin,

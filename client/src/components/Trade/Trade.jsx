@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Order from './Order.jsx';
+import Newsfeed from '../Newsfeeds/newsfeed.jsx'
 
 function Trade() {
 
@@ -12,8 +13,9 @@ function Trade() {
         </div>
         <Order />
       </div>
+      <Newsfeed/>
     </div>
   )
 }
 
-      export default Trade;
+export default Trade;
