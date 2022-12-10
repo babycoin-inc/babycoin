@@ -3,7 +3,7 @@ const { Pool, Client } = require('pg');
 const fs = require('fs');
 
 const pool = new Pool({
-    user: process.env.USER,
+    user: process.env.PGUSER,
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE,
     host: process.env.PGHOST,
@@ -20,15 +20,15 @@ const sql = fs.readFileSync('db/init.sql', 'utf8');
   } catch(err) {
     if (err.code === '3D000') {
       console.log(`Database 'babycoin' doesn't exist. Creating database 'babycoin'.`)
-      const client = new Client({ database: process.env.USER });
+      const client = new Client({ database: process.env.PGUSER });
       await client.connect();
       await client.query('CREATE DATABASE babycoin');
       client.end();
       const pool = new Pool();
       console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
       pool.query(sql);
-    } 
-  } 
+    }
+  }
 })();
 
 module.exports = {
