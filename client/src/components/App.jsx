@@ -13,7 +13,7 @@ function App() {
 
   //Home Component States
   const [accountValue, setAccountValue] = useState(500);
-  const [profits, setProfits] = useState(accountValue - 500);
+  const [profits, setProfits] = useState(0);
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
 
@@ -21,7 +21,6 @@ function App() {
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
-        console.log('Portfolio data', data.data);
         setPortfolio(data.data);
         return data.data;
       })
@@ -30,7 +29,7 @@ function App() {
           return acc + asset.value;
         }, 0);
         setAccountValue(accVal.toFixed(2));
-        setProfits((accountValue - 500).toFixed(2));
+        setProfits((accVal - 500).toFixed(2));
       })
       .catch(err => console.log(err));
   }
@@ -41,13 +40,15 @@ function App() {
 
   useEffect(() => {
     getPortfolioData(authenticatedUser);
-  }, [portfolio]);
+  }, [tradeHistory]);
 
 
   // Home-Balance component reset button
-  function handleResetClick () {
+  function handleResetClick (e) {
+    e.preventDefault();
     // add routes to delete data from database and clear transactions
     setAccountValue(500);
+    setProfits(0);
   };
 
   function handleNavClick(e) {
