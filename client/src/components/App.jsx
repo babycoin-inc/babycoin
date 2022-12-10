@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
@@ -8,7 +8,32 @@ import Market from './MarketWatch/Market.jsx';
 
 function App() {
 
+  const [authenticatedUser, setAuthenticatedUser] = useState(1);
   const [activePage, setActivePage] = useState('Home');
+
+  //Home Component States
+  const [accountValue, setAccountValue] = useState(400);
+  const [profits, setProfits] = useState(accountValue - 500);
+  const [portfolio, setPortfolio] = useState([]);
+  const [tradeHistory, setTradeHistory] = useState([]);
+
+
+  useEffect(() => {
+    // retrieve account value
+    // retrieve portfolio
+    // retrieve tradehistory
+  }, []);
+
+  useEffect(() => {
+    setProfits(accountValue - 500);
+  }, [accountValue]);
+
+
+  // Home-Balance component reset button
+  function handleResetClick () {
+    // add routes to delete data from database and clear transactions
+    setAccountValue(500);
+  };
 
   function handleNavClick(e) {
     e.preventDefault();
@@ -19,7 +44,7 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home />);
+    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} tradeHistory={tradeHistory} />);
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market />);
   } else if (activePage === 'Trade') {
