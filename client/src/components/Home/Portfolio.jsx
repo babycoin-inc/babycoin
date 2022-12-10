@@ -33,8 +33,8 @@ function Portfolio({ portfolio }) {
                 <td className="py-2"><img src={asset.image} className="h-10 mx-auto" /></td>
                 <td className="text-center py-2">{asset.coin}<i className="block text-sm">{asset.acronym}</i></td>
                 <td className="text-center">${asset.value.toFixed(2)}<i className="block text-sm">{`${asset.quantity} ${asset.acronym}`}</i></td>
-                <td className="text-center">{asset.avg_entry}</td>
-                <td className="text-center">{asset.curr_price}</td>
+                <td className="text-center">${asset.avg_entry.toLocaleString("en-US")}</td>
+                <td className="text-center">${asset.curr_price.toLocaleString("en-US")}</td>
                 {profitRenderer(asset.profit_loss, asset.percent_change)}
               </tr>
             ))}
