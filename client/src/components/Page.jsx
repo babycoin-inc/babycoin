@@ -12,7 +12,7 @@ const Page = () => {
   if(!authorizedUser) {
     return <Login updateUser={setAuthorizedUser}/>
   } else {
-    return <App />
+    return <App className = "bg-zinc-900 pb-8"/>
   }
 }
 

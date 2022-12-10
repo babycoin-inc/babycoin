@@ -54,7 +54,7 @@ const Login = ({ updateUser }) => {
   }
 
   return (
-    <div className='relative w-full h-screen'>
+    <div className='relative w-full max-h-max'>
       <img className='absolute w-full h-full object-cover mix-blend-overlay' src={bgImage} alt="bgImage" />
       <div className='flex justify-center items-center py-8'>
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
@@ -71,7 +71,7 @@ const Login = ({ updateUser }) => {
           </div>
           <div className='flex flex-col'>
             <label>Password</label>
-            <input id='password' className='border relative bg-gray-100 p-2' type='text' onChange={handleInput}/>
+            <input id='password' className='border relative bg-gray-100 p-2' type='password' onChange={handleInput}/>
           </div>
           <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white' onClick={handleLogin}>Log In</button>
           <p className='text-center mt-8'>Not a Member? Sign Up Now!</p>
@@ -81,11 +81,11 @@ const Login = ({ updateUser }) => {
           </div>
           <div className='flex flex-col'>
             <label>Password</label>
-            <input id='password' className='border relative bg-gray-100 p-2' type='text' onChange={handleInput}/>
+            <input id='password' className='border relative bg-gray-100 p-2' type='password' onChange={handleInput}/>
           </div>
           <div className='flex flex-col'>
             <label>Confirm Password</label>
-            <input id='passwordcomparison' className='border relative bg-gray-100 p-2' type='text' onChange={handleInput}/>
+            <input id='passwordcomparison' className='border relative bg-gray-100 p-2' type='password' onChange={handleInput}/>
           </div>
           <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white' onClick={handleSignUp}>Sign Up</button>
         </form>
