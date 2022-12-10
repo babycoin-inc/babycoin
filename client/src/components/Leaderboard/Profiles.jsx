@@ -12,7 +12,8 @@ function Profiles(props) {
 	} else {
 		return 0;
 	}
-	}).map((user, index) => {
+	})
+	.map((user, index) => {
 		return (
 			<div className='Profiles'>
 				<div className='flex Profile'>
