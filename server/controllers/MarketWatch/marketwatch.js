@@ -1,5 +1,5 @@
 require('dotenv').config();
-const models = require('../../../models/marketWatch/marketWatch.js');
+const marketWatch = require('../../../models/marketWatch/marketWatch.js');
 const axios = require('axios');
 
 exports.getCoins = (req, res) => {
@@ -9,9 +9,12 @@ exports.getCoins = (req, res) => {
     headers: { "Accept-Encoding": "gzip,deflate,compress" }
   })
  .then(result => {
+    marketWatch.writeCoins(result.data);
     res.send(result.data);
   })
   .catch(error => {
-    res.send(error);
+    console.log(error);
+    res.status(404).send('Error');
   })
 }
+
