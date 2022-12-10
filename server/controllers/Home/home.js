@@ -1,7 +1,7 @@
 const { Home } = require('../../../models/models.js');
 
-exports.clearTrades = async (req, res) => {
-  const clearTrades = await Home.clearTradeHistory(req.params.id);
+exports.clearTransactions = async (req, res) => {
+  const clearTrades = await Home.clearTransactions(req.params.id);
   res.send(clearTrades);
 };
 
