@@ -12,6 +12,7 @@ app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
 app.get('/users/:id/balances/', home.getPortfolioAssets);
+app.get('/users/:id/transactions/', home.getTransactions);
 
 app.delete('/users/:id/transactions/', home.clearTransactions);
 

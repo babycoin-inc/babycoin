@@ -35,3 +35,9 @@ exports.clearTransactions = async (user_id) => {
   const trades = await query(`DELETE FROM transactions WHERE trader_id = $1;`, [user_id]);
   return trades.rows;
 };
+
+exports.getTransactionHistory = async (user_id) => {
+  const transactions = await query(`SELECT * FROM transactions WHERE trader_id = $1;`, [user_id]);
+  console.log(transactions.rows);
+  return transactions.rows;
+}

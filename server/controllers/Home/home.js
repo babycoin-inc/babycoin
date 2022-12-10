@@ -15,8 +15,9 @@ exports.getPortfolioAssets = async (req, res) => {
   res.send(portfolio);
 };
 
-exports.getTradeHistory = (req, res) => {
-  // get recent trade history
+exports.getTransactions = async (req, res) => {
+  const transactions = await Home.getTransactionHistory(req.params.id);
+  res.send(transactions);
 };
 
 exports.postBuyPortofolioUpdate = (req, res) => {
