@@ -11,6 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
+app.get('/users/:id/balances/', home.getPortfolioAssets);
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

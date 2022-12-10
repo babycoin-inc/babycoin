@@ -7,6 +7,7 @@ import Trade from './Trade/Trade.jsx';
 
 function App() {
 
+  const [authenticatedUser, setAuthenticatedUser] = useState(1);
   const [activePage, setActivePage] = useState('Home');
 
   //Home Component States
@@ -15,6 +16,12 @@ function App() {
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
 
+
+  useEffect(() => {
+    // retrieve account value
+    // retrieve portfolio
+    // retrieve tradehistory
+  }, []);
 
   useEffect(() => {
     setProfits(accountValue - 500);

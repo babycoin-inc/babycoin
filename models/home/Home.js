@@ -7,3 +7,7 @@ exports.calcAveragePrice = (id) => {
 exports.calcDollarCost = (id) => {
 
 };
+
+exports.allCoins = (user_id) => {
+  return 'Test all coins';
+};
