@@ -1,13 +1,15 @@
 // require('../db/index.js'); //tests db connection
 // require('../passport.config.js');
 const express = require('express');
+require('dotenv').config();
 // const passport = require('passport');
 const app = express();
-const { PORT } = process.env;
+const PORT = process.env.PORT;
 
 const flash = require('express-flash');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+// const cookieParser = require('cookie-parser');
+// const cors = require('cors');
+const session = require('cookie-session');
 
 /**Controllers */
 const { signup, login, verifyToken, refreshToken } = require('./controllers/Login/controllers.js');
@@ -16,7 +18,14 @@ const { signup, login, verifyToken, refreshToken } = require('./controllers/Logi
 // app.use(passport.initialize());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
-app.use(cookieParser(process.env.COOKIE_SECRET))
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  name: 'session',
+  secret: 'secret',
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+}));
+
+// app.use(cookieParser(process.env.COOKIE_SECRET))
 // const whitelist = process.env.WHITELISTED_DOMAINS ? process.env.WHITELISTED_DOMAINS.split(',') : [];
 // const corsOptions = {
 //   origin: function (origin, callback) {
@@ -29,10 +38,10 @@ app.use(cookieParser(process.env.COOKIE_SECRET))
 
 //   credentials: true,
 // }
-app.use(cors(corsOptions));
-app.use(express.urlencoded({ extended: true }));
+// app.use(cors(corsOptions));
 
-app.post('/signup', signup);
+app.post('/auth/signup', signup);
+app.post('/auth/login', login);
 // app.post('/login', passport.authenticate('local', {
 //   successRedirect: '/',
 //   failureRedirect: '/login',

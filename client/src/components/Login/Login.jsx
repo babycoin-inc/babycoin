@@ -2,8 +2,18 @@ import React from 'react'
 import babycoin from '../../../dist/assets/BabyCoin.png'
 import bgImage from '../../../dist/assets/trading-bg.jpg'
 import { FcGoogle } from 'react-icons/fc'
+import axios from 'axios'
 
 const Login = () => {
+
+  const handleLogin = () => {
+    axios
+      .post('auth/login')
+      .then({ data } => {
+
+      })
+  }
+
   return (
     <div className='relative w-full h-screen'>
       <img className='absolute w-full h-full object-cover mix-blend-overlay' src={bgImage} alt="bgImage" />
@@ -24,7 +34,7 @@ const Login = () => {
             <label>Password</label>
             <input className='border relative bg-gray-100 p-2' type='text'/>
           </div>
-          <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white'>Sign In</button>
+          <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white' onClick={handleLogin}>Log In</button>
           <p className='text-center mt-8'>Not a Member? Sign Up Now!</p>
         </form>
       </div>

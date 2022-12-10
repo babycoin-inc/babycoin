@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000
     });
-    res.json({ accessToken }):
+    res.json({ accessToken });
   } catch (err) {
     res.status(400).json({msg: 'Unable to login with Username and Password'})
   }
