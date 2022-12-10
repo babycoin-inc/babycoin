@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Buy from './Buy.jsx';
 import Sell from './Sell.jsx';
-import Newsfeed from '../Newsfeed/newsfeed.jsx'
 import { HiOutlineSwitchVertical } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 
@@ -90,7 +89,6 @@ function Trade() {
           </div>
         </div>
       </div>
-      <Newsfeed ticker = {coin}/>
     </div>
   )
 }
