@@ -1,6 +1,15 @@
 import React from 'react';
 
 function TradeHistory({ tradeHistory }) {
+
+  function orderTypeColor(order_type) {
+    if (order_type === 'buy') {
+      return (<td className="text-center text-green-400">{order_type.toUpperCase()}</td>);
+    } else {
+      return (<td className="text-center text-red-400">{order_type.toUpperCase()}</td>);
+    }
+  };
+
   return (
     <div>
       <div className="bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit">
@@ -22,9 +31,9 @@ function TradeHistory({ tradeHistory }) {
               <tr key={trade.coin + index} className="border-t border-zinc-600  hover:bg-zinc-400">
                 <td className="py-2"><img src={trade.image} className="h-10 mx-auto" /></td>
                 <td className="text-center">{trade.name}<i className="block text-sm">{trade.acronym}</i></td>
-                <td className="text-center">${Number(trade.total_trade_fiat).toFixed(2)}<i className="block text-sm">.{`${Number(trade.total_trade_coin).toFixed(2)} ${trade.acronym}`}</i></td>
+                <td className="text-center">${Number(trade.total_trade_fiat).toFixed(2)}<i className="block text-sm">.{`${trade.total_trade_coin} ${trade.acronym}`}</i></td>
                 <td className="text-center">${Number(trade.purchase_price).toLocaleString("en-US")}</td>
-                <td className="text-center">{trade.order_type}</td>
+                {orderTypeColor(trade.order_type)}
               </tr>
             ))}
           </tbody>
