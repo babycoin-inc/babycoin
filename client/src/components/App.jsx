@@ -12,29 +12,36 @@ function App() {
   const [activePage, setActivePage] = useState('Home');
 
   //Home Component States
-  const [accountValue, setAccountValue] = useState(400);
+  const [accountValue, setAccountValue] = useState(500);
   const [profits, setProfits] = useState(accountValue - 500);
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
 
 
-  useEffect(() => {
-    // retrieve account value
-
-    // retrieve portfolio data
-    axios.get(`/users/${authenticatedUser}/balances`)
+  function getPortfolioData(userId) {
+    axios.get(`/users/${userId}/balances`)
       .then((data) => {
         console.log('Portfolio data', data.data);
         setPortfolio(data.data);
+        return data.data;
+      })
+      .then((portfolioData) => {
+        let accVal = portfolioData.reduce((acc, asset) => {
+          return acc + asset.value;
+        }, 0);
+        setAccountValue(accVal.toFixed(2));
+        setProfits((accountValue - 500).toFixed(2));
       })
       .catch(err => console.log(err));
+  }
 
-    // retrieve tradehistory
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
   }, []);
 
   useEffect(() => {
-    setProfits(accountValue - 500);
-  }, [accountValue]);
+    getPortfolioData(authenticatedUser);
+  }, [portfolio]);
 
 
   // Home-Balance component reset button
