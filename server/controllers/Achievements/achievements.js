@@ -6,31 +6,29 @@ exports.getAchievements = async (req, res) => {
         res.send(achievements);
     } catch (error) {
         console.log('Error:', error);
-        res.status(404).end();
+        res.status(500).end();
     }
 };
 
 exports.getUserAchievements = async (req, res) => {
     const { trader_id } = req.params;
-
     try {
         const achievements = await Achievements.getUserAchievements(trader_id);
         res.send(achievements);
     } catch (error) {
         console.log('Error:', error);
-        res.status(404).end();
+        res.status(500).end();
     }
 };
 
 exports.addUserAchievement = async (req, res) => {
     const { trader_id } = req.params;
     const { achievement } = req.body;
-    
     try {
         await Achievements.addUserAchievement(trader_id, achievement);
         res.status(201).end();
     } catch (error) {
         console.log('Error:', error);
-        res.status(404).end();
+        res.status(500).end();
     }
 };
