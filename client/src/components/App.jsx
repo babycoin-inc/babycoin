@@ -4,7 +4,8 @@ import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
 import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
-import Leaderboard from './Leaderboard/Leaderboard.jsx';
+import Market from './MarketWatch/Market.jsx';
+import axios from 'axios';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
   const [profits, setProfits] = useState(0);
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
+  const [coins, setCoins] = useState([]);
 
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
@@ -62,11 +64,19 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  function getCoins() {
+    axios.get(`/coins/markets`)
+    .then((coins) => {
+      setCoins(coins.data);
+    })
+    .catch(err => console.log(err));
+  }
 
 
   useEffect(() => {
     getPortfolioData(authenticatedUser);
     getTradeHistory(authenticatedUser);
+    getCoins();
   }, []);
 
   useEffect(() => {
@@ -103,7 +113,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<h1>Insert Market Watch</h1>);
+    activeComponent = (<Market />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade />);
   } else if (activePage === 'Leader Board') {

@@ -50,6 +50,7 @@ app.get("/nfAPI", (req, res) => {
   })
 })
 
+app.get('/coins/markets', market.getCoins);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
