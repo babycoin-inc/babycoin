@@ -8,7 +8,8 @@ exports.getUserAchievements = (id) => {
   return db.query(`
     SELECT ta.*, a.* FROM trader_achievements ta 
     JOIN achievements a ON ta.achievement_id = a.id 
-    WHERE ta.trader_id = $1`, [id]);
+    WHERE ta.trader_id = $1
+    ORDER by created_at DESC`, [id]);
 };
 
 exports.addUserAchievement = (id, achievement) => {
