@@ -90,6 +90,7 @@ function Trade() {
           </div>
         </div>
       </div>
+      <Newsfeed/>
     </div>
   )
 }
