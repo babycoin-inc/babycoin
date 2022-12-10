@@ -1,13 +1,21 @@
 const { Home } = require('../../../models/models.js');
 
 exports.clearTransactions = async (req, res) => {
-  const clearTrades = await Home.clearTransactions(req.params.id);
-  res.send(clearTrades);
+  try {
+    const clearTrades = await Home.clearTransactions(req.params.id);
+    res.send(clearTrades);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 exports.clearPortfolio = async (req, res) => {
-  const clearPortfolio = await Home.resetPortfolio(req.params.id);
-  res.send(clearPortfolio);
+  try {
+    const clearPortfolio = await Home.resetPortfolio(req.params.id);
+    res.send(clearPortfolio);
+  } catch (err) {
+    console.error(error);
+  }
 }
 
 exports.getRecentAchievement = (req, res) => {
@@ -15,12 +23,19 @@ exports.getRecentAchievement = (req, res) => {
 };
 
 exports.getPortfolioAssets = async (req, res) => {
-  // get current crypto assets
-  const portfolio = await Home.allCoins(req.params.id);
-  res.send(portfolio);
+  try {
+    const portfolio = await Home.allCoins(req.params.id);
+    res.send(portfolio);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 exports.getTransactions = async (req, res) => {
-  const transactions = await Home.getTransactionHistory(req.params.id);
-  res.send(transactions);
+  try {
+    const transactions = await Home.getTransactionHistory(req.params.id);
+    res.send(transactions);
+  } catch (err) {
+    console.error(err);
+  }
 };
