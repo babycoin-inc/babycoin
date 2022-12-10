@@ -10,7 +10,7 @@ const Achievements = function ( {achievements, userAchievements }) {
 
     return (
         <div className="flex flex-col max-h-screen overflow-y-auto">
-            <Header userAchievements={userAchievements} />
+            <Header userAchievements={userAchievements} setFilter={setFilter}/>
             { achievements?.length ? achievements.map((achievement) => {
                 const status = userAchievements.some(userAchievement => (
                     userAchievement.achievement_id === achievement.id

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Header = function ( { userAchievements }) {
+const Header = function ( { userAchievements, setFilter }) {
 
   const [ap, setAp] = useState(0);
 

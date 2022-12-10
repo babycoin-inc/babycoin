@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function App() {
 
-  const [activePage, setActivePage] = useState('Achievements');
+  const [activePage, setActivePage] = useState('Home');
   const [authenticatedUser, setAuthenticatedUser] = useState(1); //temp trader_id
 
   //Home Component States
