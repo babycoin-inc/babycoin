@@ -63,46 +63,61 @@ CREATE TABLE IF NOT EXISTS leaderboard (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
   coin_id INTEGER REFERENCES coins(id),
-  current_gains INTEGER,
-  highest_total_gains INTEGER,
+  realized_gains DECIMAL,
+  highest_realized_gains DECIMAL,
   UNIQUE (trader_id, coin_id)
 );
 
-CREATE RULE update_current_gains_leaderboard AS ON INSERT TO transactions DO ALSO
+CREATE RULE update_leaderboard_on_insert_transactions AS ON INSERT TO transactions DO ALSO
+  (
   INSERT INTO leaderboard
-  (trader_id, coin_id, current_gains, highest_total_gains) VALUES (NEW.trader_id, NEW.coin_id, 0, 0)
+  (trader_id, coin_id, realized_gains, highest_realized_gains) VALUES (NEW.trader_id, 1, 0, 0)
   ON CONFLICT (trader_id, coin_id)
-    DO UPDATE
-      SET current_gains = (
+    DO NOTHING;
+
+  INSERT INTO leaderboard
+  (trader_id, coin_id, realized_gains, highest_realized_gains) VALUES (NEW.trader_id, NEW.coin_id, 0, 0)
+  ON CONFLICT (trader_id, coin_id)
+    DO NOTHING;
+
+  UPDATE leaderboard
+      SET realized_gains = (
       CASE
-        WHEN  NEW.order_type = 'buy'
-          THEN leaderboard.current_gains - NEW.total_trade_fiat
         WHEN NEW.order_type = 'sell'
-          THEN leaderboard.current_gains + NEW.total_trade_fiat
+          THEN realized_gains - (NEW.total_trade_coin * ((
+            SELECT portfolio.avg_price
+            FROM portfolio
+            WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
       END)
       WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
 
-CREATE RULE update_current_gains_USD_leaderboard AS ON INSERT TO transactions DO ALSO
-  INSERT INTO leaderboard
-  (trader_id, coin_id, current_gains, highest_total_gains) VALUES (NEW.trader_id, NEW.coin_id, 0, 0)
-  ON CONFLICT (trader_id, coin_id)
-    DO UPDATE
-      SET current_gains = (
+  UPDATE leaderboard
+      SET realized_gains = (
       CASE
-        WHEN  NEW.order_type = 'buy'
-          THEN leaderboard.current_gains - NEW.total_trade_fiat
         WHEN NEW.order_type = 'sell'
-          THEN leaderboard.current_gains + NEW.total_trade_fiat
+          THEN realized_gains - (NEW.total_trade_coin * ((
+            SELECT portfolio.avg_price
+            FROM portfolio
+            WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
       END)
       WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
 
+  );
 
-CREATE RULE update_highest_total_gains_leaderboard AS ON UPDATE TO leaderboard DO ALSO
-  UPDATE leaderboard
-    SET highest_total_gains = (
-      CASE
-        WHEN NEW.current_gains > highest_total_gains
-          THEN NEW.current_gains
-        ELSE highest_total_gains
-      END)
-    WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
+  -- UPDATE leaderboard
+  --   SET highest_realized_gains = (
+  --     CASE
+  --       WHEN leaderboard.realized_gains > highest_realized_gains
+  --         THEN leaderboard.realized_gains
+  --       ELSE highest_realized_gains
+  --     END)
+  --   WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
+
+  -- UPDATE leaderboard
+  -- SET highest_realized_gains = (
+  --   CASE
+  --     WHEN leaderboard.realized_gains > highest_realized_gains
+  --       THEN leaderboard.realized_gains
+  --     ELSE highest_realized_gains
+  --   END)
+  -- WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
