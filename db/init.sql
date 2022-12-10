@@ -8,16 +8,16 @@ CREATE TABLE IF NOT EXISTS coins (
   acronym VARCHAR(50) NOT NULL,
   image VARCHAR(255),
   description TEXT,
-  latest_price INTEGER NOT NULL
+  latest_price DECIMAL NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS portfolio (
   portfolio_id SERIAL PRIMARY KEY,
   trader_id INTEGER NOT NULL,
   coin_id INTEGER NOT NULL,
-  dollar_cost INTEGER NOT NULL,
-  avg_price INTEGER NOT NULL,
-  quantity INTEGER NOT NULL,
+  dollar_cost DECIMAL NOT NULL,
+  avg_price DECIMAL NOT NULL,
+  quantity DECIMAL NOT NULL,
   CONSTRAINT fk_trader
     FOREIGN KEY(trader_id)
       REFERENCES trader(id),
@@ -52,9 +52,9 @@ CREATE TABLE IF NOT EXISTS transactions (
   id SERIAL PRIMARY KEY,
   order_type transaction_type,
   currency VARCHAR(10) NOT NULL,
-  purchase_price INTEGER NOT NULL,
-  total_trade_fiat INTEGER NOT NULL,
-  total_trade_coin INTEGER NOT NULL,
+  purchase_price DECIMAL NOT NULL,
+  total_trade_fiat DECIMAL NOT NULL,
+  total_trade_coin DECIMAL NOT NULL,
   order_datetime timestamp,
   trader_id INTEGER REFERENCES trader(id),
   coin_id INTEGER REFERENCES coins(id)

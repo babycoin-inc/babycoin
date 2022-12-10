@@ -15,6 +15,14 @@ app.get('/achievements', achievements.getAchievements);
 app.get('/achievements/:trader_id', achievements.getUserAchievements);
 app.post('/achievements/:trader_id', achievements.addUserAchievement);
 
+// Gets all assets in user portfolio
+app.get('/users/:id/balances/', home.getPortfolioAssets);
+// Gets transaction history
+app.get('/users/:id/transactions/', home.getTransactions);
+
+app.delete('/users/:id/transactions/', home.clearTransactions);
+
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
