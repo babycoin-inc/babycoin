@@ -12,27 +12,75 @@ function App() {
   const [activePage, setActivePage] = useState('Home');
 
   //Home Component States
-  const [accountValue, setAccountValue] = useState(400);
-  const [profits, setProfits] = useState(accountValue - 500);
+  const [accountValue, setAccountValue] = useState(500);
+  const [profits, setProfits] = useState(0);
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
 
+  //Achievements Component States
+  const [achievements, setAchievements] = useState([]);
+  const [userAchievements, setUserAchievements] = useState([]);
 
+  const getAchievements = async () => {
+    const achievements = await axios.get(`/achievements`);
+    setAchievements(achievements.data);
+  };
+  const getUserAchievements = async () => {
+    const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+    setUserAchievements(userAchievements.data);
+  };
+
+  //App On-Mount Effects
   useEffect(() => {
-    // retrieve account value
-    // retrieve portfolio
-    // retrieve tradehistory
+    getPortfolioData(authenticatedUser);
+    getTradeHistory(authenticatedUser);
+    getAchievements();
+    getUserAchievements();
   }, []);
 
-  useEffect(() => {
-    setProfits(accountValue - 500);
-  }, [accountValue]);
+  function getPortfolioData(userId) {
+    axios.get(`/users/${userId}/balances`)
+      .then((data) => {
+        setPortfolio(data.data);
+        return data.data;
+      })
+      .then((portfolioData) => {
+        let accVal = portfolioData.reduce((acc, asset) => {
+          return acc + asset.value;
+        }, 0);
+        setAccountValue(accVal.toFixed(2));
+        setProfits((accVal - 500).toFixed(2));
+      })
+      .catch(err => console.log(err));
+  }
 
+  function getTradeHistory(userId) {
+    axios.get(`/users/${authenticatedUser}/transactions/`)
+      .then((history) => {
+        setTradeHistory(history.data);
+      })
+      .catch(err => console.log(err));
+  }
+
+  // useEffect(() => {
+  //   getPortfolioData(authenticatedUser);
+  // }, [tradeHistory]);
 
   // Home-Balance component reset button
-  function handleResetClick () {
-    // add routes to delete data from database and clear transactions
-    setAccountValue(500);
+  function handleResetClick (e) {
+    e.preventDefault();
+    // clear portfolio
+
+    // Insert $500 usd into portfolio
+
+    // clearing transaction history
+    axios.delete(`/users/${authenticatedUser}/transactions/`)
+      .then((res) => {
+        console.log('res', res);
+        setAccountValue(500);
+        setProfits(0);
+        res.send(res);
+      });
   };
 
   function handleNavClick(e) {
@@ -44,7 +92,7 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} tradeHistory={tradeHistory} />);
+    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} />);
   } else if (activePage === 'Market Watch') {
     activeComponent = (<h1>Insert Market Watch</h1>);
   } else if (activePage === 'Trade') {
@@ -52,7 +100,7 @@ function App() {
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<Achievements />);
+    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} />);
   };
 
   return (
