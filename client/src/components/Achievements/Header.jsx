@@ -7,7 +7,6 @@ const Header = function ( { userAchievements, setFilter }) {
   useEffect(() => {
     let points = 0;
     for (let key in userAchievements) {
-      console.log(key);
       points += userAchievements[key].points;
     }
     setAp(points);

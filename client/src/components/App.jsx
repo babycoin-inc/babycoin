@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
@@ -11,7 +10,6 @@ function App() {
 
   const [authenticatedUser, setAuthenticatedUser] = useState(1);
   const [activePage, setActivePage] = useState('Home');
-  const [authenticatedUser, setAuthenticatedUser] = useState(1); //temp trader_id
 
   //Home Component States
   const [accountValue, setAccountValue] = useState(500);
@@ -22,7 +20,6 @@ function App() {
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
   const [userAchievements, setUserAchievements] = useState([]);
-  const [latestAchievement, setLatestAchievement] = useState([]);
 
   const getAchievements = async () => {
     const achievements = await axios.get(`/achievements`);
@@ -35,9 +32,10 @@ function App() {
 
   //App On-Mount Effects
   useEffect(() => {
+    getPortfolioData(authenticatedUser);
+    getTradeHistory(authenticatedUser);
     getAchievements();
     getUserAchievements();
-
   }, []);
 
   function getPortfolioData(userId) {
@@ -63,11 +61,6 @@ function App() {
       })
       .catch(err => console.log(err));
   }
-
-  useEffect(() => {
-    getPortfolioData(authenticatedUser);
-    getTradeHistory(authenticatedUser);
-  }, []);
 
   // useEffect(() => {
   //   getPortfolioData(authenticatedUser);
