@@ -1,7 +1,9 @@
 const { signup } = require('./signup.js');
-const authenticateUser = require('./login.js')
+const { login } = require('./login.js')
+const refreshToken = require('./refreshToken.js');
 
 module.exports = {
   signup,
-  authenticateUser,
+  login,
+  refreshToken
 };
