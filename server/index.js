@@ -2,7 +2,7 @@ require('../db/index.js'); //tests db connection
 const express = require('express');
 const app = express();
 const port = 3000;
-const { home, trade } = require('./controllers/controllers.js');
+const { nf, home, trade } = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());

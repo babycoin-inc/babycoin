@@ -90,7 +90,7 @@ function Trade() {
           </div>
         </div>
       </div>
-      <Newsfeed ticker = {coinType}/>
+      <Newsfeed ticker = {coin}/>
     </div>
   )
 }
