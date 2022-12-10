@@ -19,15 +19,17 @@ app.get('/users/:id/transactions/', home.getTransactions);
 
 app.delete('/users/:id/transactions/', home.clearTransactions);
 
-app.get("/newsfeed", (req, res) => {
-  console.log(req.params);
-  nf.getNews(n=10, (err, result) => {
-    if(err){
-      res.status(500);
-    } else {
+app.get("/newsfeed", async (req, res) => {
+  console.log(req.body);
+  try {
+    const result = await nf.getNews(n=10);
+    if(result.length > 0) {
       res.status(200).send(result);
     }
-  })
+  } catch (err) {
+      res.status(500);
+      console.log(err);
+  }
 });
 
 app.get("/nfAPI", (req, res) => {

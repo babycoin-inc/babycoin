@@ -43,7 +43,7 @@ function Newsfeed(ticker) {
     var options = {
       method:'get',
       url:  "/newsfeed",
-      params: {
+      body: {
         num: n
       }
     }

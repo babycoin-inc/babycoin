@@ -48,14 +48,12 @@ let runAPI = (cb) => {
   })
 }
 
-let getNews = (n, cb) => {
-    client.query(`SELECT title, description, arthur, url, tickers, image_url, topics, type, sentiment, publish_date FROM newsfeed ORDER BY publish_date DESC LIMIT ${n}`, (err, result) => {
-      if(err) {
-        cb(err, null)
-        console.log(err);
-      } else {
-        cb(null, result.rows);
-      }
+let getNews = (n) => {
+    return client.query(`SELECT title, description, arthur, url, tickers, image_url, topics, type, sentiment, publish_date FROM newsfeed ORDER BY publish_date DESC LIMIT $1`,[n]).then(result => {
+      //console.log(result.rows);
+      return result.rows;
+    }).catch(err => {
+      console.log(err);
     });
 }
 module.exports = {
