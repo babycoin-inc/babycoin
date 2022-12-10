@@ -1,22 +1,23 @@
 import React from 'react';
 
 const News = function (props) {
-  console.log(props)
+  console.log(props);
   let fdate = new Date(props.art.publish_date).toDateString();
   return (
-      <div class=" flex w-full border rounded-lg shadow-md bg-gray-800 border-gray-700 my-2">
-          <img class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg mr-2" src={props.art.image_url} alt="" />
-          <div class="mr-2 my-2">
-            <h2 class="mb-3 text-1xl font-extrabold tracking-tight text-white"><a href={props.art.url}>{props.art.title}</a></h2>
-            <p class="mb-3 text-gray-400 text-l">{props.art.description}</p>
-            <div class="flex">
-              <p class="text-gray-600 text-xs mr-3">{fdate}</p>
-              <div class="flex text-gray-600 text-xs mr-0.5">{props.art.tickers.map(val => {
-                    return <div class="mr-1">{val}</div>
-                  })}</div>
-              </div>
-            </div>
+    <div class=" flex w-full border rounded-lg shadow-md bg-gray-800 border-gray-700 my-2">
+    <img class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg mr-2" src={props.art.image_url} alt="" />
+    <div class="mr-2 my-2">
+      <h2 class="mb-3 text-1xl font-extrabold tracking-tight text-white"><a href={props.art.url} target="_blank">{props.art.title}</a></h2>
+      <p class="mb-3 text-gray-400 text-l">{props.art.description}</p>
+      <div class="flex">
+        <p class="text-gray-500 text-xs mr-3">{props.art.arthur}</p>
+        <p class="text-gray-600 text-xs mr-3">{fdate}</p>
+        <div class="flex text-gray-600 text-xs mr-0.5">{props.art.tickers.map(val => {
+              return <div class="mr-1">{val}</div>
+            })}</div>
+        </div>
       </div>
+</div>
   )
 };
 

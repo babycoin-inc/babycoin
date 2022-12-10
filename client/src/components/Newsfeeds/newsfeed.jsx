@@ -25,9 +25,9 @@ function Newsfeed(ticker) {
   }, [])
 
   function loadmore () {
-    console.log('load more ran');
+    //console.log('load more ran');
     if(newsArr.length < numNews + 2) {
-      getNews(numNews + 2)
+      getNews(numNews + 2);
     } else {
       setNum(prevNum => prevNum + 2);
     }
@@ -35,13 +35,17 @@ function Newsfeed(ticker) {
 
   function collapse(){
     setNum(2);
-    console.log('collapse ran', numNews);
+    //console.log('collapse ran', numNews);
   }
 
-  function getNews(){
+  function getNews(n){
+    console.log(n);
     var options = {
       method:'get',
-      url:  "/newsfeed"
+      url:  "/newsfeed",
+      params: {
+        num: n
+      }
     }
     axios(options).then((result) => {
       console.log('get news ran');
@@ -55,7 +59,7 @@ function Newsfeed(ticker) {
     if(initialized) {
       setNum(numNews + 2);
     }
-    console.log('Line 39', numNews, newsArr);
+    //console.log('Line 39', numNews, newsArr);
   },[newsArr])
 
   return (

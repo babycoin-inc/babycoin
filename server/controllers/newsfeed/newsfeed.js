@@ -3,15 +3,17 @@ const axios = require('axios');
 const schedule = require('node-schedule');
 require("dotenv").config();
 
-var job = schedule.scheduleJob('0 0 */1 * *', function(){
+const rule = new schedule.RecurrenceRule();
+rule.hour = 1;
 
+const job = schedule.scheduleJob(rule, function(){
   runAPI((err, result)=>{
     if(err){
       console.log(err);
     } else {
       console.log('Scheduler is working', new Date(Date.now()).toLocaleString());
     }
-  })
+  });
 });
 
 let runAPI = (cb) => {
@@ -21,7 +23,7 @@ let runAPI = (cb) => {
     params: {
       items:100,
       page:1,
-      date: 'last60mins',
+      date: 'last60min',
       token: process.env.CPNAPIKEY
     },
     url:"https://cryptonews-api.com/api/v1/category?section=alltickers"

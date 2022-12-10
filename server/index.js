@@ -1,5 +1,6 @@
 require('../db/index.js'); //tests db connection
 const express = require('express');
+
 const app = express();
 const port = 4000;
 const { nf, home, trade, market} = require('./controllers/controllers.js');
@@ -19,6 +20,7 @@ app.get('/users/:id/transactions/', home.getTransactions);
 app.delete('/users/:id/transactions/', home.clearTransactions);
 
 app.get("/newsfeed", (req, res) => {
+  console.log(req.params);
   nf.getNews(n=10, (err, result) => {
     if(err){
       res.status(500);
