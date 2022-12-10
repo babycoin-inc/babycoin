@@ -13,7 +13,7 @@ const Login = {
   },
   getUserByToken: (token) => {
     return pool
-      .query('SELECT id, username, password FROM users WHERE token = $1', [token]);
+      .query('SELECT id, username, password FROM users WHERE refresh_token = $1', [token]);
   },
   updateToken: (token, id) => {
     return pool
