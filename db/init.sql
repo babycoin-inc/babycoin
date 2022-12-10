@@ -102,22 +102,21 @@ CREATE RULE update_leaderboard_on_insert_transactions AS ON INSERT TO transactio
       END)
       WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
 
+  UPDATE leaderboard
+    SET highest_realized_gains = (
+      CASE
+        WHEN leaderboard.realized_gains > highest_realized_gains
+          THEN leaderboard.realized_gains
+        ELSE highest_realized_gains
+      END)
+    WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
+
+  UPDATE leaderboard
+  SET highest_realized_gains = (
+    CASE
+      WHEN leaderboard.realized_gains > highest_realized_gains
+        THEN leaderboard.realized_gains
+      ELSE highest_realized_gains
+    END)
+  WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
   );
-
-  -- UPDATE leaderboard
-  --   SET highest_realized_gains = (
-  --     CASE
-  --       WHEN leaderboard.realized_gains > highest_realized_gains
-  --         THEN leaderboard.realized_gains
-  --       ELSE highest_realized_gains
-  --     END)
-  --   WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
-
-  -- UPDATE leaderboard
-  -- SET highest_realized_gains = (
-  --   CASE
-  --     WHEN leaderboard.realized_gains > highest_realized_gains
-  --       THEN leaderboard.realized_gains
-  --     ELSE highest_realized_gains
-  --   END)
-  -- WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
