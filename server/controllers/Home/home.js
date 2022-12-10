@@ -1,7 +1,8 @@
 const { Home } = require('../../../models/models.js');
 
-exports.getAccountValue = (req, res) => {
-  // get SUM of cash balance, and all of current crypto value
+exports.clearTransactions = async (req, res) => {
+  const clearTrades = await Home.clearTransactions(req.params.id);
+  res.send(clearTrades);
 };
 
 exports.getRecentAchievement = (req, res) => {
@@ -14,8 +15,9 @@ exports.getPortfolioAssets = async (req, res) => {
   res.send(portfolio);
 };
 
-exports.getTradeHistory = (req, res) => {
-  // get recent trade history
+exports.getTransactions = async (req, res) => {
+  const transactions = await Home.getTransactionHistory(req.params.id);
+  res.send(transactions);
 };
 
 exports.postBuyPortofolioUpdate = (req, res) => {
