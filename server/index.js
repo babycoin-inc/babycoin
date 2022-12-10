@@ -12,6 +12,8 @@ app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
 app.get('/achievements', achievements.getAchievements);
+app.get('/achievements/:trader_id', achievements.getUserAchievements);
+app.post('/achievements/:trader_id', achievements.addUserAchievement);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS trader_achievements (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
-  achievement_id INTEGER REFERENCES achievements(id)
+  achievement_id INTEGER REFERENCES achievements(id),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP(2)
 );
 
 DO $$ BEGIN

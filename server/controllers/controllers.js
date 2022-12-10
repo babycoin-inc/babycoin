@@ -3,7 +3,5 @@ const trade = require('./Trade/trade.js');
 const achievements = require('./Achievements/achievements.js');
 
 module.exports = {
-  home,
-  trade,
-  achievements,
+  home, trade, achievements,
 }
