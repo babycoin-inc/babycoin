@@ -84,6 +84,7 @@ function App() {
         axios.delete(`/users/${authenticatedUser}/transactions/`)
           .then((res) => {
             setTradeHistory([]);
+            setUserAchievements([]);
             res.send(res);
           });
       })
