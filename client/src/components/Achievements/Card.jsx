@@ -1,12 +1,16 @@
 import React from 'react';
 
-const Card = function () {
+const Card = function ( {id, achievement} ) {
+
+    const status = false;
+    const locked = 'grayscale opacity-70 h-40 w-9/12 p-1 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg';
+    const unlocked = 'h-40 w-9/12 p-1 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg'
 
     return (
-        <div className="h-40 w-9/12 p-1 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg">
+        <div className={status ? unlocked : locked}>
             <div className="flex flex-row h-full">
                 <div className="flex-none w-1/6 mx-4">
-                    <img className="object-contain h-full w-24 mx-auto my-auto" 
+                    <img className="object-contain h-full w-24 mx-auto my-auto filter-grayscale-100" 
                     src="https://img.icons8.com/dusk/512/babys-room.png" />
                 </div>
                 <div className="flex-grow h-1/1 w-2/4">
@@ -23,7 +27,7 @@ const Card = function () {
                 </div>
                 <div className="flex-1 w-1/4 h-full justify-center items-center">
                     <div className="font-bold text-center text-green-300 text-2xl my-14">
-                        +50 AP
+                        50 AP
                     </div>
                 </div>
             </div>

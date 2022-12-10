@@ -7,7 +7,8 @@ import Trade from './Trade/Trade.jsx';
 
 function App() {
 
-  const [activePage, setActivePage] = useState('Home');
+  const [activePage, setActivePage] = useState('Achievements');
+  const [userAchievements, addUserAchievement] = useState([]);
 
   function handleNavClick(e) {
     e.preventDefault();
