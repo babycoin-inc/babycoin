@@ -2,7 +2,7 @@ require('../db/index.js'); //tests db connection
 const express = require('express');
 const app = express();
 const port = 3000;
-const { home, trade } = require('./controllers/controllers.js');
+const { home, trade, leaderboard } = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -12,6 +12,9 @@ app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
 app.get('/users/:id/balances/', home.getPortfolioAssets);
+
+
+app.get('/leaderboard', leaderboard.getLeaderboard);
 
 
 app.listen(port, () => {
