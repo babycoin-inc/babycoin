@@ -4,11 +4,12 @@ import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
 import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
+import axios from 'axios';
 
 function App() {
 
   const [activePage, setActivePage] = useState('Achievements');
-  const [userAchievements, addUserAchievement] = useState([]);
+  const [authenticatedUser, setAuthenticatedUser] = useState(1); //temp trader_id
 
   //Home Component States
   const [accountValue, setAccountValue] = useState(400);
@@ -16,11 +17,29 @@ function App() {
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
 
+  //Achievements Component States
+  const [achievements, setAchievements] = useState([]);
+  const [userAchievements, setUserAchievements] = useState([]);
+
+  const getAchievements = async () => {
+    const achievements = await axios.get(`/achievements`);
+    setAchievements(achievements.data);
+  };
+  const getUserAchievements = async () => {
+    const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+    setUserAchievements(userAchievements.data);
+  };
+
+  //App On-Mount Effects
+  useEffect(() => {
+    getAchievements();
+    getUserAchievements();
+
+  }, []);
 
   useEffect(() => {
     setProfits(accountValue - 500);
   }, [accountValue]);
-
 
   // Home-Balance component reset button
   function handleResetClick () {
@@ -45,7 +64,7 @@ function App() {
   } else if (activePage === 'Leader Board') {
     activeComponent = (<h1>Insert Leader Board</h1>);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<Achievements />);
+    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} />);
   };
 
   return (
