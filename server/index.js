@@ -50,6 +50,7 @@ app.get("/nfAPI", (req, res) => {
   })
 })
 
+app.get('/coins/markets', market.getCoins);
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
