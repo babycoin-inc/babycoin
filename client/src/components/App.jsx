@@ -46,9 +46,15 @@ function App() {
   // Home-Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
+    console.log(authenticatedUser);
+    axios.delete(`/users/${authenticatedUser}/transactions/clear`)
+      .then((res) => {
+        console.log('res', res);
+        setAccountValue(500);
+        setProfits(0);
+        res.send(res);
+      });
     // add routes to delete data from database and clear transactions
-    setAccountValue(500);
-    setProfits(0);
   };
 
   function handleNavClick(e) {

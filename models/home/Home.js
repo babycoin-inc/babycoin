@@ -30,3 +30,8 @@ exports.allCoins = async (user_id) => {
   }]
   */
 };
+
+exports.clearTradeHistory = async (user_id) => {
+  const trades = await query(`DELETE FROM transactions WHERE trader_id = $1;`, [user_id]);
+  return trades.rows;
+};

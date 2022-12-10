@@ -13,6 +13,8 @@ app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
 app.get('/users/:id/balances/', home.getPortfolioAssets);
 
+app.delete('/users/:id/transactions/clear', home.clearTrades);
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
