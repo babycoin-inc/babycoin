@@ -59,14 +59,17 @@ function Newsfeed(ticker) {
   },[newsArr])
 
   return (
-    <div className="flex flex-col">
-        <h3 className="text-4xl text-400 font-bold">Newsfeed</h3>
-        <div className="container mx-lg">
+    <div class="flex flex-col">
+        <h3 class="text-4xl font-extrabold dark:text-white">Newsfeed</h3>
+        <div class="w-full h-100 px-2 py-1 overflow-auto">
           {newsArr.slice(0, numNews).map((article, i) => {
             return <News key = {i} art = {article}/>
           })}
         </div>
-        <button onClick = {loadmore}>Load More</button><a> | </a><button onClick = {collapse}>Collapse</button>
+        <div class="flex justify-center">
+          <button class="mr-2" onClick = {loadmore}>Load More</button><a class="mr-2"> | </a><button onClick = {collapse}>Collapse</button>
+        </div>
+
     </div>
   );
 }

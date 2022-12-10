@@ -43,7 +43,10 @@ CREATE TABLE IF NOT EXISTS newsfeed (
   arthur VARCHAR(200) NOT NULL,
   URL VARCHAR(200) NOT NULL,
   tickers TEXT [] NOT NULL,
-  icon VARCHAR(200) NOT NULL
+  image_url VARCHAR(200) NOT NULL,
+  topics TEXT,
+  type TEXT,
+  sentiment TEXT
 );
 
 CREATE TABLE IF NOT EXISTS trader_achievements (
