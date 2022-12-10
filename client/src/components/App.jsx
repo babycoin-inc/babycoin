@@ -17,6 +17,7 @@ function App() {
   const [profits, setProfits] = useState(0);
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
+  const [coins, setCoins] = useState([]);
 
 
   function getPortfolioData(userId) {
@@ -43,9 +44,19 @@ function App() {
       .catch(err => console.log(err));
   }
 
+  function getCoins() {
+    axios.get(`/coins/markets`)
+    .then((coins) => {
+      setCoins(coins.data);
+    })
+    .catch(err => console.log(err));
+  }
+
+
   useEffect(() => {
     getPortfolioData(authenticatedUser);
     getTradeHistory(authenticatedUser);
+    getCoins();
   }, []);
 
   // useEffect(() => {

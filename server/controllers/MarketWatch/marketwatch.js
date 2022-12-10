@@ -8,9 +8,13 @@ exports.getCoins = (req, res) => {
   {
     headers: { "Accept-Encoding": "gzip,deflate,compress" }
   })
- .then(result => {
-    marketWatch.writeCoins(result.data);
-    res.send(result.data);
+ .then(async result => {
+    // marketWatch.writeCoins(result.data);
+    // res.send(result.data);
+    const output = await marketWatch.writeCoins(result.data);
+
+    console.log('MMMMMMM', output);
+    res.send(output);
   })
   .catch(error => {
     console.log(error);
