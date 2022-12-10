@@ -3,8 +3,13 @@ const axios = require('axios');
 const schedule = require('node-schedule');
 require("dotenv").config();
 
+<<<<<<< HEAD
 var job = schedule.scheduleJob('0 * * * *', function(){
 
+=======
+var job = schedule.scheduleJob('* * * * * *', function(){
+  console.log('Scheduler is working', new Date(Date.now()).toLocaleString());
+>>>>>>> main
   runAPI((err, result)=>{
     if(err){
       console.log(err);
