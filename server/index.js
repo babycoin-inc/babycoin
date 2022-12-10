@@ -11,30 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
+// Gets all assets in user portfolio
 app.get('/users/:id/balances/', home.getPortfolioAssets);
-//newsfeed
-app.get("/newsfeed", (req, res) => {
-  console.log('This is working server index 13');
-  nf.getNews(n=10,(err, result) => {
-    if(err){
-      res.status(500);
-    } else {
-      res.status(200).send(result);
-    }
-  })
-});
+// Gets transaction history
+app.get('/users/:id/transactions/', home.getTransactions);
 
-app.get('/coins/markets', market.getCoins);
+app.delete('/users/:id/transactions/', home.clearTransactions);
 
-app.get("/nfAPI", (req, res) => {
-  nf.runAPI((err,result) => {
-    if(err){
-      res.status(500);
-    } else {
-      res.status(200).send(result);
-    }
-  })
-})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
