@@ -8,6 +8,6 @@ exports.getUserAchievements = (id) => {
   return db.query('SELECT * FROM trader_achievements WHERE trader_id = $1', [id]);
 };
 
-exports.addUserAchievement = (data) => {
-  return db.query('INSERT INTO trader_achievements(trader_id, achievement_id) VALUES ($1, $2)', [data.tader_id, data.achievement_id]);
+exports.addUserAchievement = (id, achievement) => {
+  return db.query('INSERT INTO trader_achievements(trader_id, achievement_id) VALUES ($1, $2)', [id, achievement]);
 };

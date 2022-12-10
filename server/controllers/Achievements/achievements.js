@@ -12,10 +12,10 @@ exports.getUserAchievements = async (req, res) => {
 };
 
 exports.addUserAchievement = async (req, res) => {
-    //adds user achievements
-    const { body } = req;
+    const { trader_id } = req.params;
+    const { achievement } = req.body;
     try {
-        await Achievements.addUserAchievement(body);
+        await Achievements.addUserAchievement(trader_id, achievement);
         res.status(201).end();
     } catch (error) {
         console.log('Error adding user achievement:', error);
