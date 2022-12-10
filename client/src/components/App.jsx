@@ -35,22 +35,30 @@ function App() {
   }
 
   function getTradeHistory(userId) {
-    axios.get()
+    axios.get(`/users/${authenticatedUser}/transactions/`)
+      .then((history) => {
+        setTradeHistory(history.data);
+      })
+      .catch(err => console.log(err));
   }
 
   useEffect(() => {
     getPortfolioData(authenticatedUser);
+    getTradeHistory(authenticatedUser);
   }, []);
 
-  useEffect(() => {
-    getPortfolioData(authenticatedUser);
-  }, [tradeHistory]);
+  // useEffect(() => {
+  //   getPortfolioData(authenticatedUser);
+  // }, [tradeHistory]);
 
 
   // Home-Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
-    console.log(authenticatedUser);
+    // clear portfolio
+
+    // Insert $500 usd into portfolio
+
     // clearing transaction history
     axios.delete(`/users/${authenticatedUser}/transactions/`)
       .then((res) => {
@@ -59,7 +67,6 @@ function App() {
         setProfits(0);
         res.send(res);
       });
-    // add routes to delete data from database and clear transactions
   };
 
   function handleNavClick(e) {
