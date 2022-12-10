@@ -12,7 +12,27 @@ app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
 app.get('/users/:id/balances/', home.getPortfolioAssets);
+//newsfeed
+app.get("/newsfeed", (req, res) => {
+  console.log('This is working server index 13');
+  nf.getNews(n=10,(err, result) => {
+    if(err){
+      res.status(500);
+    } else {
+      res.status(200).send(result);
+    }
+  })
+});
 
+app.get("/nfAPI", (req, res) => {
+  nf.runAPI((err,result) => {
+    if(err){
+      res.status(500);
+    } else {
+      res.status(200).send(result);
+    }
+  })
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
