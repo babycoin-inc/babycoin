@@ -56,6 +56,11 @@ function App() {
   function handleResetClick (e) {
     e.preventDefault();
     // clear portfolio
+    axios.delete(`/users/${authenticatedUser}/portfolio/`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch(err => console.log(err));
 
     // Insert $500 usd into portfolio
 
@@ -65,6 +70,7 @@ function App() {
         console.log('res', res);
         setAccountValue(500);
         setProfits(0);
+        setTradeHistory([]);
         res.send(res);
       });
   };

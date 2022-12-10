@@ -5,6 +5,11 @@ exports.clearTransactions = async (req, res) => {
   res.send(clearTrades);
 };
 
+exports.clearPortfolio = async (req, res) => {
+  const clearPortfolio = await Home.resetPortfolio(req.params.id);
+  res.send(clearPortfolio);
+}
+
 exports.getRecentAchievement = (req, res) => {
   // get recent achievement data from user
 };
@@ -19,6 +24,12 @@ exports.getTransactions = async (req, res) => {
   const transactions = await Home.getTransactionHistory(req.params.id);
   res.send(transactions);
 };
+
+
+
+
+
+
 
 exports.postBuyPortofolioUpdate = (req, res) => {
   // subtract purchase amount from cash if not already done

@@ -17,6 +17,7 @@ app.get('/users/:id/balances/', home.getPortfolioAssets);
 app.get('/users/:id/transactions/', home.getTransactions);
 
 app.delete('/users/:id/transactions/', home.clearTransactions);
+app.delete('/users/:id/portfolio/', home.clearPortfolio)
 
 
 app.listen(port, () => {
