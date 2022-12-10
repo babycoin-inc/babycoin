@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
@@ -19,7 +20,15 @@ function App() {
 
   useEffect(() => {
     // retrieve account value
-    // retrieve portfolio
+
+    // retrieve portfolio data
+    axios.get(`/users/${authenticatedUser}/balances`)
+      .then((data) => {
+        console.log('Portfolio data', data.data);
+        setPortfolio(data.data);
+      })
+      .catch(err => console.log(err));
+
     // retrieve tradehistory
   }, []);
 
@@ -43,7 +52,7 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} tradeHistory={tradeHistory} />);
+    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} />);
   } else if (activePage === 'Market Watch') {
     activeComponent = (<h1>Insert Market Watch</h1>);
   } else if (activePage === 'Trade') {
