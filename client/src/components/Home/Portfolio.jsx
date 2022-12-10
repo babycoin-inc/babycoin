@@ -1,45 +1,15 @@
 import React from 'react';
 
-const trades = [
-  {
-    coin: 'Bitcoin',
-    symbol: 'BTC',
-    amount: '$300',
-    currAmount: .023,
-    purchase: '$15,698',
-    current: '$16,678',
-    profitloss: '+$400'
-  } ,
-  {
-    coin: 'Solana',
-    symbol: 'SOL',
-    amount: '$800',
-    currAmount: .023,
-    purchase: '$10',
-    current: '$14',
-    profitloss: '+$600'
-  },
-  {
-    coin: 'Ethereum',
-    symbol: 'ETH',
-    amount: '$2000',
-    currAmount: .023,
-    purchase: '$900',
-    current: '$1,200',
-    profitloss: '+$400'
-  },
-  {
-    coin: 'Dogecoin',
-    symbol: 'DOGE',
-    amount: '$1500',
-    currAmount: .023,
-    purchase: '$.006',
-    current: '$.13',
-    profitloss: '+$1200'
-  }
-];
+function Portfolio({ portfolio }) {
 
-function Portfolio() {
+  function profitRenderer(profit, percentChange) {
+    if (profit < 0) {
+      return (<td className="text-center text-red-400">{profit.toFixed(2)} ({percentChange.toFixed(2)}%)</td>)
+    } else {
+      return (<td className="text-center text-green-400">{profit.toFixed(2)} ({percentChange.toFixed(2)}%)</td>)
+    }
+  }
+
   return (
     <div>
       <div className="bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit">
@@ -58,14 +28,14 @@ function Portfolio() {
             </tr>
           </thead>
           <tbody className="bg-zinc-500">
-            {trades.map((trade, index) => (
-              <tr key={trade.coin + index}className="border-t border-zinc-600 hover:bg-zinc-400">
-                <td className="py-2"><img src="https://toppng.com/uploads/preview/bitcoin-png-bitcoin-logo-transparent-background-11562933997uxok6gcqjp.png" className="h-10 mx-auto" /></td>
-                <td className="text-center py-2">{trade.coin}<i className="block text-sm">{trade.symbol}</i></td>
-                <td className="text-center">$300<i className="block text-sm">{`${trade.currAmount} ${trade.symbol}`}</i></td>
-                <td className="text-center">{trade.purchase}</td>
-                <td className="text-center">{trade.current}</td>
-                <td className="text-center text-green-400">{trade.profitloss} (+5%)</td>
+            {portfolio.map((asset, index) => (
+              <tr key={portfolio.coin + index}className="border-t border-zinc-600 hover:bg-zinc-400">
+                <td className="py-2"><img src={asset.image} className="h-10 mx-auto" /></td>
+                <td className="text-center py-2">{asset.coin}<i className="block text-sm">{asset.acronym.toUpperCase()}</i></td>
+                <td className="text-center">${asset.value.toFixed(2)}<i className="block text-sm">{`${asset.quantity} ${asset.acronym.toUpperCase()}`}</i></td>
+                <td className="text-center">${asset.avg_entry.toLocaleString("en-US")}</td>
+                <td className="text-center">${asset.curr_price.toLocaleString("en-US")}</td>
+                {profitRenderer(asset.profit_loss, asset.percent_change)}
               </tr>
             ))}
           </tbody>
