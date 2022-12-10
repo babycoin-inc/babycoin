@@ -19,9 +19,9 @@ let runAPI = (cb) => {
   var options = {
     method:'get',
     params: {
-      items:3,
+      items:100,
       page:1,
-      date: 'last60min',
+      date: 'last30days',
       token: process.env.CPNAPIKEY
     },
     url:"https://cryptonews-api.com/api/v1/category?section=alltickers"
