@@ -18,7 +18,7 @@ function Sidebar({ handleNavClick, activePage }) {
         </div>
         <nav className="flex flex-col items-center mt-10 w-full text-2xl">
           {navItems}
-          <a href="mailto:support@babycoin.com?subject=Support Request">
+          <a href="mailto:support@babycoin.com?subject=Support Request" target="_blank">
             <button name="Support" className="text-center w-11/12 py-3 px-2 hover:ml-6">Support</button>
           </a>
         </nav>

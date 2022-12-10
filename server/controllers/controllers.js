@@ -1,11 +1,9 @@
 const home = require('./Home/home.js');
-const trade = require('./Trade/trade.js')
-// const nf = require('./newsfeed/newsfeed.js')
+const trade = require('./Trade/trade.js');
+const nf = require('./newsfeed/newsfeed.js');
+const achievements = require('./Achievements/achievements.js');
 const market = require('./MarketWatch/marketWatch.js');
 
 module.exports = {
-  // nf,
-  home,
-  trade,
-  market
+  home, nf, trade, achievements, market
 }
