@@ -48,8 +48,8 @@ function App() {
         let accVal = portfolioData.reduce((acc, asset) => {
           return acc + asset.value;
         }, 0);
-        setAccountValue(accVal.toFixed(2));
         setProfits((accVal - 500).toFixed(2));
+        setAccountValue(accVal.toFixed(2));
       })
       .catch(err => console.log(err));
   }
@@ -62,27 +62,36 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  // useEffect(() => {
-  //   getPortfolioData(authenticatedUser);
-  // }, [tradeHistory]);
 
-  // Home-Balance component reset button
+
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+    getTradeHistory(authenticatedUser);
+  }, []);
+
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+  }, [tradeHistory]);
+
+
+  // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
-    // clear portfolio
-
-    // Insert $500 usd into portfolio
-
-    // clearing transaction history
-    axios.delete(`/users/${authenticatedUser}/transactions/`)
+    // Resets portfolio & adds $500 cash
+    axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
-        console.log('res', res);
-        setAccountValue(500);
-        setProfits(0);
-        res.send(res);
-      });
+        // Clears transaction history
+        axios.delete(`/users/${authenticatedUser}/transactions/`)
+          .then((res) => {
+            setTradeHistory([]);
+            setUserAchievements([]);
+            res.send(res);
+          });
+      })
+      .catch(err => console.log(err));
   };
 
+  // Sidebar Navigation Menu
   function handleNavClick(e) {
     e.preventDefault();
     setActivePage(e.target.name);
@@ -92,7 +101,7 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} />);
+    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
     activeComponent = (<h1>Insert Market Watch</h1>);
   } else if (activePage === 'Trade') {

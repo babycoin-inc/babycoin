@@ -19,7 +19,7 @@ const Achievements = function ( {achievements, userAchievements }) {
                 if (filter === 'complete' && status) return (<Card key={achievement.id} achievement={achievement} status={status} />);
                 if (filter === 'incomplete' && !status) return (<Card key={achievement.id} achievement={achievement} status={status} />);
             }) : null }
-            <Footer /> 
+            <Footer />
         </div>
     );
 };

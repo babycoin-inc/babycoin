@@ -3,7 +3,7 @@ import React from 'react';
 function Balance({ accountValue, profits, handleResetClick }) {
 
   let renderProfit;
-  if (profits === 0) {
+  if (Math.abs(profits) === 0) {
     renderProfit = <h3 className="text-center text-xl mt-2 text-white">Profits: {profits}</h3>
   } else if (profits > 0) {
     renderProfit = <h3 className="text-center text-xl mt-2 text-green-400">Profits: +${profits}</h3>
