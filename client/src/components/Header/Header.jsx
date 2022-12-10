@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserIcon } from '@heroicons/react/24/outline';
 
-function Header({ activePage }) {
+function Header({ activePage, handleChangeDropdown}) {
   return (
     <>
       <div className="h-4/6 flex justify-between items-center p-5 border-b-2 border-neutral-800">
@@ -9,7 +9,20 @@ function Header({ activePage }) {
           <h1>{activePage}</h1>
         </div>
         <div className="w-1/3">
-          <h1 className="text-center text-2xl">Coin Drop Down Placeholder</h1>
+          <select className="text-center text-2xl bg-zinc-800" name="Coin Drop Down" onChange={handleChangeDropdown}>
+            <option value="N/A">Choose Your Coin</option>
+            <option value="Bitcoin">Bitcoin</option>
+            <option value="Ethereum">Ethereum</option>
+            <option value="Tether">Tether</option>
+            <option value="BNB">BNB</option>
+            <option value="Cardano">Cardano</option>
+            <option value="XRP">XRP</option>
+            <option value="Solana">Solana</option>
+            <option value="Dogecoin">Dogecoin</option>
+            <option value="Polygon">Polygon</option>
+            <option value="Polkadot">Polkadot</option>
+          </select>
+
         </div>
         <div className="w-1/5">
           <UserIcon className="h-12 ml-auto bg-zinc-800 p-2 rounded-full hover:bg-zinc-600" />
