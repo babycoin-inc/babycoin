@@ -28,8 +28,9 @@ function App() {
         let accVal = portfolioData.reduce((acc, asset) => {
           return acc + asset.value;
         }, 0);
-        setAccountValue(accVal.toFixed(2));
+        console.log('GET PORTFOLIO accVal', accVal);
         setProfits((accVal - 500).toFixed(2));
+        setAccountValue(accVal.toFixed(2));
       })
       .catch(err => console.log(err));
   }
@@ -47,34 +48,30 @@ function App() {
     getTradeHistory(authenticatedUser);
   }, []);
 
-  // useEffect(() => {
-  //   getPortfolioData(authenticatedUser);
-  // }, [tradeHistory]);
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+  }, [tradeHistory]);
 
 
-  // Home-Balance component reset button
+  // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
-    // clear portfolio
+    // Resets portfolio & adds $500 cash
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
         console.log(res.data);
+        // Clears transaction history
+        axios.delete(`/users/${authenticatedUser}/transactions/`)
+          .then((res) => {
+            console.log('res', res.data);
+            setTradeHistory([]);
+            res.send(res);
+          });
       })
       .catch(err => console.log(err));
-
-    // Insert $500 usd into portfolio
-
-    // clearing transaction history
-    axios.delete(`/users/${authenticatedUser}/transactions/`)
-      .then((res) => {
-        console.log('res', res);
-        setAccountValue(500);
-        setProfits(0);
-        setTradeHistory([]);
-        res.send(res);
-      });
   };
 
+  // Sidebar Navigation Menu
   function handleNavClick(e) {
     e.preventDefault();
     setActivePage(e.target.name);

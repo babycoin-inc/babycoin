@@ -4,7 +4,8 @@ exports.getTransactions = (id) => {
 
 };
 
-exports.insertTransaction = (transaction) => {
+// Buy
+exports.insertTransaction = (transaction, user_id) => {
   //parse the following:
 
   // order_type transaction_type,
@@ -17,7 +18,17 @@ exports.insertTransaction = (transaction) => {
   // coin_id INTEGER REFERENCES coins(id)
 };
 
-exports.fulfillBuyTransaction = (transaction) => {
+//Sell
+exports.insertSellTransaction = (transaction, user_id) => {
+
+}
+
+
+
+
+
+
+exports.fulfillBuyTransaction = (transaction, user_id) => {
   // Subtract total_trade_fiat from cash
   // add total_trade_coin to portfolio
   // calculations for dollar cost
@@ -25,7 +36,7 @@ exports.fulfillBuyTransaction = (transaction) => {
   return 'Hit Fulfill Buy Transaction';
 }
 
-exports.fulfillSellTransaction = (transaction) => {
+exports.fulfillSellTransaction = (transaction, user_id) => {
   // add total_trade_fiat from cash
   // subtract total_trade_coin to portfolio
   // calculations for dollar cost
