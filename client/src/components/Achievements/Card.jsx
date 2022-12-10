@@ -9,7 +9,7 @@ const Card = function ( { achievement, status } ) {
         <div className={status ? unlocked : locked}>
             <div className="flex flex-row h-full">
                 <div className="flex-none w-1/6 mx-4">
-                    <img className="object-contain h-full w-24 mx-auto my-auto filter-grayscale-100" 
+                    <img className="object-contain h-full w-24 mx-auto my-auto" 
                     src={achievement.icon} />
                 </div>
                 <div className="flex-grow h-1/1 w-2/4">
