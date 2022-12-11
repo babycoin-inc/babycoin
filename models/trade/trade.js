@@ -28,11 +28,12 @@ exports.insertSellTransaction = (transaction, user_id) => {
 
 
 
-exports.fulfillBuyTransaction = (transaction, user_id) => {
-  // Subtract total_trade_fiat from cash
-  // add total_trade_coin to portfolio
-  // calculations for dollar cost
-  // calculations for avg price
+exports.fulfillBuyTransaction = async (transaction, user_id) => {
+  // Subtract total_trade_fiat and update dollar cost for CASH
+  query(`UPDATE portfolio SET quantity = (quantity - $1), dollar_cost = (dollar_cost - $1) WHERE coin_id = $2 AND trader_id = $3;`, [transaction.total_trade_fiat, transaction.coin_id, user_id]);
+  // add total_trade_coin to portfolio || Dollar Cost || Avg Price
+  query(`INSERT INTO portfolio(trader_id, coin_id, dollar_cost, avg_price, quantity) VALUES($1, $2, $3, $4, $5) ON CONFLICT (trader_id, coin_id) DO UPDATE SET quantity = (portfolio.quantity + $5), dollar_cost = (portfolio.dollar_cost + $3), avg_price = ((portfolio.dollar_cost + $3) / (portfolio.quantity + $5)) WHERE portfolio.coin_id = $2 AND portfolio.trader_id = $1;`, [user_id, transaction.coin_id, transaction.total_trade_fiat, transaction.purchase_price, transaction.total_trade_coin]);
+
   return 'Hit Fulfill Buy Transaction';
 }
 
