@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
+import Leaderboard from "./Leaderboard/Leaderboard.jsx";
 import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
 import Market from './MarketWatch/Market.jsx';
