@@ -16,50 +16,50 @@ function Leaderboard() {
 	const data = [
 		{
 			user_id: 'Abdiel',
-			current_gain: 76382,
-			highest_total_gains: 548321,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 548321,
 			coin_name: 'USDollar'
 		},
 		{
 			user_id: 'Alex',
-			current_gain: 112842,
-			highest_total_gains: 241378,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 241378,
 			coin_name: 'USDollar'
 		},
 		{
 			user_id: 'David',
-			current_gain: 536706,
-			highest_total_gains: 915926,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 915926,
 			coin_name: 'USDollar'
 		},
 		{
 			user_id: 'Duke',
-			current_gain: 179846,
-			highest_total_gains: 481031,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 481031,
 			coin_name: 'USDollar'
 		},
 		{
 			user_id: 'Dongning',
-			current_gain: 973931,
-			highest_total_gains: 973931,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 973931,
 			coin_name: 'USDollar'
 		},
 		{
 			user_id: 'Fiona',
-			current_gain: 485632,
-			highest_total_gains: 960904,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 960904,
 			coin_name: 'USDollar'
 		},
 		{
 			user_id: 'Morgan',
-			current_gain: 540615,
-			highest_total_gains: 645224,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 645224,
 			coin_name: 'USDollar'
 		},
 		{
 			user_id: 'Nicholas',
-			current_gain: 934270,
-			highest_total_gains: 934270,
+			current_gain: Math.floor(Math.random() * 9999),
+			// highest_total_gains: 934270,
 			coin_name: 'USDollar'
 		}
 	];
