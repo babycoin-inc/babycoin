@@ -8,6 +8,8 @@ const port = process.env.PORT;
 
 const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 
+const cron = require('node-cron');
+
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,7 +52,10 @@ app.get("/nfAPI", (req, res) => {
   })
 })
 
-app.get('/coins/markets', market.getCoins);
+cron.schedule('*/30 * * * * *', () => {
+  console.log('running a task every 30 seconds');
+  app.get('/coins/markets', market.getCoins);
+});
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
