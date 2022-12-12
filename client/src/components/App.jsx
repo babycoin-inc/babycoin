@@ -25,12 +25,21 @@ function App() {
   const [userAchievements, setUserAchievements] = useState([]);
 
   const getAchievements = async () => {
-    const achievements = await axios.get(`/achievements`);
-    setAchievements(achievements.data);
+    try {
+      const achievements = await axios.get(`/achievements`);
+      setAchievements(achievements.data);
+    } catch (err) {
+      setAchievements([]);
+    }
   };
+  
   const getUserAchievements = async () => {
-    const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
-    setUserAchievements(userAchievements.data);
+    try {
+      const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+      setUserAchievements(userAchievements.data);
+    } catch(err) {
+      setUserAchievements([]);
+    }
   };
 
   //App On-Mount Effects
@@ -39,7 +48,12 @@ function App() {
     getTradeHistory(authenticatedUser);
     getAchievements();
     getUserAchievements();
+    getCoins();
   }, []);
+
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+  }, [tradeHistory]);
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -72,18 +86,6 @@ function App() {
     })
     .catch(err => console.log(err));
   }
-
-
-  useEffect(() => {
-    getPortfolioData(authenticatedUser);
-    getTradeHistory(authenticatedUser);
-    getCoins();
-  }, []);
-
-  useEffect(() => {
-    getPortfolioData(authenticatedUser);
-  }, [tradeHistory]);
-
 
   // Home:Balance component reset button
   function handleResetClick (e) {

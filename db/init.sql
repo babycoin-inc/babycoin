@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS portfolio (
   dollar_cost DECIMAL NOT NULL,
   avg_price DECIMAL NOT NULL,
   quantity DECIMAL NOT NULL,
+  UNIQUE (trader_id, coin_id),
   CONSTRAINT fk_trader
     FOREIGN KEY(trader_id)
       REFERENCES trader(id),
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS achievements (
   id SERIAL PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  lesson VARCHAR(255) NOT NULL,
+  lesson VARCHAR(255) NULL,
   points INTEGER NOT NULL,
   icon VARCHAR(255) NOT NULL
 );

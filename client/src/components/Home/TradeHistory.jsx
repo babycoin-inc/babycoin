@@ -28,7 +28,7 @@ function TradeHistory({ tradeHistory }) {
           </thead>
           <tbody className="bg-zinc-500">
             {tradeHistory.map((trade, index) => (
-              <tr key={trade.coin + index} className="border-t border-zinc-600  hover:bg-zinc-400">
+              <tr key={index} className="border-t border-zinc-600  hover:bg-zinc-400">
                 <td className="py-2"><img src={trade.image} className="h-10 mx-auto" /></td>
                 <td className="text-center">{trade.name}<i className="block text-sm">{trade.acronym.toUpperCase()}</i></td>
                 <td className="text-center">${Number(trade.total_trade_fiat).toFixed(2)}<i className="block text-sm">.{`${trade.total_trade_coin} ${trade.acronym.toUpperCase()}`}</i></td>
