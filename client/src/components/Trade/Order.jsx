@@ -5,9 +5,9 @@ import { HiOutlineSwitchVertical } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 import axios from 'axios';
 
-function Order() {
+function Order({authenticatedUser, portfolio}) {
   const [orderType, setOrderType] = useState('buy');
-  const [orderAmount, setOrderAmount] = useState('Order Amount');
+  let [orderAmount, setOrderAmount] = useState('Order Amount');
   const [orderUnits, setOrderUnits] = useState('USD')
   let [coin, setCoin] = useState('bitcoin');
   const [price, setPrice] = useState();
@@ -49,25 +49,28 @@ function Order() {
     return word;
   }
 
-  const submitOrder = () => {
+  const submitOrder = async() => {
     let total_trade_fiat;
     let total_trade_coin;
 
     if (orderUnits === 'USD') {
-      total_trade_fiat = orderAmount;
-      total_trade_coin = orderAmount / price;
+      total_trade_fiat = parseFloat(orderAmount.slice(1));
+      total_trade_coin =  parseFloat(orderAmount.slice(1)) / price;
     } else if (orderUnits === 'coin') {
-      total_trade_fiat = orderAmount * price;
-      total_trade_coin = orderAmount;
+      total_trade_fiat = parseFloat(orderAmount) * price;
+      total_trade_coin = parseFloat(orderAmount);
     }
 
-    axios.post(`/users/${userId}/transactions/${orderType}`, {
+    console.log(total_trade_fiat);
+    console.log(total_trade_coin);
+
+    const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
       currency: 'USD',
       purchase_price: price,
       'total_trade_coin': total_trade_coin,
       'total_trade_fiat': total_trade_fiat,
-      user_id: 'Morgan',
-      coin_id: coin
+      trader_id: authenticatedUser,
+      coinName: coin
     })
   }
 
@@ -87,7 +90,7 @@ function Order() {
               <div className="self-start text-sm text-center">BTC</div>
             </div>
             <div className="">
-            <input onClick={() => {if(orderAmount === 'Order Amount' || orderAmount === '') {setOrderAmount('$')}}} onChange={(event) => {setOrderAmount(event.target.value)}} className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" type="text" value={orderAmount} />
+            <input onClick={() => {if(orderAmount === 'Order Amount' || orderAmount === '') {setOrderAmount('$')}}} onChange={(event) => {if (orderAmount[0] !== '$') {setOrderAmount('$')} else {setOrderAmount(event.target.value)}}} className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" type="text" value={orderAmount} />
               {/* <input onChange={handleOrderAmountChange.bind(this)} className="h-14 text-xl text-center bg-zinc-400 rounded-xl" type="text" value={orderAmount} defaultValue="Order Amount" /> */}
               <div className="text-sm text-center">You can {orderType} up to $500.00</div>
             </div>

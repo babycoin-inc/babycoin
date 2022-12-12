@@ -9,16 +9,6 @@ exports.getCoin = (coinName) => {
   return price;
 }
 
-// exports.getCoin = (coin) => {
-//   const values = [coin];
-//   query(`SELECT latest_price FROM COINS WHERE NAME=$1`, [values[0]])
-//     .then((result) => {
-//       console.log('result from coins query: ', result);
-//       return result;
-//     })
-//     .catch((err)=> {throw err;})
-// }
-
 exports.updatePrice = (coin, price) => {
   const values = [coin, price];
   query(`UPDATE coins SET latest_price=$2 WHERE name=$1`, [values])
@@ -33,30 +23,30 @@ exports.getTransactions = (id) => {
 
 };
 
-exports.insertBuyTransaction = (transaction) => {
-  //parse the following:
+const insertTransaction = (transaction, orderType) => {
+  let {coinName} = transaction;
+  const values = [coinName];
+  return query(`select id from coins WHERE name=$1`, values)
+    .then((result) => {
+      const coin_id = result.rows[0].id;
+      const { currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id } = transaction;
+      const recordToCreate = ['buy', currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id];
+      return query('insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id) values ($1, $2, $3, $4, $5, $6, $7)', recordToCreate)
+        .then((fulfilledTransaction) => {
+          return 'Transaction created';
+        })
+        .catch((err) => { throw err; })
+    })
+    .catch((err) => { throw err; })
+}
 
-  // order_type transaction_type,
-  // currency VARCHAR(10) NOT NULL,
-  // purchase_price INTEGER NOT NULL,
-  // total_trade_fiat INTEGER NOT NULL,
-  // total_trade_coin INTEGER NOT NULL,
-  // order_datetime timestamp,
-  // user id => trader_id INTEGER REFERENCES trader(id),
-  // coin_id INTEGER REFERENCES coins(id)
+exports.insertBuyTransaction = async(transaction) => {
+  var result = await insertTransaction(transaction, 'buy');
+  console.log('result1: ',result);
+  return result;
 };
 
 exports.insertSellTransaction = (transaction) => {
-  //parse the following:
-
-  // order_type transaction_type,
-  // currency VARCHAR(10) NOT NULL,
-  // purchase_price INTEGER NOT NULL,
-  // total_trade_fiat INTEGER NOT NULL,
-  // total_trade_coin INTEGER NOT NULL,
-  // order_datetime timestamp,
-  // user id => trader_id INTEGER REFERENCES trader(id),
-  // coin_id INTEGER REFERENCES coins(id)
 };
 
 exports.fulfillBuyTransaction = (transaction) => {
