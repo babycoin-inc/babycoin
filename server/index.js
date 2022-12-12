@@ -45,11 +45,11 @@ const express = require('express');
 const routes = require('./routes/index.js')
 const PORT = process.env.PORT || 3000;
 
-require('../passport.config.js');
+const configurePassport = require('../passport.config.js');
 const passport = require('passport');
 
 const app = express();
-app.use(passport.initialize());
+configurePassport(app);
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
