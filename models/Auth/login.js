@@ -8,7 +8,7 @@ const Login = {
   },
   getUser: (username) => {
     return pool
-      .query('SELECT id, username, password FROM users WHERE username = $1', [username])
+      .query('SELECT id, username FROM users WHERE username = $1', [username])
       .then(result => result.rows[0] || null);
   },
   getUserByToken: (token) => {
