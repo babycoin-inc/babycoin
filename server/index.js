@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT;
 
-const { nf, home, trade, market, achievements} = require('./controllers/controllers.js');
+const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -25,6 +25,7 @@ app.get('/users/:id/balances/', home.getPortfolioAssets);
 app.get('/users/:id/transactions/', home.getTransactions);
 
 app.delete('/users/:id/transactions/', home.clearTransactions);
+app.delete('/users/:id/portfolio/', home.clearPortfolio)
 
 app.get("/newsfeed", async (req, res) => {
   console.log(req.body);
@@ -48,6 +49,10 @@ app.get("/nfAPI", (req, res) => {
     }
   })
 })
+
+app.get('/coins/markets', market.getCoins);
+
+app.get('/leaderboard', leaderboard.getLeaderboard);
 
 
 app.listen(port, () => {
