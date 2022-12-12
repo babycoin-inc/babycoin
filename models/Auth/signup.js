@@ -1,7 +1,7 @@
 const pool = require('../../db/index.js');
 
 const SignUp = {
-  registerUser: (username, password) => pool.query('INSERT INTO users(username, password) values($1, $2)', [username, password]),
+  registerUser: (username, password) => pool.query('INSERT INTO users(username, password) values($1, $2) RETURNING ID', [username, password]),
   isUsernameUnavailable: (username) => {
     return (
       pool
