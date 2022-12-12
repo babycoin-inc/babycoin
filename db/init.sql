@@ -55,6 +55,12 @@ CREATE TABLE IF NOT EXISTS transactions (
   total_trade_fiat DECIMAL NOT NULL,
   total_trade_coin DECIMAL NOT NULL,
   order_datetime timestamp,
-  trader_id INTEGER REFERENCES trader(id),
-  coin_id INTEGER REFERENCES coins(id)
+  trader_id INTEGER NOT NULL,
+  coin_id INTEGER NOT NULL,
+  CONSTRAINT fk_trader
+    FOREIGN KEY(trader_id)
+      REFERENCES trader(id),
+  CONSTRAINT fk_coin
+    FOREIGN KEY(coin_id)
+      REFERENCES coins(id)
 );
