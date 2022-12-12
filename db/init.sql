@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS achievements (
   id SERIAL PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  lesson VARCHAR(255) NOT NULL,
+  lesson VARCHAR(255) NULL,
   points INTEGER NOT NULL,
   icon VARCHAR(255) NOT NULL
 );

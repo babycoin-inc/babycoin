@@ -13,7 +13,7 @@ const Header = function ( { userAchievements, setFilter }) {
   }, [userAchievements]);
 
     return (
-      <div className="">    
+      <div className="my-8">    
         <div className="flex justify-center py-4">
           <h1 className="text-4xl text-blue-400 font-bold">
             {`${ap} Achievement Points`}

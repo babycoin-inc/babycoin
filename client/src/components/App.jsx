@@ -25,12 +25,21 @@ function App() {
   const [userAchievements, setUserAchievements] = useState([]);
 
   const getAchievements = async () => {
-    const achievements = await axios.get(`/achievements`);
-    setAchievements(achievements.data);
+    try {
+      const achievements = await axios.get(`/achievements`);
+      setAchievements(achievements.data);
+    } catch (err) {
+      setAchievements([]);
+    }
   };
+  
   const getUserAchievements = async () => {
-    const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
-    setUserAchievements(userAchievements.data);
+    try {
+      const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+      setUserAchievements(userAchievements.data);
+    } catch(err) {
+      setUserAchievements([]);
+    }
   };
 
   //App On-Mount Effects
