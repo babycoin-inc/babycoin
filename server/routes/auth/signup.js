@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { login } =  require('../../controllers/controllers.js').auth;
+const { signup } =  require('../../controllers/controllers.js').auth;
 const { authenticate } = require('passport');
 
 const router = Router();
 
-router.post('/', authenticate('local'), login);
+router.post('/', signup);
 
 module.exports = router;
