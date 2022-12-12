@@ -88,8 +88,8 @@ function App() {
         axios.delete(`/users/${authenticatedUser}/transactions/`)
           .then((res) => {
             setTradeHistory([]);
-            setUserAchievements([]);
-            res.send(res);
+            console.log(res);
+            setUserAchievements(achievements);
           });
       })
       .catch(err => console.log(err));
