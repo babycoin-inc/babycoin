@@ -82,7 +82,7 @@ function App() {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<h1>Insert Market Watch</h1>);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade />);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} portfolio={portfolio} />);
   } else if (activePage === 'Leader Board') {
     activeComponent = (<h1>Insert Leader Board</h1>);
   } else if (activePage === 'Achievements') {
