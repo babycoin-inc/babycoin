@@ -39,7 +39,12 @@ function App() {
     getTradeHistory(authenticatedUser);
     getAchievements();
     getUserAchievements();
+    getCoins();
   }, []);
+
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+  }, [tradeHistory]);
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -72,18 +77,6 @@ function App() {
     })
     .catch(err => console.log(err));
   }
-
-
-  useEffect(() => {
-    getPortfolioData(authenticatedUser);
-    getTradeHistory(authenticatedUser);
-    getCoins();
-  }, []);
-
-  useEffect(() => {
-    getPortfolioData(authenticatedUser);
-  }, [tradeHistory]);
-
 
   // Home:Balance component reset button
   function handleResetClick (e) {

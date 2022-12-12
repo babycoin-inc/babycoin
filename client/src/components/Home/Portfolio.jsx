@@ -29,7 +29,7 @@ function Portfolio({ portfolio }) {
           </thead>
           <tbody className="bg-zinc-500">
             {portfolio.map((asset, index) => (
-              <tr key={portfolio.coin + index}className="border-t border-zinc-600 hover:bg-zinc-400">
+              <tr key={index}className="border-t border-zinc-600 hover:bg-zinc-400">
                 <td className="py-2"><img src={asset.image} className="h-10 mx-auto" /></td>
                 <td className="text-center py-2">{asset.coin}<i className="block text-sm">{asset.acronym.toUpperCase()}</i></td>
                 <td className="text-center">${asset.value.toFixed(2)}<i className="block text-sm">{`${asset.quantity} ${asset.acronym.toUpperCase()}`}</i></td>
