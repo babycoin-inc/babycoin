@@ -46,8 +46,9 @@ exports.resetPortfolio = async (user_id) => {
     const reset = await query(`DELETE FROM portfolio WHERE trader_id = $1;`, [user_id]);
     const startingCash = await query(`INSERT INTO portfolio(trader_id, coin_id, dollar_cost, avg_price, quantity) VALUES ($1, (SELECT id FROM coins WHERE acronym = 'usd'), 500, 1, 500);`, [user_id]);
     const clearAchievements = await query(`DELETE FROM trader_achievements WHERE trader_id = $1 AND achievement_id >= 2;`, [user_id]);
-    // KEEP THIS OR MODIFY HOW USER ACHIEVEMENT STATE IS CONSTRUCTED
-    const updatedAchievements = await query('SELECT * FROM trader_achievements WHERE trader_id = $1', [user_id])
+    const updatedAchievements = await query(`SELECT ta.*, a.* FROM trader_achievements ta
+      JOIN achievements a ON ta.achievement_id = a.id
+      WHERE ta.trader_id = $1`, [user_id]);
     return updatedAchievements.rows;
   } catch (err) {
     console.error(err);

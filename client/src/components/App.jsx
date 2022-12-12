@@ -84,11 +84,11 @@ function App() {
     // Resets portfolio & adds $500 cash
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
-        // let updatedUserAchievements = res.data;
+        let updatedUserAchievements = res.data;
         axios.delete(`/users/${authenticatedUser}/transactions/`)
           .then((res) => {
             setTradeHistory([]);
-            setUserAchievements(achievements);
+            setUserAchievements(updatedUserAchievements);
           });
       })
       .catch(err => console.log(err));
