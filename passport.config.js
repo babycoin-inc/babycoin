@@ -1,29 +1,53 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { Login } = require('./models/Login/models.js')
-const { comparePasswords } = require('./server/controllers/Login/passwordHelper.js');
+const JWTStrategy = require('passport-jwt').Strategy;
+const { authenticateUser } = require('./server/utils/userAuth.js');
+const { Login } = require('./models/models.js').Auth;
 
-const authenticateUser = async(username, password, done) => {
-  try {
-    const user = await Login.getUser(username);
-    if(!user) return done(null, false, { message: 'Unable to login with Username and Password' });
-    const encryptedPassword = await Login.getEncryptedPassword(username);
-    const doPasswordsMatch = await comparePasswords(password, encryptedPassword);
-    if(!doPasswordsMatch) return done(null, false, { message: 'Unable to login with Username and Password' });
-    return done(null, user);
-  } catch(err) {
-    return done(err);
-  }
-};
+const configurePassport = (app) => {
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-})
+  passport.serializeUser((user, done) => {
+    if(user.password) delete user.password; //Make sure password is not sent back to client! (Currently this is not on user object, but just in case!)
+    done(null, user);
+  });
 
-passport.deserializeUser((user, done) => {
-  return done(null, user);
-})
+  passport.deserializeUser((user, done) => done(null, user));
 
-passport.use(new LocalStrategy(authenticateUser));
+  passport.use(
+    new LocalStrategy(
+      async(username, password, done) => {
+        try {
+          const user = await Login.getUser(username); //returns { username, id }
+          if(!user) return done(null, false);
+          const isUserAuthenticated = await authenticateUser(username, password);
+          if(!isUserAuthenticated) return done(null, false);
+          done(null, user)
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    )
+  );
 
-module.exports = passport;
+  passport.use(
+    new JWTStrategy(
+      {
+        jwtFromRequest: JWTStrategy.extractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.ACCESS_TOKEN_SECRET
+      },
+      (payload, done) => {
+        try {
+          done(null, payload);
+        } catch(err) {
+          done(err);
+        }
+      }
+    )
+  );
+
+  app.use(passport.initialize());
+}
+
+
+
+module.exports = configurePassport;
