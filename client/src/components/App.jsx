@@ -32,7 +32,7 @@ function App() {
       setAchievements([]);
     }
   };
-  
+
   const getUserAchievements = async () => {
     try {
       const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
