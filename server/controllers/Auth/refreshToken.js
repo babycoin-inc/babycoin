@@ -1,12 +1,12 @@
-const { Login } = require('../../../models/models.js');
-const { login } = Login;
+const { Auth } = require('../../../models/models.js');
+const { Login } = Auth;
 const jwt = require('jsonwebtoken');
 
 const refreshToken = async(req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
     if(!refreshToken) return res.sendStatus(401);
-    const user = await login.getUserByToken(refreshToken);
+    const user = await Login.getUserByToken(refreshToken);
     if(!user) return res.sendStatus(403);
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
       if(err) return res.sendStatus(403);
