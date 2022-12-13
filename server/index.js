@@ -4,7 +4,8 @@ require("dotenv").config();
 const express = require('express');
 
 const app = express();
-const port = process.env.PORT;
+
+const port = process.env.PORT || 4000;
 
 const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 
@@ -13,6 +14,8 @@ const cron = require('node-cron');
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.get('/coins', trade.getCoin);
 
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
@@ -63,7 +66,6 @@ app.get('/coins/markets', market.getCoins);
 
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
-
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
