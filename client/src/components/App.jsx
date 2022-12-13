@@ -90,15 +90,11 @@ function App() {
   // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
-    // Resets portfolio & adds $500 cash
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
         let updatedUserAchievements = res.data;
-        axios.delete(`/users/${authenticatedUser}/transactions/`)
-          .then((res) => {
-            setTradeHistory([]);
-            setUserAchievements(updatedUserAchievements);
-          });
+        setTradeHistory([]);
+        setUserAchievements(updatedUserAchievements);
       })
       .catch(err => console.log(err));
   };
@@ -128,7 +124,7 @@ function App() {
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} />
       <div className="w-full h-full">
-        <div className="h-1/6">
+        <div className="h-1/6 sticky top-0">
           <Header activePage={activePage} />
         </div>
         <div className="p-8 h-full bg-zinc-800">

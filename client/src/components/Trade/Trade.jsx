@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Buy from './Buy.jsx';
 import Sell from './Sell.jsx';
 import Newsfeed from '../Newsfeeds/newsfeed.jsx'
+import Graph from './Graph.jsx';
 import { HiOutlineSwitchVertical } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 
@@ -44,7 +45,7 @@ function Trade() {
     <div className="flex flex-col justify-between gap-8">
       <div className="flex justify-between">
         <div className="flex w-3/5 p-5">
-          Graph
+          <Graph symbol={"BTC"}/>
         </div>
         <div className="flex flex-col items-center justify-between space-y-8 w-1/3 bg-zinc-700 rounded-xl">
           <div className="flex w-full h-16">
