@@ -90,7 +90,6 @@ function App() {
   // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
-    // Resets portfolio & adds $500 cash
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
         let updatedUserAchievements = res.data;
