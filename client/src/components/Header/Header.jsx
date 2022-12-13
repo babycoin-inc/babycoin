@@ -1,20 +1,30 @@
-import React from 'react';
-import { UserIcon } from '@heroicons/react/24/outline';
+import React, { useState } from 'react';
+import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import Dropdown from './Dropdown.jsx';
 
 function Header({ activePage }) {
+  const [profilePic, setProfilePic] = useState(true);
+
   return (
     <>
-      <div className="h-4/6 flex justify-between items-center p-5 border-b-2 border-neutral-800">
+      <div className="h-4/6 flex justify-between items-center px-5 border-b-2 border-neutral-800">
         <div className="w-1/5 text-2xl">
           <h1>{activePage}</h1>
         </div>
         <div className="w-1/3">
-          {/* <h1 className="text-center text-2xl">Coin Drop Down Placeholder</h1> */}
           <Dropdown />
         </div>
-        <div className="w-1/5">
-          <UserIcon className="h-12 ml-auto bg-zinc-800 p-2 rounded-full hover:bg-zinc-600" />
+        <div className="flex justify-between w-1/5">
+          <div></div>
+          <div className="flex-col w-2/6 py-4" onMouseEnter={() => setProfilePic(false)} onMouseLeave={() => setProfilePic(true)}>
+            {profilePic && <UserIcon className="h-14 mx-auto bg-zinc-800 p-2 rounded-full text-zinc-300" />}
+            {!profilePic &&
+            // ADD LOGOUT CLICKHANDLER HERE
+            <div onClick={() => alert("Log me out")}>
+              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300" />
+              <h6 className="text-center text-xs text-zinc-300 tracking-widest">Logout</h6>
+            </div>}
+          </div>
         </div>
       </div>
       <div className="h-2/6 border-b-2 border-neutral-800">
