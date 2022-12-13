@@ -5,9 +5,9 @@ const { comparePasswords } = require('./server/utils/passwords.js');
 
 const authenticateUser = async(username, password, done) => {
   try {
-    const user = await Auth.Login.getUser(username);
+    const user = await Auth.getUser(username);
     if(!user) return done(null, false, { message: 'Unable to login with Username and Password' });
-    const hash = await Auth.Login.getHash(username);
+    const hash = await Auth.getHash(username);
     const doPasswordsMatch = await comparePasswords(password, hash);
     if(!doPasswordsMatch) return done(null, false, { message: 'Unable to login with Username and Password' });
     return done(null, user);
