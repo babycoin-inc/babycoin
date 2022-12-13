@@ -1,5 +1,5 @@
 const { Auth } = require('../../../models/models.js');
-const { isUsernameUnavailable, registerUser } = Auth.Signup;
+const { isUsernameUnavailable, registerUser } = Auth;
 const { hashPassword } = require('../../utils/passwords.js');
 
 const AuthControllers = {
