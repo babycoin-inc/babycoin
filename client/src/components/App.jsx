@@ -56,12 +56,10 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log('Logs every 30s');
       getCoins();
     }, 30000);
     return () => clearInterval(interval);
   }, []);
-
 
 
   function getPortfolioData(userId) {
@@ -93,6 +91,7 @@ function App() {
     axios.get(`/coins/markets`)
     .then((coins) => {
       setCoins(coins.data);
+      console.log('sync with updateCoins every 30s');
     })
     .catch(err => console.log(err));
   }
