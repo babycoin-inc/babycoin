@@ -48,12 +48,21 @@ function App() {
     getTradeHistory(authenticatedUser);
     getAchievements();
     getUserAchievements();
-    getCoins();
   }, []);
 
   useEffect(() => {
     getPortfolioData(authenticatedUser);
   }, [tradeHistory]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log('Logs every 30s');
+      getCoins();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -78,6 +87,7 @@ function App() {
       })
       .catch(err => console.log(err));
   }
+
 
   function getCoins() {
     axios.get(`/coins/markets`)
