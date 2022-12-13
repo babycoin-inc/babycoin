@@ -1,18 +1,18 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { Auth } = require('./models/models.js')
+const { Auth } = require('./models/models.js');
+const authenticateUser = require('./server/utils/userAuth');
 const { comparePasswords } = require('./server/utils/passwords.js');
 
-const authenticateUser = async(username, password, done) => {
+const verifyUser = async(username, password, done) => {
   try {
     const user = await Auth.getUser(username);
     if(!user) return done(null, false, { message: 'Unable to login with Username and Password' });
-    const hash = await Auth.getHash(username);
-    const doPasswordsMatch = await comparePasswords(password, hash);
-    if(!doPasswordsMatch) return done(null, false, { message: 'Unable to login with Username and Password' });
-    return done(null, user);
+    const isUserAuthenticated = await authenticateUser(username, password);
+    if(!isUserAuthenticated) return done(null, false, { message: 'Unable to login with Username and Password' });
+    done(null, user);
   } catch(err) {
-    return done(err);
+    done(err);
   }
 };
 
@@ -25,6 +25,6 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 })
 
-passport.use(new LocalStrategy(authenticateUser));
+passport.use(new LocalStrategy(verifyUser));
 
 module.exports = passport;
