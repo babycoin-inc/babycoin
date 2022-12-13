@@ -58,7 +58,7 @@ exports.fulfillBuyTransaction = async (transaction, user_id) => {
   }
 }
 
-exports.fulfillSellTransaction = (transaction) => {
+exports.fulfillSellTransaction = async (transaction) => {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
