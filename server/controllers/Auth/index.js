@@ -5,15 +5,15 @@ const { hashPassword } = require('../../utils/passwords.js');
 const AuthControllers = {
   signupController: async (req, res) => {
     const { username, password } = req.body;
-    const encryptedPassword = hashPassword(password);
-
+    const hash = hashPassword(password);
     try {
       const usernameUnavailable = await isUsernameUnavailable(username);
-      if(usernameUnavailable) return res.status(409).send('Username Already Exists');
-      await registerUser(username, encryptedPassword);
-      res.status(201).send('Account Created');
+      if(usernameUnavailable) return res.status(409).json({ msg: 'Username Already Exists' });
+      await registerUser(username, hash);
+      res.status(201).json({ msg: 'Account Created' });
     } catch (err) {
       console.log(err);
+      res.status(500).json({ msg: "Error in signupController" })
     }
   },
   loginController: (req, res) => {
