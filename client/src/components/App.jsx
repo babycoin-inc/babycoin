@@ -48,6 +48,7 @@ function App() {
     getTradeHistory(authenticatedUser);
     getAchievements();
     getUserAchievements();
+    getCoins();
   }, []);
 
   useEffect(() => {
