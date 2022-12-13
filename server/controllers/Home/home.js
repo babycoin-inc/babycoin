@@ -33,7 +33,7 @@ exports.clearPortfolio = async (req, res) => {
     const clearPortfolio = await Home.resetPortfolio(req.params.id);
     res.send(clearPortfolio);
   } catch (err) {
-    console.error(error);
+    console.error(err);
   }
 }
 
