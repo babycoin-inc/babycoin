@@ -25,6 +25,7 @@ function TradeHistory({ tradeHistory }) {
                 <th>Amount</th>
                 <th>Price</th>
                 <th>Type</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody className="bg-zinc-500">
@@ -35,6 +36,7 @@ function TradeHistory({ tradeHistory }) {
                   <td className="text-center">${Number(trade.total_trade_fiat).toFixed(2)}<i className="block text-sm">.{`${trade.total_trade_coin} ${trade.acronym.toUpperCase()}`}</i></td>
                   <td className="text-center">${Number(trade.purchase_price).toLocaleString("en-US")}</td>
                   {orderTypeColor(trade.order_type)}
+                  <td className="text-center">Date</td>
                 </tr>
               ))}
             </tbody>
