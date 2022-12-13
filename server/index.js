@@ -11,8 +11,8 @@ const flash = require('express-flash');
 const session = require('cookie-session');
 
 /**Controllers */
-const { signup, login, verifyToken, refreshToken } = require('./controllers/Login/controllers.js');
-const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
+//const { signup, login, verifyToken, refreshToken } = require('./controllers/controllers.js');
+const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 // const { home } = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -26,11 +26,11 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.post('/signup', signup);
+app.post('/signup', auth.signupController);
 app.post('/login', (req, res, next) => {
   console.log(req.body);
   next();
-}, passport.authenticate('local'), login);
+}, passport.authenticate('local'), auth.loginController);
 
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
