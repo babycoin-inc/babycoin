@@ -25,7 +25,9 @@ exports.getUserAchievements = async (id) => {
 exports.addUserAchievement = async (id, achievement) => {
   //Add validation to make sure achievement has been obtained
   try {
-    const { rows } = await db.query('INSERT INTO trader_achievements(trader_id, achievement_id) VALUES ($1, $2)', [id, achievement]);
+    const { rows } = await db.query(`
+      INSERT INTO trader_achievements(trader_id, achievement_id) 
+      VALUES ($1, $2)`, [id, achievement]);
     return rows;
   } catch(err) {
     return err;
