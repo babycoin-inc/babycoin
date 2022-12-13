@@ -10,7 +10,7 @@ const authenticateUser = async(username, password) => {
     if(!doPasswordsMatch) return false;
     return true;
   } catch(err) {
-    console.log(err);;
+    console.log(err);
   }
 };
 
