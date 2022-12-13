@@ -8,6 +8,8 @@ exports.getCoin = (req, res) => {
 }
 
 exports.insertBuyTransaction = async (req, res) => {
+  // const result = await Trade.fulfillBuyTransaction(req);
+  // res.send(result);
   var result = await Trade.insertBuyTransaction(req.body);
   res.sendStatus(201);
 };
@@ -16,5 +18,5 @@ exports.insertSellTransaction = async (req, res) => {
   // const result = await Trade.fulfillSellTransaction(req);
   // res.send(result);
   var result = await Trade.insertSellTransaction(req.body);
-  res.sendStatus(201).send(result);
+  res.sendStatus(201);
 }

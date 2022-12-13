@@ -30,7 +30,7 @@ const insertTransaction = (transaction, orderType) => {
     .then((result) => {
       const coin_id = result.rows[0].id;
       const { currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id } = transaction;
-      const recordToCreate = ['buy', currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id];
+      const recordToCreate = [orderType, currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id];
       return query('insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id) values ($1, $2, $3, $4, $5, $6, $7)', recordToCreate)
         .then((fulfilledTransaction) => {
           return 'Transaction created';
@@ -42,11 +42,12 @@ const insertTransaction = (transaction, orderType) => {
 
 exports.insertBuyTransaction = async(transaction) => {
   var result = await insertTransaction(transaction, 'buy');
-  console.log('result1: ',result);
   return result;
 };
 
-exports.insertSellTransaction = (transaction) => {
+exports.insertSellTransaction = async(transaction) => {
+  var result = await insertTransaction(transaction, 'sell');
+  return result;
 };
 
 exports.fulfillBuyTransaction = (transaction) => {
