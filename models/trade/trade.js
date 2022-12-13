@@ -9,33 +9,47 @@ const pool = new Pool({
   port: process.env.PGPORT,
 });
 
+//START TEMP FUNCTIONS
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+exports.getCoin = (coinName) => {
+  const price = getRandomArbitrary(15000, 20000);
+  return price;
+}
+
+exports.updatePrice = (coin, price) => {
+  const values = [coin, price];
+  query(`UPDATE coins SET latest_price=$2 WHERE name=$1`, [values])
+    .then((result) => {
+      console.log('result from coins query: ', result);
+      return result;
+    })
+    .catch((err)=> {console.error(err);})
+}
+//END TEMP FUNCTIONS
+
 exports.getTransactions = (id) => {
 
 };
 
-// Buy
-exports.insertTransaction = (transaction, user_id) => {
-  //parse the following:
-
-  // order_type transaction_type,
-  // currency VARCHAR(10) NOT NULL,
-  // purchase_price INTEGER NOT NULL,
-  // total_trade_fiat INTEGER NOT NULL,
-  // total_trade_coin INTEGER NOT NULL,
-  // order_datetime timestamp,
-  // user id => trader_id INTEGER REFERENCES trader(id),
-  // coin_id INTEGER REFERENCES coins(id)
-};
-
-//Sell
-exports.insertSellTransaction = (transaction, user_id) => {
-
+const insertTransaction = (transaction, orderType) => {
+  let {coinName} = transaction;
+  const values = [coinName];
+  return query(`select id from coins WHERE name=$1`, values)
+    .then((result) => {
+      const coin_id = result.rows[0].id;
+      const { currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id } = transaction;
+      const recordToCreate = [orderType, currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id];
+      return query('insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin, order_datetime, trader_id, coin_id) values ($1, $2, $3, $4, $5, now() , $6, $7)', recordToCreate)
+        .then((fulfilledTransaction) => {
+          return 'Transaction created';
+        })
+        .catch((err) => { throw err; })
+    })
+    .catch((err) => { throw err; })
 }
-
-
-
-
-
 
 exports.fulfillBuyTransaction = async (transaction, user_id) => {
   const client = await pool.connect();
@@ -43,6 +57,7 @@ exports.fulfillBuyTransaction = async (transaction, user_id) => {
     await client.query('BEGIN');
 
     // ADD INITIAL PORTION OF TRANSACTION HERE
+    const buyOrder = await insertTransaction(transaction, 'buy');
 
     // Subtract total_trade_fiat and update dollar cost for CASH
     query(`UPDATE portfolio SET quantity = (quantity - $1), dollar_cost = (dollar_cost - $1) WHERE coin_id = (SELECT id FROM coins WHERE acronym = 'usd') AND trader_id = $2;`, [transaction.total_trade_fiat, user_id]);
@@ -64,6 +79,7 @@ exports.fulfillSellTransaction = async (transaction) => {
     await client.query('BEGIN');
 
     // ADD INITIAL PORTION OF TRANSACTION HERE
+    const sellOrder = await insertTransaction(transaction, 'sell');
 
     // add total_trade_fiat from cash
     query(`UPDATE portfolio SET quantity = (quantity + $1), dollar_cost = (dollar_cost + $1) WHERE coin_id = (SELECT id FROM coins WHERE acronym = 'usd') AND trader_id = $2;`, [transaction.total_trade_fiat, user_id]);
