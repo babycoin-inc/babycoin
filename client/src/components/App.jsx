@@ -36,7 +36,12 @@ function App() {
   const getUserAchievements = async () => {
     try {
       const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
-      setUserAchievements(userAchievements.data);
+      if (userAchievements.data?.length) {
+        setUserAchievements(userAchievements.data);
+      } else {
+        await axios.post(`achievements/${authenticatedUser}/1`);
+        getUserAchievements();
+      }
     } catch(err) {
       setUserAchievements([]);
     }
