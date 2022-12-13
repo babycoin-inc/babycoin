@@ -1,0 +1,13 @@
+id,title,description,lesson,points,icon
+1,Baby Trader,Log in for the first time.,,10,https://img.icons8.com/dusk/512/babys-room.png
+2,Ready for Lift Off,Purchase a coin for the first time.,,10,https://img.icons8.com/dusk/512/bitcoin.png
+3,Diversifying,Purchase four different coins.,Diversifying your portfolio is a good idea.,20,https://img.icons8.com/dusk/512/diversity.png
+4,Small Investor,Purchase less than $5 worth of a coin.,"It is usually a good idea to start small and evade going ""all in"" on a coin.",10,https://img.icons8.com/dusk/512/donation.png
+5,Trader Trades,Sell a coin.,,10,https://img.icons8.com/dusk/512/price-tag.png
+6,Profitable Trader,Sell a coin for a profit of at least $5.,Selling at the right time requires studying the market. Selling early will sometimes maximize profits.,20,https://img.icons8.com/dusk/512/money-box.png
+7,Watchlist Watcher,Add a coin to the watchlist.,The best trades are the ones that monitor the market. The price of one coin may impact the price of another coin.,10,https://img.icons8.com/dusk/512/show-property.png
+8,Informed Trader,Read your first news article.,Staying informed on coins is a requirement when maximizing profits.,10,https://img.icons8.com/dusk/512/students.png
+9,Crypto Novice,Generate $50 in profits.,,20,https://img.icons8.com/dusk/512/us-dollar-circled.png
+10,Crypto Ace,Generate $100 in profits.,,50,https://img.icons8.com/dusk/512/expensive.png
+11,Crypto Guru,Generate $500 in profits.,,100,https://img.icons8.com/dusk/512/sales-performance.png
+12,Top Trader,Reach top 10 in the leaderboard.,,50,https://img.icons8.com/dusk/512/leaderboard.png

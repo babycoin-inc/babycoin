@@ -1,10 +1,12 @@
 import React from 'react';
 
-function AchievementWidget() {
+function AchievementWidget({ userAchievements }) {
+  let currAchievement = userAchievements[0] || [];
   return (
-    <div className="flex flex-col items-center justify-around w-5/12 p-5 border-2 bg-zinc-700 border-zinc-700 rounded-xl">
-      <h2>Recent Achievement/Your Rank</h2>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg" className="h-52" />
+    <div className="flex flex-col justify-around w-5/12 p-5 border-2 bg-zinc-700 border-zinc-700 rounded-xl">
+      <h2 className="text-left text-zinc-400">Achievements:</h2>
+      <img src={currAchievement.icon} className="h-52 mx-auto" />
+      <h2 class="text-2xl tracking-widest mx-auto">"{currAchievement.title}"</h2>
     </div>
   )
 }

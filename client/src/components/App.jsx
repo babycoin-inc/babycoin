@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
+import Leaderboard from "./Leaderboard/Leaderboard.jsx";
 import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
+import Market from './MarketWatch/Market.jsx';
+import axios from 'axios';
 
 function App() {
 
@@ -16,7 +18,42 @@ function App() {
   const [profits, setProfits] = useState(0);
   const [portfolio, setPortfolio] = useState([]);
   const [tradeHistory, setTradeHistory] = useState([]);
+  const [coins, setCoins] = useState([]);
 
+  //Achievements Component States
+  const [achievements, setAchievements] = useState([]);
+  const [userAchievements, setUserAchievements] = useState([]);
+
+  const getAchievements = async () => {
+    try {
+      const achievements = await axios.get(`/achievements`);
+      setAchievements(achievements.data);
+    } catch (err) {
+      setAchievements([]);
+    }
+  };
+
+  const getUserAchievements = async () => {
+    try {
+      const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+      setUserAchievements(userAchievements.data);
+    } catch(err) {
+      setUserAchievements([]);
+    }
+  };
+
+  //App On-Mount Effects
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+    getTradeHistory(authenticatedUser);
+    getAchievements();
+    getUserAchievements();
+    getCoins();
+  }, []);
+
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+  }, [tradeHistory]);
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -28,8 +65,8 @@ function App() {
         let accVal = portfolioData.reduce((acc, asset) => {
           return acc + asset.value;
         }, 0);
-        setAccountValue(accVal.toFixed(2));
         setProfits((accVal - 500).toFixed(2));
+        setAccountValue(accVal.toFixed(2));
       })
       .catch(err => console.log(err));
   }
@@ -42,33 +79,31 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  useEffect(() => {
-    getPortfolioData(authenticatedUser);
-    getTradeHistory(authenticatedUser);
-  }, []);
+  function getCoins() {
+    axios.get(`/coins/markets`)
+    .then((coins) => {
+      setCoins(coins.data);
+    })
+    .catch(err => console.log(err));
+  }
 
-  // useEffect(() => {
-  //   getPortfolioData(authenticatedUser);
-  // }, [tradeHistory]);
-
-
-  // Home-Balance component reset button
+  // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
-    // clear portfolio
-
-    // Insert $500 usd into portfolio
-
-    // clearing transaction history
-    axios.delete(`/users/${authenticatedUser}/transactions/`)
+    // Resets portfolio & adds $500 cash
+    axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
-        console.log('res', res);
-        setAccountValue(500);
-        setProfits(0);
-        res.send(res);
-      });
+        let updatedUserAchievements = res.data;
+        axios.delete(`/users/${authenticatedUser}/transactions/`)
+          .then((res) => {
+            setTradeHistory([]);
+            setUserAchievements(updatedUserAchievements);
+          });
+      })
+      .catch(err => console.log(err));
   };
 
+  // Sidebar Navigation Menu
   function handleNavClick(e) {
     e.preventDefault();
     setActivePage(e.target.name);
@@ -78,15 +113,15 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} />);
+    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<h1>Insert Market Watch</h1>);
+    activeComponent = (<Market />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade authenticatedUser={authenticatedUser} portfolio={portfolio} />);
   } else if (activePage === 'Leader Board') {
-    activeComponent = (<h1>Insert Leader Board</h1>);
+    activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<Achievements />);
+    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} />);
   };
 
   return (
