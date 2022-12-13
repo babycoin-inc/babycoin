@@ -5,7 +5,7 @@ require('dotenv').config();
 const passport = require('passport');
 
 const app = express();
-const PORT = process.env.PORT;
+const port = process.env.PORT || 4000;
 
 const flash = require('express-flash');
 const session = require('cookie-session');
@@ -77,6 +77,6 @@ app.get('/coins/markets', market.getCoins);
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
 
-app.listen(PORT, () => {
+app.listen(port, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
