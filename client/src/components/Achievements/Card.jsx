@@ -2,8 +2,8 @@ import React from 'react';
 
 const Card = function ( { achievement, status } ) {
 
-    const locked = 'grayscale opacity-70 h-40 w-9/12 p-1 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg transition-transform duration-300 ease-in-out hover:transform hover:scale-[102%]';
-    const unlocked = 'h-40 w-9/12 p-1 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg transition-transform duration-500 ease-in-out hover:transform hover:scale-[102%]'
+    const unlocked = 'h-40 w-9/12 py-5 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg origin-center transition-transform duration-300 ease-in-out hover:transform hover:scale-[102%] z-10'
+    const locked = 'h-40 w-9/12 py-2 mx-auto my-5 bg-zinc-700 rounded-2xl shadow-lg origin-center grayscale opacity-70 transition-transform duration-300 ease-in-out hover:transform hover:scale-[102%] z-10';
 
     return (
         <div className={status ? unlocked : locked}>
