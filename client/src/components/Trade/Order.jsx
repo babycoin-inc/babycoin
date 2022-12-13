@@ -9,7 +9,7 @@ function Order({authenticatedUser, portfolio}) {
   const [orderType, setOrderType] = useState('buy');
   let [orderAmount, setOrderAmount] = useState('Order Amount');
   const [orderUnits, setOrderUnits] = useState('USD')
-  let [coin, setCoin] = useState('bitcoin');
+  let [coin, setCoin] = useState('Bitcoin');
   const [price, setPrice] = useState();
 
   const getCoin = () => {

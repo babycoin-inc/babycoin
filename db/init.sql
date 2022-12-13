@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS transactions (
   purchase_price DECIMAL NOT NULL,
   total_trade_fiat DECIMAL NOT NULL,
   total_trade_coin DECIMAL NOT NULL,
-  order_datetime timestamp,
+  order_datetime timestamp with time zone,
   trader_id INTEGER NOT NULL,
   coin_id INTEGER NOT NULL,
   CONSTRAINT fk_trader

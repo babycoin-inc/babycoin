@@ -26,12 +26,14 @@ exports.getTransactions = (id) => {
 const insertTransaction = (transaction, orderType) => {
   let {coinName} = transaction;
   const values = [coinName];
+  console.log('coinName: ', coinName);
   return query(`select id from coins WHERE name=$1`, values)
     .then((result) => {
+      console.log('result.rows: ', result.rows);
       const coin_id = result.rows[0].id;
       const { currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id } = transaction;
       const recordToCreate = [orderType, currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id];
-      return query('insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id) values ($1, $2, $3, $4, $5, $6, $7)', recordToCreate)
+      return query('insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin, order_datetime, trader_id, coin_id) values ($1, $2, $3, $4, $5, now() , $6, $7)', recordToCreate)
         .then((fulfilledTransaction) => {
           return 'Transaction created';
         })
