@@ -12,17 +12,17 @@ function Sidebar({ handleNavClick, activePage }) {
 
   return (
     <div className="w-1/3 border-r-2 border-zinc-800">
-      <div className="h-full">
+      <div className="sticky top-0">
         <div className="h-1/6">
           <img src={BabyCoinLogo} width="100" className="relative left-4 top-3" />
         </div>
-        <nav className="flex flex-col items-center mt-10 w-full text-2xl">
+        <nav className="flex flex-col items-center mt-28 w-full text-2xl">
           {navItems}
           <a href="mailto:support@babycoin.com?subject=Support Request" target="_blank">
             <button name="Support" className="text-center w-11/12 py-3 px-2 hover:ml-6">Support</button>
           </a>
         </nav>
-        <div className="mt-36">
+        <div className="mt-28">
           <h2 className="text-center">Watchlist</h2>
           <Watchlist />
         </div>
