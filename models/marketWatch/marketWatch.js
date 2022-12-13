@@ -1,5 +1,6 @@
 const {query} = require('../../db/index');
 
+
 exports.writeCoins = async (coins) => {
   const text0 = `SELECT * FROM coins`;
 
@@ -15,20 +16,6 @@ exports.writeCoins = async (coins) => {
       } catch (err) {
         console.log(err);
       }
-
-    // const promiseArray = [];
-
-    // coins.forEach((coin) => {
-    //   const name = coin.name;
-    //   const acronym = coin.symbol;
-    //   const coin_image = coin.image;
-    //   const latest_price = coin.current_price;
-
-    //   const textEachCoin = `INSERT INTO coins (name, acronym, image, latest_price)
-    //                  VALUES ('${name}', '${acronym}', '${coin_image}', ${latest_price})`;
-    //   // await query(textEachCoin);
-    //   promiseArray.push(query(textEachCoin));
-    // })
 
     const promiseArray = coins.map((coin) => {
       const name = coin.name;
@@ -72,21 +59,6 @@ exports.writeCoins = async (coins) => {
   return result['rows'];
 
 
-
-
-  // coins.forEach((coin) => {
-  //   const name = coin.name;
-  //   const acronym = coin.symbol;
-  //   const coin_image = coin.image;
-  //   const latest_price = coin.current_price;
-
-  //   if (query(text0).rows.length === 0)
-  //   const text1 = `INSERT INTO coins (name, acronym, image, latest_price)
-  //                 VALUES ('${name}', '${acronym}', '${coin_image}', ${latest_price})`;
-
-  //   const text2 = `UPDATE coins SET latest_price = ${latest_price} WHERE name = '${name}'`;
-  //   query(text);
-  // })
  } catch (err) {
   console.log(err);
 }

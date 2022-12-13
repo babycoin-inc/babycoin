@@ -52,10 +52,18 @@ app.get("/nfAPI", (req, res) => {
   })
 })
 
+
 cron.schedule('*/30 * * * * *', () => {
-  // console.log('running a task every 30 seconds');
-  app.get('/coins/markets', market.getCoins);
+  // console.log('Check if the cron job will work every 30s or not');
+
+  //invoke a function that does not require a request and response
+  market.updateCoins();
+  
+  // console.log('Check if market.updateCoins() being called or not');
 });
+
+//FOR THE FRONT END
+app.get('/coins/markets', market.getCoins);
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
