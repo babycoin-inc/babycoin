@@ -8,7 +8,7 @@ function Home(props) {
   const { accountValue, handleResetClick, profits, portfolio, tradeHistory, userAchievements } = props;
 
   return (
-    <div className="flex flex-col justify-between gap-8">
+    <div className="flex flex-col justify-between gap-8 pb-10">
       <div className="flex justify-between">
         <Balance accountValue={accountValue} profits={profits} handleResetClick={handleResetClick} />
         <AchievementWidget userAchievements={userAchievements} />

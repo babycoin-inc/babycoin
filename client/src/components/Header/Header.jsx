@@ -7,7 +7,7 @@ function Header({ activePage }) {
 
   return (
     <>
-      <div className="h-4/6 flex justify-between items-center px-5 border-b-2 border-neutral-800">
+      <div className="h-4/6 flex justify-between items-center px-5 border-b-2 border-neutral-800 bg-zinc-900">
         <div className="w-1/5 text-2xl">
           <h1>{activePage}</h1>
         </div>

@@ -27,7 +27,7 @@ app.get('/users/:id/balances/', home.getPortfolioAssets);
 // Gets transaction history
 app.get('/users/:id/transactions/', home.getTransactions);
 
-app.delete('/users/:id/transactions/', home.clearTransactions);
+// Resets Portfolio, transaction history, and adds starting cash and achievement
 app.delete('/users/:id/portfolio/', home.clearPortfolio)
 
 app.get("/newsfeed", async (req, res) => {
