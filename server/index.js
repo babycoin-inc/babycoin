@@ -53,7 +53,7 @@ app.get("/nfAPI", (req, res) => {
 })
 
 cron.schedule('*/30 * * * * *', () => {
-  console.log('running a task every 30 seconds');
+  // console.log('running a task every 30 seconds');
   app.get('/coins/markets', market.getCoins);
 });
 

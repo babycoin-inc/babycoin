@@ -15,6 +15,7 @@ exports.getCoins = (req, res) => {
 
     // console.log('MMMMMMM', output);
     // res.send(output);
+    console.log('getCoins', result.data);
     return marketWatch.writeCoins(result.data);
   })
   .then(output => {
