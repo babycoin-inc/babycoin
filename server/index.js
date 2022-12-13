@@ -1,4 +1,4 @@
-require('../db/index.js'); //tests db connection
+// require('../db/index.js'); //tests db connection
 require('../passport.config.js');
 const express = require('express');
 require('dotenv').config();
@@ -14,13 +14,6 @@ const session = require('cookie-session');
 const { signup, login, verifyToken, refreshToken } = require('./controllers/Login/controllers.js');
 const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 // const { home } = require('./controllers/controllers.js');
-require('../db/index.js'); //tests db connection
-require("dotenv").config();
-
-const express = require('express');
-
-const app = express();
-const port = process.env.PORT;
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
