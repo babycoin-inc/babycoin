@@ -13,16 +13,17 @@ CREATE TABLE IF NOT EXISTS coins (
   acronym VARCHAR(50) NOT NULL,
   image VARCHAR(255),
   description TEXT,
-  latest_price INTEGER NOT NULL
+  latest_price DECIMAL NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS portfolio (
   portfolio_id SERIAL PRIMARY KEY,
   trader_id INTEGER NOT NULL,
   coin_id INTEGER NOT NULL,
-  dollar_cost INTEGER NOT NULL,
-  avg_price INTEGER NOT NULL,
-  quantity INTEGER NOT NULL,
+  dollar_cost DECIMAL NOT NULL,
+  avg_price DECIMAL NOT NULL,
+  quantity DECIMAL NOT NULL,
+  UNIQUE (trader_id, coin_id),
   CONSTRAINT fk_trader
     FOREIGN KEY(trader_id)
       REFERENCES trader(id),
@@ -35,7 +36,7 @@ CREATE TABLE IF NOT EXISTS achievements (
   id SERIAL PRIMARY KEY,
   title VARCHAR(100) NOT NULL,
   description VARCHAR(255) NOT NULL,
-  lesson VARCHAR(255) NOT NULL,
+  lesson VARCHAR(255) NULL,
   points INTEGER NOT NULL,
   icon VARCHAR(255) NOT NULL
 );
@@ -43,7 +44,8 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS trader_achievements (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
-  achievement_id INTEGER REFERENCES achievements(id)
+  achievement_id INTEGER REFERENCES achievements(id),
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP(2)
 );
 
 DO $$ BEGIN
@@ -56,10 +58,72 @@ CREATE TABLE IF NOT EXISTS transactions (
   id SERIAL PRIMARY KEY,
   order_type transaction_type,
   currency VARCHAR(10) NOT NULL,
-  purchase_price INTEGER NOT NULL,
-  total_trade_fiat INTEGER NOT NULL,
-  total_trade_coin INTEGER NOT NULL,
+  purchase_price DECIMAL NOT NULL,
+  total_trade_fiat DECIMAL NOT NULL,
+  total_trade_coin DECIMAL NOT NULL,
   order_datetime timestamp,
   trader_id INTEGER REFERENCES trader(id),
   coin_id INTEGER REFERENCES coins(id)
 );
+
+CREATE TABLE IF NOT EXISTS leaderboard (
+  id SERIAL PRIMARY KEY,
+  trader_id INTEGER REFERENCES trader(id),
+  coin_id INTEGER REFERENCES coins(id),
+  realized_gains DECIMAL,
+  highest_realized_gains DECIMAL,
+  UNIQUE (trader_id, coin_id)
+);
+
+-- CREATE RULE update_leaderboard_on_insert_transactions AS ON INSERT TO transactions DO ALSO
+--   (
+--   INSERT INTO leaderboard
+--   (trader_id, coin_id, realized_gains, highest_realized_gains) VALUES (NEW.trader_id, 1, 0, 0)
+--   ON CONFLICT (trader_id, coin_id)
+--     DO NOTHING;
+
+--   INSERT INTO leaderboard
+--   (trader_id, coin_id, realized_gains, highest_realized_gains) VALUES (NEW.trader_id, NEW.coin_id, 0, 0)
+--   ON CONFLICT (trader_id, coin_id)
+--     DO NOTHING;
+
+--   UPDATE leaderboard
+--       SET realized_gains = (
+--       CASE
+--         WHEN NEW.order_type = 'sell'
+--           THEN realized_gains - (NEW.total_trade_coin * ((
+--             SELECT portfolio.avg_price
+--             FROM portfolio
+--             WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
+--       END)
+--       WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
+
+--   UPDATE leaderboard
+--       SET realized_gains = (
+--       CASE
+--         WHEN NEW.order_type = 'sell'
+--           THEN realized_gains - (NEW.total_trade_coin * ((
+--             SELECT portfolio.avg_price
+--             FROM portfolio
+--             WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
+--       END)
+--       WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
+
+--   UPDATE leaderboard
+--     SET highest_realized_gains = (
+--       CASE
+--         WHEN leaderboard.realized_gains > highest_realized_gains
+--           THEN leaderboard.realized_gains
+--         ELSE highest_realized_gains
+--       END)
+--     WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
+
+--   UPDATE leaderboard
+--   SET highest_realized_gains = (
+--     CASE
+--       WHEN leaderboard.realized_gains > highest_realized_gains
+--         THEN leaderboard.realized_gains
+--       ELSE highest_realized_gains
+--     END)
+--   WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
+--   );

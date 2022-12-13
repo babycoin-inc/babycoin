@@ -1,14 +1,110 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from './Sidebar/Sidebar.jsx';
 import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
+import Leaderboard from "./Leaderboard/Leaderboard.jsx";
 import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
+import Market from './MarketWatch/Market.jsx';
+import axios from 'axios';
 
 function App() {
 
+  const [authenticatedUser, setAuthenticatedUser] = useState(1);
   const [activePage, setActivePage] = useState('Home');
 
+  //Home Component States
+  const [accountValue, setAccountValue] = useState(500);
+  const [profits, setProfits] = useState(0);
+  const [portfolio, setPortfolio] = useState([]);
+  const [tradeHistory, setTradeHistory] = useState([]);
+  const [coins, setCoins] = useState([]);
+
+  //Achievements Component States
+  const [achievements, setAchievements] = useState([]);
+  const [userAchievements, setUserAchievements] = useState([]);
+
+  const getAchievements = async () => {
+    try {
+      const achievements = await axios.get(`/achievements`);
+      setAchievements(achievements.data);
+    } catch (err) {
+      setAchievements([]);
+    }
+  };
+  
+  const getUserAchievements = async () => {
+    try {
+      const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+      setUserAchievements(userAchievements.data);
+    } catch(err) {
+      setUserAchievements([]);
+    }
+  };
+
+  //App On-Mount Effects
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+    getTradeHistory(authenticatedUser);
+    getAchievements();
+    getUserAchievements();
+    getCoins();
+  }, []);
+
+  useEffect(() => {
+    getPortfolioData(authenticatedUser);
+  }, [tradeHistory]);
+
+  function getPortfolioData(userId) {
+    axios.get(`/users/${userId}/balances`)
+      .then((data) => {
+        setPortfolio(data.data);
+        return data.data;
+      })
+      .then((portfolioData) => {
+        let accVal = portfolioData.reduce((acc, asset) => {
+          return acc + asset.value;
+        }, 0);
+        setProfits((accVal - 500).toFixed(2));
+        setAccountValue(accVal.toFixed(2));
+      })
+      .catch(err => console.log(err));
+  }
+
+  function getTradeHistory(userId) {
+    axios.get(`/users/${authenticatedUser}/transactions/`)
+      .then((history) => {
+        setTradeHistory(history.data);
+      })
+      .catch(err => console.log(err));
+  }
+
+  function getCoins() {
+    axios.get(`/coins/markets`)
+    .then((coins) => {
+      setCoins(coins.data);
+    })
+    .catch(err => console.log(err));
+  }
+
+  // Home:Balance component reset button
+  function handleResetClick (e) {
+    e.preventDefault();
+    // Resets portfolio & adds $500 cash
+    axios.delete(`/users/${authenticatedUser}/portfolio/`)
+      .then((res) => {
+        // Clears transaction history
+        axios.delete(`/users/${authenticatedUser}/transactions/`)
+          .then((res) => {
+            setTradeHistory([]);
+            setUserAchievements([]);
+            res.send(res);
+          });
+      })
+      .catch(err => console.log(err));
+  };
+
+  // Sidebar Navigation Menu
   function handleNavClick(e) {
     e.preventDefault();
     setActivePage(e.target.name);
@@ -18,15 +114,15 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home />);
+    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<h1>Insert Market Watch</h1>);
+    activeComponent = (<Market />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade />);
   } else if (activePage === 'Leader Board') {
-    activeComponent = (<h1>Insert Leader Board</h1>);
+    activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<Achievements />);
+    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} />);
   };
 
   return (

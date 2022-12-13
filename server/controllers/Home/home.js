@@ -1,25 +1,40 @@
 const { Home } = require('../../../models/models.js');
 
-exports.getAccountValue = (req, res) => {
-  // get SUM of cash balance, and all of current crypto value
+
+exports.getPortfolioAssets = async (req, res) => {
+  try {
+    const portfolio = await Home.allCoins(req.params.id);
+    res.send(portfolio);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-exports.getRecentAchievement = (req, res) => {
-  // get recent achievement data from user
+exports.getTransactions = async (req, res) => {
+  try {
+    const transactions = await Home.getTransactionHistory(req.params.id);
+    res.send(transactions);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-exports.getPortfolioAssets = (req, res) => {
-  // get current crypto assets
+exports.clearTransactions = async (req, res) => {
+  try {
+    const clearTrades = await Home.clearTransactions(req.params.id);
+    res.send(clearTrades);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-exports.getTradeHistory = (req, res) => {
-  // get recent trade history
-};
+exports.clearPortfolio = async (req, res) => {
+  try {
+    const clearPortfolio = await Home.resetPortfolio(req.params.id);
+    res.send(clearPortfolio);
+  } catch (err) {
+    console.error(error);
+  }
+}
 
-exports.postBuyPortfolioUpdate = (req, res) => {
-  res.send(`Hit post buy ${req.params.id}`);
-};
 
-exports.postSellPortfolioUpdate = (req, res) => {
-  res.send(`Hit post sell ${req.params.id}`);
-};
