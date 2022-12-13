@@ -32,7 +32,7 @@ function App() {
       setAchievements([]);
     }
   };
-  
+
   const getUserAchievements = async () => {
     try {
       const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
@@ -93,12 +93,11 @@ function App() {
     // Resets portfolio & adds $500 cash
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
-        // Clears transaction history
+        let updatedUserAchievements = res.data;
         axios.delete(`/users/${authenticatedUser}/transactions/`)
           .then((res) => {
             setTradeHistory([]);
-            setUserAchievements([]);
-            res.send(res);
+            setUserAchievements(updatedUserAchievements);
           });
       })
       .catch(err => console.log(err));
