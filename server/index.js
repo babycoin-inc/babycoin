@@ -5,7 +5,12 @@ require('dotenv').config();
 const passport = require('passport');
 
 const app = express();
+<<<<<<< HEAD
 const PORT = process.env.PORT;
+=======
+
+const port = process.env.PORT || 4000;
+>>>>>>> main
 
 const flash = require('express-flash');
 const session = require('cookie-session');
@@ -32,6 +37,8 @@ app.post('/login', (req, res, next) => {
   next();
 }, passport.authenticate('local'), auth.loginController);
 
+app.get('/coins', trade.getCoin);
+
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
@@ -44,7 +51,7 @@ app.get('/users/:id/balances/', home.getPortfolioAssets);
 // Gets transaction history
 app.get('/users/:id/transactions/', home.getTransactions);
 
-app.delete('/users/:id/transactions/', home.clearTransactions);
+// Resets Portfolio, transaction history, and adds starting cash and achievement
 app.delete('/users/:id/portfolio/', home.clearPortfolio)
 
 app.get("/newsfeed", async (req, res) => {
