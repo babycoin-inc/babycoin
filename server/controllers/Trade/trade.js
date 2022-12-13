@@ -8,15 +8,13 @@ exports.getCoin = (req, res) => {
 }
 
 exports.insertBuyTransaction = async (req, res) => {
-  // const result = await Trade.fulfillBuyTransaction(req);
-  // res.send(result);
-  var result = await Trade.insertBuyTransaction(req.body);
-  res.sendStatus(201);
+  const {trader_id} = req.body;
+  const result = await Trade.fulfillBuyTransaction(req.body, trader_id);
+  res.send(result);
 };
 
 exports.insertSellTransaction = async (req, res) => {
-  // const result = await Trade.fulfillSellTransaction(req);
-  // res.send(result);
-  var result = await Trade.insertSellTransaction(req.body);
-  res.sendStatus(201);
+  const {trader_id} = req.body;
+  const result = await Trade.fulfillSellTransaction(req.body, trader_id);
+  res.send(result);
 }
