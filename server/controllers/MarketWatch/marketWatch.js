@@ -19,7 +19,7 @@ const updateCoins = () => {
 
 exports.getCoins = async(req, res) => {
   try {
-    var resolved =  await updateCoins();
+    var resolved = await updateCoins();
     res.send(resolved);
   } catch (err) {
     console.log('controllers/marketWatch/getCoins Error', err);
