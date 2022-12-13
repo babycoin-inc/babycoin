@@ -14,7 +14,7 @@ const session = require('cookie-session');
 //const { signup, login, verifyToken, refreshToken } = require('./controllers/controllers.js');
 const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 // const { home } = require('./controllers/controllers.js');
-
+//
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
