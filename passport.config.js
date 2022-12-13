@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const JWTStrategy = require('passport-jwt').Strategy;
 const { Auth } = require('./models/models.js');
 const authenticateUser = require('./server/utils/userAuth');
 const { comparePasswords } = require('./server/utils/passwords.js');
@@ -26,5 +27,21 @@ passport.deserializeUser((user, done) => {
 })
 
 passport.use(new LocalStrategy(verifyUser));
+
+passport.use(
+  new JWTStrategy(
+    {
+      jwtFromRequest: JWTStrategy.ExtractJwt.fromAuthHeaderAsBearerToken(),
+      secretOrKey: process.env.ACCESS_TOKEN_SECRET
+    },
+    (payload, done) => {
+      try {
+        done(null, payload);
+      } catch(err) {
+        done(err);
+      }
+    }
+  )
+);
 
 module.exports = passport;
