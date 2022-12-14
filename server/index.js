@@ -28,7 +28,7 @@ app.use(passport.session())
 
 app.post('/signup', auth.signupController);
 app.post('/login', passport.authenticate('local'), auth.loginController);
-
+//app.use(passport.authenticate('jwt')):
 app.get('/coins', trade.getCoin);
 
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
