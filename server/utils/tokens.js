@@ -1,5 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const SALT_ROUNDS = 12;
 // const { Auth } = require('../../../models/models.js');
 // const { Login } = Auth;
 const REFRESH_TOKEN_EXPIRY = '1d';
@@ -21,6 +23,9 @@ const createRefreshToken = (id, username) => {
   );
   return refreshToken;
 }
+
+const hashToken = (token) => bcrypt.hashSync(password, SALT_ROUNDS);
+const verifyToken = (token, hash) => bcrypt.compare(token, hash);
 
 // const verifyToken = (req, res, next) => {
 //   const authHeader = req.headers['authorization'];
@@ -58,5 +63,7 @@ const createRefreshToken = (id, username) => {
 
 module.exports = {
   createAccessToken,
-  createRefreshToken
+  createRefreshToken,
+  hashToken,
+  verifyToken
 };
