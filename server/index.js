@@ -1,19 +1,38 @@
-require('../db/index.js'); //tests db connection
-require("dotenv").config();
-
+// require('../db/index.js'); //tests db connection
+require('../passport.config.js');
 const express = require('express');
+require('dotenv').config();
+const passport = require('passport');
 
 const app = express();
-
 const port = process.env.PORT || 4000;
 
-const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
+const flash = require('express-flash');
+const session = require('cookie-session');
 
 const cron = require('node-cron');
 
+/**Controllers */
+//const { signup, login, verifyToken, refreshToken } = require('./controllers/controllers.js');
+const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
+// const { home } = require('./controllers/controllers.js');
+//
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  name: 'session',
+  secret: 'secret',
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+}));
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.post('/signup', auth.signupController);
+app.post('/login', (req, res, next) => {
+  console.log(req.body);
+  next();
+}, passport.authenticate('local'), auth.loginController);
 
 app.get('/coins', trade.getCoin);
 
@@ -67,6 +86,7 @@ app.get('/coins/markets', market.getCoins);
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port ${PORT}`);
 });
