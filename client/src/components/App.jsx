@@ -55,7 +55,7 @@ function App() {
     try {
       await axios.post(`/achievements/${authenticatedUser}/${id}`);
     } catch(err) {
-      
+      console.log(err);
     }
   };
 
@@ -98,16 +98,16 @@ function App() {
         let accVal = portfolioData.reduce((acc, asset) => {
           return acc + asset.value;
         }, 0);
-        setProfits((accVal + 50).toFixed(2));
+        setProfits((accVal + 500).toFixed(2));
         setAccountValue(accVal.toFixed(2));
         if (!achievementsStatus[9] && profits >= 50) {
-          axios.post(`/achievements/${authenticatedUser}/9`);
+          grantUserAchievement(9);
         } 
         if (!achievementsStatus[10] && profits >= 100) {
-          axios.post(`/achievements/${authenticatedUser}/10`);
+          grantUserAchievement(10);
         }
         if (!achievementsStatus[11] && profits >= 500) {
-          axios.post(`/achievements/${authenticatedUser}/11`);
+          grantUserAchievement(11);
         }
       })
       .catch(err => console.log(err));
