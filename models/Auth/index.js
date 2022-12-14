@@ -25,7 +25,7 @@ const Auth = {
     return pool
       .query('UPDATE users SET refresh_token = $1 WHERE id = $2', [token, id]);
   },
-  getToken: (token) => {
+  getTokenHash: (token) => {
     return pool.
       query('SELECT refresh_token from users WHERE refresh_token = $1', [token])
       .then(result => result.rows[0].refresh_token || null);
