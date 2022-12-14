@@ -1,4 +1,4 @@
-// require('../db/index.js'); //tests db connection
+require('../db/index.js'); //tests db connection
 require('../passport.config.js');
 const express = require('express');
 require('dotenv').config();
