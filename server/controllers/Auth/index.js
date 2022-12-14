@@ -48,16 +48,17 @@ const AuthControllers = {
       const hash = await Auth.getTokenHash(token);
       const isTokenVerified = await verifyToken(token, hash);
       if(!isTokenVerified) return res.status(401);
-      //Not sure if refresh token is sent when sending back new access token???? Need to check if it expired???
-      //For right now 14DEC2022 will only send back Access Token
-      const accessToken = createAccessToken(id, username);
-      const payload = { accessToken, id, username };
-      res.status(200).json(payload)
-    } catch(err) {
-      console.log('Error verifying token');
-      console.log(err);
-      res.status(500);
-    }
+      const [accessToken, refreshToken] = createNewTokens(id, username);
+      const refreshTokenHash = hashToken(refreshToken);
+      try {
+        await Auth.updateToken(refreshTokenHash, id); //update refresh token in db
+        const payload = { accessToken, refreshToken, id, username };
+        console.log('PAYLOAD', payload);
+        res.status(200).send(payload); //send new tokens
+      } catch(err) {
+        console.log('ERROR UPDATING REFRESH TOKEN');
+        res.status(500);
+      }
   }
 
 }
