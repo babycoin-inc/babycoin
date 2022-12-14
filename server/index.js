@@ -1,8 +1,8 @@
 require('../db/index.js'); //tests db connection
-require('../passport.config.js');
+
 const express = require('express');
 require('dotenv').config();
-const passport = require('passport');
+const passport = require('../passport.config.js');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
