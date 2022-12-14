@@ -1,7 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS trader (
-  id uuid DEFAULT uuid_generate_v4 (),
+  id SERIAL,
   username VARCHAR(50),
   password VARCHAR(100),
   PRIMARY KEY (id)
