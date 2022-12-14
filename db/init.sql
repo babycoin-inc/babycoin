@@ -1,5 +1,10 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE IF NOT EXISTS trader (
-  id SERIAL PRIMARY KEY
+  id uuid DEFAULT uuid_generate_v4 (),
+  username VARCHAR(50),
+  password VARCHAR(100),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS coins (
