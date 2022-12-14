@@ -58,6 +58,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       getCoins();
+      getPortfolioData(authenticatedUser);
     }, 30000);
     return () => clearInterval(interval);
   }, []);
