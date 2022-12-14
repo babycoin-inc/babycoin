@@ -29,22 +29,22 @@ app.use(passport.session())
 app.post('/signup', auth.signupController);
 app.post('/login', passport.authenticate('local'), auth.loginController);
 //app.use(passport.authenticate('jwt')):
-app.get('/coins', trade.getCoin);
 
-app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
-app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
+
+app.post('/users/:id/transactions/buy', passport.authenticate('jwt'), trade.insertBuyTransaction);
+app.post('/users/:id/transactions/sell', passport.authenticate('jwt'), trade.insertSellTransaction);
+app.get('/users/:id/balances/', passport.authenticate('jwt'), home.getPortfolioAssets);
+app.get('/users/:id/transactions/', passport.authenticate('jwt'), home.getTransactions);
+app.delete('/users/:id/portfolio/', passport.authenticate('jwt'), home.clearPortfolio)
+
+
+
+
 
 app.get('/achievements', achievements.getAchievements);
 app.get('/achievements/:trader_id', achievements.getUserAchievements);
 app.post('/achievements/:trader_id', achievements.addUserAchievement);
 
-// Gets all assets in user portfolio
-app.get('/users/:id/balances/', home.getPortfolioAssets);
-// Gets transaction history
-app.get('/users/:id/transactions/', home.getTransactions);
-
-// Resets Portfolio, transaction history, and adds starting cash and achievement
-app.delete('/users/:id/portfolio/', home.clearPortfolio)
 
 app.get("/newsfeed", async (req, res) => {
   console.log(req.body);
@@ -76,6 +76,7 @@ cron.schedule('*/30 * * * * *', () => {
 });
 
 //FOR THE FRONT END
+app.get('/coins', trade.getCoin);
 app.get('/coins/markets', market.getCoins);
 
 
