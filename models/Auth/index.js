@@ -27,7 +27,8 @@ const Auth = {
   },
   registerUser: (username, password) => {
     return pool
-      .query('INSERT INTO users(username, password) values($1, $2)', [username, password])
+      .query('INSERT INTO users(username, password) values($1, $2) RETURNING id', [username, password])
+      .then(result => result.rows[0].id);
   },
   isUsernameUnavailable: (username) => {
     return (
