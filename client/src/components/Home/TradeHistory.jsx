@@ -1,4 +1,5 @@
 import React from 'react';
+import dateFormat from 'dateFormat';
 
 function TradeHistory({ tradeHistory }) {
 
@@ -36,7 +37,7 @@ function TradeHistory({ tradeHistory }) {
                   <td className="text-center">${Number(trade.total_trade_fiat).toFixed(2)}<i className="block text-sm">.{`${trade.total_trade_coin} ${trade.acronym.toUpperCase()}`}</i></td>
                   <td className="text-center">${Number(trade.purchase_price).toLocaleString("en-US")}</td>
                   {orderTypeColor(trade.order_type)}
-                  <td className="text-center">Date</td>
+                  <td className="text-center">{dateFormat(trade.order_datetime, 'mmm d')}</td>
                 </tr>
               ))}
             </tbody>
