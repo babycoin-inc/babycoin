@@ -10,7 +10,7 @@ const pool = new Pool({
     port: process.env.PGPORT,
 });
 
-const sql = fs.readFileSync('db/init.sql', 'utf8');
+// const sql = fs.readFileSync('db/init.sql', 'utf8');
 
 (async() => {
   try {
