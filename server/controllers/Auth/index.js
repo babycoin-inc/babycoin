@@ -6,13 +6,14 @@ const { createAccessToken, createRefreshToken } = require('../../utils/tokens.js
 const AuthControllers = {
   signupController: async (req, res) => {
     const { username, password } = req.body;
-    const hash = hashPassword(password);
+
     try {
       const usernameUnavailable = await isUsernameUnavailable(username);
       if(usernameUnavailable) return res.status(409).json({ msg: 'Username Already Exists' });
-      const id = await registerUser(username, hash);
+      const hash = hashPassword(password);
       const accessToken = createAccessToken(id, username);
       const refreshToken = createRefreshToken(id, username);
+      const id = await registerUser(username, hash, refreshToken);
       const payload = { accessToken, refreshToken, id, username };
       res.status(201).json(payload);
     } catch (err) {
