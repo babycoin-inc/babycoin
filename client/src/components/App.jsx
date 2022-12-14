@@ -98,7 +98,7 @@ function App() {
         let accVal = portfolioData.reduce((acc, asset) => {
           return acc + asset.value;
         }, 0);
-        setProfits((accVal - 500).toFixed(2));
+        setProfits((accVal + 50).toFixed(2));
         setAccountValue(accVal.toFixed(2));
         if (!achievementsStatus[9] && profits >= 50) {
           axios.post(`/achievements/${authenticatedUser}/9`);
@@ -161,7 +161,7 @@ function App() {
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} />);
+    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} achievementsStatus={achievementsStatus} />);
   };
 
   return (
