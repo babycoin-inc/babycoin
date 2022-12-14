@@ -83,5 +83,5 @@ app.get('/leaderboard', leaderboard.getLeaderboard);
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Example app listening on port ${port}`);
 });
