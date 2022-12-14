@@ -33,7 +33,6 @@ app.get('/users/:id/transactions/', home.getTransactions);
 app.delete('/users/:id/portfolio/', home.clearPortfolio)
 
 app.get("/newsfeed", nf.getNews);
-
 app.get("/nfAPI", nf.runAPI)
 
 

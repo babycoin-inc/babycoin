@@ -23,7 +23,7 @@ let runAPI = (cb) => {
     params: {
       items:100,
       page:1,
-      date: '12012020-12072020',
+      date: 'last30days',
       token: process.env.CPNAPIKEY
     },
     url:"https://cryptonews-api.com/api/v1/category?section=alltickers"
@@ -36,7 +36,7 @@ let runAPI = (cb) => {
       client.query(
         `INSERT INTO newsfeed ("title", "description", "arthur", "url", "tickers", "publish_date", "image_url", "topics", "type", "sentiment")
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`, [art.title, art.text, art.source_name, art.news_url, art.tickers, art.date , art.image_url, art.topics, art.type, art.sentiment]).then(result =>{
-          //console.log('result inserted');
+          console.log('result inserted');
         }).catch(err => {
           console.log(err);
         });

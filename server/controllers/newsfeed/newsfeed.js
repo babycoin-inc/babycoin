@@ -1,9 +1,9 @@
 require('dotenv').config();
-const newsfeed = require('../../../models/newsfeed/newsfeed.js');
+const newsfeed = require('../../../models/models.js');
 
 
-let runAPI = (req, res) => {
-  newsfeed.runAPI((err,result) => {
+module.exports.runAPI = (req, res) => {
+  newsfeed.Newsfeed.runAPI((err,result) => {
     if(err){
       res.status(500).end();
     } else {
@@ -12,10 +12,10 @@ let runAPI = (req, res) => {
   })
 }
 
-let getNews = (n) => async (req, res) => {
+module.exports.getNews = async (req, res) => {
   console.log(req.body);
   try {
-    const result = await newsfeed.getNews(n=10);
+    const result = await newsfeed.Newsfeed.getNews(n=10);
     if(result.length > 0) {
       res.status(200).send(result);
     }
@@ -25,7 +25,7 @@ let getNews = (n) => async (req, res) => {
   }
 }
 
-module.exports = {
-  getNews,
-  runAPI
-}
+// module.exports = {
+//   getNews,
+//   runAPI
+// }

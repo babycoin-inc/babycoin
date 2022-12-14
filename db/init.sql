@@ -84,10 +84,13 @@ CREATE TABLE IF NOT EXISTS newsfeed (
   URL VARCHAR(200) NOT NULL,
   tickers TEXT [] NOT NULL,
   image_url VARCHAR(200) NOT NULL,
+  publish_date timestamp with time zone,
   topics TEXT,
   type TEXT,
   sentiment TEXT
 );
+
+
 -- CREATE RULE update_leaderboard_on_insert_transactions AS ON INSERT TO transactions DO ALSO
 --   (
 --   INSERT INTO leaderboard
