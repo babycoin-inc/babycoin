@@ -36,14 +36,15 @@ app.post('/users/:id/transactions/sell', passport.authenticate('jwt'), trade.ins
 app.get('/users/:id/balances/', passport.authenticate('jwt'), home.getPortfolioAssets);
 app.get('/users/:id/transactions/', passport.authenticate('jwt'), home.getTransactions);
 app.delete('/users/:id/portfolio/', passport.authenticate('jwt'), home.clearPortfolio)
-
-
-
+//TODO: UPDATE ACHIEVEMENTS ROUTES TO HAVE USERS/ IN ROUTE
+app.get('/achievements/:trader_id', passport.authenticate('jwt'), achievements.getUserAchievements);
+app.post('/achievements/:trader_id', passport.authenticate('jwt'), achievements.addUserAchievement);
 
 
 app.get('/achievements', achievements.getAchievements);
-app.get('/achievements/:trader_id', achievements.getUserAchievements);
-app.post('/achievements/:trader_id', achievements.addUserAchievement);
+
+
+
 
 
 app.get("/newsfeed", async (req, res) => {
