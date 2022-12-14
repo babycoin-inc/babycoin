@@ -1,6 +1,5 @@
 require('../db/index.js'); //tests db connection
 require("dotenv").config();
-
 const express = require('express');
 
 const app = express();
@@ -42,7 +41,6 @@ cron.schedule('*/30 * * * * *', () => {
 
 //FOR THE FRONT END
 app.get('/coins/markets', market.getCoins);
-sdfsdfsd
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
