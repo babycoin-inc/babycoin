@@ -39,12 +39,13 @@ function Newsfeed(ticker) {
   }
 
   function getNews(n){
-    console.log(n);
+    console.log(n, ticker.coin);
     var options = {
       method:'get',
       url:  "/newsfeed",
       body: {
-        num: n
+        num: n,
+        coin: ticker.coin
       }
     }
     axios(options).then((result) => {
