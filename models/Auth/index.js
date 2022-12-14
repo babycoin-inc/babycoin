@@ -25,9 +25,14 @@ const Auth = {
     return pool
       .query('UPDATE users SET refresh_token = $1 WHERE id = $2', [token, id]);
   },
-  registerUser: (username, password) => {
+  getToken: (token) => {
+    return pool.
+      query('SELECT refresh_token from users WHERE refresh_token = $1', [token])
+      .then(result => result.rows[0].refresh_token || null);
+  },
+  registerUser: (username, password, refreshToken) => {
     return pool
-      .query('INSERT INTO users(username, password) values($1, $2) RETURNING id', [username, password])
+      .query('INSERT INTO users(username, password, refresh_token) values($1, $2, $3) RETURNING id', [username, password, refreshToken])
       .then(result => result.rows[0].id);
   },
   isUsernameUnavailable: (username) => {
