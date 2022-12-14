@@ -1,4 +1,4 @@
-// require('../db/index.js'); //tests db connection
+require('../db/index.js'); //tests db connection
 require('../passport.config.js');
 const express = require('express');
 require('dotenv').config();
@@ -13,10 +13,8 @@ const session = require('cookie-session');
 const cron = require('node-cron');
 
 /**Controllers */
-//const { signup, login, verifyToken, refreshToken } = require('./controllers/controllers.js');
 const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
-// const { home } = require('./controllers/controllers.js');
-//
+
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,10 +27,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.post('/signup', auth.signupController);
-app.post('/login', (req, res, next) => {
-  console.log(req.body);
-  next();
-}, passport.authenticate('local'), auth.loginController);
+app.post('/login', passport.authenticate('local'), auth.loginController);
 
 app.get('/coins', trade.getCoin);
 
