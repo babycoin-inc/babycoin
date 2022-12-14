@@ -3,13 +3,22 @@ const jwt = require('jsonwebtoken');
 // const { Auth } = require('../../../models/models.js');
 // const { Login } = Auth;
 
-const createToken = (id, username) => {
-  const token = jwt.sign(
+const createAccessToken = (id, username) => {
+  const accessToken = jwt.sign(
     { userid: id, username: username },
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: '15m' }
   );
-  return token;
+  return accessToken;
+}
+
+const createRefreshToken = (id, username) => {
+  const refreshToken = jwt.sign(
+    { userid: id, username: username },
+    process.env.REFRESH_TOKEN_SECRET,
+    { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
+  );
+  return refreshToken;
 }
 
 // const verifyToken = (req, res, next) => {
@@ -46,4 +55,7 @@ const createToken = (id, username) => {
 
 // module.exports = refreshToken;
 
-module.exports = createToken;
+module.exports = {
+  createAccessToken,
+  createRefreshToken
+};
