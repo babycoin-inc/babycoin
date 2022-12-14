@@ -23,9 +23,9 @@ exports.getUserAchievements = async (req, res) => {
 
 exports.addUserAchievement = async (req, res) => {
     const { id } = req.params;
-    const { achievementId } = req.params;
+    const { achievement } = req.params;
     try {
-        await Achievements.addUserAchievement(id, achievementId);
+        await Achievements.addUserAchievement(id, achievement);
         res.status(201).end();
     } catch (error) {
         console.log('Error:', error);
