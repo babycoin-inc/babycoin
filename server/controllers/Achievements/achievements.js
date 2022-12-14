@@ -11,9 +11,9 @@ exports.getAchievements = async (req, res) => {
 };
 
 exports.getUserAchievements = async (req, res) => {
-    const { trader_id } = req.params;
+    const { id } = req.params;
     try {
-        const achievements = await Achievements.getUserAchievements(trader_id);
+        const achievements = await Achievements.getUserAchievements(id);
         res.send(achievements);
     } catch (error) {
         console.log('Error:', error);
@@ -22,10 +22,10 @@ exports.getUserAchievements = async (req, res) => {
 };
 
 exports.addUserAchievement = async (req, res) => {
-    const { trader_id } = req.params;
-    const { achievement } = req.body;
+    const { id } = req.params;
+    const { achievement } = req.params;
     try {
-        await Achievements.addUserAchievement(trader_id, achievement);
+        await Achievements.addUserAchievement(id, achievement);
         res.status(201).end();
     } catch (error) {
         console.log('Error:', error);
