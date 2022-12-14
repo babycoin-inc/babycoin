@@ -13,7 +13,7 @@ const Card = function ( { achievement, status } ) {
                     src={achievement.icon} />
                 </div>
                 <div className="flex-grow h-1/1 w-2/4">
-                    <h2 className="font-bold text-xl py-3 text-yellow-300">
+                    <h2 className="font-bold text-xl py-1 text-yellow-300">
                         {achievement.title}
                     </h2>
                     <div className="text-sm">
@@ -25,7 +25,7 @@ const Card = function ( { achievement, status } ) {
                     </div> : null}
                 </div>
                 <div className="flex-1 w-1/4 h-full justify-center items-center">
-                    <div className="font-bold text-center text-green-300 text-2xl my-14">
+                    <div className="font-bold text-center text-green-300 text-2xl my-[40%]">
                         {status ? `+${achievement.points}`
                         : achievement.points}
                     </div>
