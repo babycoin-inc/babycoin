@@ -1,6 +1,7 @@
 name: Push-to-EC2
 
 # Trigger deployment only on push to master branch
+#TEST DEPLOY COMMENT
 on:
   push:
     branches:
