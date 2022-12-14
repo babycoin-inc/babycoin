@@ -22,8 +22,8 @@ const AuthControllers = {
     const { id, username } = req.user;
     const accessToken = createAccessToken(id, username);
     const refreshToken = createRefreshToken(id, username);
-    const authorizedUser = { id, username, accessToken, refreshToken };
-    res.status(200).send(authorizedUser);
+    const tokens = { accessToken, refreshToken };
+    res.status(200).send(tokens);
   }
 }
 
