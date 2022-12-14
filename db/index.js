@@ -19,19 +19,14 @@ const pool = new Pool({
     pool.query(sql);
   } catch(err) {
     if (err.code === '3D000') {
-      try {
-        console.log(`Database 'babycoin' doesn't exist. Creating database 'babycoin'.`)
-        const client = new Client({ database: process.env.PGUSER });
-        await client.connect();
-        await client.query('CREATE DATABASE babycoin');
-        client.end();
-        const pool = new Pool();
-        console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
-        await pool.query(sql);
-        await pool.query(`COPY achievements FROM '${__dirname}/achievements.csv' DELIMITER ',' CSV HEADER`);
-      } catch (err) {
-        console.log('Error in the database:', err);
-      }
+      console.log(`Database 'babycoin' doesn't exist. Creating database 'babycoin'.`)
+      const client = new Client({ database: process.env.PGUSER });
+      await client.connect();
+      await client.query('CREATE DATABASE babycoin');
+      client.end();
+      const pool = new Pool();
+      console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
+      pool.query(sql);
     }
   }
 })();
