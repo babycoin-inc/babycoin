@@ -92,7 +92,6 @@ function App() {
     axios.get(`/coins/markets`)
     .then((coins) => {
       setCoins(coins.data);
-      console.log('sync with updateCoins every 30s');
     })
     .catch(err => console.log(err));
   }
@@ -121,7 +120,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<Market />);
+    activeComponent = (<Market coins={coins}/>);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade authenticatedUser={authenticatedUser} portfolio={portfolio} />);
   } else if (activePage === 'Leader Board') {

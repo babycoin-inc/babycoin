@@ -1,8 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Trade from '../Trade/Trade.jsx';
 
-const Market = () => {
+const Market = ({ coins }) => {
+
+  const [activePage, setActivePage] = useState('Market');
+
+  function handleCoinClick (e) {
+    e.preventDefault();
+    setActivePage('Trade');
+  }
+
   return (
-      <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <div>
+      {
+        activePage === 'Market' ?
+
+        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table className="w-full text-center">
           <thead className="border-b bg-zinc-700">
             <tr>
@@ -15,70 +28,25 @@ const Market = () => {
               <th scope="col" className="text-lg font-medium text-white px-3 py-6">
                 Price
               </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                1h
-              </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                24h
-              </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                7d
-              </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                24h Volume
-              </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                Mkt Cap
-              </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                FDV
-              </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                Mkt Cap/FDV
-              </th>
-              <th scope="col" className="text-lg font-medium text-white px-3 py-6">
-                Last 7 Days
-              </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b bg-zinc-900 boder-gray-900 hover:bg-zinc-500">
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">1</td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-                Bitcoin BTC
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-                $16,833.02
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-                -0.0%
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-                0.1%
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-                -2.0%
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-                $18,684,528,849
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-              $323,714,036,416
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-              $353,551,695,000
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-              0.92
-              </td>
-              <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">
-              graph placeholder
-              </td>
-            </tr>
+              {coins.map((coin, index) => (
+                <tr className="border-b bg-zinc-900 boder-gray-900 hover:bg-zinc-500">
+                  <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">{coin.id}</td>
+                  <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap" onClick={handleCoinClick}>{coin.name}</td>
+                  <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">{coin.latest_price}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
-      </div>
-        );
+      </div> :
+      
+      <Trade />
+      }
+    </div>
+
+    );
 };
 
 export default Market;

@@ -8,7 +8,6 @@ const updateCoins = () => {
     headers: { "Accept-Encoding": "gzip,deflate,compress" }
   })
  .then(result => {
-    console.log('update the coins table every 30s');
     return marketWatch.writeCoins(result.data);
   })
   .catch(error => {
