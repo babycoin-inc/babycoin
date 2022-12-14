@@ -9,6 +9,8 @@ const port = process.env.PORT || 4000;
 
 const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 
+const cron = require('node-cron');
+
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -53,7 +55,15 @@ app.get("/nfAPI", (req, res) => {
   })
 })
 
+
+cron.schedule('*/30 * * * * *', () => {
+  // //invoke a function that does not require a request and response
+  market.updateCoins(); // update the coins table every 30s
+});
+
+//FOR THE FRONT END
 app.get('/coins/markets', market.getCoins);
+
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 

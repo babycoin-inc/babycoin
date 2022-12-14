@@ -55,6 +55,14 @@ function App() {
     getPortfolioData(authenticatedUser);
   }, [tradeHistory]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getCoins();
+    }, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
@@ -79,10 +87,12 @@ function App() {
       .catch(err => console.log(err));
   }
 
+
   function getCoins() {
     axios.get(`/coins/markets`)
     .then((coins) => {
       setCoins(coins.data);
+      console.log('sync with updateCoins every 30s');
     })
     .catch(err => console.log(err));
   }
