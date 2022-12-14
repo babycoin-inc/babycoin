@@ -2,6 +2,7 @@ require('dotenv').config();
 const jwt = require('jsonwebtoken');
 // const { Auth } = require('../../../models/models.js');
 // const { Login } = Auth;
+const REFRESH_TOKEN_EXPIRY = '1d';
 
 const createAccessToken = (id, username) => {
   const accessToken = jwt.sign(
@@ -16,7 +17,7 @@ const createRefreshToken = (id, username) => {
   const refreshToken = jwt.sign(
     { userid: id, username: username },
     process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
+    { expiresIn: REFRESH_TOKEN_EXPIRY }
   );
   return refreshToken;
 }
