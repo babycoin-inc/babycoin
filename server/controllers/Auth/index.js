@@ -23,20 +23,19 @@ const AuthControllers = {
   },
 
   loginController: async (req, res) => { // USES LOCAL STRATEGY, NOT JWT!!!!!!!!
-    //console.log('REQ', req)
     console.log('REQ.USER', req.user)
     const { id, username } = req.user;
     const [accessToken, refreshToken] = createNewTokens(id, username); //Create tokens for new login 'session'
     const refreshTokenHash = hashToken(refreshToken); //hash token for db storage
     try {
       await Auth.updateToken(refreshTokenHash, id); //update refresh token in db
-      const payload = { accessToken, refreshToken, id, username };
-      console.log('PAYLOAD', payload);
-      res.status(200).send(payload); //send new tokens
     } catch(err) {
       console.log('ERROR UPDATING REFRESH TOKEN');
-      res.status(500);
+      return res.status(500);
     }
+    const payload = { accessToken, refreshToken, id, username };
+    console.log('PAYLOAD', payload);
+    res.status(200).send(payload); //send new tokens
   },
 
   refreshTokenController: async (req, res) => {
@@ -48,17 +47,21 @@ const AuthControllers = {
       const hash = await Auth.getTokenHash(token);
       const isTokenVerified = await verifyToken(token, hash);
       if(!isTokenVerified) return res.status(401);
-      const [accessToken, refreshToken] = createNewTokens(id, username);
-      const refreshTokenHash = hashToken(refreshToken);
-      try {
-        await Auth.updateToken(refreshTokenHash, id); //update refresh token in db
-        const payload = { accessToken, refreshToken, id, username };
-        console.log('PAYLOAD', payload);
-        res.status(200).send(payload); //send new tokens
-      } catch(err) {
-        console.log('ERROR UPDATING REFRESH TOKEN');
-        res.status(500);
-      }
+    } catch(err) {
+      console.log('ERROR VERIFYING TOKEN');
+      return res.status(500);
+    }
+    const [accessToken, refreshToken] = createNewTokens(id, username);
+    const hashedRefreshToken = hashToken(refreshToken);
+    try {
+      await Auth.updateToken(hashedRefreshToken, id);
+    } catch(err) {
+      console.log('Error updating token');
+      console.log(err);
+      return res.status(500);
+    }
+    const payload = { accessToken, refreshToken, id, username };
+    res.status(200).json(payload);
   }
 
 }
