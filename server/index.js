@@ -5,7 +5,7 @@ const express = require('express');
 
 const app = express();
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 const { nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
 
@@ -32,9 +32,8 @@ app.get('/users/:id/transactions/', home.getTransactions);
 // Resets Portfolio, transaction history, and adds starting cash and achievement
 app.delete('/users/:id/portfolio/', home.clearPortfolio)
 
-app.get("/newsfeed", nf.getNews);
+app.get("/newsfeed/:coin", nf.getNews);
 app.get("/nfAPI", nf.runAPI)
-
 
 cron.schedule('*/30 * * * * *', () => {
   // //invoke a function that does not require a request and response
@@ -43,7 +42,7 @@ cron.schedule('*/30 * * * * *', () => {
 
 //FOR THE FRONT END
 app.get('/coins/markets', market.getCoins);
-
+sdfsdfsd
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 

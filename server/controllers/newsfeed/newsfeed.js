@@ -13,9 +13,9 @@ module.exports.runAPI = (req, res) => {
 }
 
 module.exports.getNews = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.params, req.query);
   try {
-    const result = await newsfeed.Newsfeed.getNews(n=10);
+    const result = await newsfeed.Newsfeed.getNews(req.params.coin, req.query.n);
     if(result.length > 0) {
       res.status(200).send(result);
     }
@@ -24,8 +24,3 @@ module.exports.getNews = async (req, res) => {
       console.log(err);
   }
 }
-
-// module.exports = {
-//   getNews,
-//   runAPI
-// }

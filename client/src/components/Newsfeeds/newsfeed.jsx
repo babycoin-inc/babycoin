@@ -9,6 +9,9 @@ function Newsfeed(ticker) {
   const [newsArr, setFeed] = useState([]);
   let initialized = false;
 
+  const coin = ticker.coin;
+
+
   useEffect(()=>{
     var options = {
       method:'get',
@@ -42,11 +45,7 @@ function Newsfeed(ticker) {
     console.log(n, ticker.coin);
     var options = {
       method:'get',
-      url:  "/newsfeed",
-      body: {
-        num: n,
-        coin: ticker.coin
-      }
+      url:  `/newsfeed/${ticker.coin}?n=${n}`
     }
     axios(options).then((result) => {
       console.log('get news ran');

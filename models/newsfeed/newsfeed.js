@@ -4,7 +4,7 @@ const schedule = require('node-schedule');
 require("dotenv").config();
 
 const rule = new schedule.RecurrenceRule();
-rule.hour = 1;
+rule.hour = 0.25;
 
 const job = schedule.scheduleJob(rule, function(){
   runAPI((err, result)=>{
@@ -48,8 +48,9 @@ let runAPI = (cb) => {
   })
 }
 
-let getNews = (n) => {
-    return client.query(`SELECT title, description, arthur, url, tickers, image_url, topics, type, sentiment, publish_date FROM newsfeed ORDER BY publish_date DESC LIMIT $1`,[n]).then(result => {
+let getNews = (coin, n=10) => {
+    console.log(coin, n);
+    return client.query(`SELECT title, description, arthur, url, tickers, image_url, topics, type, sentiment, publish_date FROM newsfeed WHERE $2 = ANY(tickers) ORDER BY publish_date DESC LIMIT $1`,[n, coin]).then(result => {
       //console.log(result.rows);
       return result.rows;
     }).catch(err => {
