@@ -9,11 +9,11 @@ const Page = () => {
   //   {authorizedUser ? <App /> : <Login updateUser={setAuthorizedUser}/>}
   // )
 
-  // if(!authorizedUser) {
-  //   return <Login updateUser={setAuthorizedUser}/>
-  // } else {
+  if(!authorizedUser) {
+    return <Login updateUser={setAuthorizedUser}/>
+  } else {
     return <App className = "bg-zinc-900 pb-8"/>
-  // }
+  }
 }
 
 export default Page;
