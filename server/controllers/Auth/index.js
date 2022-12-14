@@ -10,8 +10,11 @@ const AuthControllers = {
     try {
       const usernameUnavailable = await isUsernameUnavailable(username);
       if(usernameUnavailable) return res.status(409).json({ msg: 'Username Already Exists' });
-      await registerUser(username, hash);
-      res.status(201).json({ msg: 'Account Created' });
+      const id = await registerUser(username, hash);
+      const accessToken = createAccessToken(id, username);
+      const refreshToken = createRefreshToken(id, username);
+      const tokens = { accessToken, refreshToken, id, username };
+      res.status(201).json(tokens);
     } catch (err) {
       console.log(err);
       res.status(500).json({ msg: "Error in signupController" })
@@ -22,7 +25,7 @@ const AuthControllers = {
     const { id, username } = req.user;
     const accessToken = createAccessToken(id, username);
     const refreshToken = createRefreshToken(id, username);
-    const tokens = { accessToken, refreshToken };
+    const tokens = { accessToken, refreshToken, id, username };
     res.status(200).send(tokens);
   }
 }
