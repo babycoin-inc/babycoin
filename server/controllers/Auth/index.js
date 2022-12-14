@@ -13,8 +13,8 @@ const AuthControllers = {
       const id = await registerUser(username, hash);
       const accessToken = createAccessToken(id, username);
       const refreshToken = createRefreshToken(id, username);
-      const tokens = { accessToken, refreshToken, id, username };
-      res.status(201).json(tokens);
+      const payload = { accessToken, refreshToken, id, username };
+      res.status(201).json(payload);
     } catch (err) {
       console.log(err);
       res.status(500).json({ msg: "Error in signupController" })
@@ -25,8 +25,8 @@ const AuthControllers = {
     const { id, username } = req.user;
     const accessToken = createAccessToken(id, username);
     const refreshToken = createRefreshToken(id, username);
-    const tokens = { accessToken, refreshToken, id, username };
-    res.status(200).send(tokens);
+    const payload = { accessToken, refreshToken, id, username };
+    res.status(200).send(payload);
   }
 }
 
