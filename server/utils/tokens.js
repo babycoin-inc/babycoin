@@ -24,8 +24,20 @@ const createRefreshToken = (id, username) => {
   return refreshToken;
 }
 
-const hashToken = (token) => bcrypt.hashSync(password, SALT_ROUNDS);
+const createNewTokens = (id, username) => {
+  const accessToken = createAccessToken(id, username);
+  const refreshToken = createRefreshToken(id, username);
+  return [accessToken, refreshToken];
+}
+
+const hashToken = (token) => bcrypt.hashSync(token, SALT_ROUNDS);
 const verifyToken = (token, hash) => bcrypt.compare(token, hash);
+const getRefreshTokenFromHeaders = (reqHeaders) => {
+  const bearerToken = reqHeaders.authorization?.split(' ');
+  const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null;
+  if(!bearerToken || !token) return null;
+  return token;
+}
 
 // const verifyToken = (req, res, next) => {
 //   const authHeader = req.headers['authorization'];
@@ -62,8 +74,10 @@ const verifyToken = (token, hash) => bcrypt.compare(token, hash);
 // module.exports = refreshToken;
 
 module.exports = {
+  createNewTokens,
   createAccessToken,
   createRefreshToken,
   hashToken,
-  verifyToken
+  verifyToken,
+  getRefreshTokenFromHeaders
 };
