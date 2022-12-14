@@ -54,6 +54,7 @@ function App() {
   const grantUserAchievement = async (id) => {
     try {
       await axios.post(`/achievements/${authenticatedUser}/${id}`);
+      getUserAchievements();
     } catch(err) {
       console.log(err);
     }
@@ -92,13 +93,16 @@ function App() {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
         setPortfolio(data.data);
+        if (!achievementsStatus[3] && data.data.length >= 4) {
+          grantUserAchievement(3);
+        }
         return data.data;
       })
       .then((portfolioData) => {
         let accVal = portfolioData.reduce((acc, asset) => {
           return acc + asset.value;
         }, 0);
-        setProfits((accVal + 500).toFixed(2));
+        setProfits((accVal - 500).toFixed(2));
         setAccountValue(accVal.toFixed(2));
         if (!achievementsStatus[9] && profits >= 50) {
           grantUserAchievement(9);
@@ -157,7 +161,7 @@ function App() {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} portfolio={portfolio} />);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} portfolio={portfolio} achievementsStatus={achievementsStatus} grantUserAchieveme={grantUserAchievement}/>);
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {
