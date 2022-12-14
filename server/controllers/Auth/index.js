@@ -1,19 +1,19 @@
 const { Auth } = require('../../../models/models.js');
 const { isUsernameUnavailable, registerUser } = Auth;
 const { hashPassword } = require('../../utils/passwords.js');
-const { createAccessToken, createRefreshToken } = require('../../utils/tokens.js');
+const { createAccessToken, createRefreshToken, hashToken } = require('../../utils/tokens.js');
 
 const AuthControllers = {
   signupController: async (req, res) => {
     const { username, password } = req.body;
-
     try {
       const usernameUnavailable = await isUsernameUnavailable(username);
       if(usernameUnavailable) return res.status(409).json({ msg: 'Username Already Exists' });
       const hash = hashPassword(password);
       const accessToken = createAccessToken(id, username);
       const refreshToken = createRefreshToken(id, username);
-      const id = await registerUser(username, hash, refreshToken);
+      const refreshTokenHash = hashToken(refreshToken);
+      const id = await registerUser(username, hash, refreshTokenHash);
       const payload = { accessToken, refreshToken, id, username };
       res.status(201).json(payload);
     } catch (err) {
