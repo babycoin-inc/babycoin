@@ -12,7 +12,6 @@ function TradeHistory({ tradeHistory }) {
   };
 
   let hasMadeTrades = false;
-
   if (tradeHistory.length >= 1) {
     hasMadeTrades = true;
   }

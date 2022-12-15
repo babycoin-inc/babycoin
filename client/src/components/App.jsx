@@ -181,7 +181,7 @@ function App() {
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-50">
-          <Header activePage={activePage} />
+          <Header activePage={activePage} tradeHistory={tradeHistory} />
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
