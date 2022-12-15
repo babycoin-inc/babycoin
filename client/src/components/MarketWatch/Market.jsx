@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import Trade from '../Trade/Trade.jsx';
 import MarketWatch from './MarketWatch.jsx';
 
-const Market = ({ coins, activeTab, handleCoinClick, symbol}) => {
+const Market = ({ coins, activePage, handleCoinClick, symbol}) => {
 
   return (
     <div>
-      {activeTab === 'Market' ? <MarketWatch coins={coins} handleCoinClick={(e) => handleCoinClick(e)} /> : < Trade symbol={symbol}/>}
+      {activePage === 'Market Watch' ? <MarketWatch coins={coins} handleCoinClick={(e) => handleCoinClick(e)} /> : < Trade symbol={symbol}/>}
     </div>
 
     );

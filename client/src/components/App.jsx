@@ -20,7 +20,6 @@ function App() {
   const [tradeHistory, setTradeHistory] = useState([]);
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
-  const [activeTab, setaActiveTab] = useState('Market');
 
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
@@ -102,7 +101,7 @@ function App() {
     e.preventDefault();
     console.log(e.target.innerText); // the coin name
     setSymbol(e.target.innerText);
-    setaActiveTab('Trade');
+    setActivePage('Trade');
   }
 
   // Home:Balance component reset button
@@ -129,7 +128,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<Market coins={coins} handleCoinClick={(e) => handleCoinClick(e)} activeTab={activeTab} symbol={symbol} />);
+    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade authenticatedUser={authenticatedUser} portfolio={portfolio} symbol={symbol} />);
   } else if (activePage === 'Leader Board') {

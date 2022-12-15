@@ -14,7 +14,7 @@ function Trade({authenticatedUser, portfolio, symbol}) {
         </div>
         <Order authenticatedUser={authenticatedUser} portfolio={portfolio} symbol={symbol} />
       </div>
-      <Newsfeed/>
+      <Newsfeed />
     </div>
   )
 }
