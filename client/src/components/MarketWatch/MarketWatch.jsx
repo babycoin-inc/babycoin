@@ -21,7 +21,7 @@ const MarketWatch = ({coins, handleCoinClick}) => {
               {coins.map((coin, index) => (
                 <tr className="border-b bg-zinc-900 boder-gray-900 hover:bg-zinc-500">
                   <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">{coin.id}</td>
-                  <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap" onClick={handleCoinClick}>{coin.name}</td>
+                  <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap" onClick={handleCoinClick}>{coin.acronym}</td>
                   <td className="text-sm text-white font-light px-2 py-5 whitespace-nowrap">{coin.latest_price}</td>
                 </tr>
               ))}
