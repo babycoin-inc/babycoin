@@ -10,4 +10,4 @@ node_modules
 .env
 .DS_Store
 *.pem
-*.sh
+login.sh
