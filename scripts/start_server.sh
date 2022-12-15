@@ -3,4 +3,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads 
 
 cd /home/ec2-user/app/
+npx kill-port 3000
 node server/index.js

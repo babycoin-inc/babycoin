@@ -8,4 +8,3 @@ cd /home/ec2-user/app/
 npm ci
 npm run build-css-prod
 npm run build
-sudo chmod -R 775 /home/ec2-user/app/
