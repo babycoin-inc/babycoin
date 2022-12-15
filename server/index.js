@@ -28,6 +28,7 @@ app.use(passport.session())
 
 app.post('/auth/signup', auth.signupController);
 app.post('/auth/login', passport.authenticate('local'), auth.loginController);
+app.post('/auth/refresh', auth.refreshTokenController);
 app.get('/auth/google',
   passport.authenticate('google', { scope:
       [ 'email', 'profile' ] }
