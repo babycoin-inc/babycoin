@@ -1,3 +1,4 @@
+const { query } = require('express');
 const db = require('../../db/index.js');
 
 exports.getAchievements = async () => {
@@ -25,9 +26,32 @@ exports.getUserAchievements = async (id) => {
 exports.addUserAchievement = async (id, achievement) => {
   //Add validation to make sure achievement has been obtained
   try {
-    const { rows } = await db.query('INSERT INTO trader_achievements(trader_id, achievement_id) VALUES ($1, $2)', [id, achievement]);
-    return rows;
-  } catch(err) {
+    await db.query(`INSERT INTO trader_achievements (trader_id, achievement_id) VALUES ($1, $2)`, [id, achievement]);
+  } catch (err) {
     return err;
   }
+
+
+
+  // try {
+    // if (achievement === 2) {
+    //   console.log('nice')
+    //   const check = await db.query(`
+    //     SELECT (SELECT COUNT(order_type) FROM transactions WHERE order_type = buy) = 1`);
+    //     console.log(check);
+    //   if (check.rows[0]) {
+    //     const granted = await db.query (`
+    //       INSERT INTO trader_achievements(trader_id, achievement_id) 
+    //       VALUES ($1, $2)`, [id, achievement.id]);
+    //       console.log('granted');
+    //     return granted.rows;
+    //   } else {
+    //     console.log('denied');
+    //     return rows;
+    //   }
+    // }
+  // } catch (err) {
+  //   return err;
+  // }
+
 };

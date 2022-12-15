@@ -5,7 +5,7 @@ import { HiOutlineSwitchVertical } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 import axios from 'axios';
 
-function Order({authenticatedUser, portfolio}) {
+function Order({authenticatedUser, portfolio, symbol}) {
   const [orderType, setOrderType] = useState('buy');
   let [orderAmount, setOrderAmount] = useState('Order Amount');
   const [orderUnits, setOrderUnits] = useState('USD')
@@ -87,7 +87,7 @@ function Order({authenticatedUser, portfolio}) {
                   <HiOutlineSwitchVertical />
                 </IconContext.Provider>
               </button>
-              <div className="self-start text-sm text-center">BTC</div>
+              <div className="self-start text-sm text-center">{symbol}</div>
             </div>
             <div className="">
             <input onClick={() => {if(orderAmount === 'Order Amount' || orderAmount === '') {setOrderAmount('$')}}} onChange={(event) => {if (orderAmount[0] !== '$') {setOrderAmount('$')} else {setOrderAmount(event.target.value)}}} className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" type="text" value={orderAmount} />
@@ -112,7 +112,7 @@ function Order({authenticatedUser, portfolio}) {
           </div>
           <div className="flex justify-between gap-4">
             <div className="">Price</div>
-            <div className="">{`$${Math.round(price)}`} / BTC</div>
+            <div className="">{`$${Math.round(price)}`} / {symbol}</div>
           </div>
           <div>
             <button onClick={submitOrder} name="submit" className="text-lg mb-6 bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded-3xl py-2 px-5 mx-auto hover:bg-zinc-800 hover:border-zinc-800 hover:text-orange-500 active:border active:border-orange-400 h-14 w-44">Submit Order</button>
