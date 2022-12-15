@@ -2,7 +2,7 @@ import React from 'react';
 
 const Dropdown = () => {
   return (
-    <div>
+    <div className='flex justify-center'>
       <select className="text-white bg-zinc-700">
         <option value="bitcoin">Bitcoin</option>
         <option value="ethereum">Ethereum</option>

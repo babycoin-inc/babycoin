@@ -178,7 +178,7 @@ function App() {
 
   return (
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
-      <Sidebar handleNavClick={handleNavClick} activePage={activePage} />
+      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-50">
           <Header activePage={activePage} />
