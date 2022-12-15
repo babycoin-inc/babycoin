@@ -30,9 +30,9 @@ const Auth = {
       query('SELECT refresh_token from users WHERE refresh_token = $1', [token])
       .then(result => result.rows[0].refresh_token || null);
   },
-  registerUser: (username, password, token) => {
+  registerUser: (username, password) => {
     return pool
-      .query('INSERT INTO users(username, password, refresh_token) values($1, $2, $3) RETURNING id', [username, password, token])
+      .query('INSERT INTO users(username, password) values($1, $2) RETURNING id', [username, password])
       .then(result => result.rows[0].id);
   },
   isUsernameUnavailable: (username) => {
