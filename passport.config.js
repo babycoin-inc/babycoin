@@ -1,10 +1,13 @@
+require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
+const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const { Auth } = require('./models/models.js');
 const authenticateUser = require('./server/utils/userAuth');
 const { comparePasswords } = require('./server/utils/passwords.js');
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI } = process.env;
 
 const verifyUser = async(username, password, done) => {
   try {
@@ -44,5 +47,19 @@ passport.use(
     }
   )
 );
+
+
+passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: `${GOOGLE_REDIRECT_URI}/auth/google/callback`,
+    passReqToCallback   : true
+  },
+  function(request, accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
 
 module.exports = passport;

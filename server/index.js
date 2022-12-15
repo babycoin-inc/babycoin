@@ -26,8 +26,18 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.post('/signup', auth.signupController);
-app.post('/login', passport.authenticate('local'), auth.loginController);
+app.post('/auth/signup', auth.signupController);
+app.post('/auth/login', passport.authenticate('local'), auth.loginController);
+app.get('/auth/google',
+  passport.authenticate('google', { scope:
+      [ 'email', 'profile' ] }
+));
+
+app.get( '/auth/google/callback',
+    passport.authenticate( 'google', {
+        successRedirect: '/auth/google/success',
+        failureRedirect: '/auth/google/failure'
+}));
 //app.use(passport.authenticate('jwt')):
 
 

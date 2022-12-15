@@ -26,7 +26,7 @@ const Login = ({ updateUser }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    axios.post('/login', {
+    axios.post('/auth/login', {
         username: username,
         password: password
       })
@@ -42,7 +42,7 @@ const Login = ({ updateUser }) => {
     if(password !== passwordComparison) {
       return alert('Passwords must match');
     }
-    axios.post('/signup', {
+    axios.post('/auth/signup', {
       username: username,
       password: password
     })
