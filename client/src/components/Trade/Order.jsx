@@ -4,26 +4,16 @@ import Sell from './Sell.jsx';
 import { HiOutlineSwitchVertical } from 'react-icons/hi';
 import { IconContext } from "react-icons";
 import axios from 'axios';
+import { NumericFormat } from 'react-number-format';
 
-function Order({authenticatedUser, portfolio}) {
-  const [orderType, setOrderType] = useState('buy');
-  let [orderAmount, setOrderAmount] = useState('Order Amount');
-  const [orderUnits, setOrderUnits] = useState('USD')
-  let [coin, setCoin] = useState('Bitcoin');
-  const [price, setPrice] = useState();
-
-  const getCoin = () => {
-    axios.get(`/coins/?name=${coin}`)
-    .then((response) => {
-      setPrice(response.data);
-    })
-    .catch((err) => {throw err;})
-  }
-
-  useEffect(() => {
-    console.log("I have been mounted");
-    getCoin()
-  }, []);
+function Order({authenticatedUser, portfolio, coins}) {
+  const [orderType, setOrderType] = useState("buy");
+  let [orderAmount, setOrderAmount] = useState("");
+  const [orderUnits, setOrderUnits] = useState('USD');
+  //DEFAULT COIN: CHANGE TO SELECTED COIN
+  let [coin, setCoin] = useState(coins[2]);
+  console.log('coins: ', coins);
+  console.log('portfolio: ', portfolio);
 
   let view = orderType === 'buy' ? <Buy /> : <Sell />;
   let buyButton;
@@ -55,23 +45,26 @@ function Order({authenticatedUser, portfolio}) {
 
     if (orderUnits === 'USD') {
       total_trade_fiat = parseFloat(orderAmount.slice(1));
-      total_trade_coin =  parseFloat(orderAmount.slice(1)) / price;
+      total_trade_coin =  parseFloat(orderAmount.slice(1)) / coin.latest_price;
     } else if (orderUnits === 'coin') {
-      total_trade_fiat = parseFloat(orderAmount) * price;
+      total_trade_fiat = parseFloat(orderAmount) * coin.latest_price;
       total_trade_coin = parseFloat(orderAmount);
     }
 
-    console.log(total_trade_fiat);
-    console.log(total_trade_coin);
-
-    const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
-      currency: 'USD',
-      purchase_price: price,
-      'total_trade_coin': total_trade_coin,
-      'total_trade_fiat': total_trade_fiat,
-      trader_id: authenticatedUser,
-      coinName: coin
-    })
+    try {
+      const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
+        currency: 'USD',
+        purchase_price: coin.latest_price,
+        'total_trade_coin': total_trade_coin,
+        'total_trade_fiat': total_trade_fiat,
+        trader_id: authenticatedUser,
+        coinName: coin
+      })
+      setOrderAmount("");
+    }
+    catch (e) {
+      console.error(e);
+    }
   }
 
   return (
@@ -87,36 +80,30 @@ function Order({authenticatedUser, portfolio}) {
                   <HiOutlineSwitchVertical />
                 </IconContext.Provider>
               </button>
-              <div className="self-start text-sm text-center">BTC</div>
+              <div className="self-start text-sm text-center">{coin.acronym.toUpperCase()}</div>
             </div>
             <div className="">
-            <input onClick={() => {if(orderAmount === 'Order Amount' || orderAmount === '') {setOrderAmount('$')}}} onChange={(event) => {if (orderAmount[0] !== '$') {setOrderAmount('$')} else {setOrderAmount(event.target.value)}}} className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" type="text" value={orderAmount} />
-              {/* <input onChange={handleOrderAmountChange.bind(this)} className="h-14 text-xl text-center bg-zinc-400 rounded-xl" type="text" value={orderAmount} defaultValue="Order Amount" /> */}
+            {console.log(orderAmount)}
+            <NumericFormat className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500"  displayType="input" type="text" value={orderAmount} allowNegative={false} valueIsNumericString={true} defaultValue="Order Amount" prefix='$' decimalScale={2} allowLeadingZeros={false} thousandSeparator="," onValueChange={(values, sourceInfor) => {setOrderAmount(values.value)}}/>
               <div className="text-sm text-center">You can {orderType} up to $500.00</div>
             </div>
           </div>
           <div className="flex justify-between gap-4 h-10">
             <div className="self-center">{capitalizeFirstLetter(orderType)}</div>
-            <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin} onChange={() => {setCoin(event.target.value)}}>
-              <option value="bitcoin">Bitcoin</option>
-              <option value="ethereum">Ethereum</option>
-              <option value="tether">Tether</option>
-              <option value="bnb">Binance Coin</option>
-              <option value="cardano">Cardano</option>
-              <option value="xrp">Xrp</option>
-              <option value="solana">Solana</option>
-              <option value="dogecoin">Dogecoin</option>
-              <option value="polygon">Polygon</option>
-              <option value="polkadot">Polkadot</option>
+            <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} onChange={() => {setCoin(event.target.value)}}>
+              {coins.slice(1).map((crypto) => {
+                return <option value={crypto.name}>{crypto.name}</option>
+              })}
             </select>
           </div>
           <div className="flex justify-between gap-4">
             <div className="">Price</div>
-            <div className="">{`$${Math.round(price)}`} / BTC</div>
+            <div className="">{`$${coin.latest_price}`} / {coin.acronym.toUpperCase()}</div>
           </div>
           <div>
             <button onClick={submitOrder} name="submit" className="text-lg mb-6 bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded-3xl py-2 px-5 mx-auto hover:bg-zinc-800 hover:border-zinc-800 hover:text-orange-500 active:border active:border-orange-400 h-14 w-44">Submit Order</button>
           </div>
+          <div>{() => {setCount(count+1)}}</div>
         </div>
   )
 }
