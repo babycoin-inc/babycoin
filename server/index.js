@@ -5,7 +5,7 @@ require('dotenv').config();
 const passport = require('../passport.config.js');
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 const flash = require('express-flash');
 const session = require('cookie-session');
@@ -37,39 +37,17 @@ app.get('/users/:id/balances/', passport.authenticate('jwt'), home.getPortfolioA
 app.get('/users/:id/transactions/', passport.authenticate('jwt'), home.getTransactions);
 app.delete('/users/:id/portfolio/', passport.authenticate('jwt'), home.clearPortfolio)
 //TODO: UPDATE ACHIEVEMENTS ROUTES TO HAVE USERS/ IN ROUTE
-app.get('/achievements/:trader_id', passport.authenticate('jwt'), achievements.getUserAchievements);
-app.post('/achievements/:trader_id', passport.authenticate('jwt'), achievements.addUserAchievement);
-
 
 app.get('/achievements', achievements.getAchievements);
+app.get('/achievements/:id', achievements.getUserAchievements);
+app.post('/achievements/:id/:achievement', achievements.addUserAchievement);
 
 
 
 
 
-app.get("/newsfeed", async (req, res) => {
-  console.log(req.body);
-  try {
-    const result = await nf.getNews(n=10);
-    if(result.length > 0) {
-      res.status(200).send(result);
-    }
-  } catch (err) {
-      res.status(500);
-      console.log(err);
-  }
-});
-
-app.get("/nfAPI", (req, res) => {
-  nf.runAPI((err,result) => {
-    if(err){
-      res.status(500);
-    } else {
-      res.status(200).send(result);
-    }
-  })
-})
-
+app.get("/newsfeed/:coin", nf.getNews);
+app.get("/nfAPI", nf.runAPI)
 
 cron.schedule('*/30 * * * * *', () => {
   // //invoke a function that does not require a request and response
@@ -80,10 +58,9 @@ cron.schedule('*/30 * * * * *', () => {
 app.get('/coins', trade.getCoin);
 app.get('/coins/markets', market.getCoins);
 
-
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
