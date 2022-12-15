@@ -58,7 +58,7 @@ function Order({authenticatedUser, portfolio, coins}) {
         'total_trade_coin': total_trade_coin,
         'total_trade_fiat': total_trade_fiat,
         trader_id: authenticatedUser,
-        coinName: coin
+        coinName: coin.name
       })
       setOrderAmount("");
     }
@@ -90,9 +90,14 @@ function Order({authenticatedUser, portfolio, coins}) {
           </div>
           <div className="flex justify-between gap-4 h-10">
             <div className="self-center">{capitalizeFirstLetter(orderType)}</div>
-            <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} onChange={() => {setCoin(event.target.value)}}>
-              {coins.slice(1).map((crypto) => {
-                return <option value={crypto.name}>{crypto.name}</option>
+            <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} onChange={(event) => {
+              const coinIndex = coins.findIndex(coin => coin.name === event.target.value);
+              console.log('coinIndex: ', coinIndex);
+              console.log("coins[coinIndex]: ", coins[coinIndex]);
+              console.log("coins[coinIndex][event.target.value]: ", coins[coinIndex][event.target.value]);
+              setCoin(coins[coinIndex])}}>
+              {coins.slice(1).map((crypto, index) => {
+                return <option value={crypto.name} key={index}>{crypto.name}</option>
               })}
             </select>
           </div>
