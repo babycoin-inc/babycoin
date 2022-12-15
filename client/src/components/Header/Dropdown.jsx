@@ -15,8 +15,8 @@ const Dropdown = ({ tradeHistory }) => {
   )
 
   return (
-    <div className='flex'>
-      <div className='flex justify-center'>
+    <div className='flex justify-center'>
+      <div className='flex'>
         <select className="text-white bg-zinc-700">
           <option value="bitcoin">Bitcoin</option>
           <option value="ethereum">Ethereum</option>
