@@ -3,6 +3,7 @@ os: linux
 files:
  - source: /
    destination: /home/ec2-user/app
+file_exists_behavior: OVERWRITE
 hooks:
   BeforeInstall:
    - location: scripts/install_app_dependencies.sh
