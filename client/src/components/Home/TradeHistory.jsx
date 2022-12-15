@@ -17,6 +17,31 @@ function TradeHistory({ tradeHistory }) {
     hasMadeTrades = true;
   }
 
+  const userInstructions = (
+    <div className='mx-auto text-emerald-300 text-3xl mt-5'>
+      <h2 className='text-center'>Let's Make Your First Trade!</h2>
+      <div className='flex justify-center mt-4'>
+        <div className=''>
+          <img alt="Dollar Ethereum Exchange icon" srcset="https://img.icons8.com/ios-filled/512/exchange-money-ethereum.png" style={{width: '125px', height: '125px', filter: 'invert(50%) sepia(100%) saturate(346%) hue-rotate(111deg) brightness(93%) contrast(100%)'}} />
+        </div>
+        <div className='ml-8'>
+          <div className='flex items-center pb-2'>
+            <img alt="1st icon" srcset="https://img.icons8.com/material-sharp/512/1-circle.png" style={{width: '40px', height: '40px', filter: 'invert(57%) sepia(40%) saturate(3872%) hue-rotate(124deg) brightness(96%) contrast(86%)'}} />
+            <h3 className='text-xl pl-2'>Visit "Market Watch" To Research A Cryptocurrency</h3>
+          </div>
+          <div className='flex items-center pb-2'>
+            <img alt="1st icon" srcset="https://img.icons8.com/fluency-systems-filled/512/2-circle.png" style={{width: '40px', height: '40px', filter: 'invert(57%) sepia(40%) saturate(3872%) hue-rotate(124deg) brightness(96%) contrast(86%)'}} />
+            <h3 className='text-xl pl-2'>Select A Crypto To Trade From The Top Dropdown Menu</h3>
+          </div>
+          <div className='flex items-center'>
+            <img alt="1st icon" srcset="https://img.icons8.com/ios-glyphs/512/3-circle.png" style={{width: '40px', height: '40px', filter: 'invert(57%) sepia(40%) saturate(3872%) hue-rotate(124deg) brightness(96%) contrast(86%)'}} />
+            <h3 className='text-xl pl-2'>Get Trading!</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   console.log('hasMadeTrades', hasMadeTrades);
 
   return (
@@ -25,11 +50,7 @@ function TradeHistory({ tradeHistory }) {
         <h2>Trade History</h2>
       </div>
       <div className="bg-zinc-700 rounded-b-xl rounded-tr-xl px-3 py-5">
-        {!hasMadeTrades && (
-          <div>
-            <img alt="Dollar Ethereum Exchange icon" srcset="https://img.icons8.com/ios-filled/512/exchange-money-ethereum.png" style={{width: '100px', height: '100px', filter: 'invert(50%) sepia(100%) saturate(346%) hue-rotate(111deg) brightness(93%) contrast(100%)'}} />
-          </div>
-        )}
+        {!hasMadeTrades && userInstructions}
         {hasMadeTrades && (
           <div className="max-h-96 overflow-auto">
             <table className="w-full mx-auto table-auto">
