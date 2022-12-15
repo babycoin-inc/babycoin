@@ -19,15 +19,6 @@ exports.getTransactions = async (req, res) => {
   }
 };
 
-exports.clearTransactions = async (req, res) => {
-  try {
-    const clearTrades = await Home.clearTransactions(req.params.id);
-    res.send(clearTrades);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 exports.clearPortfolio = async (req, res) => {
   try {
     const clearPortfolio = await Home.resetPortfolio(req.params.id);
