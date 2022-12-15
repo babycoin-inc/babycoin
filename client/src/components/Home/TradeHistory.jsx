@@ -29,7 +29,7 @@ function TradeHistory({ tradeHistory }) {
               </tr>
             </thead>
             <tbody className="bg-zinc-500">
-              {tradeHistory.length ? tradeHistory.map((trade, index) => (
+              {tradeHistory.map((trade, index) => (
                 <tr key={index} className="border-t border-zinc-600  hover:bg-zinc-400">
                   <td className="py-2"><img src={trade.image} className="h-10 mx-auto" /></td>
                   <td className="text-center">{trade.name}<i className="block text-sm">{trade.acronym.toUpperCase()}</i></td>
@@ -38,7 +38,7 @@ function TradeHistory({ tradeHistory }) {
                   {orderTypeColor(trade.order_type)}
                   <td className="text-center">Date</td>
                 </tr>
-              )) : null}
+              ))}
             </tbody>
           </table>
         </div>
