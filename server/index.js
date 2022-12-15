@@ -57,8 +57,29 @@ app.post('/achievements/:id/:achievement', achievements.addUserAchievement);
 
 
 
-app.get("/newsfeed/:coin", nf.getNews);
-app.get("/nfAPI", nf.runAPI)
+app.get("/newsfeed", async (req, res) => {
+  console.log(req.body);
+  try {
+    const result = await nf.getNews(n=10);
+    if(result.length > 0) {
+      res.status(200).send(result);
+    }
+  } catch (err) {
+      res.status(500);
+      console.log(err);
+  }
+});
+
+app.get("/nfAPI", (req, res) => {
+  nf.runAPI((err,result) => {
+    if(err){
+      res.status(500);
+    } else {
+      res.status(200).send(result);
+    }
+  })
+})
+
 
 cron.schedule('*/30 * * * * *', () => {
   // //invoke a function that does not require a request and response
@@ -68,6 +89,7 @@ cron.schedule('*/30 * * * * *', () => {
 //FOR THE FRONT END
 app.get('/coins', trade.getCoin);
 app.get('/coins/markets', market.getCoins);
+
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
 

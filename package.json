@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/index.js",
-    "build": "webpack --stats-error-details",
+    "build": "webpack",
     "test": "jest",
     "dev-build": "webpack --watch",
     "build-css": "tailwindcss build -i client/dist/styles/styles.css -o client/dist/styles/tailwind.css --watch",
