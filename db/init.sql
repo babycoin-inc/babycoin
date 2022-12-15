@@ -1,5 +1,10 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE IF NOT EXISTS trader (
-  id SERIAL PRIMARY KEY
+  id SERIAL,
+  username VARCHAR(50),
+  password VARCHAR(100),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS coins (
@@ -39,7 +44,7 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS trader_achievements (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
-  achievement_id INTEGER REFERENCES achievements(id),
+  achievement_id INTEGER REFERENCES achievements(id) UNIQUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP(2)
 );
 
@@ -75,6 +80,21 @@ CREATE TABLE IF NOT EXISTS leaderboard (
   highest_realized_gains DECIMAL,
   UNIQUE (trader_id, coin_id)
 );
+
+CREATE TABLE IF NOT EXISTS newsfeed (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  description TEXT NOT NULL,
+  arthur VARCHAR(200) NOT NULL,
+  URL VARCHAR(200) NOT NULL,
+  tickers TEXT [] NOT NULL,
+  image_url VARCHAR(200) NOT NULL,
+  publish_date timestamp with time zone,
+  topics TEXT,
+  type TEXT,
+  sentiment TEXT
+);
+
 
 -- CREATE RULE update_leaderboard_on_insert_transactions AS ON INSERT TO transactions DO ALSO
 --   (
