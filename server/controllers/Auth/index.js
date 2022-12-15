@@ -1,7 +1,8 @@
+require('dotenv').config();
 const { Auth } = require('../../../models/models.js');
 const { isUsernameUnavailable, registerUser } = Auth;
 const { hashPassword } = require('../../utils/passwords.js');
-const { createNewTokens, createAccessToken, hashToken, verifyToken, getRefreshTokenFromHeaders } = require('../../utils/tokens.js');
+const { createNewTokens, createAccessToken, hashToken, compareTokenAndHash, getRefreshTokenFromHeaders } = require('../../utils/tokens.js');
 
 const AuthControllers = {
 
@@ -45,8 +46,9 @@ const AuthControllers = {
     if(!token) return res.status(401).json({ message: 'unauthorized' });
     try {
       const hash = await Auth.getTokenHash(token);
-      const isTokenVerified = await verifyToken(token, hash);
-      if(!isTokenVerified) return res.status(401);
+      const doesTokenMatchHash = await compareTokenAndHash(token, hash);
+      if(!doesTokenMatchHash) return res.status(401);
+      await jwt.verify(token, process.env.REFRESH_TOKEN_SECRET)
     } catch(err) {
       console.log('ERROR VERIFYING TOKEN');
       return res.status(500);
