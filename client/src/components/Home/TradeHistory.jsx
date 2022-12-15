@@ -17,7 +17,7 @@ function TradeHistory({ tradeHistory }) {
   }
 
   const userInstructions = (
-    <div className='mx-auto text-emerald-300 text-3xl mt-5'>
+    <div className='mx-auto text-emerald-300 text-3xl mt-5 pb-6'>
       <h2 className='text-center'>Let's Make Your First Trade!</h2>
       <div className='flex justify-center mt-4'>
         <div className=''>
