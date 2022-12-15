@@ -1,4 +1,4 @@
-require('../db/index.js'); //tests db connection
+//require('../db/index.js'); //tests db connection
 
 const express = require('express');
 require('dotenv').config();
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session({
   name: 'session',
   secret: 'secret',
-  expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+  maxAge: 15000,
 }));
 app.use(passport.initialize())
 app.use(passport.session())
