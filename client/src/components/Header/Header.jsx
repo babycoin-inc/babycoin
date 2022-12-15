@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embed";
 import Dropdown from './Dropdown.jsx';
 
 function Header({ activePage }) {
@@ -29,6 +30,57 @@ function Header({ activePage }) {
       </div>
       <div className="h-2/6 border-b-2 border-neutral-800">
       <coingecko-coin-price-marquee-widget  className="w-full" coin-ids="bitcoin, ethereum, polkadot, tether, binancecoin, cardano, dogecoin, ripple, solana" currency="usd" background-color="#18181B" locale="en" font-color="#F5F5F5" width="1050"></coingecko-coin-price-marquee-widget>
+      {/* <TickerTape
+        widgetProps={{
+          "symbols": [
+            {
+              "proName": "BITSTAMP:BTCUSD",
+              "title": "Bitcoin"
+            },
+            {
+              "proName": "BITSTAMP:ETHUSD",
+              "title": "Ethereum"
+            },
+            {
+              "description": "Tether",
+              "proName": "BINANCEUS:USDTUSD"
+            },
+            {
+              "description": "BNB",
+              "proName": "BINANCE:BNBUSD"
+            },
+            {
+              "description": "Cardano",
+              "proName": "BINANCE:ADAUSD"
+            },
+            {
+              "description": "XRP",
+              "proName": "BITSTAMP:XRPUSD"
+            },
+            {
+              "description": "Solana",
+              "proName": "BINANCE:SOLUSD"
+            },
+            {
+              "description": "Dogecoin",
+              "proName": "BINANCE:DOGEUSD"
+            },
+            {
+              "description": "Polygon",
+              "proName": "BINANCE:MATICUSD"
+            },
+            {
+              "description": "Polkadot",
+              "proName": "BINANCE:DOTUSD"
+            }
+          ],
+          "showSymbolLogo": true,
+          "colorTheme": "dark",
+          "isTransparent": true,
+          "displayMode": "regular",
+          "locale": "en"
+        }}
+      /> */}
       </div>
     </>
   )
