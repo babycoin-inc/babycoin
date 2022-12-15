@@ -31,7 +31,7 @@ const createNewTokens = (id, username) => {
 }
 
 const hashToken = (token) => bcrypt.hashSync(token, SALT_ROUNDS);
-const verifyToken = (token, hash) => bcrypt.compare(token, hash);
+const compareTokenAndHash = (token, hash) => bcrypt.compare(token, hash);
 const getRefreshTokenFromHeaders = (reqHeaders) => {
   const bearerToken = reqHeaders.authorization?.split(' ');
   const token = bearerToken && bearerToken[0] === 'Bearer' ? bearerToken[1] : null;
@@ -78,6 +78,6 @@ module.exports = {
   createAccessToken,
   createRefreshToken,
   hashToken,
-  verifyToken,
+  compareTokenAndHash,
   getRefreshTokenFromHeaders
 };
