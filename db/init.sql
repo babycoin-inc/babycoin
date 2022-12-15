@@ -1,5 +1,10 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE IF NOT EXISTS trader (
-  id SERIAL PRIMARY KEY
+  id SERIAL,
+  username VARCHAR(50),
+  password VARCHAR(100),
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS coins (
@@ -39,7 +44,7 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS trader_achievements (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
-  achievement_id INTEGER REFERENCES achievements(id),
+  achievement_id INTEGER REFERENCES achievements(id) UNIQUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP(2)
 );
 

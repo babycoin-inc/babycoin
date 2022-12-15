@@ -24,6 +24,7 @@ function App() {
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
   const [userAchievements, setUserAchievements] = useState([]);
+  const [achievementsStatus, setAchievementsStatus] = useState({});
 
   const getAchievements = async () => {
     try {
@@ -37,9 +38,26 @@ function App() {
   const getUserAchievements = async () => {
     try {
       const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
-      setUserAchievements(userAchievements.data);
+      if (userAchievements.data?.length) {
+        setUserAchievements(userAchievements.data);
+      } else {
+        await axios.post(`/achievements/${authenticatedUser}/1`);
+        const retry = await axios.get(`/achievements/${authenticatedUser}`);
+        if (retry.data?.length) {
+          setUserAchievements(retry.data);
+        }
+      }
     } catch(err) {
       setUserAchievements([]);
+    }
+  };
+
+  const grantUserAchievement = async (id) => {
+    try {
+      await axios.post(`/achievements/${authenticatedUser}/${id}`);
+      getUserAchievements();
+    } catch(err) {
+      console.log(err);
     }
   };
 
@@ -51,6 +69,14 @@ function App() {
     getUserAchievements();
     getCoins();
   }, []);
+
+  useEffect(() => {
+    const status = {};
+    userAchievements.forEach((achievement) => {
+      status[achievement.achievement_id] = true;
+    });
+    setAchievementsStatus(status);
+  }, [userAchievements]);
 
   useEffect(() => {
     getPortfolioData(authenticatedUser);
@@ -68,6 +94,9 @@ function App() {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
         setPortfolio(data.data);
+        if (!achievementsStatus[3] && data.data.length >= 4) {
+          grantUserAchievement(3);
+        }
         return data.data;
       })
       .then((portfolioData) => {
@@ -76,6 +105,15 @@ function App() {
         }, 0);
         setProfits((accVal - 500).toFixed(2));
         setAccountValue(accVal.toFixed(2));
+        if (!achievementsStatus[9] && profits >= 50) {
+          grantUserAchievement(9);
+        } 
+        if (!achievementsStatus[10] && profits >= 100) {
+          grantUserAchievement(10);
+        }
+        if (!achievementsStatus[11] && profits >= 500) {
+          grantUserAchievement(11);
+        }
       })
       .catch(err => console.log(err));
   }
@@ -134,14 +172,14 @@ function App() {
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {
-    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} />);
+    activeComponent = (<Achievements achievements={achievements} userAchievements={userAchievements} achievementsStatus={achievementsStatus} />);
   };
 
   return (
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} />
       <div className="w-full h-full">
-        <div className="h-1/6 sticky top-0">
+        <div className="h-1/6 sticky top-0 z-50">
           <Header activePage={activePage} />
         </div>
         <div className="p-8 h-full bg-zinc-800">
