@@ -2,7 +2,7 @@ require('dotenv').config();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTStrategy = require('passport-jwt').Strategy;
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
+const GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const { Auth } = require('./models/models.js');
 const authenticateUser = require('./server/utils/userAuth');
