@@ -12,9 +12,10 @@ const AuthControllers = {
       const usernameUnavailable = await isUsernameUnavailable(username);
       if(usernameUnavailable) return res.status(409).json({ msg: 'Username Already Exists' });
       const hash = hashPassword(password);
+      const id = await registerUser(username, hash);
       const [accessToken, refreshToken] = createNewTokens(id, username);
       const refreshTokenHash = hashToken(refreshToken);
-      const id = await registerUser(username, hash, refreshTokenHash);
+      await Auth.updateToken(refreshTokenHash, id);
       const payload = { accessToken, refreshToken, id, username };
       res.status(201).json(payload);
     } catch (err) {
