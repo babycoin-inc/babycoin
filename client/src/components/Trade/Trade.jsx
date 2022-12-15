@@ -3,7 +3,7 @@ import Order from './Order.jsx';
 import Newsfeed from '../Newsfeeds/newsfeed.jsx'
 import Graph from './Graph.jsx';
 
-function Trade({authenticatedUser, portfolio}) {
+function Trade({authenticatedUser, portfolio, coins}) {
 
   return (
     //first element needs to be flex in order to organize containers on trade page
@@ -12,7 +12,7 @@ function Trade({authenticatedUser, portfolio}) {
         <div className="flex w-3/5 p-5">
           <Graph symbol={"BTC"}/>
         </div>
-        <Order authenticatedUser={authenticatedUser} portfolio={portfolio}/>
+        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins}/>
       </div>
       <Newsfeed/>
     </div>
