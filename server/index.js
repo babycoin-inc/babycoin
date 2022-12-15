@@ -8,7 +8,8 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 const flash = require('express-flash');
-const session = require('cookie-session');
+// const session = require('cookie-session');
+const session = require('express-session')
 
 const cron = require('node-cron');
 
