@@ -4,5 +4,5 @@ export NVM_DIR="$HOME/.nvm"
 
 cd /home/ec2-user/app/
 npm ci
-npm build-css-prod
-npm build
+npm run build-css-prod
+npm run build
