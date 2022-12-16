@@ -37,4 +37,18 @@ const session = expressSession({
   }
 })
 
+// const sessionOptions = {
+//   store: new pgSession({
+//   pool : pgPool,
+//   createTableIfMissing: true
+//   }),
+//   secret: 'secret',
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: {
+//     httpOnly: true,
+//     maxAge: 15000,
+//   }
+// }
+
 module.exports = session;
