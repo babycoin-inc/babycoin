@@ -72,9 +72,11 @@ function App() {
 
   useEffect(() => {
     const status = {};
-    userAchievements.forEach((achievement) => {
+    if (userAchievements.length) {
+      userAchievements.forEach((achievement) => {
       status[achievement.achievement_id] = true;
-    });
+    })
+  };
     setAchievementsStatus(status);
   }, [userAchievements]);
 
