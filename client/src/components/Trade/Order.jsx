@@ -50,26 +50,27 @@ function Order({ authenticatedUser, portfolio, coins }) {
 
 const handleOrderAmountChange = (value) => {
   //VALIDATE ORDER AMOUNT
+  console.log('value to set orderAmount to: ', value);
   console.log('orderAmount before its set: ', orderAmount);
   setOrderAmount(value);
   console.log('orderAmount after its set: ', orderAmount);
-  calculateTotals();
+  calculateTotals(value);
 }
 
-const calculateTotals = () => {
+const calculateTotals = (value) => {
   let total_fiat;
   let total_coin;
 
   if (orderUnits === 'USD') {
-    total_fiat = parseFloat(orderAmount);
-    total_coin = parseFloat(orderAmount) / coin.latest_price;
+    total_fiat = parseFloat(value);
+    total_coin = parseFloat(value) / coin.latest_price;
     console.log('total_coin: ', total_coin);
     console.log('total_fiat: ', total_fiat);
     setTotalTradeFiat(total_fiat);
     setTotalTradeCoin(total_coin);
   } else if (orderUnits === 'coin') {
-    total_fiat = parseFloat(orderAmount) * coin.latest_price;
-    total_coin = parseFloat(orderAmount);
+    total_fiat = parseFloat(value) * coin.latest_price;
+    total_coin = parseFloat(value);
     setTotalTradeFiat(total_fiat);
     setTotalTradeCoin(total_coin);
   }
@@ -142,7 +143,8 @@ return (
       <div className="self-center">{capitalizeFirstLetter(orderType)}</div>
       <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} onChange={(event) => {
         const coinIndex = coins.findIndex(coin => coin.name === event.target.value);
-        setCoin(coins[coinIndex])
+        setCoin(coins[coinIndex]);
+        handleOrderAmountChange("");
       }}>
         {coins.slice(1).map((crypto, index) => {
           return <option value={crypto.name} key={index}>{crypto.name}</option>
