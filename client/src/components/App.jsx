@@ -123,7 +123,7 @@ function App() {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} />);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData}/>);
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {

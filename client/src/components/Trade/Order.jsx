@@ -6,7 +6,7 @@ import { IconContext } from "react-icons";
 import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
 
-function Order({ authenticatedUser, portfolio, coins }) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData}) {
   const [orderType, setOrderType] = useState("buy");
   let [orderAmount, setOrderAmount] = useState("");
   let [orderUnits, setOrderUnits] = useState('usd');
@@ -46,8 +46,8 @@ function Order({ authenticatedUser, portfolio, coins }) {
 
     buyButton = <button disabled={true} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto">Buy</button>
 
-    if (portfolio.length <= 1) {
-      sellButton = <button disabled onClick={() => setOrderType('sell')} className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
+    if (getCoinsInPortfolio().length === 0) {
+      sellButton = <button disabled onClick={() => setOrderType('sell')} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
     } else {
       sellButton = <button onClick={() => {
         //if current selected coin is not in the user's portfolio, reset coin to first coin in portfolio
@@ -78,7 +78,12 @@ function Order({ authenticatedUser, portfolio, coins }) {
 
     sellAll =
       <div className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500 py-2 px-10 mx-auto relative left-5">
-        <button onClick={() => setOrderAmount(orderUnits === 'usd' ? total_trade_fiat : total_trade_coin)}>Sell All</button>
+        <button onClick={() => {
+          const amount = orderUnits === 'usd' ? roundNumUpToDigit(getAssetFromPortfolio(coin.acronym).quantity * coin.latest_price, 2) : roundNumUpToDigit((getAssetFromPortfolio(coin.acronym)).quantity, 5);
+          console.log('amount: ', amount);
+          setOrderAmount(amount);
+        }
+        }>Sell All</button>
       </div>
 
     coinOrderList = portfolio.map((asset, index) => {
@@ -117,6 +122,8 @@ function Order({ authenticatedUser, portfolio, coins }) {
     return portfolio[index];
   }
 
+  //put constraints in state so they can be reused across application
+
   if (orderUnits === 'coin' && orderType === 'buy') {
     let maxCoinOrderAmount = getAssetFromPortfolio('usd').quantity / coin.latest_price;
     maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to {roundNumUpToDigit(maxCoinOrderAmount, 5)} {coin.acronym.toUpperCase()}</div>
@@ -125,9 +132,6 @@ function Order({ authenticatedUser, portfolio, coins }) {
   } else if(orderUnits === 'coin' && orderType === 'sell') {
     maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to {roundNumUpToDigit((getAssetFromPortfolio(coin.acronym)).quantity, 5)} {coin.acronym.toUpperCase()}</div>
   } else if(orderUnits === 'usd' && orderType === 'sell') {
-    console.log('coin selling: ', coin);
-    console.log('getAssetFromPortfolio(coin.acronym): ', getAssetFromPortfolio(coin.acronym));
-    console.log('getAssetFromPortfolio(coin.acronym).quantity: ', getAssetFromPortfolio(coin.acronym).quantity);
     maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to ${roundNumUpToDigit(getAssetFromPortfolio(coin.acronym).quantity * coin.latest_price, 2)}</div>
   }
 
@@ -176,12 +180,13 @@ const submitOrder = async () => {
     const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
       coin_id: coin.id,
       currency: 'usd',
-      purchase_price: coin.latest_price,
+      purchase_price: Number(coin.latest_price),
       'total_trade_coin': total_trade_coin,
       'total_trade_fiat': total_trade_fiat,
       trader_id: authenticatedUser,
       coinName: coin.name
     })
+    getPortfolioData(authenticatedUser);
     setOrderAmount("");
   }
   catch (e) {
