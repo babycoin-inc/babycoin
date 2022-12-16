@@ -29,12 +29,11 @@ const session = expressSession({
   createTableIfMissing: true
   }),
   secret: 'secret',
-
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    maxAge: 15000
+    maxAge: 15000,
   }
 })
 
