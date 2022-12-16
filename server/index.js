@@ -9,9 +9,10 @@ const port = process.env.PORT || 4000;
 
 const flash = require('express-flash');
 // const session = require('cookie-session');
-const session = require('express-session')
+//const session = require('express-session')
 
 const cron = require('node-cron');
+const session = require('./sessionConfig');
 
 /**Controllers */
 const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
@@ -19,11 +20,7 @@ const { auth, nf, home, trade, leaderboard, market, achievements} = require('./c
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  name: 'session',
-  secret: 'secret',
-  maxAge: 15000,
-}));
+app.use(session);
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -40,14 +37,14 @@ app.get( '/auth/google/callback',
         successRedirect: '/auth/google/success',
         failureRedirect: '/auth/google/failure'
 }));
-//app.use(passport.authenticate('jwt')):
+//app.use(passport.authenticate('jwt')); for protected routes
 
 
-app.post('/users/:id/transactions/buy', passport.authenticate('jwt'), trade.insertBuyTransaction);
-app.post('/users/:id/transactions/sell', passport.authenticate('jwt'), trade.insertSellTransaction);
-app.get('/users/:id/balances/', passport.authenticate('jwt'), home.getPortfolioAssets);
-app.get('/users/:id/transactions/', passport.authenticate('jwt'), home.getTransactions);
-app.delete('/users/:id/portfolio/', passport.authenticate('jwt'), home.clearPortfolio)
+app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
+app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
+app.get('/users/:id/balances/', home.getPortfolioAssets);
+app.get('/users/:id/transactions/', home.getTransactions);
+app.delete('/users/:id/portfolio/', home.clearPortfolio)
 //TODO: UPDATE ACHIEVEMENTS ROUTES TO HAVE USERS/ IN ROUTE
 
 app.get('/achievements', achievements.getAchievements);
