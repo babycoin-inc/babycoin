@@ -25,15 +25,15 @@ const pgPool = new pg.Pool({
 
 const session = expressSession({
   store: new pgSession({
-  pool : pgPool,
-  createTableIfMissing: true
+    pool : pgPool,
+    createTableIfMissing: true
   }),
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
   cookie: {
+    maxAge: 45000,
     httpOnly: true,
-    maxAge: 15000,
   }
 })
 
