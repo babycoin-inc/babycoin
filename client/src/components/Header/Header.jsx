@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import Dropdown from './Dropdown.jsx';
+import axios from 'axios';
 
 function Header({ activePage }) {
   const [profilePic, setProfilePic] = useState(true);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    axios
+      .get('/logout')
+      .then(result => console.log(result.data))
+      .catch(err => console.log(err));
+  }
 
   return (
     <>
@@ -20,7 +29,7 @@ function Header({ activePage }) {
             {profilePic && <UserIcon className="h-14 mx-auto bg-zinc-800 p-2 rounded-full text-zinc-300" />}
             {!profilePic &&
             // ADD LOGOUT CLICKHANDLER HERE
-            <div onClick={() => alert("Log me out")}>
+            <div onClick={handleLogout}>
               <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300" />
               <h6 className="text-center text-xs text-zinc-300 tracking-widest">Logout</h6>
             </div>}
