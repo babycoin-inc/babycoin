@@ -65,6 +65,13 @@ const AuthControllers = {
     }
     const payload = { accessToken, refreshToken, id, username };
     res.status(200).json(payload);
+  },
+
+  //Currently set up for sessions
+  logoutController: (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
   }
 
 }
