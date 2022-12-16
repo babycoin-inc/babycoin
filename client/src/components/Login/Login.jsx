@@ -39,15 +39,16 @@ const Login = ({ updateUser }) => {
 
   const handleGoogleLogin = (e) => {
     e.preventDefault();
-    axios
-      .get('/auth/google')
-      .then(result => {
-        console.log(result.data)
-      })
-      .catch(err => {
-        console.log('Google login failed')
-        console.log(err)
-      })
+    window.open('http://localhost:3000/auth/google', '_self')
+    // axios
+    //   .get('/auth/google')
+    //   .then(result => {
+    //     console.log(result.data)
+    //   })
+    //   .catch(err => {
+    //     console.log('Google login failed')
+    //     console.log(err)
+    //   })
   }
 
   const handleSignUp = (e) => {
@@ -79,8 +80,8 @@ const Login = ({ updateUser }) => {
         <form className='max-w-[400px] w-full mx-auto bg-white p-8'>
           <h2 className='text-4xl font-bold text-center py-4'>BabyCoin</h2>
           <div className='flex justify-center py-8'>
-            {/* <button className='border shadow-lg hover:shadow-xl px-6 py-2 relative flex items-center' onClick={handleGoogleLogin}> <FcGoogle className='mr-2' />Google</button> */}
-            <a href="localhost:3000/auth/google">Click me</a>
+            <button className='border shadow-lg hover:shadow-xl px-6 py-2 relative flex items-center' onClick={handleGoogleLogin}> <FcGoogle className='mr-2' />Google</button>
+            {/* <a href="localhost:3000/auth/google">Click me</a> */}
           </div>
           <div className='flex flex-col mb-4'>
             <label>Username</label>
