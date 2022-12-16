@@ -37,6 +37,7 @@ app.get( '/auth/google/callback',
         successRedirect: '/auth/google/success',
         failureRedirect: '/auth/google/failure'
 }));
+app.get('/logout', auth.logoutController);
 //app.use(passport.authenticate('jwt')); for protected routes
 
 
