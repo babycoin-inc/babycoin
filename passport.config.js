@@ -23,7 +23,7 @@ const verifyUser = async(username, password, done) => {
 
 passport.serializeUser((user, done) => {
   if(user.password) delete user.password;
-  done(null, user);
+  done(null, user.id);
 })
 
 passport.deserializeUser((user, done) => {
@@ -53,14 +53,28 @@ passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: GOOGLE_REDIRECT_URI,
-    passReqToCallback   : true
+    passReqToCallback: true
   },
-  function(request, accessToken, refreshToken, profile, done) {
+  async function(request, accessToken, refreshToken, email, done) {
     //This cb function runs upon successful authentication
     //Insert into db
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
+    console.log('ACCOUNT AUTHENTICATED, NOW NEED DB INSERTION');
+    console.log('EMAIL SCOPE', email);
+    const googleID = email.id;
+    try {
+      const googleUser = await Auth.getUserByGoogleID(googleID);
+      if(!googleUser) {
+        await Auth.registerGoogleUser(googleID);
+      }
+      const id = googleID;
+      const user = { id };
+      done(null, user);
+    } catch(err) {
+      done(err);
+    }
+    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+    //   return done(err, user);
+    // });
   }
 ));
 
