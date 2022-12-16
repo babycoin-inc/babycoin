@@ -13,7 +13,7 @@ const session = require('cookie-session');
 const cron = require('node-cron');
 
 /**Controllers */
-const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
+const { auth, nf, home, trade, leaderboard, market, achievements, dropdown, watchlist} = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -77,6 +77,8 @@ cron.schedule('*/30 * * * * *', () => {
 
 //FOR THE FRONT END
 app.get('/coins/markets', market.getCoins);
+
+app.post('/users/:id/watchlist', dropdown.addToWatchlist);
 
 
 app.get('/leaderboard', leaderboard.getLeaderboard);

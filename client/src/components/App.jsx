@@ -107,7 +107,7 @@ function App() {
         setAccountValue(accVal.toFixed(2));
         if (!achievementsStatus[9] && profits >= 50) {
           grantUserAchievement(9);
-        } 
+        }
         if (!achievementsStatus[10] && profits >= 100) {
           grantUserAchievement(10);
         }
