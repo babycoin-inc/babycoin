@@ -7,6 +7,7 @@ import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
 import Market from './MarketWatch/Market.jsx';
 import axios from 'axios';
+import ResetModal from './Modal/ResetModal.jsx';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
   const [tradeHistory, setTradeHistory] = useState([]);
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
+  const [showResetModal, setShowResetModal] = useState(false);
 
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
@@ -153,6 +155,7 @@ function App() {
         let updatedUserAchievements = res.data;
         setTradeHistory([]);
         setUserAchievements(updatedUserAchievements);
+        setShowResetModal(false);
       })
       .catch(err => console.log(err));
   };
@@ -167,7 +170,7 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
+    activeComponent = (<Home setShowResetModal={setShowResetModal} accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} />);
   } else if (activePage === 'Trade') {
@@ -182,11 +185,12 @@ function App() {
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
       <div className="w-full h-full">
-        <div className="h-1/6 sticky top-0 z-50">
+        <div className="h-1/6 sticky top-0 z-20">
           <Header activePage={activePage} tradeHistory={tradeHistory} />
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
+          <ResetModal showResetModal={showResetModal} setShowResetModal={setShowResetModal} handleResetClick={handleResetClick} />
         </div>
       </div>
     </div>

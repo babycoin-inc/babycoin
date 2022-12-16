@@ -14,11 +14,11 @@ function Sidebar({ handleNavClick, activePage, tradeHistory }) {
   const navItems = pages.map((page, index) => {
     if (index === 1 && !hasMadeTrades) {
       return (
-        <div className={`flex-col text-center w-11/12 pt-3 hover:ml-6 ${activePage === page ? 'rounded-l-3xl ml-6' : ''}`}>
+        <div key={index} className={`flex-col text-center w-11/12 pt-3 hover:ml-6 ${activePage === page ? 'rounded-l-3xl ml-6' : ''}`}>
           <div className='flex justify-center'>
-            <img alt="Down 3 icon" srcset="https://img.icons8.com/windows/512/down3.png" style={{width: '15px', height: '15px', filter: 'invert(52%) sepia(69%) saturate(489%) hue-rotate(111deg) brightness(96%) contrast(96%)'}} className='self-end' />
+            <img alt="Down 3 icon" srcSet="https://img.icons8.com/windows/512/down3.png" style={{width: '15px', height: '15px', filter: 'invert(52%) sepia(69%) saturate(489%) hue-rotate(111deg) brightness(96%) contrast(96%)'}} className='self-end' />
             <h5 className='text-sm text-emerald-300 italic'>Research Your Crypto</h5>
-            <img alt="Down 3 icon" srcset="https://img.icons8.com/windows/512/down2.png" style={{width: '15px', height: '15px', filter: 'invert(52%) sepia(69%) saturate(489%) hue-rotate(111deg) brightness(96%) contrast(96%)'}} className='self-end' />
+            <img alt="Down 3 icon" srcSet="https://img.icons8.com/windows/512/down2.png" style={{width: '15px', height: '15px', filter: 'invert(52%) sepia(69%) saturate(489%) hue-rotate(111deg) brightness(96%) contrast(96%)'}} className='self-end' />
           </div>
           <button onClick={handleNavClick} name={page} key={page + index} className={`text-center w-full pb-3 px-2 ${activePage === page ? 'bg-zinc-800 rounded-l-3xl pt-3' : 'pt-1'}`}>{page}</button>
         </div>

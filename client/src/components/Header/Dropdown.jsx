@@ -9,7 +9,7 @@ const Dropdown = ({ tradeHistory }) => {
 
   const userInstructions = (
     <div className='flex ml-1 items-center'>
-      <img alt="Left Arrow icon" srcset="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/512/external-left-arrow-miscellaneous-kiranshastry-solid-kiranshastry.png" style={{width: '30px', height: '30px', filter: 'invert(49%) sepia(84%) saturate(1416%) hue-rotate(124deg) brightness(95%) contrast(86%)'}}></img>
+      <img alt="Left Arrow icon" srcSet="https://img.icons8.com/external-kiranshastry-solid-kiranshastry/512/external-left-arrow-miscellaneous-kiranshastry-solid-kiranshastry.png" style={{width: '30px', height: '30px', filter: 'invert(49%) sepia(84%) saturate(1416%) hue-rotate(124deg) brightness(95%) contrast(86%)'}}></img>
       <h5 className='text-base text-emerald-300 italic ml-1'>Select A Crypto To Trade</h5>
     </div>
   )
