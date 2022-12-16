@@ -32,7 +32,7 @@ const Login = ({ updateUser }) => {
       })
       .then(({ data }) => {
         console.log('DATA FROM SERVER: ', data);
-        updateUser(data);
+        updateUser(data.id);
       })
       .catch(err => console.log(err))
   }
@@ -62,7 +62,7 @@ const Login = ({ updateUser }) => {
     })
     .then(({ data }) => {
       alert('Account Created')
-      updateUser(data);
+      updateUser(data.id);
     })
     .catch(err => {
       alert('Something went wrong...')
