@@ -22,9 +22,9 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-})
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+// })
 app.use(session);
 app.use(passport.initialize())
 app.use(passport.session())
@@ -32,12 +32,19 @@ app.use(passport.session())
 app.post('/auth/signup', auth.signupController);
 app.post('/auth/login', passport.authenticate('local'), auth.loginController);
 app.post('/auth/refresh', auth.refreshTokenController);
-app.get('/auth/google',
+app.get('/auth/google', (req, res, next) => {
+  console.log('HIT /auth/google ENDPOINT')
+  console.log(req.sessionID);
+  next();
+},
   passport.authenticate('google', { scope:
-      [ 'email', 'profile' ] }
+      [ 'email' ] }
 ));
 
-app.get( '/auth/google/callback',
+app.get( '/auth/google/callback', (req, res, next)=> {
+  console.log('HIT /auth/google/callback ENDPOINT');
+  next();
+  },
     passport.authenticate( 'google', {
         successRedirect: '/',
         failureRedirect: '/auth/login'
