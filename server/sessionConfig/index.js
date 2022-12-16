@@ -29,9 +29,13 @@ const session = expressSession({
   createTableIfMissing: true
   }),
   secret: 'secret',
-  maxAge: 15000,
+
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 15000
+  }
 })
 
 module.exports = session;
