@@ -26,6 +26,7 @@ const AuthControllers = {
 
   loginController: async (req, res) => { // USES LOCAL STRATEGY, NOT JWT!!!!!!!!
     console.log('REQ.USER', req.user)
+    console.log('REQ SESSION', req.session)
     const { id, username } = req.user;
     const [accessToken, refreshToken] = createNewTokens(id, username); //Create tokens for new login 'session'
     const refreshTokenHash = hashToken(refreshToken); //hash token for db storage
