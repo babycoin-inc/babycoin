@@ -56,7 +56,8 @@ passport.use(new GoogleStrategy({
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
-
+    //This cb function runs upon successful authentication
+    //Insert into db
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
       return done(err, user);
     });

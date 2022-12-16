@@ -13,6 +13,7 @@ const flash = require('express-flash');
 
 const cron = require('node-cron');
 const session = require('./sessionConfig');
+const cors = require('cors');
 
 /**Controllers */
 const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
@@ -20,6 +21,10 @@ const { auth, nf, home, trade, leaderboard, market, achievements} = require('./c
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+})
 app.use(session);
 app.use(passport.initialize())
 app.use(passport.session())
@@ -34,8 +39,8 @@ app.get('/auth/google',
 
 app.get( '/auth/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/auth/google/success',
-        failureRedirect: '/auth/google/failure'
+        successRedirect: '/',
+        failureRedirect: '/auth/login'
 }));
 app.get('/logout', auth.logoutController);
 //app.use(passport.authenticate('jwt')); for protected routes
