@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/index.js",
-    "build": "webpack --stats-error-details",
+    "build": "webpack",
     "test": "jest",
     "dev-build": "webpack --watch",
     "build-css": "tailwindcss build -i client/dist/styles/styles.css -o client/dist/styles/tailwind.css --watch",
@@ -53,6 +53,7 @@
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
+    "dateformat": "^4.5.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-flash": "^0.0.2",
