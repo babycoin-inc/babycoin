@@ -18,7 +18,7 @@ const customStyles = {
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
 
-function Trade({authenticatedUser, portfolio, coins, getPortfolioData}) {
+function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol}) {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [total_trade_fiat, setOrderUSDAmount] = useState('');
