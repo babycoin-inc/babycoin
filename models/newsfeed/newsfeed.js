@@ -1,13 +1,10 @@
 const client = require('../../db/index.js')
 const axios = require('axios');
-const cron = require('node-schedule');
+const schedule  = require('node-schedule');
 require("dotenv").config();
 
-var rule = new cron.RecurrenceRule();
-rule.hour = 0;
-rule.minute = 1;
-cron.scheduleJob(rule, function(){
-    console.log(new Date(), 'Every 1 hours');
+var j = schedule.scheduleJob('0 */1 * * *', function(){  // this for one hour
+  console.log(new Date());
 });
 // const job = schedule.scheduleJob(rule, function(){
 //   runAPI((err, result)=>{
