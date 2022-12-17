@@ -71,7 +71,7 @@ const AuthControllers = {
   //Currently set up for sessions
   logoutController: (req, res) => {
     if(req.user) {
-      req.logout();
+      req.logOut();
     }
 
    // await req.session.destroy();
