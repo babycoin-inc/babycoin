@@ -87,13 +87,13 @@ const Login = ({ updateUser }) => {
   }
 
   return (
-    <div className='relative w-full max-h-max'>
-      <img className='absolute w-full h-full object-cover mix-blend-overlay min-h-screen' src={bgImage} alt="bgImage" />
+    <div className='relative w-full min-h-screen bg-[url("https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80")] bg-cover'>
+      {/* <img className='absolute w-full h-full object-cover min-h-screen' src={'https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80'} alt="bgImage" /> */}
       <div className='flex justify-center items-center py-8'>
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
       </div>
       <div className='flex justify-center items-center py-8'>
-        <form className='max-w-[400px] w-full mx-auto bg-white p-8 rounded-xl'>
+        <form className='max-w-[400px] w-full mx-auto p-8 bg-zinc-200 rounded-xl'>
           <h2 className='text-4xl font-bold text-center py-4'>BabyCoin</h2>
           <div className='flex justify-center py-8'>
             <button className='border shadow-lg hover:shadow-xl px-6 py-2 relative flex items-center rounded-xl' onClick={handleGoogleLogin}> <FcGoogle className='mr-2' />Google</button>
