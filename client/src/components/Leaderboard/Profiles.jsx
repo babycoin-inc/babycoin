@@ -24,7 +24,7 @@ function Profiles(props) {
 				<th>{user.row_number}</th>
 				<th className='Profile-user'>
 					<img src={anonymousPhoto} height='64' width='64'></img>
-					userID{user.id}
+					{user.username}
 				</th>
 				<th className='Profile-score'>${user[props.duration]}</th>
 			</tr>
@@ -36,7 +36,7 @@ function Profiles(props) {
 			<tr>
 				<th>Rank</th>
 				<th>User</th>
-				<th>Gains</th>
+				<th>Realized Gains in USD($)</th>
 			</tr>
 			{profiles}
 		</table>
