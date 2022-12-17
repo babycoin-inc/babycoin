@@ -39,12 +39,12 @@ function App() {
 
   const getUserAchievements = async () => {
     try {
-      const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+      const userAchievements = await axios.get(`/users/${authenticatedUser}/achievements`);
       if (userAchievements.data?.length) {
         setUserAchievements(userAchievements.data);
       } else {
-        await axios.post(`/achievements/${authenticatedUser}/1`);
-        const retry = await axios.get(`/achievements/${authenticatedUser}`);
+        await axios.post(`/users/${authenticatedUser}/achievements/1`);
+        const retry = await axios.get(`/users/${authenticatedUser}/achievements`);
         if (retry.data?.length) {
           setUserAchievements(retry.data);
         }
@@ -56,7 +56,7 @@ function App() {
 
   const grantUserAchievement = async (id) => {
     try {
-      await axios.post(`/achievements/${authenticatedUser}/${id}`);
+      await axios.post(`/users/${authenticatedUser}/achievements/${id}`);
       getUserAchievements();
     } catch(err) {
       console.log(err);
