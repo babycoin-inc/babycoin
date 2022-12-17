@@ -60,6 +60,7 @@ passport.use(new GoogleStrategy({
     //Insert into db
     console.log('ACCOUNT AUTHENTICATED, NOW NEED DB INSERTION');
     console.log('EMAIL SCOPE', email);
+    console.log('REQ SESSION IN GOOGLE CALLBACK BEFORE SERIALIZATION', request.session)
     const googleID = email.id;
     try {
       const googleUser = await Auth.getUserByGoogleID(googleID);
@@ -67,7 +68,8 @@ passport.use(new GoogleStrategy({
         await Auth.registerGoogleUser(googleID);
       }
       const id = googleID;
-      const user = { id };
+      const cookie = request.session.cookie;
+      const user = { id, cookie };
       done(null, user);
     } catch(err) {
       done(err);
