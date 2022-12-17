@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS coins (
   acronym VARCHAR(50) NOT NULL,
   image VARCHAR(255),
   description TEXT,
-  latest_price DECIMAL NOT NULL
+  latest_price DECIMAL NOT NULL,
+  price_change_percentage NUMERIC NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS trader_watchlist (

@@ -34,9 +34,9 @@ app.get('/coins', trade.getCoin);
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 
+app.get('/users/:id/achievements', achievements.getUserAchievements);
+app.post('/users/:id/achievements/:achievement', achievements.addUserAchievement);
 app.get('/achievements', achievements.getAchievements);
-app.get('/achievements/:id', achievements.getUserAchievements);
-app.post('/achievements/:id/:achievement', achievements.addUserAchievement);
 
 // Gets all assets in user portfolio
 app.get('/users/:id/balances/', home.getPortfolioAssets);
