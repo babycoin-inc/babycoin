@@ -13,7 +13,8 @@ module.exports.runAPI = (req, res) => {
 }
 
 module.exports.getNews = async (req, res) => {
-  //console.log(req.params, req.query);
+  console.log('THIS IS WORKING')
+  console.log(req.params, req.query);
   try {
     const result = await newsfeed.Newsfeed.getNews(req.params.coin, req.query.n);
     if(result.length > 0) {
