@@ -7,7 +7,6 @@ exports.deleteCoinsFromWatchlist = async (userId, deletedCoin) => {
 
   const arr = result['rows'][0]['watchlist'];
 
-
   for (const coin of arr) {
     if (coin === deletedCoin) {
       const text1 = 'UPDATE trader_watchlist SET watchlist = ( SELECT array_remove(watchlist, $1) FROM trader_watchlist WHERE trader_id = $2) WHERE trader_id = $2';
@@ -17,7 +16,6 @@ exports.deleteCoinsFromWatchlist = async (userId, deletedCoin) => {
   }
 
   result = await query(text0, params0);
-  console.log('hhhhh123');
   return result['rows'];
 
 }
