@@ -11,7 +11,7 @@ function Newsfeed(ticker) {
 
   const tickers = {
     'BTC': 'BTC',
-    'Bitcoin': 'BTC',
+    'Bitcoin': 'BTC'
     'Ethereum': 'ETH',
     'Tether': 'USDT',
     'BNB': 'BNB',
