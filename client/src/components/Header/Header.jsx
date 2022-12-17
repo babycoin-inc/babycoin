@@ -4,7 +4,7 @@ import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embe
 import Dropdown from './Dropdown.jsx';
 import MoveTicker from './TickerTape.jsx';
 
-function Header({ activePage, tradeHistory, coins, handleCoinClick }) {
+function Header({ activePage, tradeHistory, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
   const [profilePic, setProfilePic] = useState(true);
 
   return (
@@ -14,7 +14,7 @@ function Header({ activePage, tradeHistory, coins, handleCoinClick }) {
           <h1>{activePage}</h1>
         </div>
         <div className="w-1/3">
-          <Dropdown tradeHistory={tradeHistory} />
+          <Dropdown className="h-max-10" tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={handleMultiChange} />
         </div>
         <div className="flex justify-between w-1/5">
           <div></div>

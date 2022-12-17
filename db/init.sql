@@ -15,6 +15,12 @@ CREATE TABLE IF NOT EXISTS coins (
   price_change_percentage NUMERIC NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS trader_watchlist (
+  id SERIAL PRIMARY KEY,
+  trader_id INTEGER REFERENCES trader(id),
+  watchlist VARCHAR []
+);
+
 CREATE TABLE IF NOT EXISTS portfolio (
   portfolio_id SERIAL PRIMARY KEY,
   trader_id INTEGER NOT NULL,

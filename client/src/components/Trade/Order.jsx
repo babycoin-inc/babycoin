@@ -8,7 +8,7 @@ import axios from 'axios';
 function Order({authenticatedUser, portfolio, symbol}) {
   const [orderType, setOrderType] = useState('buy');
   let [orderAmount, setOrderAmount] = useState('Order Amount');
-  const [orderUnits, setOrderUnits] = useState('USD')
+  const [orderUnits, setOrderUnits] = useState('USD');
   let [coin, setCoin] = useState('Bitcoin');
   const [price, setPrice] = useState();
 
@@ -22,7 +22,7 @@ function Order({authenticatedUser, portfolio, symbol}) {
 
   useEffect(() => {
     console.log("I have been mounted");
-    getCoin()
+    getCoin();
   }, []);
 
   let view = orderType === 'buy' ? <Buy /> : <Sell />;
