@@ -36,7 +36,7 @@ function Profiles(props) {
 			<tr>
 				<th>Rank</th>
 				<th>User</th>
-				<th>Gains</th>
+				<th>Realized Gains in USD</th>
 			</tr>
 			{profiles}
 		</table>
