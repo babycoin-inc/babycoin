@@ -7,6 +7,7 @@ import Achievements from "./Achievements/Achievements.jsx";
 import Trade from './Trade/Trade.jsx';
 import Market from './MarketWatch/Market.jsx';
 import axios from 'axios';
+import ResetModal from './Modal/ResetModal.jsx';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
   const [tradeHistory, setTradeHistory] = useState([]);
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
+  const [showResetModal, setShowResetModal] = useState(false);
 
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
@@ -37,12 +39,12 @@ function App() {
 
   const getUserAchievements = async () => {
     try {
-      const userAchievements = await axios.get(`/achievements/${authenticatedUser}`);
+      const userAchievements = await axios.get(`/users/${authenticatedUser}/achievements`);
       if (userAchievements.data?.length) {
         setUserAchievements(userAchievements.data);
       } else {
-        await axios.post(`/achievements/${authenticatedUser}/1`);
-        const retry = await axios.get(`/achievements/${authenticatedUser}`);
+        await axios.post(`/users/${authenticatedUser}/achievements/1`);
+        const retry = await axios.get(`/users/${authenticatedUser}/achievements`);
         if (retry.data?.length) {
           setUserAchievements(retry.data);
         }
@@ -54,7 +56,7 @@ function App() {
 
   const grantUserAchievement = async (id) => {
     try {
-      await axios.post(`/achievements/${authenticatedUser}/${id}`);
+      await axios.post(`/users/${authenticatedUser}/achievements/${id}`);
       getUserAchievements();
     } catch(err) {
       console.log(err);
@@ -87,6 +89,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       getCoins();
+      getPortfolioData(authenticatedUser);
     }, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -152,6 +155,7 @@ function App() {
         let updatedUserAchievements = res.data;
         setTradeHistory([]);
         setUserAchievements(updatedUserAchievements);
+        setShowResetModal(false);
       })
       .catch(err => console.log(err));
   };
@@ -166,7 +170,7 @@ function App() {
 
   // INSERT YOUR COMPONENTS BASED OFF THE ACTIVE PAGE BELOW
   if (activePage === 'Home') {
-    activeComponent = (<Home accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
+    activeComponent = (<Home setShowResetModal={setShowResetModal} accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} />);
   } else if (activePage === 'Trade') {
@@ -179,13 +183,14 @@ function App() {
 
   return (
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
-      <Sidebar handleNavClick={handleNavClick} activePage={activePage} />
+      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
       <div className="w-full h-full">
-        <div className="h-1/6 sticky top-0 z-50">
-          <Header activePage={activePage} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
+        <div className="h-1/6 sticky top-0 z-20">
+          <Header activePage={activePage} tradeHistory={tradeHistory} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
+          <ResetModal showResetModal={showResetModal} setShowResetModal={setShowResetModal} handleResetClick={handleResetClick} />
         </div>
       </div>
     </div>
