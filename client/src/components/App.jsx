@@ -24,7 +24,7 @@ function App() {
   const [showResetModal, setShowResetModal] = useState(false);
 
   // watchlist:
-  // const [userWatchlist, setUserWatchlist] = useState([]);
+  const [userWatchlist, setUserWatchlist] = useState([]);
   const [multiValue, setMultiValue] = useState([]);
   const sendObj = {addedList: multiValue};
 
@@ -76,6 +76,7 @@ function App() {
     getAchievements();
     getUserAchievements();
     getCoins();
+    addToWatchlist();
   }, []);
 
   useEffect(() => {
@@ -102,7 +103,7 @@ function App() {
 
   useEffect(() => {
     sendObj.addedList = multiValue
-  })
+  }, [multiValue]);
 
 
   function getPortfolioData(userId) {
@@ -141,7 +142,7 @@ function App() {
       .catch(err => console.log(err));
   }
 
-
+  // get basic info of all coins and will show on the market watch page
   function getCoins() {
     axios.get(`/coins/markets`)
     .then((coins) => {
@@ -150,13 +151,13 @@ function App() {
     .catch(err => console.log(err));
   }
 
-
   function handleCoinClick (e) {
     e.preventDefault();
     setSymbol(e.target.innerText);
     setActivePage('Trade');
   }
 
+  // dropdown & watchlist
   function handleMultiChange (selectedOption) {
     setMultiValue(selectedOption);
   }
@@ -164,11 +165,9 @@ function App() {
   function addToWatchlist () {
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
-      console.log(result.data);
+      setUserWatchlist(result.data);
     })
-    .catch(err => {
-      console.log(err);
-    })
+    .catch(err => console.log(err));
   }
 
   // Home:Balance component reset button
@@ -207,10 +206,10 @@ function App() {
 
   return (
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
-      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
+      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins}/>
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
-          <Header activePage={activePage} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={selectedOption => handleMultiChange(selectedOption)} />
+          <Header activePage={activePage} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={e => handleMultiChange(e)} userWatchlist={userWatchlist} />
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
