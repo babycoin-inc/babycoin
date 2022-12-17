@@ -10,7 +10,7 @@ const getLeaderboard = async (duration, coin, page) => {
 		SELECT
 			trader.username,
 			coins.acronym as coin,
-			${Duration} / 100.0 as ${Duration},
+			${Duration} / 1.0 as ${Duration},
 			ROW_NUMBER () OVER (ORDER BY ${Duration} DESC)
 		FROM
 			leaderboard
