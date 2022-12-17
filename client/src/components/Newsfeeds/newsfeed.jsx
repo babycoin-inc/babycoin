@@ -5,14 +5,18 @@ const axios = require('axios');
 function Newsfeed(ticker) {
 
 
-  const [numNews, setNum] = useState(2);
+  const [numNews, setNum] = useState(3);
   const [newsArr, setFeed] = useState([]);
   let initialized = false;
 
+  const tickers = {
+    'BTC': 'BTC'
+  }
+  console.log(ticker.coin, tickers[ticker.coin]);
   useEffect(()=>{
     var options = {
       method:'get',
-      url:  "/newsfeed"
+      url:  `/newsfeed/${tickers[ticker.coin]}?n=10`
     }
     if(!initialized){
       axios(options).then((result) => {
@@ -34,7 +38,7 @@ function Newsfeed(ticker) {
   }
 
   function collapse(){
-    setNum(2);
+    setNum(3);
     //console.log('collapse ran', numNews);
   }
 
@@ -42,10 +46,10 @@ function Newsfeed(ticker) {
     console.log(n);
     var options = {
       method:'get',
-      url:  `/newsfeed/${ticker.coin}?n=${n}`
+      url:  `/newsfeed/${tickers[ticker.coin]}?n=${n}`
     }
     axios(options).then((result) => {
-      console.log('get news ran');
+      // console.log('get news ran');
       setFeed(result.data);
     }).catch(err => {
       console.log(err)
@@ -54,9 +58,9 @@ function Newsfeed(ticker) {
 
   useEffect(() => {
     if(initialized) {
-      setNum(numNews + 2);
+      //console.log('got more news');
+      setNum(prevNum => prevNum + 2);
     }
-    //console.log('Line 39', numNews, newsArr);
   },[newsArr])
 
   return (
