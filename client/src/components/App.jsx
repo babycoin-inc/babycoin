@@ -109,7 +109,7 @@ function App() {
         setAccountValue(accVal.toFixed(2));
         if (!achievementsStatus[9] && profits >= 50) {
           grantUserAchievement(9);
-        } 
+        }
         if (!achievementsStatus[10] && profits >= 100) {
           grantUserAchievement(10);
         }
@@ -182,7 +182,7 @@ function App() {
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-50">
-          <Header activePage={activePage} />
+          <Header activePage={activePage} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
