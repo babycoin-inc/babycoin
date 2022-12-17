@@ -4,7 +4,7 @@ import Login from './Login/Login.jsx';
 
 const Page = () => {
   const [authorizedUser, setAuthorizedUser] = useState(JSON.parse(window.sessionStorage.getItem('userID')));
-
+  const [sessionCookie, setSessionCookie] = useState(JSON.parse(window.sessionStorage.getItem('session')));
   // return (
   //   {authorizedUser ? <App /> : <Login updateUser={setAuthorizedUser}/>}
   // )
@@ -18,7 +18,7 @@ const Page = () => {
   }, [authorizedUser]);
 
   if(!authorizedUser) {
-    return <Login updateUser={setAuthorizedUser}/>
+    return <Login updateUser={setAuthorizedUser} updateSession={setSessionCookie}/>
   } else {
     return <App className = "bg-zinc-900 pb-8"/>
   }
