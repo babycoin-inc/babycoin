@@ -53,6 +53,9 @@ app.get( '/auth/google/callback', (req, res, next)=> {
         successRedirect: '/',
         failureRedirect: '/auth/login'
 }));
+app.get('/getuser', (req, res) => {
+  res.send(req.user);
+})
 app.get('/logout', auth.logoutController);
 //app.use(passport.authenticate('jwt')); for protected routes
 
