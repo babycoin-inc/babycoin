@@ -8,6 +8,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 const flash = require('express-flash');
+const cookieParser = require('cookie-parser');
 // const session = require('cookie-session');
 //const session = require('express-session')
 
@@ -29,6 +30,7 @@ app.use(cors(), (req, res, next) => {
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 // })
+app.use(cookieParser());
 app.use(session);
 app.use(passport.initialize())
 app.use(passport.session())
