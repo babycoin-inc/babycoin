@@ -70,9 +70,15 @@ const AuthControllers = {
 
   //Currently set up for sessions
   logoutController: (req, res) => {
-    req.logout();
-    req.session.destroy();
-    res.redirect('/');
+    if(req.user) {
+      req.logout();
+    }
+
+   // await req.session.destroy();
+    req.user = null;
+    console.log('REQ USER', req.user)
+    //res.redirect('/');
+    res.json(req.user);
   }
 
 }
