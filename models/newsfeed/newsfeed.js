@@ -16,8 +16,7 @@ require("dotenv").config();
 //   });
 // });
 
-let runAPI = () => {
-//let runAPI = () => {
+exports.runAPI = () => {
   var options = {
     method:'get',
     params: {
@@ -46,7 +45,7 @@ let runAPI = () => {
   })
 }
 
-let getNews = (coin, n=10) => {
+exports.getNews = (coin, n=10) => {
     console.log(coin, n);
     return client.query(`SELECT title, description, arthur, url, tickers, image_url, topics, type, sentiment, publish_date FROM newsfeed WHERE $2 <@ tickers ORDER BY publish_date DESC LIMIT $1`,[n, coin]).then(result => {
       //console.log(result.rows);
@@ -55,7 +54,7 @@ let getNews = (coin, n=10) => {
       console.log(err);
     });
 }
-module.exports = {
-  getNews,
-  runAPI
-}
+// module.exports = {
+//   getNews,
+//   runAPI
+// }
