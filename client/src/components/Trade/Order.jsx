@@ -6,7 +6,7 @@ import { IconContext } from "react-icons";
 import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues}) {
   const [orderType, setOrderType] = useState("buy");
   let [orderAmount, setOrderAmount] = useState("");
   let [orderUnits, setOrderUnits] = useState('usd');
@@ -47,6 +47,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData}) {
     buyButton = <button disabled={true} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto">Buy</button>
 
     if (getCoinsInPortfolio().length === 0) {
+      console.log('reloaded; ', getCoinsInPortfolio());
       sellButton = <button disabled onClick={() => setOrderType('sell')} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
     } else {
       sellButton = <button onClick={() => {
@@ -188,6 +189,16 @@ const submitOrder = async () => {
     })
     getPortfolioData(authenticatedUser);
     setOrderAmount("");
+    populateModalValues(
+      {
+        'coin': coin,
+        'total_trade_coin': roundNumUpToDigit(total_trade_coin, 8),
+        'total_trade_fiat': total_trade_fiat,
+        'purchase_price': Number(coin.latest_price),
+        'orderType': orderType
+      }
+    );
+    openModal();
   }
   catch (e) {
     console.error(e);
