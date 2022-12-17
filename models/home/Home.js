@@ -34,7 +34,7 @@ exports.allCoins = async (user_id) => {
 
 exports.getTransactionHistory = async (user_id) => {
   try {
-    const transactions = await query(`SELECT c.name, c.acronym, c.image, t.total_trade_coin, t.total_trade_fiat, t.purchase_price, t.order_type FROM transactions t INNER JOIN coins c ON c.id = t.coin_id WHERE trader_id = $1;`, [user_id]);
+    const transactions = await query(`SELECT c.name, c.acronym, c.image, t.total_trade_coin, t.total_trade_fiat, t.purchase_price, t.order_type, t.order_datetime FROM transactions t INNER JOIN coins c ON c.id = t.coin_id WHERE trader_id = $1;`, [user_id]);
     return transactions.rows;
   } catch (err) {
     console.error(err);

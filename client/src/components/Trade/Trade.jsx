@@ -78,11 +78,11 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData}) {
       <div className="flex justify-between">
         {modal}
         <div className="flex w-3/5 p-5">
-          <Graph symbol={"BTC"}/>
+          <Graph symbol={symbol}/>
         </div>
         <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues}/>
       </div>
-      <Newsfeed/>
+      <Newsfeed />
     </div>
   )
 }
