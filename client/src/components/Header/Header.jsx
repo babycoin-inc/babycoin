@@ -30,9 +30,15 @@ function Header({ activePage, tradeHistory, coins, handleCoinClick }) {
         </div>
       </div>
       <div className="h-2/6 border-b-2 border-neutral-800">
-      {/* <coingecko-coin-price-marquee-widget  className="w-full" coin-ids="bitcoin, ethereum, polkadot, tether, binancecoin, cardano, dogecoin, ripple, solana" currency="usd" background-color="#18181B" locale="en" font-color="#F5F5F5" width="1050"></coingecko-coin-price-marquee-widget> */}
       <MoveTicker coins={coins} handleCoinClick={(e) => handleCoinClick(e)}/>
-      {/* <TickerTape
+
+      {/*
+      coingecko ticker widget
+      <coingecko-coin-price-marquee-widget  className="w-full" coin-ids="bitcoin, ethereum, polkadot, tether, binancecoin, cardano, dogecoin, ripple, solana" currency="usd" background-color="#18181B" locale="en" font-color="#F5F5F5" width="1050"></coingecko-coin-price-marquee-widget>
+      */}
+      {/*
+      tradingview ticker widget
+      <TickerTape
         widgetProps={{
           "symbols": [
             {
