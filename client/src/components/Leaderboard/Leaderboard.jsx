@@ -8,7 +8,18 @@ function Leaderboard() {
 	const [page, setPage] = useState(1);
 	const [sort, setSort] = useState(true);
 	const [isLeaderboardLoaded, setIsLeaderboardLoaded] = useState(0);
-	const [leaderboard, setLeaderboard] = useState([]);
+	const [leaderboard, setLeaderboard] = useState([{
+        "username": "dummy",
+        "coin": "usd",
+        "realized_gains": "0.00",
+        "row_number": "1"
+    },
+    {
+        "username": "user2",
+        "coin": "usd",
+        "realized_gains": "0.00",
+        "row_number": "2"
+    }]);
 
 	useEffect(() => {
 		getLeaderboard();
