@@ -6,7 +6,6 @@ function Leaderboard() {
 	const [duration, setDuration] = useState('realized_gains');
 	const [coin, setCoin] = useState('usd');
 	const [page, setPage] = useState(1);
-	const [sort, setSort] = useState(true);
 	const [isLeaderboardLoaded, setIsLeaderboardLoaded] = useState(0);
 	const [leaderboard, setLeaderboard] = useState([]);
 
@@ -15,10 +14,7 @@ function Leaderboard() {
 	}, []);
 
 	const handleDurationChange = (event) => {
-		if(duration === event.target.id) {
-			setSort(!sort);
-			console.log(sort);
-		} else {
+		if(duration !== event.target.id) {
 			setDuration(event.target.id);
 			getLeaderboard(event.target.id, coin, page);
 		}
@@ -52,10 +48,9 @@ function Leaderboard() {
 
 	return (
 		<div className='Board'>
-			<h1 className='content-center header-title'>Leaderboard</h1>
-			<div className='content-center header-display'>
-				<button id='realized_gains' onClick={handleDurationChange}>Current</button>
-				<button id='highest_realized_gains' onClick={handleDurationChange}>All Time</button>
+			<div className='text-center'>
+				<button className='px-8 w-4' id='realized_gains' onClick={handleDurationChange}>Current</button>
+				<button className='px-8 w-4' id='highest_realized_gains' onClick={handleDurationChange}>All Time</button>
 				<div>
 					<label>
 						CryptoCurrency:
@@ -65,17 +60,18 @@ function Leaderboard() {
 							<option value='eth'>ETH</option>
 							<option value='usdt'>USDT</option>
 							<option value='bnb'>BNB</option>
-							<option value='ada'>ADA</option>
 							<option value='xrp'>XRP</option>
-							<option value='sol'>SOL</option>
+							<option value='ada'>ADA</option>
 							<option value='doge'>DOGE</option>
 							<option value='matic'>MATIC</option>
 							<option value='dot'>DOT</option>
+							<option value='sol'>SOL</option>
 						</select>
 					</label>
 				</div>
 			</div>
-			{isLeaderboardLoaded ? <Profiles sort={sort} duration={duration} profiles={leaderboard}/> : <></>}
+			<h1 className='bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit'>Leaderboard</h1>
+			{isLeaderboardLoaded ? <Profiles duration={duration} profiles={leaderboard}/> : <></>}
 		</div>
 	)
 }
