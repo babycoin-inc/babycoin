@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import validStar from './valid.png';
-import invalidStar from './invalid.png';
+import axios from 'axios';
 
-const Watchlist = ({ userWatchlist, coins }) => {
-
-  const [valid, setValid] = useState(true);
+const Watchlist = ({ userWatchlist, coins, removeFromWatchlist }) => {
 
   return (
     <div className="overflow-x-auto relative">
@@ -13,15 +11,9 @@ const Watchlist = ({ userWatchlist, coins }) => {
           {coins.map(coinInfo => (
             userWatchlist.includes(coinInfo.name) ?
               <tr>
+                <img className="w-8" src={validStar} onClick={removeFromWatchlist}/> 
                 <td>{coinInfo.name}</td>
                 <td>{coinInfo.latest_price}</td>
-                <td className={valid ? "valid-star" : "invalid-star"}>
-                  <img
-                    className="w-1/20 h-1/20"
-                    onClick={() => setValid(prevMode => !prevMode)}
-                    src={valid ? validStar : invalidStar}
-                  />
-                </td>
               </tr>
             : null
           ))}

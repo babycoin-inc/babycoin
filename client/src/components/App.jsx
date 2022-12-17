@@ -170,6 +170,15 @@ function App() {
     .catch(err => console.log(err));
   }
 
+  function removeFromWatchlist (e) {
+    e.preventDefault();
+    console.log(e.target.parentNode.childNodes[1].innerText); // the coin name which is inside the same row with the star-shape being clicked
+    axios.delete(`/users/${authenticatedUser}/watchlist/${e.target.parentNode.childNodes[1].innerText}`)
+    .then()
+    .catch()
+
+  }
+
   // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
@@ -206,7 +215,7 @@ function App() {
 
   return (
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
-      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins}/>
+      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={e => removeFromWatchlist(e)} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
           <Header activePage={activePage} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={e => handleMultiChange(e)} userWatchlist={userWatchlist} />
