@@ -1,10 +1,10 @@
 const client = require('../../db/index.js')
 const axios = require('axios');
-const schedule = require('node-schedule');
+//const schedule = require('node-schedule');
 require("dotenv").config();
 
-let rule = new schedule.RecurrenceRule();
-rule.hour = 0.25;
+// let rule = new schedule.RecurrenceRule();
+// rule.hour = 0.25;
 
 // const job = schedule.scheduleJob(rule, function(){
 //   runAPI((err, result)=>{
@@ -41,9 +41,7 @@ let runAPI = () => {
           console.log(err);
         });
     }
-    cb(null,result.data.data);
   }).catch(err => {
-    cb(err, null);
     console.log(err);
   })
 }

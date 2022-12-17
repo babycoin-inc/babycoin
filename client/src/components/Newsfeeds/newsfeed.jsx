@@ -42,10 +42,7 @@ function Newsfeed(ticker) {
     console.log(n);
     var options = {
       method:'get',
-      url:  "/newsfeed",
-      body: {
-        num: n
-      }
+      url:  `/newsfeed/${ticker.coin}?n=${n}`
     }
     axios(options).then((result) => {
       console.log('get news ran');
