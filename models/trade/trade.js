@@ -12,6 +12,7 @@ const pool = new Pool({
 const insertTransaction = (transaction, orderType) => {
   const { currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id } = transaction;
   const recordToCreate = [orderType, currency, purchase_price, total_trade_fiat, total_trade_coin, trader_id, coin_id];
+  console.log('transaction: ', transaction);
   return query('insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin, order_datetime, trader_id, coin_id) values ($1, $2, $3, $4, $5, now() , $6, $7)', recordToCreate)
     .then((fulfilledTransaction) => {
       return 'Transaction created';

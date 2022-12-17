@@ -157,6 +157,7 @@ const capitalizeFirstLetter = (str) => {
 }
 
 const submitOrder = async () => {
+
   try {
     const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
       coin_id: coin.id,
