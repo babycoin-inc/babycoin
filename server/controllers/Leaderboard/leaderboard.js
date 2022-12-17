@@ -1,9 +1,12 @@
 const { Leaderboard } = require('../../../models/models.js');
 
 const getLeaderboard = async (req, res) => {
-	console.log(req.query.coin);
-	const result = await Leaderboard.getLeaderboard(req.query.coin);
-	res.send(result);
+	try {
+		const result = await Leaderboard.getLeaderboard(req.query.duration,req.query.coin,req.query.page);
+		res.send(result);
+	}catch  (err) {
+		console.log(err);
+	}
 };
 
 module.exports.getLeaderboard = getLeaderboard;
