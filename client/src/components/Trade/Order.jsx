@@ -28,10 +28,10 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   let convertButton;
   let maxOrderAmountMessage;
   let coinOrderList;
+
   const getCoinsInPortfolio = () => {
     let result = [];
     portfolio.forEach((asset) => {
-      console.log('porftolio to start: ', portfolio);
       if (asset.acronym !== 'usd') {
         result.push(asset.coin);
       }
@@ -47,26 +47,19 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     buyButton = <button disabled={true} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto">Buy</button>
 
     if (getCoinsInPortfolio().length === 0) {
-      console.log('reloaded; ', getCoinsInPortfolio());
       sellButton = <button disabled onClick={() => setOrderType('sell')} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
     } else {
       sellButton = <button onClick={() => {
         //if current selected coin is not in the user's portfolio, reset coin to first coin in portfolio
         const coinsInPortfolio = getCoinsInPortfolio();
-        console.log('coinsInPortfolio: ', coinsInPortfolio);
-        console.log('coins.name: ',coin.name);
         if (coinsInPortfolio.indexOf(coin.name) === -1) {
           var coinToSet;
           for (var i = 0; i < coins.length; i++) {
             if (coins[i].name === coinsInPortfolio[0]) {
-              console.log('MADE IT');
-              console.log('coins[i].name: ',coins[i].name);
-              console.log('coinsInPortfolio: ', coinsInPortfolio);
               coinToSet = coins[i];
               break;
             }
           }
-          console.log('coinToSet: ', coinToSet);
           setCoin(coinToSet);
         }
         setOrderType('sell')}
@@ -81,7 +74,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
       <div className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500 py-2 px-10 mx-auto relative left-5">
         <button onClick={() => {
           const amount = orderUnits === 'usd' ? roundNumUpToDigit(getAssetFromPortfolio(coin.acronym).quantity * coin.latest_price, 2) : roundNumUpToDigit((getAssetFromPortfolio(coin.acronym)).quantity, 5);
-          console.log('amount: ', amount);
           setOrderAmount(amount);
         }
         }>Sell All</button>
@@ -97,8 +89,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
 
   if (orderUnits === 'usd') {
     orderInput = <NumericFormat className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" displayType="input" type="text" value={orderAmount} allowNegative={false} valueIsNumericString={true} defaultValue="Order Amount" prefix='$' decimalScale={2} allowLeadingZeros={false} thousandSeparator="," onValueChange={(values, sourceInfor) => { handleOrderAmountChange(values.value) }} />
-
-    console.log('undefined coin.acronym: ', coin, coin.acronym);
     convertButton = <div className="self-start text-sm text-center">{coin.acronym.toUpperCase()}</div>
 
   } else if (orderUnits === 'coin') {
@@ -123,7 +113,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     return portfolio[index];
   }
 
-  //put constraints in state so they can be reused across application
+  //TO BE CLEANED UP: put constraints in state so they can be reused across application
 
   if (orderUnits === 'coin' && orderType === 'buy') {
     let maxCoinOrderAmount = getAssetFromPortfolio('usd').quantity / coin.latest_price;
@@ -138,10 +128,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
 
 const handleOrderAmountChange = (value) => {
   //VALIDATE ORDER AMOUNT
-  console.log('value to set orderAmount to: ', value);
-  console.log('orderAmount before its set: ', orderAmount);
   setOrderAmount(value);
-  console.log('orderAmount after its set: ', orderAmount);
   calculateTotals(value);
 }
 
@@ -152,8 +139,6 @@ const calculateTotals = (value) => {
   if (orderUnits === 'usd') {
     total_fiat = parseFloat(value);
     total_coin = parseFloat(value) / coin.latest_price;
-    console.log('total_coin: ', total_coin);
-    console.log('total_fiat: ', total_fiat);
     setTotalTradeFiat(total_fiat);
     setTotalTradeCoin(total_coin);
   } else if (orderUnits === 'coin') {
@@ -172,11 +157,6 @@ const capitalizeFirstLetter = (str) => {
 }
 
 const submitOrder = async () => {
-  console.log("orderAmount: ", orderAmount);
-  console.log("coin.latest_price: ", coin.latest_price);
-  console.log("total_trade_fiat: ", total_trade_fiat);
-  console.log("total_trade_coin: ", total_trade_coin);
-
   try {
     const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
       coin_id: coin.id,
@@ -233,7 +213,6 @@ return (
         {convertButton}
       </div>
       <div className="">
-        {console.log('orderAmount in return: ', orderAmount)}
         {orderInput}
         {maxOrderAmountMessage}
       </div>
