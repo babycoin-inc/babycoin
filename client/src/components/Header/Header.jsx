@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embed";
 import Dropdown from './Dropdown.jsx';
-<<<<<<< HEAD
+
 import axios from 'axios';
 
-function Header({ activePage, setAuthorizedUser }) {
-=======
 import MoveTicker from './TickerTape.jsx';
 
 function Header({ activePage, tradeHistory, coins, handleCoinClick }) {
->>>>>>> main
+
   const [profilePic, setProfilePic] = useState(true);
 
   const handleLogout = (e) => {
