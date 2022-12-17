@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import Dropdown from './Dropdown.jsx';
 
-function Header({ activePage, tradeHistory, userId}) {
+function Header({ activePage, tradeHistory, addToWatchlist, handleMultiChange}) {
   const [profilePic, setProfilePic] = useState(true);
 
   return (
@@ -12,7 +12,7 @@ function Header({ activePage, tradeHistory, userId}) {
           <h1>{activePage}</h1>
         </div>
         <div className="w-1/3">
-          <Dropdown className="h-max-10" tradeHistory={tradeHistory} userId={userId} />
+          <Dropdown className="h-max-10" tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={handleMultiChange} />
         </div>
         <div className="flex justify-between w-1/5">
           <div></div>

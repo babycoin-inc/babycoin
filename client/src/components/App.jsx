@@ -24,7 +24,10 @@ function App() {
   const [showResetModal, setShowResetModal] = useState(false);
 
   // watchlist:
-  const [userWatchlist, setUserWatchlist] = useState([]);
+  // const [userWatchlist, setUserWatchlist] = useState([]);
+  const [multiValue, setMultiValue] = useState([]);
+  const sendObj = {addedList: multiValue};
+
 
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
@@ -97,6 +100,10 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    sendObj.addedList = multiValue
+  })
+
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -143,11 +150,25 @@ function App() {
     .catch(err => console.log(err));
   }
 
+
   function handleCoinClick (e) {
     e.preventDefault();
-    console.log(e.target.innerText); // the coin name
     setSymbol(e.target.innerText);
     setActivePage('Trade');
+  }
+
+  function handleMultiChange (selectedOption) {
+    setMultiValue(selectedOption);
+  }
+
+  function addToWatchlist () {
+    axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
+    .then(result => {
+      console.log(result.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   // Home:Balance component reset button
@@ -189,7 +210,7 @@ function App() {
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
-          <Header activePage={activePage} tradeHistory={tradeHistory} userId={authenticatedUser} />
+          <Header activePage={activePage} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={selectedOption => handleMultiChange(selectedOption)} />
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}

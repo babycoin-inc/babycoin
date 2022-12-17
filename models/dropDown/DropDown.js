@@ -32,11 +32,3 @@ const addToWatchlist = async (addedList, trader_id) => {
 }
 
 exports.addToWatchlist = addToWatchlist;
-
-// addedList looks like:
-  // [
-  //   { value: 'Ethereum', label: 'Ethereum' },
-  //   { value: 'Xrp', label: 'Xrp' }
-  // ]
-// watchlist looks like:
-  // ['Bitcoin', 'Polygon']

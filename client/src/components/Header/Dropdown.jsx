@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
-const Dropdown = ({ tradeHistory, userId }) => {
+const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
 
   const options = [
     {value: "Bitcoin", label: "Bitcoin"},
@@ -28,28 +28,6 @@ const Dropdown = ({ tradeHistory, userId }) => {
       <h5 className='text-base text-emerald-300 italic ml-1'>Select A Crypto To Trade</h5>
     </div>
   )
-
-  const [multiValue, setMultiValue] = useState([]);
-  const sendObj = {addedList: multiValue};
-
-  const handleMultiChange = (selectedOption) => {
-    setMultiValue(selectedOption);
-  }
-
-  useEffect(() => {
-    sendObj.addedList = multiValue
-  })
-
-
-  const addToWatchlist = () => {
-    axios.post(`/users/${userId}/watchlist`, sendObj)
-    .then(result => {
-      console.log(result.data);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  }
 
   return (
     <div className="flex flex-row">
