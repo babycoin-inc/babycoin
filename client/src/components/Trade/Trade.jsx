@@ -82,7 +82,7 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol}) 
         </div>
         <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues}/>
       </div>
-      <Newsfeed />
+      <Newsfeed ticker={symbol} />
     </div>
   )
 }

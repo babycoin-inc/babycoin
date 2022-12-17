@@ -6,6 +6,7 @@ import { IconContext } from "react-icons";
 import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
 
+<<<<<<< HEAD
 function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues}) {
   const [orderType, setOrderType] = useState("buy");
   let [orderAmount, setOrderAmount] = useState("");
@@ -14,6 +15,14 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   let [coin, setCoin] = useState(coins[2]);
   let [total_trade_coin, setTotalTradeCoin] = useState();
   let [total_trade_fiat, setTotalTradeFiat] = useState();
+=======
+function Order({authenticatedUser, portfolio, symbol}) {
+  const [orderType, setOrderType] = useState('buy');
+  let [orderAmount, setOrderAmount] = useState('Order Amount');
+  const [orderUnits, setOrderUnits] = useState('USD');
+  let [coin, setCoin] = useState('Bitcoin');
+  const [price, setPrice] = useState();
+>>>>>>> main
 
   console.log('coins: ', coins);
   console.log('portfolio: ', portfolio);
@@ -21,6 +30,15 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   console.log('total_trade_fiat: ', total_trade_fiat);
   console.log('orderAmount: ', orderAmount);
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    console.log("I have been mounted");
+    getCoin();
+  }, []);
+
+  let view = orderType === 'buy' ? <Buy /> : <Sell />;
+>>>>>>> main
   let buyButton;
   let sellButton;
   let orderInput;
