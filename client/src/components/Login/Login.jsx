@@ -9,6 +9,7 @@ const Login = ({ updateUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordComparison, setPasswordComparison] = useState('')
+  const [loginPage, setLoginPage] = useState(true);
 
   const handleInput = (e) => {
     e.preventDefault();
@@ -70,6 +71,11 @@ const Login = ({ updateUser }) => {
     });
   }
 
+  const handleLoginPage = (e) => {
+    e.preventDefault();
+    setLoginPage(!loginPage);
+  }
+
   return (
     <div className='relative w-full max-h-max'>
       <img className='absolute w-full h-full object-cover mix-blend-overlay' src={bgImage} alt="bgImage" />
@@ -83,7 +89,10 @@ const Login = ({ updateUser }) => {
             <button className='border shadow-lg hover:shadow-xl px-6 py-2 relative flex items-center' onClick={handleGoogleLogin}> <FcGoogle className='mr-2' />Google</button>
             {/* <a href="localhost:3000/auth/google">Click me</a> */}
           </div>
-          <div className='flex flex-col mb-4'>
+
+          {loginPage ? (
+            <>
+            <div className='flex flex-col mb-4'>
             <label>Username</label>
             <input id='username' className='border relative bg-gray-100 p-2' type='text' onChange={handleInput}/>
           </div>
@@ -92,8 +101,12 @@ const Login = ({ updateUser }) => {
             <input id='password' className='border relative bg-gray-100 p-2' type='password' onChange={handleInput}/>
           </div>
           <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white' onClick={handleLogin}>Log In</button>
-          <p className='text-center mt-8'>Not a Member? Sign Up Now!</p>
-          <div className='flex flex-col mb-4'>
+          <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white' onClick={handleLoginPage}>Not a Member? Sign Up Now!</button>
+          {/* <button className='text-center mt-8' onClick={()=>setLoginPage(false)}>Not a Member? Sign Up Now!</button> */}
+          </>
+          ) : (
+            <>
+            <div className='flex flex-col mb-4'>
             <label>Username</label>
             <input id='username' className='border relative bg-gray-100 p-2' type='text' onChange={handleInput}/>
           </div>
@@ -106,6 +119,16 @@ const Login = ({ updateUser }) => {
             <input id='passwordcomparison' className='border relative bg-gray-100 p-2' type='password' onChange={handleInput}/>
           </div>
           <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white' onClick={handleSignUp}>Sign Up</button>
+          <button className='w-full py-3 mt-8 bg-blue-600 hover:bg-blue-500 relative text-white' onClick={handleLoginPage}>Already a Member? Log In Now!</button>
+          {/* <p className='text-center mt-8' onClick={()=>setLoginPage(true)}>Already a Member? Log In Now!</p> */}
+          </>
+          )}
+
+
+
+
+
+
         </form>
       </div>
     </div>
