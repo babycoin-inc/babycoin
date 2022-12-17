@@ -16,12 +16,12 @@ const Achievements = function ( {achievements, userAchievements, achievementsSta
                     return (<Card key={achievement.id} achievement={achievement} status={true} />)
                 }) : null}
 
-                {filter === 'all' || filter === 'incomplete' ? 
+                {filter === 'all' || filter === 'incomplete' ?
                     achievements?.length ? achievements.map((achievement) => {
                         const status = userAchievements.some(userAchievement => (userAchievement.achievement_id === achievement.id));
                         if (!status) {
                             return (<Card key={achievement.id} achievement={achievement} status={status} />);
-                        }}) : null 
+                        }}) : null
                 : null }
             </div>
             <Footer />

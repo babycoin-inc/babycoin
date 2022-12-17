@@ -69,36 +69,16 @@ app.get('/users/:id/transactions/', home.getTransactions);
 app.delete('/users/:id/portfolio/', home.clearPortfolio)
 //TODO: UPDATE ACHIEVEMENTS ROUTES TO HAVE USERS/ IN ROUTE
 
+app.get('/users/:id/achievements', achievements.getUserAchievements);
+app.post('/users/:id/achievements/:achievement', achievements.addUserAchievement);
 app.get('/achievements', achievements.getAchievements);
-app.get('/achievements/:id', achievements.getUserAchievements);
-app.post('/achievements/:id/:achievement', achievements.addUserAchievement);
 
 
 
 
 
-app.get("/newsfeed", async (req, res) => {
-  console.log(req.body);
-  try {
-    const result = await nf.getNews(n=10);
-    if(result.length > 0) {
-      res.status(200).send(result);
-    }
-  } catch (err) {
-      res.status(500);
-      console.log(err);
-  }
-});
-
-app.get("/nfAPI", (req, res) => {
-  nf.runAPI((err,result) => {
-    if(err){
-      res.status(500);
-    } else {
-      res.status(200).send(result);
-    }
-  })
-})
+app.get("/newsfeed/:coin", nf.getNews);
+app.get("/nfAPI", nf.runAPI);
 
 
 cron.schedule('*/30 * * * * *', () => {
