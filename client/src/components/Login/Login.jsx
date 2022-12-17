@@ -88,7 +88,7 @@ const Login = ({ updateUser }) => {
 
   return (
     <div className='relative w-full max-h-max'>
-      <img className='absolute w-full h-full object-cover min-h-screen' src={bgImage} alt="bgImage" />
+      <img className='absolute w-full h-full object-cover mix-blend-overlay min-h-screen' src={bgImage} alt="bgImage" />
       <div className='flex justify-center items-center py-8'>
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
       </div>
