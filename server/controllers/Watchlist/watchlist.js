@@ -1,11 +1,10 @@
 const watchlist = require('../../../models/watchlist/Watchlist.js');
 
 exports.removeFromWatchlist = (req, res) => {
-  console.log(req.params); // { id: '1', coin: 'Ethereum' }
   watchlist.deleteCoinsFromWatchlist(req.params['id'], req.params['coin'])
   .then(result => {
     console.log('result', result[0]['watchlist']);
-    res.send('haha');
+    res.send(result[0]['watchlist']);
   })
   .catch(err => res.send(err));
 }

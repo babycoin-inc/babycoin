@@ -174,8 +174,10 @@ function App() {
     e.preventDefault();
     console.log(e.target.parentNode.childNodes[1].innerText); // the coin name which is inside the same row with the star-shape being clicked
     axios.delete(`/users/${authenticatedUser}/watchlist/${e.target.parentNode.childNodes[1].innerText}`)
-    .then()
-    .catch()
+    .then(result => {
+      console.log(result.data);
+    })
+    .catch(err => console.log(err));
 
   }
 
