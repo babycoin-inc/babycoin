@@ -54,10 +54,8 @@ cron.schedule('*/30 * * * * *', () => {
   // //invoke a function that does not require a request and response
   market.updateCoins(); // update the coins table every 30s
 });
-
 //FOR THE FRONT END
 app.get('/coins/markets', market.getCoins);
-
 app.post('/users/:id/watchlist', dropdown.addToWatchlist);
 app.delete('/users/:id/watchlist/:coin', watchlist.removeFromWatchlist);
 
