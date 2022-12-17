@@ -3,14 +3,17 @@ import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline
 import Dropdown from './Dropdown.jsx';
 import axios from 'axios';
 
-function Header({ activePage }) {
+function Header({ activePage, setAuthorizedUser }) {
   const [profilePic, setProfilePic] = useState(true);
 
   const handleLogout = (e) => {
     e.preventDefault();
     axios
       .get('/logout')
-      .then(result => console.log(result.data))
+      .then(result => {
+        console.log('DATA FROM LOGOUT', result.data)
+        setAuthorizedUser(result.data)
+      })
       .catch(err => console.log(err));
   }
 

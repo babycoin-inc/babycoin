@@ -8,7 +8,7 @@ import Trade from './Trade/Trade.jsx';
 import Market from './MarketWatch/Market.jsx';
 import axios from 'axios';
 
-function App() {
+function App({ setAuthorizedUser }) {
 
   const [authenticatedUser, setAuthenticatedUser] = useState(1);
   const [activePage, setActivePage] = useState('Home');
@@ -183,7 +183,7 @@ function App() {
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-50">
-          <Header activePage={activePage} />
+          <Header activePage={activePage} setAuthorizedUser={setAuthorizedUser} />
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
