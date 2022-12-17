@@ -21,12 +21,14 @@ const addToWatchlist = async (addedList, trader_id) => {
     const name = coin.value;
     const params2 = [name, trader_id];
 
-    // console.log("result['rows']", result['rows'], 'name', name);
     if (!result['rows'][0]['watchlist'].includes(name)) {
       const text2 = `UPDATE trader_watchlist SET watchlist = array_append(watchlist, $1) WHERE trader_id = $2`;
       await query(text2, params2);
     }
   })
+
+  result = await query(text0, params0);
+  return result['rows'];
 }
 
 exports.addToWatchlist = addToWatchlist;

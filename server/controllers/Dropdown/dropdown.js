@@ -4,7 +4,14 @@ exports.addToWatchlist = (req, res) => {
   // console.log('request body', req.body.addedList, 'request params id', req.params.id);
   dropdown.addToWatchlist(req.body.addedList, req.params.id)
   .then(result => {
-    res.send('add to watchlist successfully');
+    // result[0]['watchlist'] looks like : [
+                    //     "Polygon",
+                    //     "Sol",
+                    //     "Bitcoin",
+                    //     "usdt",
+                    //     "dot"
+                    // ]
+    res.send(result[0]['watchlist']).status(201);
   })
   .catch(err => res.send(err));
 }

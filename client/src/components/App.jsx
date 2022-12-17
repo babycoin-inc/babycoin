@@ -23,6 +23,9 @@ function App() {
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
 
+  // watchlist:
+  const [userWatchlist, setUserWatchlist] = useState([]);
+
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
   const [userAchievements, setUserAchievements] = useState([]);
@@ -186,7 +189,7 @@ function App() {
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
-          <Header activePage={activePage} tradeHistory={tradeHistory} />
+          <Header activePage={activePage} tradeHistory={tradeHistory} userId={authenticatedUser} />
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
-const Dropdown = ({ tradeHistory }) => {
+const Dropdown = ({ tradeHistory, userId }) => {
 
   const options = [
     {value: "Bitcoin", label: "Bitcoin"},
@@ -40,10 +40,15 @@ const Dropdown = ({ tradeHistory }) => {
     sendObj.addedList = multiValue
   })
 
-  const addToWatchlist = (userId) => {
+
+  const addToWatchlist = () => {
     axios.post(`/users/${userId}/watchlist`, sendObj)
-    .then()
-    .catch()
+    .then(result => {
+      console.log(result.data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   return (
@@ -58,7 +63,7 @@ const Dropdown = ({ tradeHistory }) => {
       </div>
       <div>
         <button onClick={addToWatchlist} className="bg-neutral-200 hover:bg-zinc-500 text-white font-bold py-2 px-4 rounded">
-          Add to Watchlist
+          Add
         </button>
       </div>
       <div>
