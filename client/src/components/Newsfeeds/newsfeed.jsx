@@ -4,19 +4,30 @@ const axios = require('axios');
 
 function Newsfeed(ticker) {
 
-
+  const [coinState, setCoin] = useState(ticker.coin);
   const [numNews, setNum] = useState(3);
   const [newsArr, setFeed] = useState([]);
   let initialized = false;
 
   const tickers = {
-    'BTC': 'BTC'
-  }
-  console.log(ticker.coin, tickers[ticker.coin]);
+    'BTC': 'BTC',
+    'Bitcoin': 'BTC',
+    'Ethereum': 'ETH',
+    'Tether': 'USDT',
+    'BNB': 'BNB',
+    'Cardano': 'ADA',
+    'XRP': 'XRP',
+    'Solana': 'SOL',
+    'Dogecoin': 'DOGE',
+    'Polygon': 'MATIC',
+    'Polkadot': 'DOT'
+  };
+
+  console.log(coinState, tickers[coinState]);
   useEffect(()=>{
     var options = {
       method:'get',
-      url:  `/newsfeed/${tickers[ticker.coin]}?n=10`
+      url:  `/newsfeed/${tickers[coinState]}?n=10`
     }
     if(!initialized){
       axios(options).then((result) => {
@@ -46,7 +57,7 @@ function Newsfeed(ticker) {
     console.log(n);
     var options = {
       method:'get',
-      url:  `/newsfeed/${tickers[ticker.coin]}?n=${n}`
+      url:  `/newsfeed/${tickers[coinState]}?n=${n}`
     }
     axios(options).then((result) => {
       // console.log('get news ran');
