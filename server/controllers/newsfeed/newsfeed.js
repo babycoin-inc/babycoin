@@ -7,16 +7,18 @@ module.exports.runAPI = (req, res) => {
     if(err){
       res.status(500).end();
     } else {
-      res.status(200).send(result);
+      res.status(200);
     }
   })
 }
 
 module.exports.getNews = async (req, res) => {
+  //console.log('THIS IS WORKING')
   //console.log(req.params, req.query);
   try {
     const result = await newsfeed.Newsfeed.getNews(req.params.coin, req.query.n);
     if(result.length > 0) {
+      //console.log(result);
       res.status(200).send(result);
     }
   } catch (err) {

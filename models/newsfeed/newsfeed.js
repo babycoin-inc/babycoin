@@ -1,11 +1,14 @@
 const client = require('../../db/index.js')
 const axios = require('axios');
-const schedule = require('node-schedule');
+const cron = require('node-schedule');
 require("dotenv").config();
 
-let rule = new schedule.RecurrenceRule();
-rule.hour = 0.25;
-
+var rule = new cron.RecurrenceRule();
+rule.hour = 0;
+rule.minute = 1;
+cron.scheduleJob(rule, function(){
+    console.log(new Date(), 'Every 1 hours');
+});
 // const job = schedule.scheduleJob(rule, function(){
 //   runAPI((err, result)=>{
 //     if(err){
@@ -15,15 +18,13 @@ rule.hour = 0.25;
 //     }
 //   });
 // });
-
-let runAPI = (cb) => {
-//let runAPI = () => {
+const runAPI = () => {
   var options = {
     method:'get',
     params: {
       items:100,
       page:1,
-      date: 'last30days',
+      date: '12152022-12182022',
       token: process.env.CPNAPIKEY
     },
     url:"https://cryptonews-api.com/api/v1/category?section=alltickers"
@@ -41,15 +42,13 @@ let runAPI = (cb) => {
           console.log(err);
         });
     }
-    cb(null,result.data.data);
   }).catch(err => {
-    cb(err, null);
     console.log(err);
   })
 }
 
-let getNews = (coin, n=10) => {
-    console.log(coin, n);
+const getNews = (coin, n=10) => {
+    //console.log('line 48',coin, n);
     return client.query(`SELECT title, description, arthur, url, tickers, image_url, topics, type, sentiment, publish_date FROM newsfeed WHERE $2 = ANY(tickers) ORDER BY publish_date DESC LIMIT $1`,[n, coin]).then(result => {
       //console.log(result.rows);
       return result.rows;
