@@ -12,7 +12,7 @@ function Newsfeed(ticker) {
   const tickers = {
     'BTC': 'BTC',
     'Bitcoin': 'BTC',
-    'Ethereum': 'ETH',
+    'eth': 'ETH',
     'Tether': 'USDT',
     'BNB': 'BNB',
     'Cardano': 'ADA',
@@ -27,7 +27,7 @@ function Newsfeed(ticker) {
   useEffect(()=>{
     var options = {
       method:'get',
-      url:  `/newsfeed/${tickers[coinState]}?n=10`
+      url:  `/newsfeed/${coinState.toUpperCase()}?n=10`
     }
     if(!initialized){
       axios(options).then((result) => {

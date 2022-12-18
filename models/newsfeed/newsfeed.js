@@ -5,15 +5,10 @@ require("dotenv").config();
 
 var j = schedule.scheduleJob('0 */1 * * *', function(){  // this for one hour
   console.log(new Date());
+  runAPI();
 });
 // const job = schedule.scheduleJob(rule, function(){
-//   runAPI((err, result)=>{
-//     if(err){
-//       console.log(err);
-//     } else {
-//       console.log('Scheduler is working', new Date(Date.now()).toLocaleString());
-//     }
-//   });
+
 // });
 const runAPI = () => {
   var options = {
@@ -21,7 +16,7 @@ const runAPI = () => {
     params: {
       items:100,
       page:1,
-      date: '12152022-12182022',
+      date: 'last30min',
       token: process.env.CPNAPIKEY
     },
     url:"https://cryptonews-api.com/api/v1/category?section=alltickers"

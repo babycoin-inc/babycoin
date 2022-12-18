@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS newsfeed (
   URL VARCHAR(200) NOT NULL,
   tickers TEXT [] NOT NULL,
   image_url VARCHAR(200) NOT NULL,
+  publish_date timestamptz,
   topics TEXT,
   type TEXT,
   sentiment TEXT
