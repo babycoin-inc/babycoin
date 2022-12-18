@@ -32,7 +32,7 @@ const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
   return (
     <div className="flex flex-row">
       <div className="w-9/10">
-        <Select
+        <Select className="z-10 text-black w-80"
           placeholder="Tradeable Coins"
           onChange={handleMultiChange}
           options={options}
@@ -40,7 +40,7 @@ const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
         />
       </div>
       <div>
-        <button onClick={addToWatchlist} className="bg-neutral-200 hover:bg-zinc-500 text-white font-bold py-2 px-4 rounded">
+        <button onClick={addToWatchlist} className="bg-zinc-600 hover:bg-zinc-500 text-white font-bold py-2 px-4 rounded">
           Add
         </button>
       </div>
