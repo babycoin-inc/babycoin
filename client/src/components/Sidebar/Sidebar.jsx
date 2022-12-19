@@ -1,5 +1,7 @@
 import React from 'react';
 import BabyCoinLogo from '../../../dist/assets/BabyCoin.png';
+import BabyCoinDark from '../../../dist/assets/BabyCoinDark.png';
+import BabyCoinDarkPurple from '../../../dist/assets/BabyCoinDarkPurple.png';
 import Watchlist from './Watchlist.jsx';
 
 const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
@@ -33,7 +35,7 @@ function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coin
     <div className="w-1/3 border-r-2 border-zinc-800">
       <div className="sticky top-0">
         <div className="h-1/6">
-          <img src={BabyCoinLogo} width="100" className="relative left-4 top-3" />
+          <img src={BabyCoinDarkPurple} width="100" className="relative left-4 top-3" />
         </div>
         <nav className="flex flex-col items-center mt-28 w-full text-2xl">
           {navItems}
