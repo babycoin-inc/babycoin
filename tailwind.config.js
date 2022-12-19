@@ -8,6 +8,7 @@ module.exports = {
         'bright-crypto': "url('/client/dist/assets/BrightCrypto.jpg')"
       },
       content: {
+        'empty': '""',
         'dash': '"------"'
       }
     },
