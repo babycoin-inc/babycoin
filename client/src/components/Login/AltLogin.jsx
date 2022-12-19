@@ -65,7 +65,7 @@ function AltLogin() {
         <h1 className="tracking-widest text-5xl text-center">Create Your Account</h1>
         <button className='border border-zinc-400 rounded-xl px-6 py-2 mt-16 flex items-center mx-auto'> <FcGoogle className='mr-2' />Sign In With Google</button>
         <h2 className="text-center before:content-dash before:mr-2 after:content-dash after:ml-2 mt-6">Or</h2>
-          <form className="mt-2 flex flex-col gap-12">
+          <form className="mt-2 flex flex-col gap-12 w-11/12 mx-auto">
             <div className="relative">
               <input id="username" className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer' type='text' placeholder=" " onChange={handleInput}/>
               <label for="username" className="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
