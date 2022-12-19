@@ -9,7 +9,7 @@ exports.writeCoins = async (coins) => {
     if (result['rows'].length === 0) {
 
       const textUsd = `INSERT INTO coins (name, acronym, image, latest_price, price_change_percentage)
-                       VALUES ('United States Dollar', 'usd', 'https://en.wikipedia.org/wiki/United_States_one-dollar_bill#/media/File:US_one_dollar_bill,_obverse,_series_2009.jpg', 1, 0)`;
+                       VALUES ('United States Dollar', 'usd', LOAD_FILE('./usd_img.jpg'), 1, 0)`;
 
       try {
         await query(textUsd);
