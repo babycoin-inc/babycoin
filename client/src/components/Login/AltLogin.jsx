@@ -58,7 +58,7 @@ function AltLogin() {
   return (
     <div className="h-screen min-w-full max-w-screen-2xl mx-auto bg-[url('https://lh6.googleusercontent.com/9gTOCTNM_w3o_DF5FLEt5CIcJww09ikvfuI2zDuzQwf9nsi6Inov1D1Nnlz-uLbhX6Y=w1200-h630-p')] bg-cover bg-right-top text-white pt-6">
       <div className="relative flex justify-between w-4/5 mx-auto z-10 items-center">
-        <img src={BabyCoinDarkPurple} className="h-24" />
+        <img src={BabyCoinDarkPurple} className="h-32" />
         <button className="rounded-3xl h-fit border-2 py-2 px-4 hover:bg-zinc-800">Sign In</button>
       </div>
       <div className="relative text-zinc-900 z-10 top-20 left-48 w-1/3">
