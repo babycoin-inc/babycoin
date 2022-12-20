@@ -11,7 +11,14 @@ CREATE TABLE IF NOT EXISTS coins (
   acronym VARCHAR(50) NOT NULL,
   image VARCHAR(255),
   description TEXT,
-  latest_price DECIMAL NOT NULL
+  latest_price DECIMAL NOT NULL,
+  price_change_percentage NUMERIC NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS trader_watchlist (
+  id SERIAL PRIMARY KEY,
+  trader_id INTEGER REFERENCES trader(id),
+  watchlist VARCHAR []
 );
 
 CREATE TABLE IF NOT EXISTS portfolio (
@@ -77,6 +84,20 @@ CREATE TABLE IF NOT EXISTS leaderboard (
   realized_gains DECIMAL,
   highest_realized_gains DECIMAL,
   UNIQUE (trader_id, coin_id)
+);
+
+CREATE TABLE IF NOT EXISTS newsfeed (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  description TEXT NOT NULL,
+  arthur VARCHAR(200) NOT NULL,
+  URL VARCHAR(200) NOT NULL,
+  tickers TEXT [] NOT NULL,
+  image_url VARCHAR(200) NOT NULL,
+  publish_date timestamptz,
+  topics TEXT,
+  type TEXT,
+  sentiment TEXT
 );
 
 -- CREATE RULE update_leaderboard_on_insert_transactions AS ON INSERT TO transactions DO ALSO

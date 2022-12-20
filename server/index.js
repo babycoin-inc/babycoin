@@ -18,7 +18,7 @@ const session = require('./sessionConfig');
 const cors = require('cors');
 
 /**Controllers */
-const { auth, nf, home, trade, leaderboard, market, achievements} = require('./controllers/controllers.js');
+const { auth, nf, home, trade, leaderboard, market, achievements, dropdown, watchlist} = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -69,46 +69,27 @@ app.get('/users/:id/transactions/', home.getTransactions);
 app.delete('/users/:id/portfolio/', home.clearPortfolio)
 //TODO: UPDATE ACHIEVEMENTS ROUTES TO HAVE USERS/ IN ROUTE
 
+app.get('/users/:id/achievements', achievements.getUserAchievements);
+app.post('/users/:id/achievements/:achievement', achievements.addUserAchievement);
 app.get('/achievements', achievements.getAchievements);
-app.get('/achievements/:id', achievements.getUserAchievements);
-app.post('/achievements/:id/:achievement', achievements.addUserAchievement);
 
 
 
 
 
-app.get("/newsfeed", async (req, res) => {
-  console.log(req.body);
-  try {
-    const result = await nf.getNews(n=10);
-    if(result.length > 0) {
-      res.status(200).send(result);
-    }
-  } catch (err) {
-      res.status(500);
-      console.log(err);
-  }
-});
-
-app.get("/nfAPI", (req, res) => {
-  nf.runAPI((err,result) => {
-    if(err){
-      res.status(500);
-    } else {
-      res.status(200).send(result);
-    }
-  })
-})
+app.get("/newsfeed/:coin", nf.getNews);
+app.get("/nfAPI", nf.runAPI);
 
 
 cron.schedule('*/30 * * * * *', () => {
   // //invoke a function that does not require a request and response
   market.updateCoins(); // update the coins table every 30s
 });
-
 //FOR THE FRONT END
 app.get('/coins', trade.getCoin);
 app.get('/coins/markets', market.getCoins);
+app.post('/users/:id/watchlist', dropdown.addToWatchlist);
+app.delete('/users/:id/watchlist/:coin', watchlist.removeFromWatchlist);
 
 
 app.get('/leaderboard', leaderboard.getLeaderboard);
