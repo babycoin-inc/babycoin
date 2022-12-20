@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Buy from './Buy.jsx';
 import Sell from './Sell.jsx';
+import SellAll from './SellAll.jsx';
+import OrderForm from './OrderForm.jsx';
 
 function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, selectedCoin}) {
   const [orderType, setOrderType] = useState("buy");
@@ -12,13 +14,11 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
 
   // buy props: coin={coin} portfolio={portflio} coins={coins} authenticatedUser={authenticatedUser} orderType={orderType}
 
-  if (orderType === 'buy') {
-
-  } else {}
-
   return (
-    <div className="flex flex-col items-center justify-between space-y-8 w-1/3 bg-zinc-700 rounded-xl">
-    {orderType === 'buy' ? <Buy /> : <Sell/>}
+    <div className="flex flex-col items-center space-y-8 w-1/3 bg-zinc-700 rounded-xl">
+      {orderType === 'buy' ? <Buy /> : <Sell />}
+      <OrderForm coin={coin}/>
+      {orderType === 'sell' ? <SellAll /> : undefined}
     </div>
   )
 }
