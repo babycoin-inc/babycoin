@@ -8,6 +8,7 @@ const getLeaderboard = async (duration, coin, page) => {
 	const Query =
 		`
 		SELECT
+			trader.id,
 			trader.username,
 			coins.acronym as coin,
 			${Duration} / 1.0 as ${Duration},

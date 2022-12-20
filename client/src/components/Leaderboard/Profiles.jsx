@@ -17,7 +17,7 @@ function Profiles(props) {
 		}
 		if (event.target.id === 'user') {
 			setSortGains(2);
-			setSortUser((sortUser + 1) % 3);
+			setSortUser((sortUser + 1) % 2);
 
 		}
 	}
