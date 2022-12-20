@@ -1,7 +1,7 @@
 import React from 'react';
 
 const News = function (props) {
-  console.log(props);
+  //console.log(props);
   let fdate = new Date(props.art.publish_date).toDateString();
   return (
     <div class=" flex w-full border rounded-lg shadow-md bg-gray-800 border-gray-700 my-2">

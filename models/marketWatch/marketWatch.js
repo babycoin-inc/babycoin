@@ -52,8 +52,7 @@ exports.writeCoins = async (coins) => {
     try {
       await Promise.all(promiseArray);
     } catch (err) {
-      console.log('promise.all error');
-      console.log(err);
+      console.log('promise.all error', err);
     }
   }
 
