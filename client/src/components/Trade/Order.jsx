@@ -16,7 +16,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   let [total_trade_fiat, setTotalTradeFiat] = useState();
 
   // console.log('coins: ', coins);
-  // console.log('portfolio: ', portfolio);
+  console.log('portfolio: ', portfolio);
   // console.log('total_trade_coin: ', total_trade_coin);
   // console.log('total_trade_fiat: ', total_trade_fiat);
   // console.log('orderAmount: ', orderAmount);
@@ -229,6 +229,7 @@ return (
        {coinOrderList}
       </select>
     </div>
+    {/* {KEEP BELOW ELEMENT HERE} */}
     <div className="flex justify-between gap-4">
       <div className="">Price</div>
       <div className="">{`$${coin.latest_price}`} / {coin.acronym.toUpperCase()}</div>
