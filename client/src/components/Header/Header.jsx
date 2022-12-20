@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
+import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embed";
 import Dropdown from './Dropdown.jsx';
+import MoveTicker from './TickerTape.jsx';
 
-function Header({ activePage, tradeHistory }) {
+function Header({ activePage, tradeHistory, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
   const [profilePic, setProfilePic] = useState(true);
 
   return (
@@ -12,7 +14,7 @@ function Header({ activePage, tradeHistory }) {
           <h1>{activePage}</h1>
         </div>
         <div className="w-1/3">
-          <Dropdown tradeHistory={tradeHistory} />
+          <Dropdown className="h-max-10" tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={handleMultiChange} />
         </div>
         <div className="flex justify-between w-1/5">
           <div></div>
@@ -27,8 +29,66 @@ function Header({ activePage, tradeHistory }) {
           </div>
         </div>
       </div>
-      <div className="h-2/6 border-b-2 border-neutral-800">
+      <div className="h-2/6 border-b-2 border-neutral-800 bg-zinc-900">
+      <MoveTicker coins={coins} handleCoinClick={(e) => handleCoinClick(e)}/>
+
+      {/*
+      coingecko ticker widget
       <coingecko-coin-price-marquee-widget  className="w-full" coin-ids="bitcoin, ethereum, polkadot, tether, binancecoin, cardano, dogecoin, ripple, solana" currency="usd" background-color="#18181B" locale="en" font-color="#F5F5F5" width="1050"></coingecko-coin-price-marquee-widget>
+      */}
+      {/*
+      tradingview ticker widget
+      <TickerTape
+        widgetProps={{
+          "symbols": [
+            {
+              "proName": "BITSTAMP:BTCUSD",
+              "title": "Bitcoin"
+            },
+            {
+              "proName": "BITSTAMP:ETHUSD",
+              "title": "Ethereum"
+            },
+            {
+              "description": "Tether",
+              "proName": "BINANCEUS:USDTUSD"
+            },
+            {
+              "description": "BNB",
+              "proName": "BINANCE:BNBUSD"
+            },
+            {
+              "description": "Cardano",
+              "proName": "BINANCE:ADAUSD"
+            },
+            {
+              "description": "XRP",
+              "proName": "BITSTAMP:XRPUSD"
+            },
+            {
+              "description": "Solana",
+              "proName": "BINANCE:SOLUSD"
+            },
+            {
+              "description": "Dogecoin",
+              "proName": "BINANCE:DOGEUSD"
+            },
+            {
+              "description": "Polygon",
+              "proName": "BINANCE:MATICUSD"
+            },
+            {
+              "description": "Polkadot",
+              "proName": "BINANCE:DOTUSD"
+            }
+          ],
+          "showSymbolLogo": true,
+          "colorTheme": "dark",
+          "isTransparent": true,
+          "displayMode": "regular",
+          "locale": "en"
+        }}
+      /> */}
       </div>
     </>
   )
