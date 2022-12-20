@@ -73,11 +73,11 @@ function AltLogin() {
   return (
     <div className="h-screen min-w-full max-w-screen-2xl mx-auto bg-[url('https://lh6.googleusercontent.com/9gTOCTNM_w3o_DF5FLEt5CIcJww09ikvfuI2zDuzQwf9nsi6Inov1D1Nnlz-uLbhX6Y=w1200-h630-p')] bg-cover bg-right-top text-white pt-6">
       <div className="relative flex justify-between w-4/5 mx-auto z-10 items-center">
-        <img src={BabyCoinDarkPurple} className="h-32" />
+        <img src={BabyCoinDarkPurple} className="h-28" />
         <button onClick={handlePageSwitch} className="rounded-3xl h-fit border-2 py-2 px-4 hover:bg-zinc-800">{navButtonText}</button>
       </div>
       <div className="relative text-zinc-900 z-10 top-20 left-48 w-1/3">
-        <h1 className="tracking-widest text-5xl text-center">{formText}</h1>
+        <h1 className="tracking-widest text-4xl text-center">{formText}</h1>
         <button className='border border-zinc-400 rounded-xl px-6 py-2 mt-20 flex items-center mx-auto'> <FcGoogle className='mr-2' />Sign In With Google</button>
         <h2 className="text-center before:content-dash before:mr-2 after:content-dash after:ml-2 mt-10">Or</h2>
           <form className="mt-6 flex flex-col gap-12 w-11/12 mx-auto">
