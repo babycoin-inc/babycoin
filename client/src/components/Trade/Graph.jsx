@@ -5,7 +5,7 @@ function Graph({ symbol }) {
 
   return (
     <div className="flex">
-      <div id="tradingview_cee6e" style={{height: 500, width: 600}}></div>
+      <div id="tradingview_cee6e" style={{height: 550, width: 550}}></div>
           <AdvancedChart
             widgetProps={{
               "autosize": true,
