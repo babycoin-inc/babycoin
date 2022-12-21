@@ -58,6 +58,7 @@ cron.schedule('*/30 * * * * *', () => {
 app.get('/coins/markets', market.getCoins);
 app.post('/users/:id/watchlist', dropdown.addToWatchlist);
 app.delete('/users/:id/watchlist/:coin', watchlist.removeFromWatchlist);
+app.delete('/users/:id/watchlist', watchlist.clearWatchlist);
 
 
 app.get('/leaderboard', leaderboard.getLeaderboard);

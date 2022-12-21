@@ -153,6 +153,7 @@ function App() {
 
   function handleCoinClick (e) {
     e.preventDefault();
+    console.log('???', e.target);
     setSymbol(e.target.innerText);
     setActivePage('Trade');
   }
@@ -182,15 +183,25 @@ function App() {
     .catch(err => console.log(err));
   }
 
+
   // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
         let updatedUserAchievements = res.data;
+        axios.delete(`/users/${authenticatedUser}/watchlist`)
+        .then((result) => {
+          console.log(updatedUserAchievements);
+          return updatedUserAchievements;
+        })
+        .catch(err => console.log('nested block err', err));
+      })
+      .then((updatedUserAchievements) => {
         setTradeHistory([]);
         setUserAchievements(updatedUserAchievements);
         setShowResetModal(false);
+        setUserWatchlist([]);
       })
       .catch(err => console.log(err));
   };
