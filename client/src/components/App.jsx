@@ -76,7 +76,6 @@ function App() {
     getAchievements();
     getUserAchievements();
     getCoins();
-    addToWatchlist();
   }, []);
 
   useEffect(() => {
@@ -102,9 +101,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    sendObj.addedList = multiValue
+    sendObj.addedList = multiValue;
   }, [multiValue]);
-
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -153,7 +151,6 @@ function App() {
 
   function handleCoinClick (e) {
     e.preventDefault();
-    console.log('???', e.target);
     setSymbol(e.target.innerText);
     setActivePage('Trade');
   }
@@ -166,13 +163,15 @@ function App() {
   function addToWatchlist () {
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
+      console.log(sendObj, 'sendObj', result.data, 'result.data'); // will update immediately after clicking on the Add button
       setUserWatchlist(result.data);
-      // if (!userAchievements[7]) {
-      //   grantUserAchievement(7);
-      // }
     })
     .catch(err => console.log(err));
   }
+
+  useEffect(() => {
+    console.log('updated watchlist', userWatchlist);
+  }, [userWatchlist])
 
   function removeFromWatchlist (e) {
     e.preventDefault();
@@ -192,18 +191,14 @@ function App() {
         let updatedUserAchievements = res.data;
         axios.delete(`/users/${authenticatedUser}/watchlist`)
         .then((result) => {
-          console.log(updatedUserAchievements);
-          return updatedUserAchievements;
+          setTradeHistory([]);
+          setUserAchievements(updatedUserAchievements);
+          setShowResetModal(false);
+          setUserWatchlist([]);
         })
-        .catch(err => console.log('nested block err', err));
+        .catch(err => console.log('inside block err', err));
       })
-      .then((updatedUserAchievements) => {
-        setTradeHistory([]);
-        setUserAchievements(updatedUserAchievements);
-        setShowResetModal(false);
-        setUserWatchlist([]);
-      })
-      .catch(err => console.log(err));
+      .catch(err => console.log('outside block err', err));
   };
 
   // Sidebar Navigation Menu
