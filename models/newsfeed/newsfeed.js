@@ -16,7 +16,9 @@ const runAPI = () => {
     params: {
       items:100,
       page:1,
+//      date:'12012022-12212022',
       date: 'last60min',
+//      type: 'video',
       token: process.env.CPNAPIKEY
     },
     url:"https://cryptonews-api.com/api/v1/category?section=alltickers"
