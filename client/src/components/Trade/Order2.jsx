@@ -10,12 +10,30 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   const [orderType, setOrderType] = useState("buy");
   const [orderUnits, setOrderUnits] = useState('usd');
   //DEFAULT COIN: CHANGE TO SELECTED COIN
-  let [coin, setCoin] = useState(() => {
+  const [coin, setCoin] = useState(() => {
     if (selectedCoin !== undefined) {
       return selectedCoin;
     } else {
       return coins[1];
     }});
+ console.log('coins: ', coins);
+  console.log('portfolio: ', portfolio);
+  const getCash = () => {
+    const cashIndex = portfolio.findIndex((asset) => {
+      return asset.acronym === 'usd'
+    });
+    return portfolio[cashIndex];
+  };
+
+  const getNonCashAssets = () => {
+    const nonCashAssets = [];
+    portfolio.forEach((asset) => {
+      if (asset.acronym !== 'usd') {
+        nonCashAssets.push(asset);
+      }
+    });
+    return nonCashAssets;
+  }
 
   // let [total_trade_coin, setTotalTradeCoin] = useState();
   // let [total_trade_fiat, setTotalTradeFiat] = useState();
@@ -57,7 +75,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
 
   return (
     <div className="flex flex-col items-center space-y-8 w-1/3 bg-zinc-700 rounded-xl">
-      {orderType === 'buy' ? <Buy /> : <Sell />}
+      {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType}/>}
       <OrderForm coin={coin} />
       {orderType === 'sell' ? <SellAll /> : undefined}
       <TradeableCoins coins={orderType === 'buy' ? coins : coins} orderType={orderType} coin={coin} />
