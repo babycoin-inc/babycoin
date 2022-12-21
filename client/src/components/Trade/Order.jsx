@@ -6,7 +6,7 @@ import { IconContext } from "react-icons";
 import axios from 'axios';
 import { NumericFormat } from 'react-number-format';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, achievementsStatus, grantUserAchievement}) {
   const [orderType, setOrderType] = useState("buy");
   let [orderAmount, setOrderAmount] = useState("");
   let [orderUnits, setOrderUnits] = useState('usd');
@@ -180,6 +180,15 @@ const submitOrder = async () => {
       }
     );
     openModal();
+    if (!achievementsStatus[2] && orderType === 'buy') {
+      grantUserAchievement(2);
+    }
+    if (!achievementsStatus[5] && orderType === 'sell') {
+      grantUserAchievement(5);
+    }
+    if (!achievementsStatus[4] && orderType === 'buy' && total_trade_fiat <= 5) {
+      grantUserAchievement(4);
+    }
   }
   catch (e) {
     console.error(e);

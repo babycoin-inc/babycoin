@@ -92,7 +92,7 @@ function Profiles(props) {
 	}
 
 	let columnName = 'Realized Gains';
-	if (props.duration === 'highest_realized_gains') {
+	if (props.duration === 'alltime_realized_gains') {
 		columnName = 'Highest Realized Gains';
 	}
 

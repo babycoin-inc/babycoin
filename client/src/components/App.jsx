@@ -166,6 +166,9 @@ function App() {
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
       setUserWatchlist(result.data);
+      // if (!userAchievements[7]) {
+      //   grantUserAchievement(7);
+      // }
     })
     .catch(err => console.log(err));
   }
@@ -206,7 +209,7 @@ function App() {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol}/>);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} />);
 
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
