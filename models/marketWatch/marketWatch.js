@@ -8,14 +8,14 @@ exports.writeCoins = async (coins) => {
     let result = await query(text0);
     if (result['rows'].length === 0) {
 
-      const textUsd = `INSERT INTO coins (name, acronym, image, latest_price, price_change_percentage)
-                       VALUES ('United States Dollar', 'usd', 'https://en.wikipedia.org/wiki/United_States_one-dollar_bill#/media/File:US_one_dollar_bill,_obverse,_series_2009.jpg', 1, 0)`;
+    const textUsd = `INSERT INTO coins (name, acronym, image, latest_price, price_change_percentage)
+    VALUES ('United States Dollar', 'usd', 'https://res.cloudinary.com/dc3r923zh/image/upload/v1671498243/boc/DALL_E-usd_eaaefm.png', 1, 0)`;
 
-      try {
-        await query(textUsd);
-      } catch (err) {
-        console.log(err);
-      }
+    try {
+    await query(textUsd);
+    } catch (err) {
+    console.log(err);
+    }
 
     const promiseArray = coins.map((coin) => {
       const name = coin.name;
@@ -24,7 +24,7 @@ exports.writeCoins = async (coins) => {
       const latest_price = coin.current_price;
       const price_change_percentage = coin.price_change_percentage_24h;
 
-      const params = [name, acronym, coin_image, latest_price, price_change_percentage]
+      const params = [name, acronym, coin_image, latest_price, price_change_percentage];
 
       const textEachCoin = `INSERT INTO coins (name, acronym, image, latest_price, price_change_percentage)
                             VALUES ($1, $2, $3, $4, $5)`;

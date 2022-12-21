@@ -17,8 +17,8 @@ CREATE TABLE IF NOT EXISTS coins (
 
 CREATE TABLE IF NOT EXISTS trader_watchlist (
   id SERIAL PRIMARY KEY,
-  trader_id INTEGER REFERENCES trader(id),
-  watchlist VARCHAR []
+  trader_id INTEGER REFERENCES trader(id) UNIQUE,
+  watchlist VARCHAR[]
 );
 
 CREATE TABLE IF NOT EXISTS portfolio (

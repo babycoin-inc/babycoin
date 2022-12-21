@@ -18,7 +18,7 @@ const customStyles = {
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
 
-function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol}) {
+function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, achievementsStatus, grantUserAchievement}) {
   let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
   const [total_trade_fiat, setOrderUSDAmount] = useState('');
@@ -80,7 +80,7 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol}) 
         <div className="flex w-3/5 p-5">
           <Graph symbol={symbol}/>
         </div>
-        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues}/>
+        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement}/>
       </div>
       <Newsfeed coin={symbol}/>
     </div>
