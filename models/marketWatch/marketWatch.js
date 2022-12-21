@@ -8,6 +8,15 @@ exports.writeCoins = async (coins) => {
     let result = await query(text0);
     if (result['rows'].length === 0) {
 
+    const textUsd = `INSERT INTO coins (name, acronym, image, latest_price, price_change_percentage)
+    VALUES ('United States Dollar', 'usd', 'https://res.cloudinary.com/dc3r923zh/image/upload/v1671498243/boc/DALL_E-usd_eaaefm.png', 1, 0)`;
+
+    try {
+    await query(textUsd);
+    } catch (err) {
+    console.log(err);
+    }
+
     const promiseArray = coins.map((coin) => {
       const name = coin.name;
       const acronym = coin.symbol;
@@ -26,15 +35,6 @@ exports.writeCoins = async (coins) => {
       await Promise.all(promiseArray);
     } catch (err) {
       console.log(err);
-    }
-
-    const textUsd = `INSERT INTO coins (name, acronym, image, latest_price, price_change_percentage)
-    VALUES ('United States Dollar', 'usd', 'https://res.cloudinary.com/dc3r923zh/image/upload/v1671498243/boc/DALL_E-usd_eaaefm.png', 11, 0)`;
-
-    try {
-    await query(textUsd);
-    } catch (err) {
-    console.log(err);
     }
 
   } else {
