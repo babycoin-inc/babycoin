@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // import Balance from './Balance.jsx';
 
-function Sell({coin, portfolio, coins, authenticatedUser, orderType}) {
+function Sell({orderType, setOrderType}) {
 
   const buyButton = <button onClick={() => setOrderType('buy')} className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Buy</button>
 
