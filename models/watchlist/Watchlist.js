@@ -19,3 +19,13 @@ exports.deleteCoinsFromWatchlist = async (userId, deletedCoin) => {
   return result['rows'];
 
 }
+
+exports.emptyWatchlist = async (userId) => {
+  const param = [userId];
+  const text = 'DELETE FROM trader_watchlist WHERE trader_id = $1';
+  try {
+    await query(text, param);
+  } catch(err) {
+    console.log('Err of emptyWatchlist query', err);
+  }
+}

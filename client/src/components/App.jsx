@@ -76,7 +76,6 @@ function App() {
     getAchievements();
     getUserAchievements();
     getCoins();
-    addToWatchlist();
   }, []);
 
   useEffect(() => {
@@ -102,9 +101,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    sendObj.addedList = multiValue
+    sendObj.addedList = multiValue;
   }, [multiValue]);
-
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -166,9 +164,6 @@ function App() {
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
       setUserWatchlist(result.data);
-      // if (!userAchievements[7]) {
-      //   grantUserAchievement(7);
-      // }
     })
     .catch(err => console.log(err));
   }
@@ -182,15 +177,21 @@ function App() {
     .catch(err => console.log(err));
   }
 
+
   // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
         let updatedUserAchievements = res.data;
-        setTradeHistory([]);
-        setUserAchievements(updatedUserAchievements);
-        setShowResetModal(false);
+        axios.delete(`/users/${authenticatedUser}/watchlist`)
+        .then((result) => {
+          setTradeHistory([]);
+          setUserAchievements(updatedUserAchievements);
+          setShowResetModal(false);
+          setUserWatchlist([]);
+        })
+        .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   };
