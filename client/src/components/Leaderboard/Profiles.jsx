@@ -24,50 +24,51 @@ function Profiles(props) {
 
 	let sorted = [];
 
-	if (sortUser === 0) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (a.username > b.username) {
-					return 1;
-				} else {
-					return -1;
-				}
-			})
-	} else if (sortUser === 1) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (a.username < b.username) {
-					return 1;
-				} else {
-					return -1;
-				}
-			})
-	} else if (sortUser === 2 || sortGains === 2) {
-		sorted = props.profiles;
+	if (Array.isArray(props.profiles)) {
+		if (sortUser === 0) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (a.username > b.username) {
+						return 1;
+					} else {
+						return -1;
+					}
+				})
+		} else if (sortUser === 1) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (a.username < b.username) {
+						return 1;
+					} else {
+						return -1;
+					}
+				})
+		} else if (sortUser === 2 || sortGains === 2) {
+			sorted = props.profiles;
+		}
+
+		if (sortGains === 0) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (Number(a.row_number) > Number(b.row_number)) {
+						return 1;
+					} else {
+						return -1;
+					}
+
+				})
+		} else if (sortGains === 1) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (Number(a.row_number) < Number(b.row_number)) {
+						return 1;
+					} else {
+						return -1;
+					}
+
+				})
+		}
 	}
-
-	if (sortGains === 0) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (Number(a.row_number) > Number(b.row_number)) {
-					return 1;
-				} else {
-					return -1;
-				}
-
-			})
-	} else if (sortGains === 1) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (Number(a.row_number) < Number(b.row_number)) {
-					return 1;
-				} else {
-					return -1;
-				}
-
-			})
-	}
-
 
 	let profiles = [];
 	if (Array.isArray(sorted)) {
