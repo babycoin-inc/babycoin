@@ -29,7 +29,7 @@ function Header({ activePage, tradeHistory, addToWatchlist, handleMultiChange, c
           </div>
         </div>
       </div>
-      <div className="h-2/6 border-b-2 border-neutral-800">
+      <div className="h-2/6 border-b-2 border-neutral-800 bg-zinc-900">
       <MoveTicker coins={coins} handleCoinClick={(e) => handleCoinClick(e)}/>
 
       {/*
