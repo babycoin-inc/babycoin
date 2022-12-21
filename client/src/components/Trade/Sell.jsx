@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 
 // import Balance from './Balance.jsx';
 
-function Sell({orderType, setOrderType}) {
+function Sell({orderType, setOrderType, setOrderAmount, setOrderUnits}) {
 
-  const buyButton = <button onClick={() => setOrderType('buy')} className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Buy</button>
+  const buyButton = <button onClick={() => {
+    setOrderType('buy');
+    setOrderUnits('usd');
+    setOrderAmount('');
+  }} className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Buy</button>
 
   const sellButton = <button disabled={true} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto">Sell</button>
 

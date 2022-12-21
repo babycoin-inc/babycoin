@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 
 // import Balance from './Balance.jsx';
 
-function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAssets, coins}) {
+function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAssets, coins, setOrderAmount, setOrderUnits}) {
   let [sellButton, setSellButton] = useState(<button className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
   );
   const nonCashAssets = getNonCashAssets();
-  console.log('coin: ', coin);
   //if the user has no assets to sell, disable sell button
   if (nonCashAssets.length === 0) {
-    sellButton = <button disabled onClick={() => setOrderType('sell')} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
+    sellButton = <button disabled className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
   } else {
     //the user has assets to sell
     sellButton = <button onClick={() => {
@@ -24,8 +23,10 @@ function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAsset
         }
         setCoin(coinToSet);
       }
-      setOrderType('sell')}
-    }
+      setOrderType('sell');
+      setOrderUnits('usd');
+      setOrderAmount('');
+    }}
       className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
   }
 
