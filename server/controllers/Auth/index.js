@@ -70,10 +70,12 @@ const AuthControllers = {
 
   //Currently set up for sessions
   logoutController: (req, res) => {
+
+    console.log('REQ.SESSION.PASSPORT: ', req.session.passport)
     if(req.user) {
       req.logOut();
     }
-
+    console.log('REQ.SESSION.PASSPORT AFTER LOGOUT: ', req.session.passport)
    // await req.session.destroy();
     req.user = null;
     console.log('REQ USER', req.user)
