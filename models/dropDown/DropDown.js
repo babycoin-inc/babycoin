@@ -9,9 +9,6 @@ const addToWatchlist = async (addedList, trader_id) => {
     return coinObj.value;
   });
 
-  console.log('watchlistArray-11111', watchlistArray);
-
-
   if (result['rows'].length === 0) {
 
     const promiseArray = watchlistArray.map((addedCoin, index) => {
@@ -48,7 +45,6 @@ const addToWatchlist = async (addedList, trader_id) => {
 
 
   result = await query(text0, params0);
-  console.log("result['rows']after", result['rows']);
   return result['rows'];
 }
 

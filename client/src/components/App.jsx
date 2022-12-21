@@ -163,15 +163,10 @@ function App() {
   function addToWatchlist () {
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
-      console.log(sendObj, 'sendObj', result.data, 'result.data'); // will update immediately after clicking on the Add button
       setUserWatchlist(result.data);
     })
     .catch(err => console.log(err));
   }
-
-  useEffect(() => {
-    console.log('updated watchlist', userWatchlist);
-  }, [userWatchlist])
 
   function removeFromWatchlist (e) {
     e.preventDefault();
@@ -196,9 +191,9 @@ function App() {
           setShowResetModal(false);
           setUserWatchlist([]);
         })
-        .catch(err => console.log('inside block err', err));
+        .catch(err => console.log(err));
       })
-      .catch(err => console.log('outside block err', err));
+      .catch(err => console.log(err));
   };
 
   // Sidebar Navigation Menu
