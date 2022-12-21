@@ -9,7 +9,7 @@ function MoveTicker({coins, handleCoinClick}) {
       <div class="marquee" style={{flexWrap: 'wrap'}}>
       {coins.map((coin, index) => (
         coin.acronym === "usd" ? null :
-        <TickerEach coin={coin} handleCoinClick={(e) => handleCoinClick(e)}/>
+        <TickerEach key={index} coin={coin} handleCoinClick={(e) => handleCoinClick(e)}/>
       ))}
       </div>
     </Marquee>
