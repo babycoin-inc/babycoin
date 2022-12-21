@@ -7,13 +7,12 @@ const MarketWatch = ({coins, handleCoinClick}) => {
         <table className="w-full text-center">
           <thead className="border-b bg-zinc-700">
             <tr>
-              <th scope="col" className="text-lg font-medium text-white px-0 py-3">
-                #
+              <th className="text-lg font-medium text-white px-0 py-3">
               </th>
-              <th scope="col" className="text-lg font-medium text-white px-0 py-3 flex">
+              <th className="text-lg font-medium text-white px-0 py-3 flex">
                 Coin
               </th>
-              <th scope="col" className="text-lg font-medium text-white px-0 py-3">
+              <th className="text-lg font-medium text-white px-0 py-3">
                 Price
               </th>
             </tr>
@@ -22,7 +21,7 @@ const MarketWatch = ({coins, handleCoinClick}) => {
               {coins.map((coin, index) => (
                 coin.acronym !== 'usd' ?
                 <tr className="border-b bg-zinc-900 boder-gray-900 hover:bg-zinc-800">
-                  <td className="text-sm text-white font-light px-0 py-3">{coin.id}</td>
+                  <td className="text-lg text-white font-light">☆</td>
                   <td className="text-sm text-white font-light px-0 py-3 flex items-center">
                         <span className="inline-flex"><img className="w-7 object-center mr-2" src={coin.image} /></span>
                         <span href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
@@ -41,3 +40,5 @@ const MarketWatch = ({coins, handleCoinClick}) => {
 }
 
 export default MarketWatch;
+
+// ★☆
