@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { useForm } = 'react-hook-form';
 import babycoin from '../../../dist/assets/BabyCoin.png'
 import bgImage from '../../../dist/assets/trading-bg.jpg'
 import { FcGoogle } from 'react-icons/fc'
@@ -6,10 +7,14 @@ import axios from 'axios';
 
 const Login = ({ updateUser }) => {
 
+  const { register, handleSubmit } = useForm();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordComparison, setPasswordComparison] = useState('')
   const [loginPage, setLoginPage] = useState(true);
+
+  const onFormSubmit = (data) => console.log(data);
+  const onErrors = (errors) => console.log(errors);
 
   const handleInput = (e) => {
     e.preventDefault();
@@ -70,7 +75,6 @@ const Login = ({ updateUser }) => {
         password: password
       })
       .then(({ data }) => {
-        alert('Account Created')
         updateUser(data.id);
       })
       .catch(err => {
@@ -93,7 +97,7 @@ const Login = ({ updateUser }) => {
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
       </div>
       <div className='flex justify-center items-center py-8'>
-        <form className='max-w-[400px] w-full mx-auto p-8 bg-zinc-200 rounded-xl'>
+        <form onSubmit={handleSubmit(onFormSubmit, onErrors)} className='max-w-[400px] w-full mx-auto p-8 bg-zinc-200 rounded-xl'>
           <h2 className='text-4xl font-bold text-center py-4'>BabyCoin</h2>
           <div className='flex justify-center py-8'>
             <button className='border shadow-lg hover:shadow-xl px-6 py-2 relative flex items-center rounded-xl' onClick={handleGoogleLogin}> <FcGoogle className='mr-2' />Google</button>
@@ -104,7 +108,7 @@ const Login = ({ updateUser }) => {
             <>
             <div className='flex flex-col mb-4'>
             <label>Username</label>
-            <input id='username' className='border relative bg-orange-100 p-2' type='text' onChange={handleInput}/>
+            <input name='username' id='username' className='border relative bg-orange-100 p-2' type='text' {...register('username')}/>
           </div>
           <div className='flex flex-col'>
             <label>Password</label>
