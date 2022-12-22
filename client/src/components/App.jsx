@@ -185,7 +185,7 @@ function App() {
       .then((res) => {
         let updatedUserAchievements = res.data;
         axios.delete(`/users/${authenticatedUser}/watchlist`)
-        .then((result) => {
+        .then(() => {
           setTradeHistory([]);
           setUserAchievements(updatedUserAchievements);
           setShowResetModal(false);
