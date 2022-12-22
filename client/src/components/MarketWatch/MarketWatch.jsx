@@ -30,12 +30,12 @@ const MarketWatch = ({coins, handleCoinClick}) => {
                   <td className="text-lg text-white font-light">☆</td>
                   <td className="text-sm text-white font-light px-0 py-3 flex items-center">
                         <span className="inline-flex"><img className="w-7 object-center mr-2" src={coin.image}/></span>
-                        <div href="#hover" className="no-underline hover:underline cursor-pointer">
+                        <div href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
                           <span className="mr-1 text-base font-semibold">{coin.name}</span>
-                          <span onClick={handleCoinClick}>{coin.acronym.toUpperCase()}</span>
+                          <span>{coin.acronym.toUpperCase()}</span>
                         </div>
                   </td>
-                  <td className="text-sm text-white font-light px-0 py-3">{coin.latest_price}</td>
+                  <td className="text-sm text-white font-light px-0 py-3">${coin.latest_price}</td>
                   <td className="text-sm text-white font-light px-0 py-3">0.5%</td>
                   <td className="text-sm text-white font-light px-0 py-3">1123335666896</td>
                 </tr> :

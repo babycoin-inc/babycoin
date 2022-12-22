@@ -149,9 +149,16 @@ function App() {
     .catch(err => console.log(err));
   }
 
-  function handleCoinClick (e) {
+  async function handleCoinClick (e) {
     e.preventDefault();
-    setSymbol(e.target.innerText);
+    // await coins.map(coin => {
+    //   if (coin.name === e.target.innerText) {
+    //     setSymbol(coin.acronym);
+    //   } else if (coin.acronym.toLowerCase() === e.target.innerText.toLowerCase()) {
+    //     setSymbol(coin.acronym);
+    //   }
+    // })
+    await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? setSymbol(coin.acronym) : null))
     setActivePage('Trade');
   }
 
