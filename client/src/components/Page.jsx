@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import App from './App.jsx';
 import Login from './Login/Login.jsx';
+import Auth from './Login/Auth.jsx';
 import axios from 'axios';
 
 const Page = () => {
@@ -29,7 +30,8 @@ const Page = () => {
   }, [authorizedUser]);
 
   if(!authorizedUser) {
-    return <Login updateUser={setAuthorizedUser} updateSession={setSessionCookie}/>
+    // return <Login updateUser={setAuthorizedUser} updateSession={setSessionCookie}/>
+    return <Auth />
   } else {
     return <App className = "bg-zinc-900 pb-8" setAuthorizedUser={setAuthorizedUser}/>
   }
