@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Buy from './Buy.jsx';
 import Sell from './Sell.jsx';
-import SellAll from './SellAll.jsx';
 import OrderForm from './OrderForm.jsx';
 import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
@@ -142,7 +141,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     <div className="flex flex-col items-center space-y-8 w-1/3 bg-zinc-700 rounded-xl">
       {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/>}
       <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin}/>
-      {orderType === 'sell' ? <SellAll /> : undefined}
       <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} />
       <Price coin={coin} />
       <div>
