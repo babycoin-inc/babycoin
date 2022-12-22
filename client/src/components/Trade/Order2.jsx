@@ -20,6 +20,12 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   let total_trade_coin;
   var total_trade_fiat;
   let isOrderValid = true;
+  let quantityOfCoin;
+
+  const getPortfolioQuantityOfCoin = () => {
+    const index = portfolio.findIndex((asset, index) => { return asset.acronym === coin.acronym });
+    quantityOfCoin = portfolio[index].quantity;
+  };
 
   console.log('coins: ', coins);
   console.log('portfolio: ', portfolio);
@@ -70,6 +76,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   const cash = getCash().quantity;
   const maxCoinOrderAmount = cash / coin.latest_price;
 
+  //BUY VALIDATION
   if (orderType === 'buy' && orderUnits === 'usd'){
     // if usd orderAmount exceeds available cash
     if (total_trade_fiat > cash) {
@@ -80,6 +87,11 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     if (total_trade_coin > maxCoinOrderAmount) {
       isOrderValid = false;
     }
+  }
+
+  //SELL VALIDATION
+  if (orderType === 'sell') {
+    getPortfolioQuantityOfCoin();
   }
 
   //ADD THE BELOW ONCLICK TO LAST DIV
@@ -118,7 +130,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   return (
     <div className="flex flex-col items-center space-y-8 w-1/3 bg-zinc-700 rounded-xl">
       {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/>}
-      <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid}/>
+      <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin}/>
       {orderType === 'sell' ? <SellAll /> : undefined}
       <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} />
       <Price coin={coin} />
