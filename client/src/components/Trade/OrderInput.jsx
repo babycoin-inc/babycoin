@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
 import { NumericFormat } from 'react-number-format';
 
-function OrderInput({orderUnits}) {
+function OrderInput({orderUnits, orderAmount, setOrderAmount, isOrderValid}) {
   let orderInput;
 
-  // const handleOrderAmountChange = (value) => {
-  //   //VALIDATE ORDER AMOUNT
-  //   setOrderAmount(value);
-  //   calculateTotals(value);
-  // }
+  //this is found in both of the order inputs
+  let validationErrorStyle;
+  if (!isOrderValid) {
+    validationErrorStyle = "border-2 border-rose-600 outline-0";
+  }
 
   if (orderUnits === 'usd') {
-    orderInput = <NumericFormat className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" displayType="input" type="text" value={orderAmount} allowNegative={false} valueIsNumericString={true} defaultValue="Order Amount" prefix='$' decimalScale={2} allowLeadingZeros={false} thousandSeparator="," />
-    // onValueChange={(values, sourceInfor) => { handleOrderAmountChange(values.value) }}
+    orderInput = <NumericFormat className={`h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500 ${validationErrorStyle}`} displayType="input" type="text"  allowNegative={false} valueIsNumericString={true} defaultValue="Order Amount" prefix='$' value={orderAmount} decimalScale={2} allowLeadingZeros={false} thousandSeparator="," onValueChange={(values, sourceInfor) => { setOrderAmount(values.value) }}/>
+
   } else if (orderUnits === 'coin') {
-    orderInput = <NumericFormat className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" displayType="input" type="text" value={orderAmount} allowNegative={false} valueIsNumericString={true} defaultValue="Order Amount" decimalScale={5} />
-    // onValueChange={(values, sourceInfor) => { handleOrderAmountChange(values.value) }}
+    orderInput = <NumericFormat className={`h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500 ${validationErrorStyle}`} displayType="input" type="text" allowNegative={false} valueIsNumericString={true} value={orderAmount}
+    defaultValue="Order Amount" decimalScale={5} onValueChange={(values, sourceInfor) => { setOrderAmount(values.value) }}/>
   }
 
   return (
-    <NumericFormat className="h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" displayType="input" type="text" allowNegative={false} valueIsNumericString={true} defaultValue="Order Amount" prefix='$' decimalScale={2} allowLeadingZeros={false} thousandSeparator="," />
+    orderInput
   )
 }
 

@@ -1,23 +1,9 @@
 import React, { useState } from 'react';
 
-function OrderMessage({orderUnits, orderType, coin, getCash, isOrderValid, quantityOfCoin}) {
+function OrderMessage({orderUnits, orderType, coin, getCash, isOrderValid, quantityOfCoin, roundNumUpToDigit}) {
   const cash = getCash().quantity;
   const maxCoinBuyOrderAmount = cash / coin.latest_price;
   let maxOrderAmountMessage;
-
-  console.log('coin: ', coin);
-  console.log('quantityOfCoin in message: ', quantityOfCoin);
-
-  const roundNumUpToDigit = (num, digits) => {
-    const numAsString = num.toString();
-    const indexOfDec = numAsString.indexOf('.');
-    if (indexOfDec === -1) {
-      return num;
-    }
-    let right = numAsString.slice(indexOfDec + 1, indexOfDec + 1 + digits);
-    let left = numAsString.slice(-numAsString.length, indexOfDec + 1);
-    return Number(left + right);
-  }
 
   //validation error goes here
     //if orderType is buy and orderAmount exceeds available cash
