@@ -106,7 +106,7 @@ function App() {
   }, [multiValue]);
 
 
-  function getPortfolioData(userId) {
+  async function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
         setPortfolio(data.data);

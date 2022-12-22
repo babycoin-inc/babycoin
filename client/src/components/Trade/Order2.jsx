@@ -4,6 +4,7 @@ import Sell from './Sell.jsx';
 import OrderForm from './OrderForm.jsx';
 import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
+import axios from 'axios';
 
 function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, selectedCoin}) {
   const [orderType, setOrderType] = useState("buy");
@@ -104,47 +105,43 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     }
   }
 
-  //ADD THE BELOW ONCLICK TO LAST DIV
-  // onClick={submitOrder}
-
-  // const submitOrder = async () => {
-
-  //   try {
-  //     const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
-  //       coin_id: coin.id,
-  //       currency: 'usd',
-  //       purchase_price: Number(coin.latest_price),
-  //       'total_trade_coin': total_trade_coin,
-  //       'total_trade_fiat': total_trade_fiat,
-  //       trader_id: authenticatedUser,
-  //       coinName: coin.name
-  //     })
-  //     getPortfolioData(authenticatedUser);
-  //     setOrderAmount("");
-  //     populateModalValues(
-  //       {
-  //         'coin': coin,
-  //         'total_trade_coin': roundNumUpToDigit(total_trade_coin, 8),
-  //         'total_trade_fiat': total_trade_fiat,
-  //         'purchase_price': Number(coin.latest_price),
-  //         'orderType': orderType
-  //       }
-  //     );
-  //     openModal();
-  //   }
-  //   catch (e) {
-  //     console.error(e);
-  //   }
-  // }
+  const submitOrder = async () => {
+    try {
+      const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, {
+        coin_id: coin.id,
+        currency: 'usd',
+        purchase_price: Number(coin.latest_price),
+        'total_trade_coin': total_trade_coin,
+        'total_trade_fiat': total_trade_fiat,
+        trader_id: authenticatedUser,
+        coinName: coin.name
+      })
+      await getPortfolioData(authenticatedUser);
+      setOrderAmount("");
+      // populateModalValues(
+      //   {
+      //     'coin': coin,
+      //     'total_trade_coin': roundNumUpToDigit(total_trade_coin, 8),
+      //     'total_trade_fiat': total_trade_fiat,
+      //     'purchase_price': Number(coin.latest_price),
+      //     'orderType': orderType
+      //   }
+      // );
+      // openModal();
+    }
+    catch (e) {
+      console.error(e);
+    }
+  }
 
   return (
     <div className="flex flex-col items-center space-y-8 w-1/3 bg-zinc-700 rounded-xl">
-      {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/>}
+      {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits} />}
       <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin}/>
-      <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets() setOrderAmount={setOrderAmount}} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} />
+      <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} setOrderAmount={setOrderAmount} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} />
       <Price coin={coin} />
       <div>
-        <button disabled={!isOrderValid} name="submit" className={`text-lg mb-6 font-semibold border border-orange-500 rounded-3xl py-2 px-5 mx-auto active:border active:border-orange-400 h-14 w-44 ${isOrderValid ? "hover:bg-zinc-800 hover:border-zinc-800 hover:text-orange-500 bg-orange-400 text-orange-900" : "bg-zinc-800 text-orange-500"}`} onClick={'do nothing'}>Submit Order</button>
+        <button disabled={!isOrderValid} name="submit" className={`text-lg mb-6 font-semibold border border-orange-500 rounded-3xl py-2 px-5 mx-auto active:border active:border-orange-400 h-14 w-44 ${isOrderValid ? "hover:bg-zinc-800 hover:border-zinc-800 hover:text-orange-500 bg-orange-400 text-orange-900" : "bg-zinc-800 text-orange-500"}`} onClick={submitOrder}>Submit Order</button>
       </div>
     </div>
   )
