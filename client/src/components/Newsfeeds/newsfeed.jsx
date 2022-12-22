@@ -9,21 +9,21 @@ function Newsfeed(ticker) {
   const [newsArr, setFeed] = useState([]);
   let initialized = false;
 
-  const tickers = {
-    'BTC': 'BTC',
-    'Bitcoin': 'BTC',
-    'eth': 'ETH',
-    'Tether': 'USDT',
-    'BNB': 'BNB',
-    'Cardano': 'ADA',
-    'XRP': 'XRP',
-    'Solana': 'SOL',
-    'Dogecoin': 'DOGE',
-    'Polygon': 'MATIC',
-    'Polkadot': 'DOT'
-  };
+  // const tickers = {
+  //   'BTC': 'BTC',
+  //   'Bitcoin': 'BTC',
+  //   'eth': 'ETH',
+  //   'Tether': 'USDT',
+  //   'BNB': 'BNB',
+  //   'Cardano': 'ADA',
+  //   'XRP': 'XRP',
+  //   'Solana': 'SOL',
+  //   'Dogecoin': 'DOGE',
+  //   'Polygon': 'MATIC',
+  //   'Polkadot': 'DOT'
+  // };
 
-  console.log(coinState, tickers[coinState]);
+//  console.log(coinState, tickers[coinState]);
   useEffect(()=>{
     var options = {
       method:'get',
@@ -74,18 +74,19 @@ function Newsfeed(ticker) {
     }
   },[newsArr])
 
+  const colbut = numNews>3?<div><a class="mr-2">|</a><button onClick = {collapse}>Collapse</button></div>:null
+
   return (
     <div class="flex flex-col">
         <h3 class="text-4xl font-extrabold dark:text-white">Newsfeed</h3>
-        <div class="w-full h-100 px-2 py-1 overflow-auto">
+        <div class="w-full max-h-96 px-2 py-1 overflow-y-auto">
           {newsArr.slice(0, numNews).map((article, i) => {
             return <News key = {i} art = {article}/>
           })}
         </div>
         <div class="flex justify-center">
-          <button class="mr-2" onClick = {loadmore}>Load More</button><a class="mr-2"> | </a><button onClick = {collapse}>Collapse</button>
+          <button class="mr-2" onClick = {loadmore}>Load More</button> {colbut}
         </div>
-
     </div>
   );
 }
