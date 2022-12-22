@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function TradeableCoins({orderType, coin, coins}) {
+function TradeableCoins({coins, orderType, coin, tradeableCoins, setCoin, setOrderAmount}) {
 
   const capitalizeFirstLetter = (str) => {
     let word = str[0].toUpperCase();
@@ -8,19 +8,25 @@ function TradeableCoins({orderType, coin, coins}) {
     return word;
   }
 
-  // onChange={(event) => {
-  //   const coinIndex = coins.findIndex(coin => coin.name === event.target.value);
-  //   setCoin(coins[coinIndex]);
-  //   handleOrderAmountChange("");
-  // }}
+  const coinsToDisplay =  tradeableCoins.map((coin, index) => {
+    if (coin.name !== undefined) {
+      return <option value={coin.name} key={index}>{coin.name}</option>
+    } else if (coin.coin !== undefined) {
+      return <option value={coin.coin} key={index}>{coin.coin}</option>
+    }
+  })
 
   return (
     <div className="flex justify-between gap-4 h-10">
-    <div className="self-center">{capitalizeFirstLetter(orderType)}</div>
-    <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} >
-     {/* {coinOrderList} */}
-    </select>
-  </div>
+      <div className="self-center">{capitalizeFirstLetter(orderType)}</div>
+      <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} onChange={(event) => {
+        const coinIndex = coins.findIndex(coin => coin.name === event.target.value);
+        setCoin(coins[coinIndex]);
+        // handleOrderAmountChange("");
+      }}>
+        {coinsToDisplay}
+      </select>
+    </div>
   )
 }
 
