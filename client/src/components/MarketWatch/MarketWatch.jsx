@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MarketWatch = ({coins, handleCoinClick}) => {
+const MarketWatch = ({coins, handleCoinClick, userWatchlist, addToWatchlist}) => {
 
   return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -27,7 +27,7 @@ const MarketWatch = ({coins, handleCoinClick}) => {
               {coins.map((coin, index) => (
                 coin.acronym !== 'usd' ?
                 <tr key={index} className="border-b bg-zinc-900 hover:bg-zinc-800">
-                  <td className="text-lg text-white font-light">☆</td>
+                  {userWatchlist.includes(coin.name) ? <td className="text-lg text-yellow-600 font-light">★</td> : <td className="text-lg text-white font-light">☆</td>}
                   <td className="text-sm text-white font-light px-0 py-3 flex items-center">
                         <span className="inline-flex"><img className="w-7 object-center mr-2" src={coin.image}/></span>
                         <div href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
