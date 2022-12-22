@@ -23,6 +23,7 @@ const verifyUser = async(username, password, done) => {
 
 passport.serializeUser((user, done) => {
   if(user.password) delete user.password;
+  console.log('SERIALIZING USER: ', user)
   done(null, user);
 })
 
