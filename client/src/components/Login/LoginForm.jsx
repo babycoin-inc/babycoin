@@ -22,6 +22,9 @@ const LoginForm = ({ updateUser }) => {
         console.log(err)
         if(err.response.status === 401) {
           setLoginError(true)
+          setTimeout(() => {
+            setLoginError(false)
+          }, 3000)
         }
       })
   }
