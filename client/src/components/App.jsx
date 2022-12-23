@@ -24,10 +24,10 @@ function App() {
   const [showResetModal, setShowResetModal] = useState(false);
 
   // watchlist:
-  const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`));
   const [multiValue, setMultiValue] = useState([]);
   const sendObj = {addedList: multiValue};
-  const [userWatchlist, setUserWatchlist] = useState(watched_coins);
+  const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`));
+  const [userWatchlist, setUserWatchlist] = useState(watched_coins || []);
 
 
   //Achievements Component States
