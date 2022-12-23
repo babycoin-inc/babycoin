@@ -31,7 +31,7 @@ const Page = () => {
 
   if(!authorizedUser) {
     // return <Login updateUser={setAuthorizedUser} updateSession={setSessionCookie}/>
-    return <Auth />
+    return <Auth updateUser={setAuthorizedUser} />
   } else {
     return <App className = "bg-zinc-900 pb-8" setAuthorizedUser={setAuthorizedUser}/>
   }
