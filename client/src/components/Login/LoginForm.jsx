@@ -30,8 +30,17 @@ const LoginForm = ({ updateUser }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)} >
-      <div className='flex flex-col mb-4'>
+    // <form onSubmit={handleSubmit(onFormSubmit)} >
+    <form className="mt-6 flex flex-col gap-12 w-11/12 mx-auto">
+      <div className="relative">
+        <input id="username" className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer' type='text' placeholder=" "/>
+        <label for="username" className="absolute text-md text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
+      </div>
+      <div className="relative">
+        <input id="password" className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer' type='password' placeholder=" "/>
+        <label for="password" className="absolute text-md text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+      </div>
+      {/* <div className='flex flex-col mb-4'>
         <label>Username</label>
         <input
           className='border relative bg-orange-100 p-2'
@@ -60,7 +69,7 @@ const LoginForm = ({ updateUser }) => {
         <small className='text-red-600 italic'>{errors.password?.message}</small>
         <small className='text-red-600 italic'>{loginError ? 'Problem logging in with username and password' : null }</small>
       </div>
-      <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl'>Log In</button>
+      <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl'>Log In</button> */}
     </form>
   )
 }
