@@ -9,8 +9,8 @@ import AltLogin from './components/Login/AltLogin.jsx';
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <AltLogin />
+    {/* <AltLogin /> */}
     {/* <Login /> */}
-    {/* <Page /> */}
+    <Page />
   </React.StrictMode>
 );

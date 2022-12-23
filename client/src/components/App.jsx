@@ -9,9 +9,9 @@ import Market from './MarketWatch/Market.jsx';
 import axios from 'axios';
 import ResetModal from './Modal/ResetModal.jsx';
 
-function App({ setAuthorizedUser }) {
+function App({ setAuthorizedUser, authorizedUser }) {
 
-  const [authenticatedUser, setAuthenticatedUser] = useState(1);
+  const [authenticatedUser, setAuthenticatedUser] = useState(authorizedUser);
   const [activePage, setActivePage] = useState('Home');
 
   //Home Component States

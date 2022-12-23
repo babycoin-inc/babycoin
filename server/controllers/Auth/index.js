@@ -11,11 +11,13 @@ const AuthControllers = {
   altSignup: async (req, res) => {
     const { username, password } = req.body;
     try {
+      const usernameUnavailable = await isUsernameUnavailable(username);
+      if(usernameUnavailable) return res.status(409).json({ msg: 'Username Already Exists' });
       const hashedPassword = await bcrypt.hash(password, 10);
       const id = await registerUser(username, hashedPassword);
-      res.status(201).send('Success');
-    } catch {
-      res.redirect('/signup');
+      res.status(201).json(id);
+    } catch(err) {
+      console.log(err);
     }
   },
 
@@ -29,7 +31,7 @@ const AuthControllers = {
     try {
       console.log('USER', user);
       if(await bcrypt.compare(password, user.password)) {
-        res.send('Successful Login');
+        res.send(user);
       } else {
         res.send('Passwords Do Not Match');
       }

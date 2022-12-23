@@ -20,12 +20,13 @@ const Login = ({ updateUser }) => {
     } else {
       setPasswordComparison(e.target.value);
     }
-    console.log('USERNAME: ', username);
-    console.log('PASSWORD: ', password);
-    console.log('CONFIRM PASSWORD: ', passwordComparison)
+    // console.log('USERNAME: ', username);
+    // console.log('PASSWORD: ', password);
+    // console.log('CONFIRM PASSWORD: ', passwordComparison)
   }
 
   const handleLogin = (e) => {
+    console.log('Clicked Login');
     e.preventDefault();
     if(!username.length || !password.length) {
       return alert('Username and Password Fields must contain values');
@@ -35,13 +36,28 @@ const Login = ({ updateUser }) => {
         password: password
       })
       .then(({ data }) => {
-        console.log('DATA FROM SERVER: ', data);
         updateUser(data.id);
+        return alert(data);
       })
       .catch(err => console.log(err))
     }
-
   }
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   if(!username.length || !password.length) {
+  //     return alert('Username and Password Fields must contain values');
+  //   } else {
+  //     axios.post('/auth/login', {
+  //       username: username,
+  //       password: password
+  //     })
+  //     .then(({ data }) => {
+  //       console.log('DATA FROM SERVER: ', data);
+  //       updateUser(data.id);
+  //     })
+  //     .catch(err => console.log(err))
+  //   }
+  // }
 
   const handleGoogleLogin = (e) => {
     e.preventDefault();
@@ -57,6 +73,7 @@ const Login = ({ updateUser }) => {
     //   })
   }
 
+   // error on duplicate signup message needs fixed
   const handleSignUp = (e) => {
     e.preventDefault();
     if(password !== passwordComparison) {
@@ -70,16 +87,36 @@ const Login = ({ updateUser }) => {
         password: password
       })
       .then(({ data }) => {
-        alert('Account Created')
-        updateUser(data.id);
+        updateUser(data);
       })
       .catch(err => {
         alert('Something went wrong...')
         console.log(err)
       });
     }
-
   }
+  // const handleSignUp = (e) => {
+  //   e.preventDefault();
+  //   if(password !== passwordComparison) {
+  //     return alert('Passwords must match');
+  //   }
+  //   if(!username.length || !password.length || !passwordComparison.length) {
+  //     return alert('Username and Password Fields must contain values');
+  //   } else {
+  //     axios.post('/auth/signup', {
+  //       username: username,
+  //       password: password
+  //     })
+  //     .then(({ data }) => {
+  //       alert('Account Created')
+  //       updateUser(data.id);
+  //     })
+  //     .catch(err => {
+  //       alert('Something went wrong...')
+  //       console.log(err)
+  //     });
+  //   }
+  // }
 
   const handleLoginPage = (e) => {
     e.preventDefault();
