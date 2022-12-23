@@ -4,7 +4,6 @@ import { NumericFormat } from 'react-number-format';
 function OrderInput({orderUnits, orderAmount, setOrderAmount, isOrderValid}) {
   let orderInput;
 
-  //this is found in both of the order inputs
   let validationErrorStyle;
   if (!isOrderValid) {
     validationErrorStyle = "border-2 border-rose-600 outline-0";

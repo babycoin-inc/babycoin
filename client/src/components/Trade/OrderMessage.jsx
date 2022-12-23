@@ -5,9 +5,8 @@ function OrderMessage({orderUnits, orderType, coin, getCash, isOrderValid, quant
   const maxCoinBuyOrderAmount = cash / coin.latest_price;
   let maxOrderAmountMessage;
 
-  //validation error goes here
-    //if orderType is buy and orderAmount exceeds available cash
   if (isOrderValid === false) {
+    //validation error styling
     maxOrderAmountMessage = <div className="text-sm text-center text-rose-600">Funds not available</div>
   } else if (orderUnits === 'coin' && orderType === 'buy') {
     maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to {roundNumUpToDigit(maxCoinBuyOrderAmount, 5)} {coin.acronym.toUpperCase()}</div>

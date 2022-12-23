@@ -14,7 +14,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     if (symbol !== undefined) {
       //map symbol to its respective acronym in coins
       const coinIndex = coins.findIndex((coin) => {
-        return coin.acronym === symbol;
+        return coin.acronym.toUpperCase() === symbol;
       });
       return coins[coinIndex];
       //return the full coin object
@@ -92,12 +92,12 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     getPortfolioQuantityOfCoin();
     if (orderUnits === 'usd') {
       if (total_trade_fiat > quantityOfCoin * coin.latest_price) {
-        console.log('total_trade_fiat > quantityOfCoin * coin.latest_price', total_trade_fiat, ' > ', quantityOfCoin * coin.latest_price);
+        // console.log('total_trade_fiat > quantityOfCoin * coin.latest_price', total_trade_fiat, ' > ', quantityOfCoin * coin.latest_price);
         isOrderValid = false
       }
     } else if (orderUnits === 'coin') {
       if (total_trade_coin > quantityOfCoin) {
-        console.log('total_trade_coin > quantityOfCoin', total_trade_coin, ' > ',quantityOfCoin);
+        // console.log('total_trade_coin > quantityOfCoin', total_trade_coin, ' > ',quantityOfCoin);
         isOrderValid = false;
       }
     }

@@ -22,7 +22,7 @@ function TradeableCoins({coins, orderType, coin, tradeableCoins, setCoin, setOrd
       <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} onChange={(event) => {
         const coinIndex = coins.findIndex(coin => coin.name === event.target.value);
         setCoin(coins[coinIndex]);
-        // handleOrderAmountChange("");
+        setOrderAmount("");
       }}>
         {coinsToDisplay}
       </select>
