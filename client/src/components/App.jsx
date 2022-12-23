@@ -24,9 +24,10 @@ function App() {
   const [showResetModal, setShowResetModal] = useState(false);
 
   // watchlist:
-  const [userWatchlist, setUserWatchlist] = useState([]);
+  const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
   const [multiValue, setMultiValue] = useState([]);
   const sendObj = {addedList: multiValue};
+  const [userWatchlist, setUserWatchlist] = useState(watched_coins);
 
 
   //Achievements Component States
@@ -76,6 +77,7 @@ function App() {
     getAchievements();
     getUserAchievements();
     getCoins();
+    watched_coins ? setUserWatchlist(watched_coins) : null;
   }, []);
 
   useEffect(() => {
@@ -103,6 +105,10 @@ function App() {
   useEffect(() => {
     sendObj.addedList = multiValue;
   }, [multiValue]);
+
+  useEffect(() => {
+    window.localStorage.setItem(`Watched_Coins for the user ${authenticatedUser}:`, JSON.stringify(userWatchlist));
+  }, [userWatchlist]);
 
   async function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -140,7 +146,7 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  // get basic info of all coins and will show on the market watch page
+  // get the info of all coins
   function getCoins() {
     axios.get(`/coins/markets`)
     .then((coins) => {
@@ -149,9 +155,13 @@ function App() {
     .catch(err => console.log(err));
   }
 
-  function handleCoinClick (e) {
+  async function handleCoinClick (e) {
     e.preventDefault();
-    setSymbol(e.target.innerText);
+    try {
+      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? setSymbol(coin.acronym) : null));
+    } catch (err) {
+      console.log('ERR: forwarding to the trading page', err);
+    }
     setActivePage('Trade');
   }
 
@@ -168,13 +178,23 @@ function App() {
     .catch(err => console.log(err));
   }
 
-  function removeFromWatchlist (e) {
-    e.preventDefault();
-    axios.delete(`/users/${authenticatedUser}/watchlist/${e.target.parentNode.childNodes[1].innerText}`)
+  function deleteCoin (coin) {
+    axios.delete(`/users/${authenticatedUser}/watchlist/${coin}`)
     .then(result => {
       setUserWatchlist(result.data);
     })
     .catch(err => console.log(err));
+  }
+
+  function removeFromWatchlist (e) {
+    e.preventDefault();
+    deleteCoin(e.target.parentNode.childNodes[1].innerText);
+  }
+
+  function toggleStars (e) {
+    const coin = e.target.parentNode.childNodes[1].childNodes[1].childNodes[0].innerText;
+    sendObj['addedList'] = [{value: coin, label: coin}];
+    e.target.innerText === '★' ? deleteCoin(coin) : addToWatchlist();
   }
 
 
@@ -185,7 +205,7 @@ function App() {
       .then((res) => {
         let updatedUserAchievements = res.data;
         axios.delete(`/users/${authenticatedUser}/watchlist`)
-        .then((result) => {
+        .then(() => {
           setTradeHistory([]);
           setUserAchievements(updatedUserAchievements);
           setShowResetModal(false);
@@ -208,7 +228,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home setShowResetModal={setShowResetModal} accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} />);
+    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} />);
 

@@ -6,7 +6,7 @@ function MoveTicker({coins, handleCoinClick}) {
 
   return (
     <Marquee pauseOnHover="true" gradientWidth="0" speed="30">
-      <div class="marquee" style={{flexWrap: 'wrap'}}>
+      <div className="marquee" style={{flexWrap: 'wrap'}}>
       {coins.map((coin, index) => (
         coin.acronym === "usd" ? null :
         <TickerEach key={index} coin={coin} handleCoinClick={(e) => handleCoinClick(e)}/>
