@@ -6,7 +6,7 @@ import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
 import axios from 'axios';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, symbol}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, symbol, achievementsStatus, grantUserAchievement}) {
   const [orderType, setOrderType] = useState("buy");
   const [orderUnits, setOrderUnits] = useState('usd');
   const [orderAmount, setOrderAmount] = useState("");
@@ -32,10 +32,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     quantityOfCoin = portfolio[index].quantity;
   };
 
-  console.log('coins: ', coins);
-  console.log('portfolio: ', portfolio);
-  console.log('orderAmount1: ', orderAmount);
-
   const getCash = () => {
     const cashIndex = portfolio.findIndex((asset) => {
       return asset.acronym === 'usd'
@@ -54,9 +50,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
       total_trade_coin = value;
     }
   })();
-
-  console.log('total_trade_coin: ', total_trade_coin);
-  console.log('total_trade_fiat: ', total_trade_fiat);
 
   const getNonCashAssets = () => {
     const nonCashAssets = [];
@@ -133,11 +126,20 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
       //   }
       // );
       // openModal();
+      if (!achievementsStatus[2] && orderType === 'buy') {
+        grantUserAchievement(2);
+      }
+      if (!achievementsStatus[5] && orderType === 'sell') {
+        grantUserAchievement(5);
+      }
+      if (!achievementsStatus[4] && orderType === 'buy' && total_trade_fiat <= 5) {
+        grantUserAchievement(4);
+      }
     }
     catch (e) {
       console.error(e);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center space-y-8 w-1/3 bg-zinc-700 rounded-xl">
@@ -153,5 +155,3 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
 }
 
 export default Order;
-
-// basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400

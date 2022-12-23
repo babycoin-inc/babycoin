@@ -76,7 +76,6 @@ function App() {
     getAchievements();
     getUserAchievements();
     getCoins();
-    addToWatchlist();
   }, []);
 
   useEffect(() => {
@@ -102,9 +101,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    sendObj.addedList = multiValue
+    sendObj.addedList = multiValue;
   }, [multiValue]);
-
 
   async function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -179,15 +177,21 @@ function App() {
     .catch(err => console.log(err));
   }
 
+
   // Home:Balance component reset button
   function handleResetClick (e) {
     e.preventDefault();
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
         let updatedUserAchievements = res.data;
-        setTradeHistory([]);
-        setUserAchievements(updatedUserAchievements);
-        setShowResetModal(false);
+        axios.delete(`/users/${authenticatedUser}/watchlist`)
+        .then((result) => {
+          setTradeHistory([]);
+          setUserAchievements(updatedUserAchievements);
+          setShowResetModal(false);
+          setUserWatchlist([]);
+        })
+        .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   };
@@ -206,7 +210,7 @@ function App() {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol}/>);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} />);
 
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
