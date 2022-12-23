@@ -22,13 +22,12 @@ const Auth = () => {
       <div className='flex justify-center items-center py-8'>
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
       </div>
-      {/* <div className='flex justify-center items-center py-8'> */}
       <div className='max-w-[400px] w-full mx-auto p-8 bg-zinc-200 rounded-xl'>
         <h2 className='text-4xl font-bold text-center py-4'>BabyCoin</h2>
           <GoogleButton />
           {isLoginForm ? <LoginForm switchForm={setIsLoginForm} /> : <SignupForm switchForm={setIsLoginForm} />}
         <button
-          className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl'
+          className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl italic'
           onClick={handleWhichForm}>
             {isLoginForm ? 'Not a Member? Sign Up Now!' : 'Already a Member? Login Now!'}
         </button>
