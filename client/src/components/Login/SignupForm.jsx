@@ -5,6 +5,7 @@ const PASSWORD_MIN_LENGTH = 3;
 
 const SignupForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors} } = useForm();
+  const [signupError, setSignupError] = useState(false);
 
   const onFormSubmit = (data) => {
     const { username, password } = data;
@@ -17,8 +18,13 @@ const SignupForm = ({ updateUser }) => {
         updateUser(data.id);
       })
       .catch(err => {
-        alert('Something went wrong...')
         console.log(err)
+        if(err.response.status === 409) {
+          setSignupError(true);
+          setTimeout(() => {
+            setSignupError(false);
+          }, 5000)
+        }
       });
   }
 
@@ -33,6 +39,7 @@ const SignupForm = ({ updateUser }) => {
           {...register('username', {required: 'Username is required'})}
         />
         <small className='text-red-600 italic'>{errors.username?.message}</small>
+        <small className='text-red-600 italic'>{signupError ? 'Username is unavailable' : null}</small>
       </div>
       <div className='flex flex-col'>
         <label>Password</label>
