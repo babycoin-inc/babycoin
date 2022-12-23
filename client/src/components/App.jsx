@@ -77,6 +77,7 @@ function App() {
     getAchievements();
     getUserAchievements();
     getCoins();
+    watched_coins ? setUserWatchlist(watched_coins) : null;
   }, []);
 
   useEffect(() => {
@@ -104,10 +105,6 @@ function App() {
   useEffect(() => {
     sendObj.addedList = multiValue;
   }, [multiValue]);
-
-  useEffect(() => {
-    watched_coins ? setUserWatchlist(watched_coins) : null;
-  }, []);
 
   useEffect(() => {
     window.localStorage.setItem(`Watched_Coins for the user ${authenticatedUser}:`, JSON.stringify(userWatchlist));
