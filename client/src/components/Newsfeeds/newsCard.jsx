@@ -3,12 +3,19 @@ import React from 'react';
 const News = function (props) {
   console.log(props);
   let fdate = new Date(props.art.publish_date).toDateString();
+
+  const grantAchievement = () => {
+    if (!props.achievementsStatus[8]) {
+      props.grantUserAchievement(8);
+    }
+  };
+
   if(props.art.type === "Article") {
     return (
       <div class=" flex w-full border rounded-lg shadow-md bg-gray-800 border-gray-700 my-2">
       <img class=" w-full h-96 md:h-auto object-cover md:w-48 rounded-t-lg md:rounded-none md:rounded-l-lg mr-2" src={props.art.image_url} alt="" />
       <div class="mr-2 my-2">
-        <h2 class="mb-3 text-1xl font-extrabold tracking-tight text-white"><a href={props.art.url} target="_blank">{props.art.title}</a></h2>
+        <h2 class="mb-3 text-1xl font-extrabold tracking-tight text-white"><a href={props.art.url} target="_blank" onClick={grantAchievement} >{props.art.title}</a></h2>
         <p class="mb-3 text-gray-400 text-l">{props.art.description}</p>
         <div class="flex">
           <p class="text-gray-500 text-xs mr-3">{props.art.arthur}</p>
