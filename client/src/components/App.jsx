@@ -106,9 +106,7 @@ function App() {
   }, [multiValue]);
 
   useEffect(() => {
-    if (watched_coins) {
-      setUserWatchlist(watched_coins);
-    }
+    watched_coins ? setUserWatchlist(watched_coins) : null;
   }, []);
 
   useEffect(() => {
@@ -151,7 +149,7 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  // get basic info of all coins and will show on the market watch page
+  // get the info of all coins
   function getCoins() {
     axios.get(`/coins/markets`)
     .then((coins) => {
@@ -183,14 +181,23 @@ function App() {
     .catch(err => console.log(err));
   }
 
-  function removeFromWatchlist (e) {
-    e.preventDefault();
-    axios.delete(`/users/${authenticatedUser}/watchlist/${e.target.parentNode.childNodes[1].innerText}`)
+  const deleteCoin = (coin) => {
+    axios.delete(`/users/${authenticatedUser}/watchlist/${coin}`)
     .then(result => {
       setUserWatchlist(result.data);
     })
     .catch(err => console.log(err));
   }
+
+  function removeFromWatchlist (e) {
+    e.preventDefault();
+    deleteCoin(e.target.parentNode.childNodes[1].innerText);
+  }
+
+  // function toggleStars (e) {
+  //   const coin = e.target.parentNode.childNodes[1].childNodes[1].childNodes[0].innerText;
+  //   e.target.innerText === ★ ?
+  // }
 
 
   // Home:Balance component reset button
@@ -223,7 +230,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home setShowResetModal={setShowResetModal} accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} addToWatchlist={addToWatchlist} />);
+    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} />);
 
