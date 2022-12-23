@@ -6,9 +6,10 @@ const Auth = {
       .query('SELECT password FROM trader WHERE username = $1', [username])
       .then(result => result.rows[0].password);
   },
+  // MODIFIED TO ALSO RETURN PASSWORD
   getUser: (username) => {
     return pool
-      .query('SELECT id, username FROM trader WHERE username = $1', [username])
+      .query('SELECT id, username, password FROM trader WHERE username = $1', [username])
       .then(result => result.rows[0] || null);
   },
   getUserByToken: (token) => {

@@ -3,8 +3,41 @@ const { Auth } = require('../../../models/models.js');
 const { isUsernameUnavailable, registerUser } = Auth;
 const { hashPassword } = require('../../utils/passwords.js');
 const { createNewTokens, createAccessToken, hashToken, compareTokenAndHash, getRefreshTokenFromHeaders } = require('../../utils/tokens.js');
+const bcrypt = require('bcrypt');
+
 
 const AuthControllers = {
+
+  altSignup: async (req, res) => {
+    const { username, password } = req.body;
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const id = await registerUser(username, hashedPassword);
+      res.status(201).send('Success');
+    } catch {
+      res.redirect('/signup');
+    }
+  },
+
+  altLogin: async (req, res) => {
+    console.log('Hit ALT LOGIN');
+    const { username, password } = req.body;
+    const user = await Auth.getUser(username);
+    if (user === null) {
+      return 'Cannot find username';
+    }
+    try {
+      console.log('USER', user);
+      if(await bcrypt.compare(password, user.password)) {
+        res.send('Successful Login');
+      } else {
+        res.send('Passwords Do Not Match');
+      }
+    } catch {
+      console.log(err);
+      res.status(500).json({ msg: "Error in signupController" })
+    }
+  },
 
   signupController: async (req, res) => {
     const { username, password } = req.body;

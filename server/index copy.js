@@ -3,7 +3,6 @@
 const express = require('express');
 require('dotenv').config();
 const passport = require('../passport.config.js');
-const bcrypt = require('bcrypt');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -15,72 +14,52 @@ const cookieParser = require('cookie-parser');
 
 const cron = require('node-cron');
 //const expressSession = require('express-session');
-// const session = require('./sessionConfig');
-// const cors = require('cors');
+const session = require('./sessionConfig');
+const cors = require('cors');
 
 /**Controllers */
 const { auth, nf, home, trade, leaderboard, market, achievements, dropdown, watchlist} = require('./controllers/controllers.js');
 
-
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// app.use(cors(), (req, res, next) => {
-//   console.log('REQ SESSION: ', req.sessionID);
-//   next()
-// });
+app.use(cors(), (req, res, next) => {
+  console.log('REQ SESSION: ', req.sessionID);
+  next()
+});
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
 // })
+app.use(cookieParser());
+app.use(session);
+app.use(passport.initialize())
+app.use(passport.session())
 
-// app.use(cookieParser());
+app.post('/auth/signup', auth.signupController);
+app.post('/auth/login', passport.authenticate('local'), auth.loginController);
+app.post('/auth/refresh', auth.refreshTokenController);
+app.get('/auth/google', (req, res, next) => {
+  console.log('HIT /auth/google ENDPOINT')
+  console.log(req.sessionID);
+  next();
+},
+  passport.authenticate('google', { scope:
+      [ 'email' ] }
+));
 
-// app.use(session);
-// app.use(passport.initialize())
-// app.use(passport.session())
-
-app.post('/auth/signup', auth.altSignup);
-app.post('/auth/login', auth.altLogin);
-
-// app.post('/auth/login', passport.authenticate('local'), auth.loginController);
-
-
-// app.post('/auth/refresh', auth.refreshTokenController);
-// app.get('/auth/google', (req, res, next) => {
-//   console.log('HIT /auth/google ENDPOINT')
-//   console.log(req.sessionID);
-//   next();
-// },
-//   passport.authenticate('google', { scope:
-//       [ 'email' ] }
-// ));
-
-// app.get( '/auth/google/callback', (req, res, next)=> {
-//   console.log('HIT /auth/google/callback ENDPOINT');
-//   next();
-//   },
-//     passport.authenticate( 'google', {
-//         successRedirect: '/',
-//         failureRedirect: '/auth/login'
-// }));
-// app.get('/getuser', (req, res) => {
-//   res.send(req.user);
-// })
-// app.get('/logout', auth.logoutController);
+app.get( '/auth/google/callback', (req, res, next)=> {
+  console.log('HIT /auth/google/callback ENDPOINT');
+  next();
+  },
+    passport.authenticate( 'google', {
+        successRedirect: '/',
+        failureRedirect: '/auth/login'
+}));
+app.get('/getuser', (req, res) => {
+  res.send(req.user);
+})
+app.get('/logout', auth.logoutController);
 //app.use(passport.authenticate('jwt')); for protected routes
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);

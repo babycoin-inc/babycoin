@@ -25,22 +25,23 @@ function AltLogin() {
     } else {
       setPasswordComparison(e.target.value);
     }
-    console.log('USERNAME: ', username);
-    console.log('PASSWORD: ', password);
-    console.log('CONFIRM PASSWORD: ', passwordComparison)
   }
 
   const handleLogin = (e) => {
+    console.log('Clicked Login');
     e.preventDefault();
-    axios.post('/login', {
+    if(!username.length || !password.length) {
+      return alert('Username and Password Fields must contain values');
+    } else {
+      axios.post('/auth/login', {
         username: username,
         password: password
       })
       .then(({ data }) => {
-        console.log('DATA FROM SERVER: ', data);
-        updateUser(data);
+        return alert(data);
       })
       .catch(err => console.log(err))
+    }
   }
 
   const handleSignUp = (e) => {
@@ -48,15 +49,21 @@ function AltLogin() {
     if(password !== passwordComparison) {
       return alert('Passwords must match');
     }
-    axios.post('/signup', {
-      username: username,
-      password: password
-    })
-    .then(result => alert('Account Created'))
-    .catch(err => {
-      alert('Something went wrong...')
-      console.log(err)}
-      );
+    if(!username.length || !password.length || !passwordComparison.length) {
+      return alert('Username and Password Fields must contain values');
+    } else {
+      axios.post('/auth/signup', {
+        username: username,
+        password: password
+      })
+      .then(({ data }) => {
+        alert('Account Created')
+      })
+      .catch(err => {
+        alert('Something went wrong...')
+        console.log(err)
+      });
+    }
   }
 
   useEffect(() => {

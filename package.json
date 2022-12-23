@@ -48,6 +48,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.13",
     "axios": "^1.2.1",
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "ci": "^2.2.0",
     "connect-pg-simple": "^8.0.0",
