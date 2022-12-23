@@ -181,7 +181,7 @@ function App() {
     .catch(err => console.log(err));
   }
 
-  const deleteCoin = (coin) => {
+  function deleteCoin (coin) {
     axios.delete(`/users/${authenticatedUser}/watchlist/${coin}`)
     .then(result => {
       setUserWatchlist(result.data);
@@ -194,10 +194,11 @@ function App() {
     deleteCoin(e.target.parentNode.childNodes[1].innerText);
   }
 
-  // function toggleStars (e) {
-  //   const coin = e.target.parentNode.childNodes[1].childNodes[1].childNodes[0].innerText;
-  //   e.target.innerText === ★ ?
-  // }
+  function toggleStars (e) {
+    const coin = e.target.parentNode.childNodes[1].childNodes[1].childNodes[0].innerText;
+    sendObj['addedList'] = [{value: coin, label: coin}];
+    e.target.innerText === '★' ? deleteCoin(coin) : addToWatchlist();
+  }
 
 
   // Home:Balance component reset button
