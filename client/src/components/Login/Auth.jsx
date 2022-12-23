@@ -9,7 +9,7 @@ const BACKGROUND_URL = "https://images.unsplash.com/photo-1585314062340-f1a5a7c9
 
 
 
-const Auth = () => {
+const Auth = ({ updateUser }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
 
   const handleWhichForm = (e) => {
@@ -25,7 +25,7 @@ const Auth = () => {
       <div className='max-w-[400px] w-full mx-auto p-8 bg-zinc-200 rounded-xl'>
         <h2 className='text-4xl font-bold text-center py-4'>BabyCoin</h2>
           <GoogleButton />
-          {isLoginForm ? <LoginForm switchForm={setIsLoginForm} /> : <SignupForm switchForm={setIsLoginForm} />}
+          {isLoginForm ? <LoginForm updateUser={updateUser} /> : <SignupForm updateUser={updateUser}/>}
         <button
           className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl italic'
           onClick={handleWhichForm}>

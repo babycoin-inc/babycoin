@@ -3,10 +3,22 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 const PASSWORD_MIN_LENGTH = 3;
 
-const LoginForm = ({ switchForm }) => {
+const LoginForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors} } = useForm();
 
-  const onFormSubmit = (data) => console.log(data);
+  const onFormSubmit = (data) => {
+    const { username, password } = data;
+    axios
+      .post('/auth/login', {
+        username: username,
+        password: password
+      })
+      .then(({ data }) => {
+        console.log('DATA FROM SERVER: ', data);
+        updateUser(data.id);
+      })
+      .catch(err => console.log(err))
+  }
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)} >
