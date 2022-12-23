@@ -81,7 +81,7 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol}) 
         <div className="flex w-3/5 p-5">
           <Graph symbol={symbol}/>
         </div>
-        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues}/>
+        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues} symbol={symbol}/>
       </div>
       <Newsfeed coin={symbol}/>
     </div>

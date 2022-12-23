@@ -6,13 +6,18 @@ import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
 import axios from 'axios';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, selectedCoin}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, symbol}) {
   const [orderType, setOrderType] = useState("buy");
   const [orderUnits, setOrderUnits] = useState('usd');
   const [orderAmount, setOrderAmount] = useState("");
   const [coin, setCoin] = useState(() => {
-    if (selectedCoin !== undefined) {
-      return selectedCoin;
+    if (symbol !== undefined) {
+      //map symbol to its respective acronym in coins
+      const coinIndex = coins.findIndex((coin) => {
+        return coin.acronym === symbol;
+      });
+      return coins[coinIndex];
+      //return the full coin object
     } else {
       return coins[1];
     }
