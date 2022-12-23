@@ -24,9 +24,10 @@ function App() {
   const [showResetModal, setShowResetModal] = useState(false);
 
   // watchlist:
-  const [userWatchlist, setUserWatchlist] = useState([]);
+  const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`));
   const [multiValue, setMultiValue] = useState([]);
   const sendObj = {addedList: multiValue};
+  const [userWatchlist, setUserWatchlist] = useState(watched_coins);
 
 
   //Achievements Component States
@@ -103,6 +104,16 @@ function App() {
   useEffect(() => {
     sendObj.addedList = multiValue;
   }, [multiValue]);
+
+  useEffect(() => {
+    if (watched_coins) {
+      setUserWatchlist(watched_coins);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(`Watched_Coins for the user ${authenticatedUser}:`, JSON.stringify(userWatchlist));
+  }, [userWatchlist]);
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
