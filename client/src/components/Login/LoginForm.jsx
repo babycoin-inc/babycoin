@@ -24,7 +24,7 @@ const LoginForm = ({ updateUser }) => {
           setLoginError(true)
           setTimeout(() => {
             setLoginError(false)
-          }, 3000)
+          }, 5000)
         }
       })
   }
