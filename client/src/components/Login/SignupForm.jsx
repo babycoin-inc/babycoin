@@ -4,7 +4,7 @@ import axios from 'axios';
 const PASSWORD_MIN_LENGTH = 3;
 
 const SignupForm = ({ updateUser }) => {
-  const { register, handleSubmit, formState: {errors} } = useForm();
+  const { register, handleSubmit, formState: {errors}, watch } = useForm();
   const [signupError, setSignupError] = useState(false);
 
   const onFormSubmit = (data) => {
@@ -65,7 +65,14 @@ const SignupForm = ({ updateUser }) => {
           name='cpassword'
           className='border relative bg-orange-100 p-2'
           type='password'
-          {...register('cpassword', { required: 'Must re-enter password' })}
+          {...register('cpassword', {
+            required: 'Must re-enter password',
+            validate: (val) => {
+              if(watch('password') !== val) {
+                return "Your passwords do not match";
+              }
+            }
+           })}
         />
         <small className='text-red-600 italic'>{errors.cpassword?.message}</small>
       </div>
