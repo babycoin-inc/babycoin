@@ -1,11 +1,18 @@
 import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import axios from 'axios';
 const PASSWORD_MIN_LENGTH = 3;
 
 const LoginForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors} } = useForm();
   const [loginError, setLoginError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  }
 
   const onFormSubmit = (data) => {
     const { username, password } = data;
@@ -50,7 +57,37 @@ const LoginForm = ({ updateUser }) => {
         />
         <small className='text-red-600 italic'>{errors.username?.message}</small>
       </div>
-      <div className='flex flex-col'>
+
+      {/* PASSWORD */}
+      <div className='flex flex-col relative'>
+        <label>Password</label>
+          <input
+            className='border relative bg-orange-100 p-2'
+            type={showPassword ? "text" : "password"}
+            {...register('password',
+              {
+                required: 'Password is required',
+                minLength: {
+                  value: PASSWORD_MIN_LENGTH,
+                  message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`
+                }
+              }
+            )}
+          />
+          <button className='text-xl absolute top-9 right-2' onClick={handleClickShowPassword}>
+            {showPassword ? <AiFillEye/> : <AiFillEyeInvisible/>}
+          </button>
+        <small className='text-red-600 italic'>{errors.password?.message}</small>
+      </div>
+
+
+
+
+
+
+
+
+      {/* <div className='flex flex-col'>
         <label>Password</label>
         <input
           name='password'
@@ -68,7 +105,7 @@ const LoginForm = ({ updateUser }) => {
         />
         <small className='text-red-600 italic'>{errors.password?.message}</small>
         <small className='text-red-600 italic'>{loginError ? 'Problem logging in with username and password' : null }</small>
-      </div>
+      </div> */}
       <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl'>Log In</button>
     </form>
   )
