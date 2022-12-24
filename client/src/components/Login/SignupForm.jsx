@@ -1,11 +1,25 @@
 import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import axios from 'axios';
 const PASSWORD_MIN_LENGTH = 3;
+
+// import IconButton from "@material-ui/core/IconButton";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import Visibility from "@material-ui/icons/Visibility";
+// import InputAdornment from "@material-ui/core/InputAdornment";
+// import VisibilityOff from "@material-ui/icons/VisibilityOff";
+// import Input from "@material-ui/core/Input";
 
 const SignupForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors}, watch } = useForm();
   const [signupError, setSignupError] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = (e) => {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  }
 
   const onFormSubmit = (data) => {
     const { username, password } = data;
@@ -30,6 +44,8 @@ const SignupForm = ({ updateUser }) => {
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)} >
+
+      {/* USERNAME */}
       <div className='flex flex-col mb-4'>
         <label>Username</label>
         <input
@@ -41,30 +57,36 @@ const SignupForm = ({ updateUser }) => {
         <small className='text-red-600 italic'>{errors.username?.message}</small>
         <small className='text-red-600 italic'>{signupError ? 'Username is unavailable' : null}</small>
       </div>
-      <div className='flex flex-col'>
+
+      {/* PASSWORD */}
+      <div className='flex flex-col relative'>
         <label>Password</label>
-        <input
-          name='password'
-          className='border relative bg-orange-100 p-2'
-          type='password'
-          {...register('password',
-            {
-              required: 'Password is required',
-              minLength: {
-                value: PASSWORD_MIN_LENGTH,
-                message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`
+          <input
+            className='border relative bg-orange-100 p-2'
+            type={showPassword ? "text" : "password"}
+            {...register('password',
+              {
+                required: 'Password is required',
+                minLength: {
+                  value: PASSWORD_MIN_LENGTH,
+                  message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`
+                }
               }
-            }
-          )}
-        />
+            )}
+          />
+          <button className='text-xl absolute top-9 right-2' onClick={handleClickShowPassword}>
+            {showPassword ? <AiFillEye/> : <AiFillEyeInvisible/>}
+          </button>
         <small className='text-red-600 italic'>{errors.password?.message}</small>
       </div>
+
+      {/* COMPARE PASSWORD */}
       <div className='flex flex-col'>
         <label>Confirm Password</label>
         <input
           name='cpassword'
           className='border relative bg-orange-100 p-2'
-          type='password'
+          type={showPassword ? "text" : "password"}
           {...register('cpassword', {
             required: 'Must re-enter password',
             validate: (val) => {
@@ -76,7 +98,10 @@ const SignupForm = ({ updateUser }) => {
         />
         <small className='text-red-600 italic'>{errors.cpassword?.message}</small>
       </div>
+
+      {/* SIGN UP BUTTON */}
       <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl'>Sign Up</button>
+
     </form>
   )
 }
