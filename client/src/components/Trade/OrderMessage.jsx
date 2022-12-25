@@ -11,7 +11,7 @@ function OrderMessage({orderUnits, orderType, coin, getCash, isOrderValid, quant
   } else if (orderUnits === 'coin' && orderType === 'buy') {
     maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to {roundNumUpToDigit(maxCoinBuyOrderAmount, 5)} {coin.acronym.toUpperCase()}</div>
   } else if(orderUnits === 'usd' && orderType === 'buy') {
-    maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to ${cash}</div>
+    maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to ${roundNumUpToDigit(cash, 2)}</div>
   } else if(orderUnits === 'coin' && orderType === 'sell') {
     maxOrderAmountMessage = <div className="text-sm text-center">You can {orderType} up to {roundNumUpToDigit(quantityOfCoin, 5)} {coin.acronym.toUpperCase()}</div>
   } else if(orderUnits === 'usd' && orderType === 'sell') {
