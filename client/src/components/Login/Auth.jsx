@@ -25,13 +25,16 @@ const Auth = ({ updateUser }) => {
       </div>
       <div className='max-w-[400px] w-full mx-auto p-8 bg-zinc-200 rounded-xl'>
         <h2 className='text-6xl font-bold text-center py-4 italic text-zinc-900'>babycoin</h2>
-          <GoogleButton />
-          {isLoginForm ? <LoginForm updateUser={updateUser} /> : <SignupForm updateUser={updateUser}/>}
-        <button
+        <div className='text-center'>
+          <small>{isLoginForm ? 'Not' : 'Already'} a member? <a className='text-orange-700 cursor-pointer' onClick={handleWhichForm}>{isLoginForm ? 'Sign Up Now!' : 'Login Now!'}</a></small>
+        </div>
+        <GoogleButton />
+        {isLoginForm ? <LoginForm updateUser={updateUser} /> : <SignupForm updateUser={updateUser}/>}
+        {/* <button
           className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl italic'
           onClick={handleWhichForm}>
             {isLoginForm ? 'Not a Member? Sign Up Now!' : 'Already a Member? Login Now!'}
-        </button>
+        </button> */}
       </div>
     </div>
   )
