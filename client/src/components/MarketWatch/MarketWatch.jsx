@@ -1,24 +1,35 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
-const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars}) => {
+const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authenticatedUser}) => {
+
+  coins.map(coin => {
+    const prev_price = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
+  });
+
+  // useEffect(() => {
+  //   window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
+  // }, [coin.latest_price]);
 
   return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table className="w-full text-center table-auto">
           <thead className="border-b bg-zinc-700">
             <tr>
-              <th className="text-lg font-medium text-white px-1 py-3">
+              <th className="text-lg font-medium text-white px-1 py-3 w-1/8">
               </th>
               <th className="text-lg font-medium text-white px-0 py-3 flex w-1/5">
                 Coin
               </th>
-              <th className="text-lg font-medium text-white px-0 py-3">
+              <th className="text-lg font-medium text-white px-0 py-3 w-1/5">
                 Price
               </th>
-              <th className="text-lg font-medium text-white px-0 py-3 w-1/6">
+              <th className="text-lg font-medium text-white px-0 py-3 w-1/5">
                 24h
               </th>
-              <th className="text-lg font-medium text-white px-0 py-3 w-1/3">
+              <th className="text-lg font-medium text-white px-0 py-3 w-1/6">
+                Mkt Cap
+              </th>
+              <th className="text-lg font-medium text-white px-0 py-3 w-1/6">
                 Mkt Cap
               </th>
             </tr>
@@ -35,8 +46,16 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars}) => {
                           <span>{coin.acronym.toUpperCase()}</span>
                         </div>
                   </td>
-                  <td className="text-sm text-white font-light px-0 py-3">${coin.latest_price}</td>
-                  <td className="text-sm text-white font-light px-0 py-3">0.5%</td>
+                  { prev_price <= coin.latest_price ?
+                    <td className="text-sm text-red-600 font-light px-0 py-3">${coin.latest_price}</td> :
+                    <td className="text-sm text-green-600 font-light px-0 py-3">${coin.latest_price}</td>
+                  }
+                  {
+                    coin.price_change_percentage >= 0 ?
+                    <td className="text-sm text-green-600 font-light px-0 py-3">{coin.price_change_percentage}%</td> :
+                    <td className="text-sm text-red-600 font-light px-0 py-3">{coin.price_change_percentage}%</td>
+                  }
+                  <td className="text-sm text-white font-light px-0 py-3">1123335666896</td>
                   <td className="text-sm text-white font-light px-0 py-3">1123335666896</td>
                 </tr> :
                 null
