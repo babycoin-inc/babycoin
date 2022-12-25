@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
-function OrderMessage({orderUnits, orderType, coin, getCash, isOrderValid, quantityOfCoin, roundNumUpToDigit}) {
+function OrderMessage({orderUnits, orderType, coin, getCash, isOrderValid, quantityOfCoin, roundNumUpToDigit, orderAmount}) {
   const cash = getCash().quantity;
   const maxCoinBuyOrderAmount = cash / coin.latest_price;
   let maxOrderAmountMessage;
 
-  if (isOrderValid === false) {
+  if (isOrderValid === false && orderAmount.length !== 0) {
     //validation error styling
     maxOrderAmountMessage = <div className="text-sm text-center text-rose-600">Funds not available</div>
   } else if (orderUnits === 'coin' && orderType === 'buy') {

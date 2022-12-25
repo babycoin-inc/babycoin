@@ -78,6 +78,11 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   const cash = getCash().quantity;
   const maxCoinOrderAmount = cash / coin.latest_price;
 
+  //VALIDATION
+  if (orderAmount.length === 0) {
+    isOrderValid = false;
+  }
+
   //BUY VALIDATION
   if (orderType === 'buy' && orderUnits === 'usd'){
     // if usd orderAmount exceeds available cash
