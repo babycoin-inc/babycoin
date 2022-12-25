@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import isStrongPassword from 'validator/lib/isStrongPassword';
 import axios from 'axios';
-const PASSWORD_MIN_LENGTH = 3;
+// const PASSWORD_MIN_LENGTH = 3;
 
 // import IconButton from "@material-ui/core/IconButton";
 // import InputLabel from "@material-ui/core/InputLabel";
@@ -83,10 +83,10 @@ const SignupForm = ({ updateUser }) => {
             {...register('password',
               {
                 required: 'Password is required',
-                minLength: {
-                  value: PASSWORD_MIN_LENGTH,
-                  message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`
-                }
+                // minLength: {
+                //   value: PASSWORD_MIN_LENGTH,
+                //   message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`
+                // }
               }
             )}
           />
