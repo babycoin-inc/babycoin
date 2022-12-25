@@ -78,6 +78,7 @@ const LoginForm = ({ updateUser }) => {
             {showPassword ? <AiFillEye/> : <AiFillEyeInvisible/>}
           </button>
         <small className='text-red-600 italic'>{errors.password?.message}</small>
+        <small className='text-red-600 italic'>{loginError ? 'Problem logging in with username and password' : null }</small>
       </div>
 
 
