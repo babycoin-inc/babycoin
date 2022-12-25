@@ -2,13 +2,15 @@ import React, {useEffect} from 'react';
 
 const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authenticatedUser}) => {
 
+  const prev_price = {};
+
   coins.map(coin => {
-    const prev_price = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
+    prev_price[coin.name] = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
+    useEffect(() => {
+      window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
+    }, [coin.latest_price]);
   });
 
-  // useEffect(() => {
-  //   window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
-  // }, [coin.latest_price]);
 
   return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -46,8 +48,8 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                           <span>{coin.acronym.toUpperCase()}</span>
                         </div>
                   </td>
-                  { prev_price <= coin.latest_price ?
-                    <td className="text-sm text-red-600 font-light px-0 py-3">${coin.latest_price}</td> :
+                  { prev_price[coin.name] > coin.latest_price ? <td className="text-sm text-red-600 font-light px-0 py-3">${coin.latest_price}</td> :
+                    prev_price[coin.name] === coin.latest_price ? <td className="text-sm text-white font-light px-0 py-3">${coin.latest_price}</td> :
                     <td className="text-sm text-green-600 font-light px-0 py-3">${coin.latest_price}</td>
                   }
                   {
