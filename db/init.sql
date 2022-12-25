@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS coins (
   image VARCHAR(255),
   description TEXT,
   latest_price DECIMAL NOT NULL,
-  price_change_percentage NUMERIC NOT NULL
+  price_change_percentage NUMERIC NOT NULL,
+  market_cap BIGINT
 );
 
 CREATE TABLE IF NOT EXISTS trader_watchlist (

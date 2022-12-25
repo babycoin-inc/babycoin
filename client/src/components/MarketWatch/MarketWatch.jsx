@@ -32,7 +32,7 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                 Mkt Cap
               </th>
               <th className="text-lg font-medium text-white px-0 py-3 w-1/6">
-                Mkt Cap
+                
               </th>
             </tr>
           </thead>
@@ -57,8 +57,8 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                     <td className="text-sm text-green-600 font-light px-0 py-3">{coin.price_change_percentage}%</td> :
                     <td className="text-sm text-red-600 font-light px-0 py-3">{coin.price_change_percentage}%</td>
                   }
-                  <td className="text-sm text-white font-light px-0 py-3">1123335666896</td>
-                  <td className="text-sm text-white font-light px-0 py-3">1123335666896</td>
+                  <td className="text-sm text-white font-light px-0 py-3">${coin.market_cap}</td>
+                  <td className="text-sm text-white font-light px-0 py-3"></td>
                 </tr> :
                 null
               ))}
@@ -69,5 +69,3 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
 }
 
 export default MarketWatch;
-
-// ★☆
