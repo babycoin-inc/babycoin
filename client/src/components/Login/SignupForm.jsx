@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
+import isStrongPassword from 'validator/lib/isStrongPassword';
 import axios from 'axios';
 const PASSWORD_MIN_LENGTH = 3;
 
@@ -15,6 +16,7 @@ const SignupForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors}, watch } = useForm();
   const [signupError, setSignupError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [strongPassword, setStrongPassword] = useState(true);
 
   const handleClickShowPassword = (e) => {
     e.preventDefault();
@@ -23,6 +25,8 @@ const SignupForm = ({ updateUser }) => {
 
   const onFormSubmit = (data) => {
     const { username, password } = data;
+    setStrongPassword(true);
+    if(!isStrongPassword(password)) return setStrongPassword(false);
     axios
       .post('/auth/signup', {
         username: username,
@@ -41,6 +45,18 @@ const SignupForm = ({ updateUser }) => {
         }
       });
   }
+
+  const strongPasswordRequirements = (
+
+    <ul className='text-red-600 italic list-disc list-inside'>
+      <li><small>Must be at least 8 characters long</small></li>
+      <li><small>Must contain at least one lowercase letter</small></li>
+      <li><small>Must contain at least one uppercase letter</small></li>
+      <li><small>Must contain at least one number</small></li>
+      <li><small>Must contain at least one special character</small></li>
+    </ul>
+
+  )
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit)} >
@@ -78,6 +94,7 @@ const SignupForm = ({ updateUser }) => {
             {showPassword ? <AiFillEye/> : <AiFillEyeInvisible/>}
           </button>
         <small className='text-red-600 italic'>{errors.password?.message}</small>
+        {strongPassword ? null : strongPasswordRequirements}
       </div>
 
       {/* COMPARE PASSWORD */}
