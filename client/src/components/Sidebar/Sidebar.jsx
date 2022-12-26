@@ -4,7 +4,7 @@ import Watchlist from './Watchlist.jsx';
 
 const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
 
-function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coins, removeFromWatchlist }) {
+function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser }) {
 
   let hasMadeTrades = false;
   if (tradeHistory.length >= 1) {
@@ -43,7 +43,7 @@ function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coin
         </nav>
         <div className="mt-28">
           <h2 className="text-center">Watchlist</h2>
-          <Watchlist userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={removeFromWatchlist} />
+          <Watchlist userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={removeFromWatchlist} authenticatedUser={authenticatedUser}/>
         </div>
       </div>
      </div>
