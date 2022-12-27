@@ -8,15 +8,20 @@ import MoveTicker from './TickerTape.jsx';
 function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
   const [profilePic, setProfilePic] = useState(true);
 
+  // const handleLogout = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .get('/logout')
+  //     .then(result => {
+  //       console.log('DATA FROM LOGOUT', result.data)
+  //       setAuthorizedUser(result.data)
+  //     })
+  //     .catch(err => console.log(err));
+  // }
+
   const handleLogout = (e) => {
     e.preventDefault();
-    axios
-      .get('/logout')
-      .then(result => {
-        console.log('DATA FROM LOGOUT', result.data)
-        setAuthorizedUser(result.data)
-      })
-      .catch(err => console.log(err));
+    setAuthorizedUser('');
   }
 
   return (

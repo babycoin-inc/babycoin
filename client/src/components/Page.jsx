@@ -30,10 +30,6 @@ const Page = () => {
   //   window.sessionStorage.setItem('userID', JSON.stringify(authorizedUser));
   // }, [authorizedUser]);
 
-  useEffect(() => {
-
-  })
-
 
   if(!authorizedUser) {
     return <Login updateUser={setAuthorizedUser} />

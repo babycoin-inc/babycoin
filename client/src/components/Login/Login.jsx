@@ -36,6 +36,7 @@ const Login = ({ updateUser }) => {
         password: password
       })
       .then(({ data }) => {
+        console.log(data);
         updateUser(data.id);
         return alert(data);
       })

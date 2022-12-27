@@ -4,6 +4,7 @@ const { isUsernameUnavailable, registerUser } = Auth;
 const { hashPassword } = require('../../utils/passwords.js');
 const { createNewTokens, createAccessToken, hashToken, compareTokenAndHash, getRefreshTokenFromHeaders } = require('../../utils/tokens.js');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 
 const AuthControllers = {
@@ -22,20 +23,20 @@ const AuthControllers = {
   },
 
   altLogin: async (req, res) => {
-    console.log('Hit ALT LOGIN');
     const { username, password } = req.body;
     const user = await Auth.getUser(username);
     if (user === null) {
       return 'Cannot find username';
     }
     try {
-      console.log('USER', user);
       if(await bcrypt.compare(password, user.password)) {
-        res.send(user);
+        const accessToken = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: 300});
+        console.log('JWT', {auth: true, id: user.id, accessToken: accessToken});
+        res.json({auth: true, id: user.id, accessToken: accessToken});
       } else {
         res.send('Passwords Do Not Match');
       }
-    } catch {
+    } catch (err) {
       console.log(err);
       res.status(500).json({ msg: "Error in signupController" })
     }

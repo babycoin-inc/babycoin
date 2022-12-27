@@ -17,6 +17,7 @@ const cron = require('node-cron');
 //const expressSession = require('express-session');
 // const session = require('./sessionConfig');
 // const cors = require('cors');
+const jwt = require('jsonwebtoken');
 
 /**Controllers */
 const { auth, nf, home, trade, leaderboard, market, achievements, dropdown, watchlist} = require('./controllers/controllers.js');
