@@ -9,9 +9,9 @@ import Market from './MarketWatch/Market.jsx';
 import axios from 'axios';
 import ResetModal from './Modal/ResetModal.jsx';
 
-function App() {
+function App({ authenticatedUser, setAuthorizedUser }) {
 
-  const [authenticatedUser, setAuthenticatedUser] = useState(1);
+  //const [authenticatedUser, setAuthenticatedUser] = useState(1);
   const [activePage, setActivePage] = useState('Home');
 
   //Home Component States
@@ -82,6 +82,7 @@ function App() {
 
   useEffect(() => {
     const status = {};
+    console.log(userAchievements, userAchievements.length)
     if (userAchievements.length) {
       userAchievements.forEach((achievement) => {
       status[achievement.achievement_id] = true;
@@ -243,7 +244,7 @@ function App() {
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={e => removeFromWatchlist(e)} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
-          <Header activePage={activePage} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={e => handleMultiChange(e)} userWatchlist={userWatchlist} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
+          <Header activePage={activePage} setAuthorizedUser={setAuthorizedUser} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={e => handleMultiChange(e)} userWatchlist={userWatchlist} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
