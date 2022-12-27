@@ -13,13 +13,13 @@ exports.getAchievements = async () => {
 exports.getUserAchievements = async (id) => {
   try {
     const { rows } = await db.query(`
-      SELECT ta.*, a.* FROM trader_achievements ta 
-      JOIN achievements a ON ta.achievement_id = a.id 
+      SELECT ta.*, a.* FROM trader_achievements ta
+      JOIN achievements a ON ta.achievement_id = a.id
       WHERE ta.trader_id = $1
       ORDER by created_at DESC`, [id]);
     return rows;
   } catch(err) {
-    return err;
+    console.log(err);
   }
 };
 
@@ -41,7 +41,7 @@ exports.addUserAchievement = async (id, achievement) => {
     //     console.log(check);
     //   if (check.rows[0]) {
     //     const granted = await db.query (`
-    //       INSERT INTO trader_achievements(trader_id, achievement_id) 
+    //       INSERT INTO trader_achievements(trader_id, achievement_id)
     //       VALUES ($1, $2)`, [id, achievement.id]);
     //       console.log('granted');
     //     return granted.rows;
