@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import axios from 'axios';
-const PASSWORD_MIN_LENGTH = 3;
 
 const LoginForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors} } = useForm();
@@ -47,6 +46,7 @@ const LoginForm = ({ updateUser }) => {
     //     <label for="password" className="absolute text-md text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
     //   </div>
     <form onSubmit={handleSubmit(onFormSubmit)} >
+      {/* USERNAME */}
       <div className='flex flex-col mb-4'>
         <label>Username</label>
         <input
@@ -66,11 +66,7 @@ const LoginForm = ({ updateUser }) => {
             type={showPassword ? "text" : "password"}
             {...register('password',
               {
-                required: 'Password is required',
-                minLength: {
-                  value: PASSWORD_MIN_LENGTH,
-                  message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`
-                }
+                required: 'Password is required'
               }
             )}
           />
@@ -81,32 +77,7 @@ const LoginForm = ({ updateUser }) => {
         <small className='text-red-600 italic'>{loginError ? 'Problem logging in with username and password' : null }</small>
       </div>
 
-
-
-
-
-
-
-
-      {/* <div className='flex flex-col'>
-        <label>Password</label>
-        <input
-          name='password'
-          className='border relative bg-orange-100 p-2'
-          type='password'
-          {...register('password',
-            {
-              required: 'Password is required',
-              minLength: {
-                value: PASSWORD_MIN_LENGTH,
-                message: `Password must be at least ${PASSWORD_MIN_LENGTH} characters long`
-              }
-            }
-          )}
-        />
-        <small className='text-red-600 italic'>{errors.password?.message}</small>
-        <small className='text-red-600 italic'>{loginError ? 'Problem logging in with username and password' : null }</small>
-      </div> */}
+      {/* LOGIN BUTTON */}
       <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl'>Log In</button>
     </form>
   )

@@ -20,7 +20,7 @@ const Auth = ({ updateUser }) => {
 
   return (
     <div className={`relative w-full min-h-screen bg-[url('https://lh6.googleusercontent.com/9gTOCTNM_w3o_DF5FLEt5CIcJww09ikvfuI2zDuzQwf9nsi6Inov1D1Nnlz-uLbhX6Y=w1200-h630-p')] bg-cover`}>
-      <div className='flex justify-center items-center py-8'>
+      <div className='flex flex-col justify-center items-center py-8'>
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
       </div>
       <div className='max-w-[400px] w-full mx-auto p-8 bg-zinc-200 rounded-xl'>
@@ -30,11 +30,6 @@ const Auth = ({ updateUser }) => {
         </div>
         <GoogleButton />
         {isLoginForm ? <LoginForm updateUser={updateUser} /> : <SignupForm updateUser={updateUser}/>}
-        {/* <button
-          className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl italic'
-          onClick={handleWhichForm}>
-            {isLoginForm ? 'Not a Member? Sign Up Now!' : 'Already a Member? Login Now!'}
-        </button> */}
       </div>
     </div>
   )

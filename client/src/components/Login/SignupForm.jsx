@@ -5,13 +5,6 @@ import isStrongPassword from 'validator/lib/isStrongPassword';
 import axios from 'axios';
 const PASSWORD_MIN_LENGTH = 8;
 
-// import IconButton from "@material-ui/core/IconButton";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import Visibility from "@material-ui/icons/Visibility";
-// import InputAdornment from "@material-ui/core/InputAdornment";
-// import VisibilityOff from "@material-ui/icons/VisibilityOff";
-// import Input from "@material-ui/core/Input";
-
 const SignupForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors}, watch } = useForm();
   const [signupError, setSignupError] = useState(false);
@@ -49,7 +42,6 @@ const SignupForm = ({ updateUser }) => {
   const strongPasswordRequirements = (
 
     <ul className='text-red-600 italic list-disc list-inside'>
-      {/* <li><small>Must be at least 8 characters long</small></li> */}
       <li><small>Must contain at least one lowercase letter</small></li>
       <li><small>Must contain at least one uppercase letter</small></li>
       <li><small>Must contain at least one number</small></li>
@@ -106,8 +98,8 @@ const SignupForm = ({ updateUser }) => {
           type={showPassword ? "text" : "password"}
           {...register('cpassword', {
             required: 'Must re-enter password',
-            validate: (val) => {
-              if(watch('password') !== val) {
+            validate: (cpassword) => {
+              if(watch('password') !== cpassword) {
                 return "Your passwords do not match";
               }
             }
