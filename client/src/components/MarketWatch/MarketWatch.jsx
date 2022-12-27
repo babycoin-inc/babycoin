@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 
-const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars}) => {
+const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authenticatedUser }) => {
 
-  // const prev_price = {};
+  const prev_price = {};
 
-  // coins.map(coin => {
-  //   prev_price[coin.name] = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
-  //   useEffect(() => {
-  //     window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
-  //   }, [coin.latest_price]);
-  // });
+  coins.map(coin => {
+    prev_price[coin.name] = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
+    useEffect(() => {
+      window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
+    }, [coin.latest_price]);
+  });
 
 
   return (

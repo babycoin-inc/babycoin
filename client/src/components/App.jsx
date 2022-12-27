@@ -28,20 +28,6 @@ function App() {
   const [multiValue, setMultiValue] = useState([]);
   const sendObj = {addedList: multiValue};
   const [userWatchlist, setUserWatchlist] = useState(watched_coins);
-  const [prevPrice, setPrevPrice] = useState({prev_price: {}});
-
-
-  // coins.map(coin => {
-  //   setPrevPrice(prevState => ({
-  //     ...prevState,
-  //     [coin.name]: JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`)),
-  //   }));
-  //   useEffect(() => {
-  //     window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
-  //   }, [coin.latest_price]);
-  // })
-  // console.log(prevPrice);
-
 
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
@@ -160,30 +146,11 @@ function App() {
   }
 
   // get the info of all coins
-  const prev_price = {};
   function getCoins() {
     axios.get(`/coins/markets`)
     .then((coins) => {
       setCoins(coins.data);
-    })
-    .then(async () => {
-      await coins.map(coin => {
-        prev_price[coin.name] = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
-        useEffect(() => {
-          window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
-        }, [coin.latest_price]);
-      });
-      console.log(prev_price, '123')
-      return prev_price;
-    })
-    .then((prev_price) => {
-      setPrevPrice(prevState => ({
-        ...prevState,
-        ...{prev_price: prev_price}
-      }))
-    })
-    .then(() => {
-      console.log('hhhhhhh', prevPrice)
+      return coins.data;
     })
     .catch(err => console.log(err));
   }
@@ -261,7 +228,7 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home setShowResetModal={setShowResetModal} accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} prevPrice={prevPrice} />);
+    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} authenticatedUser={authenticatedUser} />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} />);
 
