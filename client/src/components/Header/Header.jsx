@@ -35,7 +35,7 @@ function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, h
             {!profilePic &&
             // ADD LOGOUT CLICKHANDLER HERE
             <div onClick={handleLogout}>
-              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300" />
+              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300 cursor-pointer" />
               <h6 className="text-center text-xs text-zinc-300 tracking-widest">Logout</h6>
             </div>}
           </div>
