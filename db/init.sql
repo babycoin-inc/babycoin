@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS trader (
   id SERIAL,
   username VARCHAR(50),
   password VARCHAR(100),
+  googleid VARCHAR(50),
   PRIMARY KEY (id)
 );
 
