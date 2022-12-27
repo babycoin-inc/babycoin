@@ -13,10 +13,11 @@ const AuthControllers = {
       if(usernameUnavailable) return res.status(409).json({ msg: 'Username Already Exists' });
       const hash = hashPassword(password);
       const id = await registerUser(username, hash);
-      const [accessToken, refreshToken] = createNewTokens(id, username);
-      const refreshTokenHash = hashToken(refreshToken);
-      await Auth.updateToken(refreshTokenHash, id);
-      const payload = { accessToken, refreshToken, id, username };
+      // const [accessToken, refreshToken] = createNewTokens(id, username);
+      // const refreshTokenHash = hashToken(refreshToken);
+      // await Auth.updateToken(refreshTokenHash, id);
+      // const payload = { accessToken, refreshToken, id, username };
+      const payload = { id, username };
       res.status(201).json(payload);
     } catch (err) {
       console.log(err);
@@ -28,15 +29,16 @@ const AuthControllers = {
     console.log('REQ.USER', req.user)
     console.log('REQ SESSION', req.session)
     const { id, username } = req.user;
-    const [accessToken, refreshToken] = createNewTokens(id, username); //Create tokens for new login 'session'
-    const refreshTokenHash = hashToken(refreshToken); //hash token for db storage
-    try {
-      await Auth.updateToken(refreshTokenHash, id); //update refresh token in db
-    } catch(err) {
-      console.log('ERROR UPDATING REFRESH TOKEN');
-      return res.status(500);
-    }
-    const payload = { accessToken, refreshToken, id, username };
+    // const [accessToken, refreshToken] = createNewTokens(id, username); //Create tokens for new login 'session'
+    // const refreshTokenHash = hashToken(refreshToken); //hash token for db storage
+    // try {
+    //   await Auth.updateToken(refreshTokenHash, id); //update refresh token in db
+    // } catch(err) {
+    //   console.log('ERROR UPDATING REFRESH TOKEN');
+    //   return res.status(500);
+    // }
+    // const payload = { accessToken, refreshToken, id, username };
+    const payload = { id, username };
     console.log('PAYLOAD', payload);
     res.status(200).send(payload); //send new tokens
   },
