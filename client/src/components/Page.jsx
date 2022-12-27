@@ -24,7 +24,7 @@ const Page = () => {
   if(!authorizedUser) {
     return <Auth updateUser={setAuthorizedUser} />
   } else {
-    return <App className = "bg-zinc-900 pb-8" setAuthorizedUser={setAuthorizedUser}/>
+    return <App className = "bg-zinc-900 pb-8" setAuthorizedUser={setAuthorizedUser} authenticatedUser={authorizedUser}/>
   }
 }
 
