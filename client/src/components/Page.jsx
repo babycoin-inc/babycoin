@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import App from './App.jsx';
-import Login from './Login/Login.jsx';
 import Auth from './Login/Auth.jsx';
 import axios from 'axios';
 
 const Page = () => {
   const [authorizedUser, setAuthorizedUser] = useState(JSON.parse(window.sessionStorage.getItem('userID')));
   const [sessionCookie, setSessionCookie] = useState(JSON.parse(window.sessionStorage.getItem('session')));
-  // return (
-  //   {authorizedUser ? <App /> : <Login updateUser={setAuthorizedUser}/>}
-  // )
-
-  // useEffect(() => {
-  //   setAuthorizedUser(JSON.parse(window.localStorage.getItem('userID')));
-  // }, []);
 
   useEffect(() => {
     axios
@@ -30,7 +22,6 @@ const Page = () => {
   }, [authorizedUser]);
 
   if(!authorizedUser) {
-    // return <Login updateUser={setAuthorizedUser} updateSession={setSessionCookie}/>
     return <Auth updateUser={setAuthorizedUser} />
   } else {
     return <App className = "bg-zinc-900 pb-8" setAuthorizedUser={setAuthorizedUser}/>
