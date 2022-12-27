@@ -3,7 +3,7 @@ import Profiles from './Profiles.jsx';
 import axios from 'axios';
 
 function Leaderboard() {
-	const [duration, setDuration] = useState('realized_gains');
+	const [duration, setDuration] = useState('current_realized_gains');
 	const [coin, setCoin] = useState('usd');
 	const [page, setPage] = useState(1);
 	const [isLeaderboardLoaded, setIsLeaderboardLoaded] = useState(0);
@@ -49,8 +49,8 @@ function Leaderboard() {
 	return (
 		<div className='Board'>
 			<div className='text-center'>
-				<button className='px-8 w-4' id='realized_gains' onClick={handleDurationChange}>Current</button>
-				<button className='px-8 w-4' id='highest_realized_gains' onClick={handleDurationChange}>All Time</button>
+				<button className='px-8 w-4' id='current_realized_gains' onClick={handleDurationChange}>Current</button>
+				<button className='px-8 w-4' id='alltime_realized_gains' onClick={handleDurationChange}>All Time</button>
 				<div>
 					<label>
 						CryptoCurrency:

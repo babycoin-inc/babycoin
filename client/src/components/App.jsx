@@ -23,6 +23,13 @@ function App() {
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
 
+  // watchlist:
+  const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
+  const [multiValue, setMultiValue] = useState([]);
+  const sendObj = {addedList: multiValue};
+  const [userWatchlist, setUserWatchlist] = useState(watched_coins);
+
+
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
   const [userAchievements, setUserAchievements] = useState([]);
@@ -70,6 +77,7 @@ function App() {
     getAchievements();
     getUserAchievements();
     getCoins();
+    watched_coins ? setUserWatchlist(watched_coins) : null;
   }, []);
 
   useEffect(() => {
@@ -94,6 +102,13 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    sendObj.addedList = multiValue;
+  }, [multiValue]);
+
+  useEffect(() => {
+    window.localStorage.setItem(`Watched_Coins for the user ${authenticatedUser}:`, JSON.stringify(userWatchlist));
+  }, [userWatchlist]);
 
   function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
@@ -131,7 +146,7 @@ function App() {
       .catch(err => console.log(err));
   }
 
-
+  // get the info of all coins
   function getCoins() {
     axios.get(`/coins/markets`)
     .then((coins) => {
@@ -140,12 +155,48 @@ function App() {
     .catch(err => console.log(err));
   }
 
-  function handleCoinClick (e) {
+  async function handleCoinClick (e) {
     e.preventDefault();
-    console.log(e.target.innerText); // the coin name
-    setSymbol(e.target.innerText);
+    try {
+      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? setSymbol(coin.acronym) : null));
+    } catch (err) {
+      console.log('ERR: forwarding to the trading page', err);
+    }
     setActivePage('Trade');
   }
+
+  // dropdown & watchlist
+  function handleMultiChange (selectedOption) {
+    setMultiValue(selectedOption);
+  }
+
+  function addToWatchlist () {
+    axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
+    .then(result => {
+      setUserWatchlist(result.data);
+    })
+    .catch(err => console.log(err));
+  }
+
+  function deleteCoin (coin) {
+    axios.delete(`/users/${authenticatedUser}/watchlist/${coin}`)
+    .then(result => {
+      setUserWatchlist(result.data);
+    })
+    .catch(err => console.log(err));
+  }
+
+  function removeFromWatchlist (e) {
+    e.preventDefault();
+    deleteCoin(e.target.parentNode.childNodes[1].innerText);
+  }
+
+  function toggleStars (e) {
+    const coin = e.target.parentNode.childNodes[1].childNodes[1].childNodes[0].innerText;
+    sendObj['addedList'] = [{value: coin, label: coin}];
+    e.target.innerText === '★' ? deleteCoin(coin) : addToWatchlist();
+  }
+
 
   // Home:Balance component reset button
   function handleResetClick (e) {
@@ -153,9 +204,14 @@ function App() {
     axios.delete(`/users/${authenticatedUser}/portfolio/`)
       .then((res) => {
         let updatedUserAchievements = res.data;
-        setTradeHistory([]);
-        setUserAchievements(updatedUserAchievements);
-        setShowResetModal(false);
+        axios.delete(`/users/${authenticatedUser}/watchlist`)
+        .then(() => {
+          setTradeHistory([]);
+          setUserAchievements(updatedUserAchievements);
+          setShowResetModal(false);
+          setUserWatchlist([]);
+        })
+        .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   };
@@ -172,9 +228,10 @@ function App() {
   if (activePage === 'Home') {
     activeComponent = (<Home setShowResetModal={setShowResetModal} accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} />);
+    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} portfolio={portfolio} symbol={symbol} />);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} />);
+
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
   } else if (activePage === 'Achievements') {
@@ -183,10 +240,10 @@ function App() {
 
   return (
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
-      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} />
+      <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={e => removeFromWatchlist(e)} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
-          <Header activePage={activePage} tradeHistory={tradeHistory} />
+          <Header activePage={activePage} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={e => handleMultiChange(e)} userWatchlist={userWatchlist} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}

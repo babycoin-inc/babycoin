@@ -1,19 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
 
-const Watchlist = () => {
+const Watchlist = ({ userWatchlist, coins, removeFromWatchlist }) => {
+
   return (
     <div className="overflow-x-auto relative">
       <table className="flex items-center text-center border border-white ml-3 mr-3">
         <tbody>
-          <tr>
-            <td className="px-2 py-3 whitespace-nowrap text-sm font-medium text-white">Bitcoin</td>
-            <td className="text-sm text-white font-light px-2 py-3 whitespace-nowrap">
-              $16,800
-            </td>
-            <td className="text-sm text-white font-light px-2 py-3 whitespace-nowrap">
-              star
-            </td>
-          </tr>
+          {coins.map((coinInfo, index) => (
+            userWatchlist.includes(coinInfo.name) ?
+              <tr key={index}>
+                <td className="text-yellow-600" onClick={removeFromWatchlist} >★</td>
+                <td>{coinInfo.name}</td>
+                <td>{coinInfo.latest_price}</td>
+              </tr>
+            : null
+          ))}
         </tbody>
       </table>
     </div>

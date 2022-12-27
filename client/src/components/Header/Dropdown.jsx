@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
+import axios from 'axios';
 
-const Dropdown = ({ tradeHistory }) => {
+const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
+
+  const options = [
+    {value: "Bitcoin", label: "Bitcoin"},
+    {value: "Ethereum", label: "Ethereum"},
+    {value: "Tether", label: "Tether"},
+    {value: "BNB", label: "BNB"},
+    {value: "Cardano", label: "Cardano"},
+    {value: "XRP", label: "XRP"},
+    {value: "Solana", label: "Solana"},
+    {value: "Dogecoin", label: "Dogecoin"},
+    {value: "Polygon", label: "Polygon"},
+    {value: "Polkadot", label: "Polkadot"}
+  ];
 
   let hasMadeTrades = false;
   if (tradeHistory.length >= 1) {
@@ -15,25 +30,25 @@ const Dropdown = ({ tradeHistory }) => {
   )
 
   return (
-    <div className='flex justify-center'>
-      <div className='flex'>
-        <select className="text-white bg-zinc-700">
-          <option value="bitcoin">Bitcoin</option>
-          <option value="ethereum">Ethereum</option>
-          <option value="tether">Tether</option>
-          <option value="bnb">Binance Coin</option>
-          <option value="cardano">Cardano</option>
-          <option value="xrp">Xrp</option>
-          <option value="solana">Solana</option>
-          <option value="dogecoin">Dogecoin</option>
-          <option value="polygon">Polygon</option>
-          <option value="polkadot">Polkadot</option>
-        </select>
+    <div className="flex flex-row">
+      <div className="w-9/10">
+        <Select className="z-10 text-black w-80"
+          placeholder="Tradeable Coins"
+          onChange={handleMultiChange}
+          options={options}
+          isMulti
+        />
       </div>
+      <div>
+        <button onClick={addToWatchlist} className="bg-zinc-600 hover:bg-zinc-500 text-white font-bold py-2 px-4 rounded">
+          Add
+        </button>
+      </div>
+      <div>
       {!hasMadeTrades && userInstructions}
+      </div>
     </div>
   );
-};
+}
 
 export default Dropdown;
-
