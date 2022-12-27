@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
-import babycoin from '../../../dist/assets/BabyCoin.png'
+import babycoin from '../../../dist/assets/BabyCoinHalfLogo.png'
 import bgImage from '../../../dist/assets/trading-bg.jpg'
 import LoginForm from './LoginForm.jsx';
 import SignupForm from './SignupForm.jsx';
@@ -23,7 +23,7 @@ const Auth = ({ updateUser }) => {
       <div className='flex flex-col justify-center items-center pt-8'>
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
       </div>
-      <div className='max-w-[400px] w-full mx-auto p-14 bg-zinc-200 rounded-xl -mt-12'>
+      <div className='max-w-[400px] w-full mx-auto p-20 bg-zinc-200 rounded-xl -mt-14'>
         <h2 className='text-6xl font-bold text-center py-4 italic text-zinc-900'>babycoin</h2>
         <div className='text-center'>
           <small>{isLoginForm ? 'Not' : 'Already'} a member? <a className='text-orange-700 cursor-pointer' onClick={handleWhichForm}>{isLoginForm ? 'Sign Up Now!' : 'Login Now!'}</a></small>

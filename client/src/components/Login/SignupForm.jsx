@@ -86,7 +86,7 @@ const SignupForm = ({ updateUser }) => {
           )}
           />
         <label for="password" className="absolute text-md text-gray-600 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Password</label>
-        <button className='text-xl absolute top-3 right-2' onClick={handleClickShowPassword}>
+        <button className='text-xl absolute top-3 right-2' type="button" onClick={handleClickShowPassword}>
           {showPassword ? <AiFillEye/> : <AiFillEyeInvisible/>}
         </button>
         <small className='text-red-600 italic'>{errors.password?.message}</small>
