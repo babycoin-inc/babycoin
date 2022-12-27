@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import Order from './Order.jsx';
 import Order from './Order.jsx';
 import Newsfeed from '../Newsfeeds/newsfeed.jsx'
 import Graph from './Graph.jsx';
@@ -80,7 +81,7 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, a
         <div className="flex w-3/5 p-5">
           <Graph symbol={symbol}/>
         </div>
-        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement}/>
+        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openModal={openModal} closeModal={closeModal} populateModalValues={populateModalValues} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement}/>
       </div>
       <Newsfeed coin={symbol}/>
     </div>

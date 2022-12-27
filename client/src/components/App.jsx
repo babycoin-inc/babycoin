@@ -110,7 +110,7 @@ function App() {
     window.localStorage.setItem(`Watched_Coins for the user ${authenticatedUser}:`, JSON.stringify(userWatchlist));
   }, [userWatchlist]);
 
-  function getPortfolioData(userId) {
+  async function getPortfolioData(userId) {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
         setPortfolio(data.data);
