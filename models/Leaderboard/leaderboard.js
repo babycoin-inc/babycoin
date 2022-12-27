@@ -1,13 +1,14 @@
 const { query } = require('../../db/index.js');
 
 const getLeaderboard = async (duration, coin, page) => {
-	const Duration = duration || 'realized_gains';
+	const Duration = duration || 'current_realized_gains';
 	const Coin = coin || 'usd';
 	const Page = page-1 || 0;
 
 	const Query =
 		`
 		SELECT
+			trader.id,
 			trader.username,
 			coins.acronym as coin,
 			${Duration} / 1.0 as ${Duration},
@@ -28,9 +29,9 @@ const getLeaderboard = async (duration, coin, page) => {
 			row[Duration] = Number(row[Duration]).toFixed(2);
 		})
 		return ret.rows;
-	} catch { (err) => {
+	} catch (err) {
 		console.log(err);
-	}}
+	}
 };
 
 

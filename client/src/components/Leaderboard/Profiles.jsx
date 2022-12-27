@@ -17,57 +17,58 @@ function Profiles(props) {
 		}
 		if (event.target.id === 'user') {
 			setSortGains(2);
-			setSortUser((sortUser + 1) % 3);
+			setSortUser((sortUser + 1) % 2);
 
 		}
 	}
 
 	let sorted = [];
 
-	if (sortUser === 0) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (a.username > b.username) {
-					return 1;
-				} else {
-					return -1;
-				}
-			})
-	} else if (sortUser === 1) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (a.username < b.username) {
-					return 1;
-				} else {
-					return -1;
-				}
-			})
-	} else if (sortUser === 2 || sortGains === 2) {
-		sorted = props.profiles;
+	if (Array.isArray(props.profiles)) {
+		if (sortUser === 0) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (a.username > b.username) {
+						return 1;
+					} else {
+						return -1;
+					}
+				})
+		} else if (sortUser === 1) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (a.username < b.username) {
+						return 1;
+					} else {
+						return -1;
+					}
+				})
+		} else if (sortUser === 2 || sortGains === 2) {
+			sorted = props.profiles;
+		}
+
+		if (sortGains === 0) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (Number(a.row_number) > Number(b.row_number)) {
+						return 1;
+					} else {
+						return -1;
+					}
+
+				})
+		} else if (sortGains === 1) {
+			sorted = props.profiles
+				.sort((a, b) => {
+					if (Number(a.row_number) < Number(b.row_number)) {
+						return 1;
+					} else {
+						return -1;
+					}
+
+				})
+		}
 	}
-
-	if (sortGains === 0) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (Number(a.row_number) > Number(b.row_number)) {
-					return 1;
-				} else {
-					return -1;
-				}
-
-			})
-	} else if (sortGains === 1) {
-		sorted = props.profiles
-			.sort((a, b) => {
-				if (Number(a.row_number) < Number(b.row_number)) {
-					return 1;
-				} else {
-					return -1;
-				}
-
-			})
-	}
-
 
 	let profiles = [];
 	if (Array.isArray(sorted)) {
@@ -92,7 +93,7 @@ function Profiles(props) {
 	}
 
 	let columnName = 'Realized Gains';
-	if (props.duration === 'highest_realized_gains') {
+	if (props.duration === 'alltime_realized_gains') {
 		columnName = 'Highest Realized Gains';
 	}
 
