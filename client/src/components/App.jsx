@@ -23,11 +23,12 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
 
-  // watchlist:
+  // watchlist & marketWatch:
   const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
   const [multiValue, setMultiValue] = useState([]);
   const sendObj = {addedList: multiValue};
   const [userWatchlist, setUserWatchlist] = useState(watched_coins);
+  const [sortConfig, setSortConfig] = useState(null);
 
   //Achievements Component States
   const [achievements, setAchievements] = useState([]);
@@ -166,7 +167,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
     setActivePage('Trade');
   }
 
-  // dropdown & watchlist
+  // dropdown & watchlist & marketWatch
   function handleMultiChange (selectedOption) {
     setMultiValue(selectedOption);
   }
@@ -229,7 +230,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   if (activePage === 'Home') {
     activeComponent = (<Home setShowResetModal={setShowResetModal} accountValue={accountValue} handleResetClick={handleResetClick} profits={profits} portfolio={portfolio} tradeHistory={tradeHistory} userAchievements={userAchievements} />);
   } else if (activePage === 'Market Watch') {
-    activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} authenticatedUser={authenticatedUser} />);
+    activeComponent = (<Market sortConfig={sortConfig} coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} authenticatedUser={authenticatedUser} />);
   } else if (activePage === 'Trade') {
     activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage}/>);
 
