@@ -20,7 +20,7 @@ const Auth = ({ updateUser }) => {
       </div>
       <div className='max-w-[400px] w-full mx-auto p-20 bg-zinc-800 rounded-xl -mt-14 text-zinc-200'>
         <h2 className='text-6xl font-bold text-center py-4 italic text-zinc-200'>babycoin</h2>
-        <div className='text-center'>
+        <div className='text-center hover:scale-105'>
           <small>{isLoginForm ? 'Not' : 'Already'} a member? <a className='text-orange-700 cursor-pointer' onClick={handleWhichForm}>{isLoginForm ? 'Sign Up Now!' : 'Login Now!'}</a></small>
         </div>
         <GoogleButton />
