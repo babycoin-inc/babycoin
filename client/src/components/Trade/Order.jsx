@@ -11,6 +11,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   const [orderUnits, setOrderUnits] = useState('usd');
   const [orderAmount, setOrderAmount] = useState("");
   const [coin, setCoin] = useState(() => {
+    symbol = symbol.toUpperCase();
     if (symbol !== undefined) {
       //map symbol to its respective acronym in coins
       const coinIndex = coins.findIndex((coin) => {
