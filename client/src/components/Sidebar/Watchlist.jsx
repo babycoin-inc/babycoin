@@ -1,6 +1,7 @@
 import React from 'react';
+import placeholder from './watchlist_placeholder.png';
 
-const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick }) => {
+const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch }) => {
 
   const prev_price = {};
 
@@ -9,11 +10,12 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
   });
 
   return (
+    userWatchlist.length > 0 ?
     <div className="overflow-x-auto relative">
       <table className="flex items-center text-center border border-white ml-3 mr-3">
         <tbody>
           {coins.map((coinInfo, index) => (
-            userWatchlist.includes(coinInfo.name) ?
+            userWatchlist.length > 0 && userWatchlist.includes(coinInfo.name) ?
               <tr key={index}>
                 <td className="text-yellow-600" onClick={removeFromWatchlist} >★</td>
                 <td className="text-sm text-white font-light px-1 py-1 flex items-center">
@@ -32,6 +34,11 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
         </tbody>
       </table>
     </div>
+    : <div>
+        <img className="mx-auto px-20" src={placeholder} />
+        <p className="text-center text-xs">You are not watching any coin yet.</p>
+        <p className="text-center text-green-600 text-xs no-underline hover:underline cursor-pointer" onClick={goToMarketwatch} >Add a new coin to get started!</p>
+      </div>
   );
 };
 
