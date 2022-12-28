@@ -123,7 +123,7 @@ const SignupForm = ({ updateUser }) => {
       </div>
 
       {/* SIGN UP BUTTON */}
-      <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl'>Sign Up</button>
+      <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl hover:scale-105'>Sign Up</button>
 
     </form>
   )
