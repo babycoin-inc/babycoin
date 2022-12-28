@@ -10,13 +10,16 @@ const pool = new Pool({
     port: process.env.PGPORT,
 });
 
+
+
 const sql = fs.readFileSync('db/init.sql', 'utf8');
 
 (async() => {
   try {
     await pool.connect();
     console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
-    pool.query(sql);
+    await pool.query(sql);
+    await pool.query(`COPY achievements FROM '${__dirname}/achievements.csv' DELIMITER ',' CSV HEADER`);
   } catch(err) {
     if (err.code === '3D000') {
       try {

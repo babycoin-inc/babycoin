@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS trader (
   id SERIAL,
   username VARCHAR(50),
   password VARCHAR(100),
+  googleid VARCHAR(50),
   PRIMARY KEY (id)
 );
 
@@ -50,7 +51,8 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS trader_achievements (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
-  achievement_id INTEGER REFERENCES achievements(id) UNIQUE,
+  achievement_id INTEGER REFERENCES achievements(id),
+  UNIQUE (trader_id, achievement_id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP(2)
 );
 
