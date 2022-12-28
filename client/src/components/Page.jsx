@@ -11,7 +11,7 @@ const Page = () => {
     axios
       .get('/getuser', { withCredentials: true })
       .then(result => {
-        if (result.data) setAuthorizedUser(result.data);
+        if (result.data) setAuthorizedUser(result.data.id);
         console.log('RESULT DATA FROM GETUSER CALL', result.data);
       })
       .catch(err => console.log(err));
