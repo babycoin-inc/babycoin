@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       minWidth: {
         '1000': '1000px'
+      },
+      backgroundImage: {
+        'dark-crypto': "url('../assets/DarkCrytoBG2.png')"
       }
     },
   },
