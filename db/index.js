@@ -19,8 +19,11 @@ const sql = fs.readFileSync('db/init.sql', 'utf8');
     await pool.connect();
     console.log(`Connected to database ${process.env.PGDATABASE} on port ${process.env.PGPORT}`);
     await pool.query(sql);
+    console.log('run pool.query(sql)');
     await pool.query(`COPY achievements FROM '${__dirname}/achievements.csv' DELIMITER ',' CSV HEADER`);
+    console.log('copy the acheivement');
   } catch(err) {
+    console.log('in the catch blog', err);
     if (err.code === '3D000') {
       try {
         console.log(`Database 'babycoin' doesn't exist. Creating database 'babycoin'.`)

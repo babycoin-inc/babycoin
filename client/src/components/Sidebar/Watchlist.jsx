@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUser }) => {
+const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick }) => {
 
   const prev_price = {};
 
@@ -18,7 +18,9 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
                 <td className="text-yellow-600" onClick={removeFromWatchlist} >★</td>
                 <td className="text-sm text-white font-light px-1 py-1 flex items-center">
                   <span className="inline-flex"><img className="w-5 object-center mr-2" src={coinInfo.image}/></span>
-                  {coinInfo.name}
+                  <span href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
+                    {coinInfo.name}
+                  </span>
                 </td>
                 { prev_price[coinInfo.name] > coinInfo.latest_price ? <td className="text-sm text-red-600 font-light px-0 py-1">${coinInfo.latest_price}</td> :
                   prev_price[coinInfo.name] === coinInfo.latest_price ? <td className="text-sm text-white font-light px-0 py-1">${coinInfo.latest_price}</td> :
