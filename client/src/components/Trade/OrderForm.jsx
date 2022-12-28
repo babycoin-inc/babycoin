@@ -30,7 +30,7 @@ function OrderForm({orderUnits, setOrderUnits, coin, orderType, getCash, calcula
         <ConvertUnits orderUnits={orderUnits} setOrderUnits={setOrderUnits} coin={coin} total_trade_coin={total_trade_coin} total_trade_fiat={total_trade_fiat} setOrderAmount={setOrderAmount} />
         <div>
           <OrderInput orderUnits={orderUnits} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} />
-          <OrderMessage orderUnits={orderUnits} coin={coin} orderType={orderType} getCash={getCash} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin} roundNumUpToDigit={roundNumUpToDigit} />
+          <OrderMessage orderUnits={orderUnits} coin={coin} orderType={orderType} getCash={getCash} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin} roundNumUpToDigit={roundNumUpToDigit} orderAmount={orderAmount}/>
         </div>
       </div>
       {sellAll}
