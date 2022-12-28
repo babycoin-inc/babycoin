@@ -22,18 +22,16 @@ function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, h
   return (
     <>
       <div className="h-4/6 flex justify-between items-center px-5 border-b-2 border-neutral-800 bg-zinc-900">
-        <div className="w-1/5 text-2xl">
+        <div className="w-fit text-2xl">
           <h1>{activePage}</h1>
         </div>
-        <div className="w-1/3">
+        <div className="w-fit">
           <Dropdown className="h-max-10" tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={handleMultiChange} />
         </div>
-        <div className="flex justify-between w-1/5">
-          <div></div>
-          <div className="flex-col w-2/6 py-4" onMouseEnter={() => setProfilePic(false)} onMouseLeave={() => setProfilePic(true)}>
+        <div className="flex justify-between w-fit">
+          <div className="flex-col w-fit py-4" onMouseEnter={() => setProfilePic(false)} onMouseLeave={() => setProfilePic(true)}>
             {profilePic && <UserIcon className="h-14 mx-auto bg-zinc-800 p-2 rounded-full text-zinc-300" />}
             {!profilePic &&
-            // ADD LOGOUT CLICKHANDLER HERE
             <div onClick={handleLogout}>
               <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300 cursor-pointer" />
               <h6 className="text-center text-xs text-zinc-300 tracking-widest">Logout</h6>
