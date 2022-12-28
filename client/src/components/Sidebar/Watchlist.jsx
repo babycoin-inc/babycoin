@@ -36,8 +36,8 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
     </div>
     : <div>
         <img className="mx-auto px-20" src={placeholder} />
-        <p className="text-center text-xs">You are not watching any coin yet.</p>
-        <p className="text-center text-green-600 text-xs no-underline hover:underline cursor-pointer" onClick={goToMarketwatch} >Add a new coin to get started!</p>
+        <p className="text-center text-xs py-1 px-6">You are not watching any coins yet.</p>
+        <p className="text-center text-green-600 text-xs no-underline hover:underline cursor-pointer px-6" onClick={goToMarketwatch} >Add new coins to get started!</p>
       </div>
   );
 };
