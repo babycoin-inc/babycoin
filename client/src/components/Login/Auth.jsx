@@ -20,11 +20,11 @@ const Auth = ({ updateUser }) => {
 
   return (
     <div className={`relative w-full min-h-screen bg-[url('https://lh6.googleusercontent.com/9gTOCTNM_w3o_DF5FLEt5CIcJww09ikvfuI2zDuzQwf9nsi6Inov1D1Nnlz-uLbhX6Y=w1200-h630-p')] bg-cover`}>
-      <div className='flex flex-col justify-center items-center pt-8'>
+      <div className='flex flex-col justify-center items-center pt-28'>
         <img className= 'w-48 h-48' src={babycoin} alt='babycoin'/>
       </div>
-      <div className='max-w-[400px] w-full mx-auto p-20 bg-zinc-200 rounded-xl -mt-14'>
-        <h2 className='text-6xl font-bold text-center py-4 italic text-zinc-900'>babycoin</h2>
+      <div className='max-w-[400px] w-full mx-auto p-20 bg-zinc-800 rounded-xl -mt-14 text-zinc-200'>
+        <h2 className='text-6xl font-bold text-center py-4 italic text-zinc-200'>babycoin</h2>
         <div className='text-center'>
           <small>{isLoginForm ? 'Not' : 'Already'} a member? <a className='text-orange-700 cursor-pointer' onClick={handleWhichForm}>{isLoginForm ? 'Sign Up Now!' : 'Login Now!'}</a></small>
         </div>
