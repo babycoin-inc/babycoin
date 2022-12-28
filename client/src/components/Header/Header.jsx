@@ -2,10 +2,22 @@ import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embed";
 import Dropdown from './Dropdown.jsx';
+import axios from 'axios';
 import MoveTicker from './TickerTape.jsx';
 
-function Header({ activePage, tradeHistory, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
+function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
   const [profilePic, setProfilePic] = useState(true);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    axios
+      .get('/logout')
+      .then(result => {
+        console.log('DATA FROM LOGOUT', result.data)
+        setAuthorizedUser(result.data)
+      })
+      .catch(err => console.log(err));
+  }
 
   return (
     <>
@@ -22,8 +34,8 @@ function Header({ activePage, tradeHistory, addToWatchlist, handleMultiChange, c
             {profilePic && <UserIcon className="h-14 mx-auto bg-zinc-800 p-2 rounded-full text-zinc-300" />}
             {!profilePic &&
             // ADD LOGOUT CLICKHANDLER HERE
-            <div onClick={() => alert("Log me out")}>
-              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300" />
+            <div onClick={handleLogout}>
+              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300 cursor-pointer" />
               <h6 className="text-center text-xs text-zinc-300 tracking-widest">Logout</h6>
             </div>}
           </div>
