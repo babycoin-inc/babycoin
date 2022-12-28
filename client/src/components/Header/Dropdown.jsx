@@ -44,7 +44,7 @@ const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
           Add
         </button>
       </div>
-      <div>
+      <div className="flex items-center">
       {!hasMadeTrades && userInstructions}
       </div>
     </div>
