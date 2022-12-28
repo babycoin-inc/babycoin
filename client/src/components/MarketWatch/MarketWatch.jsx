@@ -58,7 +58,7 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                     <td className="text-sm text-red-600 font-light px-0 py-3">{coin.price_change_percentage}%</td>
                   }
                   <td className="text-sm text-white font-light px-0 py-3">${coin.market_cap}</td>
-                  <td className="text-sm text-white font-light px-0 py-3"></td>
+                  <td className="text-sm text-white font-light px-0 py-3">placeholder</td>
                 </tr> :
                 null
               ))}
