@@ -5,7 +5,7 @@ function OrderInput({orderUnits, orderAmount, setOrderAmount, isOrderValid}) {
   let orderInput;
 
   let validationErrorStyle;
-  if (!isOrderValid) {
+  if (!isOrderValid && orderAmount.length !== 0) {
     validationErrorStyle = "border-2 border-rose-600 outline-0";
   }
 

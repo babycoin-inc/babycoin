@@ -6,7 +6,7 @@ import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
 import axios from 'axios';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModal, closeModal, populateModalValues, symbol, achievementsStatus, grantUserAchievement}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, achievementsStatus, grantUserAchievement}) {
   const [orderType, setOrderType] = useState("buy");
   const [orderUnits, setOrderUnits] = useState('usd');
   const [orderAmount, setOrderAmount] = useState("");
@@ -39,7 +39,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
     return portfolio[cashIndex];
   };
 
-  const calculateSetTotals = (() => {
+  const calculateSetTotals = () => {
     const value = parseFloat(orderAmount);
     if (orderUnits === 'usd') {
       total_trade_fiat = value;
@@ -49,7 +49,11 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
       total_trade_fiat = value * coin.latest_price;
       total_trade_coin = value;
     }
-  })();
+  };
+
+  if (coin !== undefined) {
+    calculateSetTotals();
+  }
 
   const getNonCashAssets = () => {
     const nonCashAssets = [];
@@ -73,6 +77,11 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
 
   const cash = getCash().quantity;
   const maxCoinOrderAmount = cash / coin.latest_price;
+
+  //VALIDATION
+  if (orderAmount.length === 0) {
+    isOrderValid = false;
+  }
 
   //BUY VALIDATION
   if (orderType === 'buy' && orderUnits === 'usd'){
@@ -115,17 +124,16 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
         coinName: coin.name
       })
       await getPortfolioData(authenticatedUser);
+      openAndPopulateModal(
+        {
+          'coin': coin,
+          'total_trade_coin': total_trade_coin,
+          'total_trade_fiat': total_trade_fiat,
+          'purchase_price': Number(coin.latest_price),
+          'orderType': orderType
+        }
+      );
       setOrderAmount("");
-      // populateModalValues(
-      //   {
-      //     'coin': coin,
-      //     'total_trade_coin': roundNumUpToDigit(total_trade_coin, 8),
-      //     'total_trade_fiat': total_trade_fiat,
-      //     'purchase_price': Number(coin.latest_price),
-      //     'orderType': orderType
-      //   }
-      // );
-      // openModal();
       if (!achievementsStatus[2] && orderType === 'buy') {
         grantUserAchievement(2);
       }
@@ -142,7 +150,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openModa
   };
 
   return (
-    <div className="flex flex-col items-center space-y-8 w-1/3 bg-zinc-700 rounded-xl">
+    <div className="flex flex-col items-center space-y-8 bg-zinc-700 rounded-xl w-1/3 h-3/4">
       {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} setOrderAmount={setOrderAmount} setOrderUnits={setOrderUnits} />}
       <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin}/>
       <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} setOrderAmount={setOrderAmount} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} />

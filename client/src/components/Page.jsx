@@ -19,6 +19,7 @@ const Page = () => {
 
   useEffect(() => {
     window.sessionStorage.setItem('userID', JSON.stringify(authorizedUser));
+    console.log('AUTHORIZED USER: ', authorizedUser)
   }, [authorizedUser]);
 
   if(!authorizedUser) {
