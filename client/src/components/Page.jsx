@@ -19,12 +19,13 @@ const Page = () => {
 
   useEffect(() => {
     window.sessionStorage.setItem('userID', JSON.stringify(authorizedUser));
+    console.log('AUTHORIZED USER: ', authorizedUser)
   }, [authorizedUser]);
 
   if(!authorizedUser) {
     return <Auth updateUser={setAuthorizedUser} />
   } else {
-    return <App className = "bg-zinc-900 pb-8" setAuthorizedUser={setAuthorizedUser} authenticatedUser={authorizedUser}/>
+    return <App className = "bg-zinc-900 pb-8" setAuthorizedUser={setAuthorizedUser} authenticatedUser={authorizedUser.id}/>
   }
 }
 
