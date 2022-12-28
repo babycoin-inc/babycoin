@@ -7,6 +7,7 @@ const PASSWORD_MIN_LENGTH = 8;
 
 const SignupForm = ({ updateUser }) => {
   const { register, handleSubmit, formState: {errors}, watch } = useForm();
+  const [usernameError, setUsernameError] = useState(false)
   const [signupError, setSignupError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [strongPassword, setStrongPassword] = useState(true);
@@ -31,6 +32,11 @@ const SignupForm = ({ updateUser }) => {
       .catch(err => {
         console.log(err)
         if(err.response.status === 409) {
+          setUsernameError(true);
+          setTimeout(() => {
+            setUsernameError(false);
+          }, 5000)
+        } else {
           setSignupError(true);
           setTimeout(() => {
             setSignupError(false);
@@ -65,7 +71,8 @@ const SignupForm = ({ updateUser }) => {
         />
         <label for="username" className="absolute text-md text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Username</label>
         <small className='text-red-600 italic'>{errors.username?.message}</small>
-        <small className='text-red-600 italic'>{signupError ? 'Username is unavailable' : null}</small>
+        <small className='text-red-600 italic'>{usernameError ? 'Username is unavailable' : null}</small>
+        <small className='text-red-600 italic'>{signupError ? 'There was a problem signing up' : null}</small>
       </div>
 
       {/* PASSWORD */}
@@ -74,6 +81,7 @@ const SignupForm = ({ updateUser }) => {
           className='block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="password"
+          name="password"
           type={showPassword ? "text" : "password"}
           {...register('password',
           {
