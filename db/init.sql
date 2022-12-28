@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS trader (
   id SERIAL,
   username VARCHAR(50),
   password VARCHAR(100),
+  googleid VARCHAR(50),
   PRIMARY KEY (id)
 );
 
@@ -49,7 +50,8 @@ CREATE TABLE IF NOT EXISTS achievements (
 CREATE TABLE IF NOT EXISTS trader_achievements (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
-  achievement_id INTEGER REFERENCES achievements(id) UNIQUE,
+  achievement_id INTEGER REFERENCES achievements(id),
+  UNIQUE (trader_id, achievement_id),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP(2)
 );
 
@@ -81,8 +83,8 @@ CREATE TABLE IF NOT EXISTS leaderboard (
   id SERIAL PRIMARY KEY,
   trader_id INTEGER REFERENCES trader(id),
   coin_id INTEGER REFERENCES coins(id),
-  realized_gains DECIMAL,
-  highest_realized_gains DECIMAL,
+  current_realized_gains DECIMAL,
+  alltime_realized_gains DECIMAL,
   UNIQUE (trader_id, coin_id)
 );
 
@@ -103,20 +105,20 @@ CREATE TABLE IF NOT EXISTS newsfeed (
 -- CREATE RULE update_leaderboard_on_insert_transactions AS ON INSERT TO transactions DO ALSO
 --   (
 --   INSERT INTO leaderboard
---   (trader_id, coin_id, realized_gains, highest_realized_gains) VALUES (NEW.trader_id, 1, 0, 0)
+--   (trader_id, coin_id, current_realized_gains, alltime_realized_gains) VALUES (NEW.trader_id, 1, 0, 0)
 --   ON CONFLICT (trader_id, coin_id)
 --     DO NOTHING;
 
 --   INSERT INTO leaderboard
---   (trader_id, coin_id, realized_gains, highest_realized_gains) VALUES (NEW.trader_id, NEW.coin_id, 0, 0)
+--   (trader_id, coin_id, current_realized_gains, alltime_realized_gains) VALUES (NEW.trader_id, NEW.coin_id, 0, 0)
 --   ON CONFLICT (trader_id, coin_id)
 --     DO NOTHING;
 
 --   UPDATE leaderboard
---       SET realized_gains = (
+--       SET current_realized_gains = (
 --       CASE
 --         WHEN NEW.order_type = 'sell'
---           THEN realized_gains - (NEW.total_trade_coin * ((
+--           THEN current_realized_gains - (NEW.total_trade_coin * ((
 --             SELECT portfolio.avg_price
 --             FROM portfolio
 --             WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
@@ -124,10 +126,10 @@ CREATE TABLE IF NOT EXISTS newsfeed (
 --       WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
 
 --   UPDATE leaderboard
---       SET realized_gains = (
+--       SET current_realized_gains = (
 --       CASE
 --         WHEN NEW.order_type = 'sell'
---           THEN realized_gains - (NEW.total_trade_coin * ((
+--           THEN current_realized_gains - (NEW.total_trade_coin * ((
 --             SELECT portfolio.avg_price
 --             FROM portfolio
 --             WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
@@ -135,20 +137,20 @@ CREATE TABLE IF NOT EXISTS newsfeed (
 --       WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
 
 --   UPDATE leaderboard
---     SET highest_realized_gains = (
+--     SET alltime_realized_gains = (
 --       CASE
---         WHEN leaderboard.realized_gains > highest_realized_gains
---           THEN leaderboard.realized_gains
---         ELSE highest_realized_gains
+--         WHEN leaderboard.current_realized_gains > alltime_realized_gains
+--           THEN leaderboard.current_realized_gains
+--         ELSE alltime_realized_gains
 --       END)
 --     WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
 
 --   UPDATE leaderboard
---   SET highest_realized_gains = (
+--   SET alltime_realized_gains = (
 --     CASE
---       WHEN leaderboard.realized_gains > highest_realized_gains
---         THEN leaderboard.realized_gains
---       ELSE highest_realized_gains
+--       WHEN leaderboard.current_realized_gains > alltime_realized_gains
+--         THEN leaderboard.current_realized_gains
+--       ELSE alltime_realized_gains
 --     END)
 --   WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
 --   );

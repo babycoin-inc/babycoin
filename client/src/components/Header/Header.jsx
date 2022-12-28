@@ -2,28 +2,38 @@ import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embed";
 import Dropdown from './Dropdown.jsx';
+import axios from 'axios';
 import MoveTicker from './TickerTape.jsx';
 
-function Header({ activePage, tradeHistory, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
+function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
   const [profilePic, setProfilePic] = useState(true);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    axios
+      .get('/logout')
+      .then(result => {
+        console.log('DATA FROM LOGOUT', result.data)
+        setAuthorizedUser(result.data)
+      })
+      .catch(err => console.log(err));
+  }
 
   return (
     <>
       <div className="h-4/6 flex justify-between items-center px-5 border-b-2 border-neutral-800 bg-zinc-900">
-        <div className="w-1/5 text-2xl">
+        <div className="w-fit text-2xl">
           <h1>{activePage}</h1>
         </div>
-        <div className="w-1/3">
+        <div className="w-fit">
           <Dropdown className="h-max-10" tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={handleMultiChange} />
         </div>
-        <div className="flex justify-between w-1/5">
-          <div></div>
-          <div className="flex-col w-2/6 py-4" onMouseEnter={() => setProfilePic(false)} onMouseLeave={() => setProfilePic(true)}>
+        <div className="flex justify-between w-fit">
+          <div className="flex-col w-fit py-4" onMouseEnter={() => setProfilePic(false)} onMouseLeave={() => setProfilePic(true)}>
             {profilePic && <UserIcon className="h-14 mx-auto bg-zinc-800 p-2 rounded-full text-zinc-300" />}
             {!profilePic &&
-            // ADD LOGOUT CLICKHANDLER HERE
-            <div onClick={() => alert("Log me out")}>
-              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300" />
+            <div onClick={handleLogout}>
+              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300 cursor-pointer px-2" />
               <h6 className="text-center text-xs text-zinc-300 tracking-widest">Logout</h6>
             </div>}
           </div>
