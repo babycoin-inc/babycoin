@@ -56,14 +56,14 @@ const SignupForm = ({ updateUser }) => {
       {/* USERNAME */}
       <div className='flex flex-col mb-4 mt-6 relative'>
         <input
-          className='block bg-orange-100 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+          className='block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="username"
           name='username'
           type='text'
           {...register('username', {required: 'Username is required'})}
         />
-        <label for="username" className="absolute text-md text-gray-600 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Username</label>
+        <label for="username" className="absolute text-md text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Username</label>
         <small className='text-red-600 italic'>{errors.username?.message}</small>
         <small className='text-red-600 italic'>{signupError ? 'Username is unavailable' : null}</small>
       </div>
@@ -71,7 +71,7 @@ const SignupForm = ({ updateUser }) => {
       {/* PASSWORD */}
       <div className='flex flex-col relative mt-8'>
         <input
-          className='block bg-orange-100 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+          className='block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="password"
           type={showPassword ? "text" : "password"}
@@ -85,8 +85,8 @@ const SignupForm = ({ updateUser }) => {
           }
           )}
           />
-        <label for="password" className="absolute text-md text-gray-600 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Password</label>
-        <button className='text-xl absolute top-3 right-2' type="button" onClick={handleClickShowPassword}>
+        <label for="password" className="absolute text-md text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Password</label>
+        <button className='text-xl text-zinc-800 absolute top-3 right-2' type="button" onClick={handleClickShowPassword}>
           {showPassword ? <AiFillEye/> : <AiFillEyeInvisible/>}
         </button>
         <small className='text-red-600 italic'>{errors.password?.message}</small>
@@ -96,7 +96,7 @@ const SignupForm = ({ updateUser }) => {
       {/* COMPARE PASSWORD */}
       <div className='flex flex-col relative mt-8'>
         <input
-          className='block bg-orange-100 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+          className='block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="cpassword"
           name='cpassword'
@@ -110,7 +110,7 @@ const SignupForm = ({ updateUser }) => {
             }
           })}
           />
-        <label for="cpassword" className="absolute text-md text-gray-600 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Confirm Password</label>
+        <label for="cpassword" className="absolute text-md text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0">Confirm Password</label>
         <small className='text-red-600 italic'>{errors.cpassword?.message}</small>
       </div>
 
