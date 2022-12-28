@@ -33,7 +33,7 @@ function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, h
             {profilePic && <UserIcon className="h-14 mx-auto bg-zinc-800 p-2 rounded-full text-zinc-300" />}
             {!profilePic &&
             <div onClick={handleLogout}>
-              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300 cursor-pointer" />
+              <ArrowRightOnRectangleIcon className="h-10 mx-auto text-zinc-300 cursor-pointer px-2" />
               <h6 className="text-center text-xs text-zinc-300 tracking-widest">Logout</h6>
             </div>}
           </div>
