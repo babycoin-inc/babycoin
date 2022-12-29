@@ -10,11 +10,26 @@ const pool = new Pool({
 });
 
 exports.allCoins = async (user_id) => {
-  const portfolio = await query(`SELECT json_build_object('coin', c.name, 'acronym', c.acronym, 'value', (p.quantity * c.latest_price), 'quantity', p.quantity, 'avg_entry', p.avg_price, 'curr_price', c.latest_price, 'profit_loss', ((p.quantity * c.latest_price) - p.dollar_cost), 'dollar_cost', p.dollar_cost, 'percent_change', ((((p.quantity * c.latest_price) - p.dollar_cost) / p.dollar_cost)*100), 'image', c.image) FROM coins c INNER JOIN portfolio p ON c.id = p.coin_id WHERE trader_id = $1;`, [user_id]);
-  let formatted = portfolio.rows.map((coin) => {
-    return coin.json_build_object;
-  });
-  return formatted;
+  try {
+    const portfolio = await query(`SELECT json_build_object('coin', c.name, 'acronym', c.acronym, 'value', (p.quantity * c.latest_price), 'quantity', p.quantity, 'avg_entry', p.avg_price, 'curr_price', c.latest_price, 'profit_loss', ((p.quantity * c.latest_price) - p.dollar_cost), 'dollar_cost', p.dollar_cost, 'percent_change', ((((p.quantity * c.latest_price) - p.dollar_cost) / p.dollar_cost)*100), 'image', c.image) FROM coins c INNER JOIN portfolio p ON c.id = p.coin_id WHERE trader_id = $1;`, [user_id]);
+    let formatted = portfolio.rows.map((coin) => {
+      return coin.json_build_object;
+    });
+    return formatted;
+  } catch (err) {
+    if (err.code === '22012') {
+      try {
+        const portfolio = await query(`SELECT json_build_object('coin', c.name, 'acronym', c.acronym, 'value', (p.quantity * c.latest_price), 'quantity', p.quantity, 'avg_entry', p.avg_price, 'curr_price', c.latest_price, 'profit_loss', ((p.quantity * c.latest_price) - p.dollar_cost), 'dollar_cost', p.dollar_cost, 'percent_change', CASE WHEN P.COIN_ID = 1 THEN 0 ELSE ((((P.QUANTITY * C.LATEST_PRICE) - P.DOLLAR_COST) / P.DOLLAR_COST) * 100) END, 'image', c.image) FROM coins c INNER JOIN portfolio p ON c.id = p.coin_id WHERE trader_id = $1;`, [user_id]);
+        let formatted = portfolio.rows.map((coin) => {
+          return coin.json_build_object;
+        });
+        return formatted;
+      } catch(err) {
+        console.error(err);
+      }
+    }
+    console.error(err);
+  }
 
   /* Data Return Shape
   [{

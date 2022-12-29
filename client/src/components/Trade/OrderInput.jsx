@@ -14,7 +14,7 @@ function OrderInput({orderUnits, orderAmount, setOrderAmount, isOrderValid}) {
 
   } else if (orderUnits === 'coin') {
     orderInput = <NumericFormat className={`h-14 text-xl text-center bg-zinc-400 rounded-xl hover:bg-zinc-500 ${validationErrorStyle}`} displayType="input" type="text" allowNegative={false} valueIsNumericString={true} value={orderAmount}
-    defaultValue="Order Amount" decimalScale={7} onValueChange={(values, sourceInfor) => { setOrderAmount(values.value) }}/>
+    defaultValue="Order Amount" decimalScale={9} onValueChange={(values, sourceInfor) => { setOrderAmount(values.value) }}/>
   }
 
   return (
