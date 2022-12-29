@@ -169,30 +169,13 @@ function App({ authenticatedUser, setAuthorizedUser }) {
 
   // dropdown & watchlist & marketWatch
   async function handleCoinSelect (selectedOption) {
-    console.log('selectedOption is an object:', selectedOption, 'Grab the coin name:', selectedOption['value']);
-    const setSymbolFunc = coin => {
-      (coin.name === selectedOption['value']) ? setSymbol(coin.acronym) : null;
-    }
-
-    const asyncFunc = async() => {
-      const unresolvedPromises = coins.map(setSymbolFunc);
-      const results = await Promise.all(unresolvedPromises);
-    }
-
-    try {
-      await setMultiValue([selectedOption]);
-      try {
-        asyncFunc();
-      } catch (err) {
-        console.log('ERR: forwarding to the trading page');
-      }
-    } catch (err) {
-      console.log('ERR: setCoinValue', err);
-    }
+    await setMultiValue([selectedOption]);
+    await coins.map(coin => (coin.name === selectedOption['value'] ? setSymbol(coin.acronym) : null));
     setActivePage('Trade');
   }
 
   function addToWatchlist () {
+    console.log('sendObj', sendObj);
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
       setUserWatchlist(result.data);
