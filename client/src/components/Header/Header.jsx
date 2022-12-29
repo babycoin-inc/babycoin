@@ -5,7 +5,7 @@ import Dropdown from './Dropdown.jsx';
 import axios from 'axios';
 import MoveTicker from './TickerTape.jsx';
 
-function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, handleMultiChange, coins, handleCoinClick }) {
+function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, handleCoinSelect, coins, handleCoinClick }) {
   const [profilePic, setProfilePic] = useState(true);
 
   const handleLogout = (e) => {
@@ -26,7 +26,7 @@ function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, h
           <h1>{activePage}</h1>
         </div>
         <div className="w-fit">
-          <Dropdown className="h-max-10" tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={handleMultiChange} />
+          <Dropdown className="h-max-10" tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleCoinSelect={handleCoinSelect} />
         </div>
         <div className="flex justify-between w-fit">
           <div className="flex-col w-fit py-4" onMouseEnter={() => setProfilePic(false)} onMouseLeave={() => setProfilePic(true)}>

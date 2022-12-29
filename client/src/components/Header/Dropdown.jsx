@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 
-const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
+const Dropdown = ({ tradeHistory, addToWatchlist, handleCoinSelect }) => {
 
   const options = [
     {value: "Bitcoin", label: "Bitcoin"},
@@ -34,10 +34,8 @@ const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
       <div className="w-9/10">
         <Select className="z-10 text-black w-80"
           placeholder="Tradeable Coins"
-          onChange={handleMultiChange}
+          onChange={handleCoinSelect}
           options={options}
-          isMulti
-          closeMenuOnSelect={false}
         />
       </div>
       <div className="pl-2">

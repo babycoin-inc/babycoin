@@ -168,8 +168,28 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   }
 
   // dropdown & watchlist & marketWatch
-  function handleMultiChange (selectedOption) {
-    setMultiValue(selectedOption);
+  async function handleCoinSelect (selectedOption) {
+    console.log('selectedOption is an object:', selectedOption, 'Grab the coin name:', selectedOption['value']);
+    const setSymbolFunc = coin => {
+      (coin.name === selectedOption['value']) ? setSymbol(coin.acronym) : null;
+    }
+
+    const asyncFunc = async() => {
+      const unresolvedPromises = coins.map(setSymbolFunc);
+      const results = await Promise.all(unresolvedPromises);
+    }
+
+    try {
+      await setMultiValue([selectedOption]);
+      try {
+        asyncFunc();
+      } catch (err) {
+        console.log('ERR: forwarding to the trading page');
+      }
+    } catch (err) {
+      console.log('ERR: setCoinValue', err);
+    }
+    setActivePage('Trade');
   }
 
   function addToWatchlist () {
@@ -249,7 +269,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
       <Sidebar handleNavClick={handleNavClick} activePage={activePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={e => removeFromWatchlist(e)} authenticatedUser={authenticatedUser} handleCoinClick={e => handleCoinClick(e)} goToMarketwatch={e => goToMarketwatch(e)} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
-          <Header activePage={activePage} setAuthorizedUser={setAuthorizedUser} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleMultiChange={e => handleMultiChange(e)} userWatchlist={userWatchlist} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
+          <Header activePage={activePage} setAuthorizedUser={setAuthorizedUser} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleCoinSelect={e => handleCoinSelect(e)} userWatchlist={userWatchlist} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
         </div>
         <div className="p-8 h-full bg-zinc-800">
           {activeComponent}
