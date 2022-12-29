@@ -5,7 +5,6 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
   const prev_price = {};
 
   coins.map(coin => {
-    console.log(Number(coin.image.split('/')[5]));
     prev_price[coin.name] = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
     useEffect(() => {
       window.localStorage.setItem(`previous price of ${coin.name} for the ${authenticatedUser}:`, JSON.stringify(coin.latest_price));
@@ -63,8 +62,8 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                 coin.acronym !== 'usd' ?
                 <tr key={index} className="border border-gray-800 bg-zinc-900 hover:bg-zinc-800">
                   {userWatchlist.includes(coin.name) ? <td className="text-lg text-yellow-600 font-light text-right mr-2" onClick={toggleStars}>★</td> : <td className="text-lg text-white font-light text-right mr-2" onClick={toggleStars}>☆</td>}
-                  <td className="text-sm text-white font-light py-1 flex">
-                        <span className="inline-flex "><img className="w-7 mr-1" src={coin.image}/></span>
+                  <td className="text-sm text-white font-light flex">
+                        <img className="w-7 ml-1 mr-1" src={coin.image}/>
                         <div href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
                           <span className="mr-1 font-semibold">{coin.name}</span>
                           <span>{coin.acronym.toUpperCase()}</span>
@@ -80,7 +79,7 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                     <td className="text-sm text-red-600 font-light py-1">{coin.price_change_percentage}%</td>
                   }
                   <td className="text-sm text-white font-light mr-1 py-1">${coin.market_cap}</td>
-                  <td className="py-1 flex"><img className="inline-flex w-3/5" src={'https://www.coingecko.com/coins/' + coin.image.split('/')[5] + '/sparkline'}/></td>
+                  <td className="py-1 flex"><img className="inline-flex w-7/12" src={'https://www.coingecko.com/coins/' + coin.image.split('/')[5] + '/sparkline'}/></td>
                 </tr> :
                 null
               ))}
@@ -91,3 +90,4 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
 }
 
 export default MarketWatch;
+// {prev_price[coin.name] - coin.latest_price}

@@ -11,8 +11,7 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
 
   return (
     userWatchlist.length > 0 ?
-    <div className="relative text-center">
-      {/* <table className="flex items-center text-center border border-white ml-3 mr-3 table-auto"> */}
+    <div className="relative text-center pt-3">
       <table className="w-11/12 text-center table-auto ml-3 border">
         <thead className="border-b bg-zinc-800">
             <tr>
@@ -48,7 +47,7 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
         </table>
     </div>
     : <div>
-        <img className="mx-auto px-20" src={placeholder} />
+        <img className="mx-auto px-20 pt-3" src={placeholder} />
         <p className="text-center text-xs py-1 px-6">You are not watching any coins yet.</p>
         <p className="text-center text-green-600 text-xs no-underline hover:underline cursor-pointer px-6" onClick={goToMarketwatch} >Add new coins to get started!</p>
       </div>
