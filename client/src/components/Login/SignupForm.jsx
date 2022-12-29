@@ -46,12 +46,12 @@ const SignupForm = ({ updateUser }) => {
   }
 
   const strongPasswordRequirements = (
-
-    <ul className='text-red-600 italic list-disc list-inside'>
-      <li><small>Must contain at least one lowercase letter</small></li>
-      <li><small>Must contain at least one uppercase letter</small></li>
-      <li><small>Must contain at least one number</small></li>
-      <li><small>Must contain at least one special character</small></li>
+    <ul className='text-red-600 italic list-disc list-inside bg-gradient-to-br  from-zinc-800 to-zinc-700  mt-2 pl-2 rounded-lg'>
+      <small><strong>Must contain:</strong></small>
+      <li><small><strong>at least one lowercase letter</strong></small></li>
+      <li><small><strong>at least one uppercase letter</strong></small></li>
+      <li><small><strong>at least one number</strong></small></li>
+      <li><small><strong>at least one special character</strong></small></li>
     </ul>
 
   )
@@ -62,7 +62,7 @@ const SignupForm = ({ updateUser }) => {
       {/* USERNAME */}
       <div className='flex flex-col mb-4 mt-6 relative'>
         <input
-          className='hover:scale-105 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+          className='hover:scale-101 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="username"
           name='username'
@@ -78,7 +78,7 @@ const SignupForm = ({ updateUser }) => {
       {/* PASSWORD */}
       <div className='flex flex-col relative mt-8'>
         <input
-          className='hover:scale-105 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+          className='hover:scale-101 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="password"
           name="password"
@@ -104,7 +104,7 @@ const SignupForm = ({ updateUser }) => {
       {/* COMPARE PASSWORD */}
       <div className='flex flex-col relative mt-8'>
         <input
-          className='hover:scale-105 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+          className='hover:scale-101 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="cpassword"
           name='cpassword'
