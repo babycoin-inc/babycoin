@@ -7,7 +7,8 @@ module.exports = {
         '1000': '1000px'
       },
       backgroundImage: {
-        'dark-crypto': "url('../assets/DarkCrytoBG2.png')"
+        'dark-crypto': "url('../assets/DarkCrytoBG2.png')",
+        'metallic': "url('../assets/metallic.jpg')"
       }
     },
   },
