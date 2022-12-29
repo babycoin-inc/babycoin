@@ -4,23 +4,12 @@ import OrderInput from './OrderInput.jsx';
 import OrderMessage from './OrderMessage.jsx';
 import SellAll from './SellAll.jsx';
 
-function OrderForm({orderUnits, setOrderUnits, coin, orderType, getCash, calculateSetTotals, total_trade_coin, total_trade_fiat, orderAmount, setOrderAmount, isOrderValid, quantityOfCoin}) {
+function OrderForm({orderUnits, setOrderUnits, coin, orderType, getCash, calculateSetTotals, total_trade_coin, total_trade_fiat, orderAmount, setOrderAmount, isOrderValid, quantityOfCoin, roundNumUpToDigit, setSellAll}) {
   let sellAll;
-
-  const roundNumUpToDigit = (num, digits) => {
-    const numAsString = num.toString();
-    const indexOfDec = numAsString.indexOf('.');
-    if (indexOfDec === -1) {
-      return num;
-    }
-    let right = numAsString.slice(indexOfDec + 1, indexOfDec + 1 + digits);
-    let left = numAsString.slice(-numAsString.length, indexOfDec + 1);
-    return Number(left + right);
-  }
 
   if (orderType === 'sell') {
     sellAll =   <div className="flex">
-    {orderType === 'sell' ? <SellAll quantityOfCoin={quantityOfCoin} setOrderAmount={setOrderAmount} coin={coin} orderUnits={orderUnits} roundNumUpToDigit={roundNumUpToDigit} /> : undefined}
+    {orderType === 'sell' ? <SellAll quantityOfCoin={quantityOfCoin} setOrderAmount={setOrderAmount} coin={coin} orderUnits={orderUnits} roundNumUpToDigit={roundNumUpToDigit} setSellAll={setSellAll}/> : undefined}
   </div>
   }
 
