@@ -5,7 +5,7 @@ import Dropdown from './Dropdown.jsx';
 import axios from 'axios';
 import MoveTicker from './TickerTape.jsx';
 
-function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, handleMultiChange, coins, handleCoinClick}) {
+function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, handleMultiChange, coins, handleCoinClick }) {
   const [profilePic, setProfilePic] = useState(true);
 
   const handleLogout = (e) => {

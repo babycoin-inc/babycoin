@@ -37,6 +37,7 @@ const Dropdown = ({ tradeHistory, addToWatchlist, handleMultiChange }) => {
           onChange={handleMultiChange}
           options={options}
           isMulti
+          closeMenuOnSelect={false}
         />
       </div>
       <div className="pl-2">
