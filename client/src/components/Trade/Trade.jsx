@@ -17,7 +17,7 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, a
   return (
     //first element needs to be flex in order to organize containers on trade page
     <div className="flex flex-col justify-between gap-8">
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-4">
         <Confirmation modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} transaction={transaction} setActivePage={setActivePage}/>
         <div className="flex w-3/5 p-5">
           <Graph symbol={symbol}/>

@@ -9,11 +9,19 @@ function ConvertUnits({orderUnits, setOrderUnits, coin, setOrderAmount, total_tr
     if (orderUnits === 'usd') {
       setOrderUnits('coin');
       //take existing order amount and convert it to coin quantity
-      setOrderAmount(total_trade_coin);
+      if (total_trade_coin === undefined) {
+        setOrderAmount("");
+      } else {
+        setOrderAmount(total_trade_coin);
+      }
     } else if (orderUnits === 'coin') {
       setOrderUnits('usd');
       //take existing order amount and convert it to coin quantity
-      setOrderAmount(total_trade_fiat);
+      if (total_trade_fiat === undefined) {
+        setOrderAmount("");
+      } else {
+        setOrderAmount(total_trade_fiat);
+      }
     }
   }
 
