@@ -16,7 +16,7 @@ const Auth = ({ updateUser }) => {
   return (
     <div className={`relative w-full min-h-screen`}>
       <div className='flex flex-col justify-center items-center pt-28'>
-        <img className= 'w-48 h-48' src={babycoinLogo} alt='babycoin'/>
+        <img className= 'w-48 h-48 hover:scale-101' src={babycoinLogo} alt='babycoin'/>
       </div>
       {/* <div className='max-w-[400px] w-full mx-auto p-20 bg-gradient-to-br from-zinc-600 via-zinc-700 to-zinc-800 rounded-xl -mt-14 text-zinc-200'> */}
       <div className='max-w-[400px] w-full mx-auto p-20 bg-bitcoin-pattern rounded-xl -mt-14 text-zinc-200 border-2 border-orange-900'>
