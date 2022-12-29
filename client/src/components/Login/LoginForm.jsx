@@ -40,7 +40,7 @@ const LoginForm = ({ updateUser }) => {
       {/* USERNAME */}
       <div className='flex flex-col mb-4 mt-6 relative'>
         <input
-          className='block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+          className='hover:scale-105 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
           placeholder=" "
           id="username"
           name='username'
@@ -54,7 +54,7 @@ const LoginForm = ({ updateUser }) => {
       {/* PASSWORD */}
       <div className='flex flex-col relative mt-8'>
           <input
-            className='block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
+            className='hover:scale-105 block bg-zinc-200 py-2.5 pl-2 pr-0 w-full text-sm text-gray-900 bg-transparent border-0 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-zinc-600 peer'
             placeholder=" "
             id="password"
             type={showPassword ? "text" : "password"}
