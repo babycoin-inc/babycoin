@@ -52,19 +52,12 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     return portfolio[cashIndex];
   };
 
-  const roundNumUpToDigit = (num, digits) => {
-    const numAsString = num.toString();
-    const indexOfDec = numAsString.indexOf('.');
-    if (indexOfDec === -1) {
-      return num;
+  const roundToDecimalPlace = (num, decimalPlaceToRound) => {
+    if (typeof num !== 'number') {
+      num = Number(string);
     }
-    //if there's already the number of digits to the right of decimal
-    if (numAsString.slice(indexOfDec + 1).length <= digits) {
-      return num;
-    }
-    let right = numAsString.slice(indexOfDec + 1, indexOfDec + 1 + digits);
-    let left = numAsString.slice(-numAsString.length, indexOfDec + 1);
-    return Number(left + right);
+    const roundTo = 10 ** decimalPlaceToRound;
+    return Math.round(num * roundTo) / roundTo;
   }
 
   const resetOrderForm = () => {
@@ -76,10 +69,10 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     const value = parseFloat(orderAmount);
     if (orderUnits === 'usd') {
       total_trade_fiat = value;
-      total_trade_coin = roundNumUpToDigit(value / coin.latest_price, 7);
+      total_trade_coin = roundToDecimalPlace(value / coin.latest_price, 7);
     } else if (orderUnits === 'coin') {
       total_trade_coin = value;
-      total_trade_fiat = roundNumUpToDigit(value * coin.latest_price, 2);
+      total_trade_fiat = roundToDecimalPlace(value * coin.latest_price, 2);
     }
   };
 
@@ -87,10 +80,10 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     const value = parseFloat(orderAmount);
     let amount;
     if (orderUnits === 'usd') {
-      amount = roundNumUpToDigit(getMarketValueInUSDOfCoin(), 2);
+      amount = roundToDecimalPlace(getMarketValueInUSDOfCoin(), 2);
     }
     if (orderUnits === 'coin') {
-      amount = roundNumUpToDigit(getPortfolioQuantityOfCoin(), 7);
+      amount = roundToDecimalPlace(getPortfolioQuantityOfCoin(), 7);
     }
     if (value === amount) {
       setSellAll(true);
@@ -126,13 +119,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     return nonCashCoins;
   }
 
-  const sellAllOfCoin = () => {
-    //set total_trade_coin to max amount of quantityOfCoin
-    //set total_trade_fiat to max amount of coin
-    total_trade_coin = getPortfolioQuantityOfCoin();
-    total_trade_fiat = getMarketValueInUSDOfCoin();
-  }
-
   const cash = getCash().quantity;
   const maxCoinOrderAmount = cash / coin.latest_price;
 
@@ -144,12 +130,12 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   //BUY VALIDATION
   if (orderType === 'buy' && orderUnits === 'usd'){
     // if usd orderAmount exceeds available cash
-    if (total_trade_fiat > cash) {
+    if (total_trade_fiat > roundToDecimalPlace(cash, 2)) {
       isOrderValid = false;
     }
   } else if (orderType === 'buy' && orderUnits === 'coin'){
     // if coin orderAmount exceeds available cash
-    if (total_trade_coin > maxCoinOrderAmount) {
+    if (total_trade_coin > roundToDecimalPlace(maxCoinOrderAmount, 7)) {
       isOrderValid = false;
     }
   }
@@ -158,14 +144,23 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   if (orderType === 'sell') {
     getPortfolioQuantityOfCoin();
     if (orderUnits === 'usd') {
-      if (total_trade_fiat > quantityOfCoin * coin.latest_price) {
+      if (total_trade_fiat > roundToDecimalPlace(quantityOfCoin * coin.latest_price, 2)) {
         isOrderValid = false
       }
     } else if (orderUnits === 'coin') {
-      if (total_trade_coin > quantityOfCoin) {
+      if (total_trade_coin > roundToDecimalPlace(quantityOfCoin, 2)) {
         isOrderValid = false;
       }
     }
+  }
+
+  let useRemainingCash = false;
+
+  console.log('total_trade_fiat === cash: ', total_trade_fiat === cash, ', ', total_trade_fiat, ', ', cash);
+  console.log('total_trade_coin === maxCoinOrderAmount: ', total_trade_coin === roundToDecimalPlace(maxCoinOrderAmount, 7), ', ', total_trade_coin, ', ', roundToDecimalPlace(maxCoinOrderAmount, 7))
+
+  if (total_trade_fiat === cash || total_trade_coin === (Math.round(maxCoinOrderAmount* 10000000) / 10000000)) {
+    useRemainingCash = true;
   }
 
   const submitOrder = async () => {
@@ -181,11 +176,11 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       coinName: coin.name
     }
     try {
-      if (sellAll) {
+      if (orderType === 'buy' && useRemainingCash) {
+        console.log('useRemainingCash: ', useRemainingCash);
+        const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/buyAll`, transaction);
+      } else if (sellAll) {
         //send to a new endpoint where we handle the divisible by 0 error and remove the asset from portfolio
-        sellAllOfCoin();
-        transaction.total_trade_coin = total_trade_coin;
-        transaction.total_trade_fiat = total_trade_fiat;
         const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/sellAll`, transaction);
       } else {
         const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, transaction);
@@ -211,7 +206,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   return (
     <div className="flex flex-col items-center space-y-8 bg-zinc-700 rounded-xl w-1/3 h-3/4">
       {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits} />}
-      <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin} roundNumUpToDigit={roundNumUpToDigit} setSellAll={setSellAll} sellAll={sellAll}/>
+      <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin} roundToDecimalPlace={roundToDecimalPlace} setSellAll={setSellAll} sellAll={sellAll}/>
       <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} resetOrderForm={resetOrderForm} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} />
       <Price coin={coin} />
       <div>
