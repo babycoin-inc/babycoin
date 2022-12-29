@@ -18,3 +18,9 @@ exports.insertSellTransaction = async (req, res) => {
   const result = await Trade.fulfillSellTransaction(req.body, trader_id);
   res.send(result);
 }
+
+exports.insertSellAllTransaction = async (req, res) => {
+  const {trader_id} = req.body;
+  const result = await Trade.fulfillSellAllTransaction(req.body, trader_id);
+  res.send(result);
+}

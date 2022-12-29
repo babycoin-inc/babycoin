@@ -41,6 +41,26 @@ exports.fulfillBuyTransaction = async (transaction, user_id) => {
   }
 }
 
+exports.fulfillSellAllTransaction = async (transaction, user_id) => {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    // ADD INITIAL PORTION OF TRANSACTION HERE
+    const sellOrder = await insertTransaction(transaction, 'sell');
+    // add total_trade_fiat from cash
+    query(`UPDATE portfolio SET quantity = (quantity + $1), dollar_cost = (dollar_cost + $1) WHERE coin_id = (SELECT id FROM coins WHERE acronym = 'usd') AND trader_id = $2;`, [transaction.total_trade_fiat, user_id]);
+    // subtract coin.id from portfolio || Dollar Cost || Avg Price
+    query(`DELETE FROM portfolio WHERE coin_id = $1 AND trader_id = $2;`, [transaction.coin_id, user_id]);
+    await client.query('COMMIT');
+    return 'Hit Fulfill Sell Transaction';
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error(err);
+  } finally {
+    client.release();
+  }
+}
+
 exports.fulfillSellTransaction = async (transaction, user_id) => {
   const client = await pool.connect();
   try {
