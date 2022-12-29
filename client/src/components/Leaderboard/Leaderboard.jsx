@@ -6,6 +6,8 @@ function Leaderboard() {
 	const [duration, setDuration] = useState('current_realized_gains');
 	const [coin, setCoin] = useState('usd');
 	const [page, setPage] = useState(1);
+	const [idCount, setIdCount] = useState(0);
+
 	const [isLeaderboardLoaded, setIsLeaderboardLoaded] = useState(0);
 	const [leaderboard, setLeaderboard] = useState([]);
 
@@ -14,7 +16,7 @@ function Leaderboard() {
 	}, []);
 
 	const handleDurationChange = (event) => {
-		if(duration !== event.target.id) {
+		if (duration !== event.target.id) {
 			setDuration(event.target.id);
 			getLeaderboard(event.target.id, coin, page);
 		}
@@ -24,6 +26,12 @@ function Leaderboard() {
 		setCoin(event.target.value);
 		getLeaderboard(duration, event.target.value, page);
 	}
+	const handlePageChange = async (event) => {
+		setPage(event.target.value);
+		getLeaderboard(duration, coin, event.target.value);
+
+	}
+
 
 	const getLeaderboard = async (duration, coin, page) => {
 		setIsLeaderboardLoaded(0);
@@ -36,7 +44,8 @@ function Leaderboard() {
 				}
 			})
 			console.log('axios request');
-			setLeaderboard(response.data);
+			setLeaderboard(response.data[1]);
+			setIdCount(response.data[0][0]['idcount']);
 			setIsLeaderboardLoaded(1);
 		} catch {
 			(err) => {
@@ -44,6 +53,12 @@ function Leaderboard() {
 				setIsLeaderboardLoaded(0);
 			}
 		}
+	}
+
+	const pageOptions = [];
+	for (var i = 1; i <= Math.ceil(idCount / 10); i++) {
+		pageOptions.push(<option value={i}>{i}</option>);
+		console.log(i);
 	}
 
 	return (
@@ -66,12 +81,20 @@ function Leaderboard() {
 							<option value='matic'>MATIC</option>
 							<option value='dot'>DOT</option>
 							<option value='sol'>SOL</option>
-						</select>
+						</select >
 					</label>
 				</div>
 			</div>
 			<h1 className='bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit'>Leaderboard</h1>
-			{isLeaderboardLoaded ? <Profiles duration={duration} profiles={leaderboard}/> : <></>}
+			{isLeaderboardLoaded ? <Profiles duration={duration} profiles={leaderboard} /> : <></>}
+			{pageOptions.length > 1 ?
+				<label>
+					Page:
+					<select value={page} onChange={handlePageChange}>
+						{pageOptions}
+					</select>
+				</label> : <></>
+			}
 		</div>
 	)
 }

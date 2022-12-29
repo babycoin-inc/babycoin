@@ -5,6 +5,25 @@ const getLeaderboard = async (duration, coin, page) => {
 	const Coin = coin || 'usd';
 	const Page = page-1 || 0;
 
+	let response = [];
+
+	const getCount =
+	`
+	SELECT
+		count(trader_id) as idCount
+	FROM
+		leaderboard
+	LEFT JOIN coins on leaderboard.coin_id = coins.id
+	WHERE
+		coins.acronym = '${Coin}'
+	`;
+try {
+	const ret = await query(getCount);
+	response.push(ret.rows);
+} catch (err) {
+	console.log(err);
+}
+
 	const Query =
 		`
 		SELECT
@@ -28,7 +47,8 @@ const getLeaderboard = async (duration, coin, page) => {
 		ret.rows.map((row) => {
 			row[Duration] = Number(row[Duration]).toFixed(2);
 		})
-		return ret.rows;
+		response.push(ret.rows);
+		return response;
 	} catch (err) {
 		console.log(err);
 	}
