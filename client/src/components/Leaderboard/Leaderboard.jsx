@@ -6,10 +6,12 @@ function Leaderboard() {
 	const [duration, setDuration] = useState('current_realized_gains');
 	const [coin, setCoin] = useState('usd');
 	const [page, setPage] = useState(1);
+	const [search, setSearch] = useState('');
+
 	const [idCount, setIdCount] = useState(0);
 
-	const [isLeaderboardLoaded, setIsLeaderboardLoaded] = useState(0);
 	const [leaderboard, setLeaderboard] = useState([]);
+	const [isLeaderboardLoaded, setIsLeaderboardLoaded] = useState(0);
 
 	useEffect(() => {
 		getLeaderboard();
@@ -18,18 +20,29 @@ function Leaderboard() {
 	const handleDurationChange = (event) => {
 		if (duration !== event.target.id) {
 			setDuration(event.target.id);
-			getLeaderboard(event.target.id, coin, page);
+			getLeaderboard(event.target.id, coin, page, search);
 		}
 
 	}
-	const handleCoinChange = async (event) => {
+	const handleCoinChange =  (event) => {
 		setCoin(event.target.value);
-		getLeaderboard(duration, event.target.value, page);
+		getLeaderboard(duration, event.target.value, page, search);
 	}
-	const handlePageChange = async (event) => {
+	const handlePageChange =  (event) => {
 		setPage(event.target.value);
-		getLeaderboard(duration, coin, event.target.value);
+		getLeaderboard(duration, coin, event.target.value, search);
 
+	}
+
+
+	const handleSearchChange = (event) => {
+		setSearch(event.target.value);
+		event.preventDefault();
+	}
+	const handleSearchSubmit =  (event) => {
+		console.log('adofghbadogui',search);
+		getLeaderboard(duration, coin, page, search);
+		event.preventDefault();
 	}
 
 
@@ -40,7 +53,8 @@ function Leaderboard() {
 				params: {
 					duration: duration,
 					coin: coin,
-					page: page
+					page: page,
+					search: search
 				}
 			})
 			console.log('axios request');
@@ -83,6 +97,13 @@ function Leaderboard() {
 							<option value='sol'>SOL</option>
 						</select >
 					</label>
+					<form value={search} onSubmit={handleSearchSubmit}>
+						<label>
+							Search:
+							<input type="text" value={search} onChange={handleSearchChange}/>
+						</label>
+						<input type="submit" value='&#128269;' />
+				</form>
 				</div>
 			</div>
 			<h1 className='bg-zinc-700 rounded-t-xl pt-2.5 px-5 w-fit'>Leaderboard</h1>
