@@ -54,7 +54,8 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
 
   const roundToDecimalPlace = (num, decimalPlaceToRound) => {
     if (typeof num !== 'number') {
-      num = Number(string);
+      return "";
+      // num = Number(string);
     }
     const roundTo = 10 ** decimalPlaceToRound;
     return Math.round(num * roundTo) / roundTo;
@@ -92,7 +93,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     }
   }
 
-  if (coin !== undefined) {
+  if (coin !== undefined && orderAmount !== "") {
     calculateSetTotals();
     if (orderType === 'sell') {
       isOrderAmountEqualToMaxSale();
@@ -123,7 +124,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   const maxCoinOrderAmount = cash / coin.latest_price;
 
   //VALIDATION
-  if (orderAmount.length === 0) {
+  if (orderAmount.length === 0 || orderAmount === '0') {
     isOrderValid = false;
   }
 
@@ -148,8 +149,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
         isOrderValid = false
       }
     } else if (orderUnits === 'coin') {
-      console.log('total_trade_coin: ', total_trade_coin);
-      console.log('roundToDecimalPlace(quantityOfCoin, 2): ', roundToDecimalPlace(quantityOfCoin, 9));
       if (total_trade_coin > roundToDecimalPlace(quantityOfCoin, 9)) {
         isOrderValid = false;
       }
