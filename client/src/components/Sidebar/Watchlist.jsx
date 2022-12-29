@@ -11,28 +11,41 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
 
   return (
     userWatchlist.length > 0 ?
-    <div className="overflow-x-auto relative">
-      <table className="flex items-center text-center border border-white ml-3 mr-3">
-        <tbody>
-          {coins.map((coinInfo, index) => (
-            userWatchlist.length > 0 && userWatchlist.includes(coinInfo.name) ?
-              <tr key={index}>
-                <td className="text-yellow-600" onClick={removeFromWatchlist} >★</td>
-                <td className="text-sm text-white font-light px-1 py-1 flex items-center">
-                  <span className="inline-flex"><img className="w-5 object-center mr-2" src={coinInfo.image}/></span>
-                  <span href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
-                    {coinInfo.name}
-                  </span>
-                </td>
-                { prev_price[coinInfo.name] > coinInfo.latest_price ? <td className="text-sm text-red-600 font-light px-0 py-1">${coinInfo.latest_price}</td> :
-                  prev_price[coinInfo.name] === coinInfo.latest_price ? <td className="text-sm text-white font-light px-0 py-1">${coinInfo.latest_price}</td> :
-                  <td className="text-sm text-green-600 font-light px-0 py-1">${coinInfo.latest_price}</td>
-                }
-              </tr>
-            : null
-          ))}
-        </tbody>
-      </table>
+    <div className="relative text-center">
+      {/* <table className="flex items-center text-center border border-white ml-3 mr-3 table-auto"> */}
+      <table className="w-11/12 text-center table-auto ml-3 border">
+        <thead className="border-b bg-zinc-800">
+            <tr>
+              <th className="text-xs text-white px-0 py-1">
+              </th>
+              <th className="text-xs text-white px-1 py-1 flex">
+                Coin
+              </th>
+              <th className="text-xs text-white px-3 py-1" >
+                Price
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {coins.map((coinInfo, index) => (
+              userWatchlist.length > 0 && userWatchlist.includes(coinInfo.name) ?
+                <tr key={index} className="bg-zinc-900 hover:bg-zinc-700">
+                  <td className="text-yellow-600" onClick={removeFromWatchlist} >★</td>
+                  <td className="text-xs text-white font-light px-1 py-1 flex items-center">
+                    <span className="inline-flex"><img className="w-5 object-center mr-2" src={coinInfo.image}/></span>
+                    <span href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
+                      {coinInfo.name}
+                    </span>
+                  </td>
+                  { prev_price[coinInfo.name] > coinInfo.latest_price ? <td className="text-xs text-red-600 font-light px-0 py-1">${coinInfo.latest_price}</td> :
+                    prev_price[coinInfo.name] === coinInfo.latest_price ? <td className="text-xs text-white font-light px-0 py-1">${coinInfo.latest_price}</td> :
+                    <td className="text-xs text-green-600 font-light px-0 py-1">${coinInfo.latest_price}</td>
+                  }
+                </tr>
+              : null
+            ))}
+          </tbody>
+        </table>
     </div>
     : <div>
         <img className="mx-auto px-20" src={placeholder} />
