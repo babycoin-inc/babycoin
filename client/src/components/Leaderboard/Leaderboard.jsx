@@ -40,7 +40,6 @@ function Leaderboard() {
 		event.preventDefault();
 	}
 	const handleSearchSubmit =  (event) => {
-		console.log('adofghbadogui',search);
 		getLeaderboard(duration, coin, page, search);
 		event.preventDefault();
 	}
@@ -57,7 +56,6 @@ function Leaderboard() {
 					search: search
 				}
 			})
-			console.log('axios request');
 			setLeaderboard(response.data[1]);
 			setIdCount(response.data[0][0]['idcount']);
 			setIsLeaderboardLoaded(1);
@@ -72,7 +70,6 @@ function Leaderboard() {
 	const pageOptions = [];
 	for (var i = 1; i <= Math.ceil(idCount / 10); i++) {
 		pageOptions.push(<option value={i}>{i}</option>);
-		console.log(i);
 	}
 
 	return (
