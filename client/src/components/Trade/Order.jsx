@@ -69,7 +69,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     const value = parseFloat(orderAmount);
     if (orderUnits === 'usd') {
       total_trade_fiat = value;
-      total_trade_coin = roundToDecimalPlace(value / coin.latest_price, 7);
+      total_trade_coin = roundToDecimalPlace(value / coin.latest_price, 9);
     } else if (orderUnits === 'coin') {
       total_trade_coin = value;
       total_trade_fiat = roundToDecimalPlace(value * coin.latest_price, 2);
@@ -83,7 +83,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       amount = roundToDecimalPlace(getMarketValueInUSDOfCoin(), 2);
     }
     if (orderUnits === 'coin') {
-      amount = roundToDecimalPlace(getPortfolioQuantityOfCoin(), 7);
+      amount = roundToDecimalPlace(getPortfolioQuantityOfCoin(), 9);
     }
     if (value === amount) {
       setSellAll(true);
@@ -135,7 +135,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     }
   } else if (orderType === 'buy' && orderUnits === 'coin'){
     // if coin orderAmount exceeds available cash
-    if (total_trade_coin > roundToDecimalPlace(maxCoinOrderAmount, 7)) {
+    if (total_trade_coin > roundToDecimalPlace(maxCoinOrderAmount, 9)) {
       isOrderValid = false;
     }
   }
@@ -148,18 +148,16 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
         isOrderValid = false
       }
     } else if (orderUnits === 'coin') {
-      if (total_trade_coin > roundToDecimalPlace(quantityOfCoin, 2)) {
+      console.log('total_trade_coin: ', total_trade_coin);
+      console.log('roundToDecimalPlace(quantityOfCoin, 2): ', roundToDecimalPlace(quantityOfCoin, 9));
+      if (total_trade_coin > roundToDecimalPlace(quantityOfCoin, 9)) {
         isOrderValid = false;
       }
     }
   }
 
   let useRemainingCash = false;
-
-  console.log('total_trade_fiat === cash: ', total_trade_fiat === cash, ', ', total_trade_fiat, ', ', cash);
-  console.log('total_trade_coin === maxCoinOrderAmount: ', total_trade_coin === roundToDecimalPlace(maxCoinOrderAmount, 7), ', ', total_trade_coin, ', ', roundToDecimalPlace(maxCoinOrderAmount, 7))
-
-  if (total_trade_fiat === cash || total_trade_coin === (Math.round(maxCoinOrderAmount* 10000000) / 10000000)) {
+  if (total_trade_fiat === roundToDecimalPlace(cash, 2) || total_trade_coin === roundToDecimalPlace(maxCoinOrderAmount, 9)) {
     useRemainingCash = true;
   }
 
@@ -177,7 +175,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
     }
     try {
       if (orderType === 'buy' && useRemainingCash) {
-        console.log('useRemainingCash: ', useRemainingCash);
         const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/buyAll`, transaction);
       } else if (sellAll) {
         //send to a new endpoint where we handle the divisible by 0 error and remove the asset from portfolio
