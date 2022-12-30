@@ -6,7 +6,7 @@ import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
 import axios from 'axios';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, setSymbol, achievementsStatus, grantUserAchievement}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, setSymbol, achievementsStatus, grantUserAchievement, getTradeHistory }) {
   const mapSymbolToCoinInCoins = () => {
     symbol = symbol.toUpperCase();
     if (symbol !== undefined) {
@@ -189,6 +189,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
         const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, transaction);
       }
       await getPortfolioData(authenticatedUser);
+      await getTradeHistory(authenticatedUser);
       openAndPopulateModal(transaction);
       resetOrderForm();
       setOrderType('buy');
