@@ -5,7 +5,7 @@ import Newsfeed from '../Newsfeeds/newsfeed.jsx'
 import Graph from './Graph.jsx';
 import Confirmation from './Confirmation.jsx';
 
-function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, achievementsStatus, grantUserAchievement, setActivePage, coinName}) {
+function Trade({ authenticatedUser, portfolio, coins, getPortfolioData, symbol, achievementsStatus, grantUserAchievement, setActivePage, coin }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [transaction, setTransaction] = useState({});
 
@@ -17,7 +17,10 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, a
   return (
     //first element needs to be flex in order to organize containers on trade page
     <div className="flex flex-col justify-between gap-8">
-      <h3 class="text-4xl font-extrabold">{coinName}({symbol})</h3>
+      <div className="flex pl-8">
+        <img className="w-8" src={coin.image} />
+        <span className="text-4xl font-extrabold px-1">{coin.name}({symbol})</span>
+      </div>
       <div className="flex justify-between gap-4">
         <div className="flex w-3/5 p-5">
           <Graph coin={symbol} />

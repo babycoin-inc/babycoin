@@ -22,7 +22,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
-  const [coinName, setCoinName] = useState('Bitcoin');
+  const [coin, setCoin] = useState({});
 
   // watchlist:
   const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
@@ -160,7 +160,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   async function handleCoinClick (e) {
     e.preventDefault();
     try {
-      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? (setSymbol(coin.acronym), setCoinName(coin.name)) : null));
+      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? (setSymbol(coin.acronym), setCoin(coin)) : null));
     } catch (err) {
       console.log('ERR: forwarding to the trading page', err);
     }
@@ -232,7 +232,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} coinName={coinName}/>);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} coin={coin}/>);
 
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
