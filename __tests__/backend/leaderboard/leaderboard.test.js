@@ -13,7 +13,7 @@ const USD = 1;
 const BTC = 2;
 const ETH = 3;
 const BNB = 4;
-const USDT  = 5;
+const USDT = 5;
 const DOGE = 6;
 const ADA = 7;
 const DOT = 8;
@@ -81,7 +81,7 @@ describe("Leaderboard Test", () => {
   test("leaderboardTester1 sold BTC at a GAIN of $100,000 and is ranked #1 in USD", async () => {
     let q =
       `insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin,
-        order_datetime,trader_id,coin_id) VALUES ('sell', 'abc', ${TEST_DOLLARCOST+100000}, ${TEST_DOLLARCOST+100000}, 1, current_timestamp, ${1 + TEST_FIRSTID},${BTC});`
+        order_datetime,trader_id,coin_id) VALUES ('sell', 'TEST_DUMMY', ${TEST_DOLLARCOST + 100000}, ${TEST_DOLLARCOST + 100000}, 1, current_timestamp, ${1 + TEST_FIRSTID},${BTC});`
     try {
       const resp = await query(q);
       // console.log(resp);
@@ -91,20 +91,31 @@ describe("Leaderboard Test", () => {
 
 
     const leaderboard = await Leaderboard.getLeaderboard();
-    expect(leaderboard).toEqual([{
-      id: 900000001,
-      username: 'leaderboardTester1',
-      coin: 'usd',
-      current_realized_gains: '100000.00',
-      row_number: '1'
-    }]);
+    expect(leaderboard).toEqual(
+      [
+        [
+          {
+            "idcount": "1"
+          }
+        ],
+        [
+          {
+            id: 900000001,
+            username: 'leaderboardTester1',
+            coin: 'usd',
+            current_realized_gains: '100000.00',
+            row_number: '1'
+          }
+        ]
+      ]
+    )
   });
 
 
   test("leaderboardTester2 sold ETH at a GAIN of $50,000 and is ranked #2 in USD", async () => {
     let q =
       `insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin,
-        order_datetime,trader_id,coin_id) VALUES ('sell', 'TEST_DUMMY', ${TEST_DOLLARCOST+50000},  ${TEST_DOLLARCOST+50000}, 1, current_timestamp, ${2 + TEST_FIRSTID},${ETH});`
+        order_datetime,trader_id,coin_id) VALUES ('sell', 'TEST_DUMMY', ${TEST_DOLLARCOST + 50000},  ${TEST_DOLLARCOST + 50000}, 1, current_timestamp, ${2 + TEST_FIRSTID},${ETH});`
     try {
       const resp = await query(q);
       // console.log(resp);
@@ -114,27 +125,39 @@ describe("Leaderboard Test", () => {
 
 
     const leaderboard = await Leaderboard.getLeaderboard();
-    expect(leaderboard).toEqual([{
-      id: 900000001,
-      username: 'leaderboardTester1',
-      coin: 'usd',
-      current_realized_gains: '100000.00',
-      row_number: '1'
-    },
-    {
-      id: 900000002,
-      username: 'leaderboardTester2',
-      coin: 'usd',
-      current_realized_gains: '50000.00',
-      row_number: '2'
-    }]);
+    expect(leaderboard).toEqual(
+      [
+        [
+          {
+            idcount: "2"
+          }
+        ],
+        [
+          {
+
+            id: 900000001,
+            username: 'leaderboardTester1',
+            coin: 'usd',
+            current_realized_gains: '100000.00',
+            row_number: '1'
+          },
+          {
+            id: 900000002,
+            username: 'leaderboardTester2',
+            coin: 'usd',
+            current_realized_gains: '50000.00',
+            row_number: '2'
+          }
+        ]
+      ]
+    );
   });
 
 
   test("leaderboardTester1 sold XRP at a LOSS of $25,000 and is ranked #1 in USD", async () => {
     let q =
       `insert into transactions (order_type, currency, purchase_price, total_trade_fiat, total_trade_coin,
-        order_datetime,trader_id,coin_id) VALUES ('sell', 'TEST_DUMMY', ${TEST_DOLLARCOST-25000},  ${TEST_DOLLARCOST-25000}, 1, current_timestamp, ${1 + TEST_FIRSTID},${XRP});`
+        order_datetime,trader_id,coin_id) VALUES ('sell', 'TEST_DUMMY', ${TEST_DOLLARCOST - 25000},  ${TEST_DOLLARCOST - 25000}, 1, current_timestamp, ${1 + TEST_FIRSTID},${XRP});`
     try {
       const resp = await query(q);
       // console.log(resp);
@@ -144,20 +167,31 @@ describe("Leaderboard Test", () => {
 
 
     const leaderboard = await Leaderboard.getLeaderboard();
-    expect(leaderboard).toEqual([{
-      id: 900000001,
-      username: 'leaderboardTester1',
-      coin: 'usd',
-      current_realized_gains: '75000.00',
-      row_number: '1'
-    },
-    {
-      id: 900000002,
-      username: 'leaderboardTester2',
-      coin: 'usd',
-      current_realized_gains: '50000.00',
-      row_number: '2'
-    }]);
-  });
+    expect(leaderboard).toEqual(
+      [
+        [
+          {
+            idcount: "2"
+          }
+        ],
+        [
+          {
 
-})
+            id: 900000001,
+            username: 'leaderboardTester1',
+            coin: 'usd',
+            current_realized_gains: '75000.00',
+            row_number: '1'
+          },
+          {
+            id: 900000002,
+            username: 'leaderboardTester2',
+            coin: 'usd',
+            current_realized_gains: '50000.00',
+            row_number: '2'
+          }
+        ]
+      ]
+    );
+  });
+});
