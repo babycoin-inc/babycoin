@@ -61,6 +61,8 @@ app.get('/logout', auth.logoutController);
 
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
+app.post('/users/:id/transactions/sellAll', trade.insertSellAllTransaction);
+app.post('/users/:id/transactions/buyAll', trade.insertBuyAllTransaction);
 app.get('/users/:id/balances/', home.getPortfolioAssets);
 app.get('/users/:id/transactions/', home.getTransactions);
 app.delete('/users/:id/portfolio/', home.clearPortfolio)

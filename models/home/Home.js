@@ -10,11 +10,26 @@ const pool = new Pool({
 });
 
 exports.allCoins = async (user_id) => {
-  const portfolio = await query(`SELECT json_build_object('coin', c.name, 'acronym', c.acronym, 'value', (p.quantity * c.latest_price), 'quantity', p.quantity, 'avg_entry', p.avg_price, 'curr_price', c.latest_price, 'profit_loss', ((p.quantity * c.latest_price) - p.dollar_cost), 'dollar_cost', p.dollar_cost, 'percent_change', ((((p.quantity * c.latest_price) - p.dollar_cost) / p.dollar_cost)*100), 'image', c.image) FROM coins c INNER JOIN portfolio p ON c.id = p.coin_id WHERE trader_id = $1;`, [user_id]);
-  let formatted = portfolio.rows.map((coin) => {
-    return coin.json_build_object;
-  });
-  return formatted;
+  try {
+    const portfolio = await query(`SELECT json_build_object('coin', c.name, 'acronym', c.acronym, 'value', (p.quantity * c.latest_price), 'quantity', p.quantity, 'avg_entry', p.avg_price, 'curr_price', c.latest_price, 'profit_loss', ((p.quantity * c.latest_price) - p.dollar_cost), 'dollar_cost', p.dollar_cost, 'percent_change', ((((p.quantity * c.latest_price) - p.dollar_cost) / p.dollar_cost)*100), 'image', c.image) FROM coins c INNER JOIN portfolio p ON c.id = p.coin_id WHERE trader_id = $1;`, [user_id]);
+    let formatted = portfolio.rows.map((coin) => {
+      return coin.json_build_object;
+    });
+    return formatted;
+  } catch (err) {
+    if (err.code === '22012') {
+      try {
+        const portfolio = await query(`SELECT json_build_object('coin', c.name, 'acronym', c.acronym, 'value', (p.quantity * c.latest_price), 'quantity', p.quantity, 'avg_entry', p.avg_price, 'curr_price', c.latest_price, 'profit_loss', ((p.quantity * c.latest_price) - p.dollar_cost), 'dollar_cost', p.dollar_cost, 'percent_change', CASE WHEN P.COIN_ID = 1 THEN 0 ELSE ((((P.QUANTITY * C.LATEST_PRICE) - P.DOLLAR_COST) / P.DOLLAR_COST) * 100) END, 'image', c.image) FROM coins c INNER JOIN portfolio p ON c.id = p.coin_id WHERE trader_id = $1;`, [user_id]);
+        let formatted = portfolio.rows.map((coin) => {
+          return coin.json_build_object;
+        });
+        return formatted;
+      } catch(err) {
+        console.error(err);
+      }
+    }
+    console.error(err);
+  }
 
   /* Data Return Shape
   [{
@@ -48,6 +63,7 @@ exports.resetPortfolio = async (user_id) => {
     const trades = await query(`DELETE FROM transactions WHERE trader_id = $1;`, [user_id]);
     const reset = await query(`DELETE FROM portfolio WHERE trader_id = $1;`, [user_id]);
     const startingCash = await query(`INSERT INTO portfolio(trader_id, coin_id, dollar_cost, avg_price, quantity) VALUES ($1, (SELECT id FROM coins WHERE acronym = 'usd'), 500, 1, 500);`, [user_id]);
+    const resetCurrentBalance = await query(`UPDATE leaderboard SET current_realized_gains=0 WHERE trader_id = $1;`, [user_id]);
     const clearAchievements = await query(`DELETE FROM trader_achievements WHERE trader_id = $1 AND achievement_id >= 2;`, [user_id]);
     const updatedAchievements = await query(`SELECT ta.*, a.* FROM trader_achievements ta
       JOIN achievements a ON ta.achievement_id = a.id

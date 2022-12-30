@@ -23,11 +23,12 @@ const verifyUser = async(username, password, done) => {
 
 passport.serializeUser((user, done) => {
   if(user.password) delete user.password;
-  console.log('SERIALIZING USER: ', user)
+  //console.log('SERIALIZING USER: ', user)
   done(null, user);
 })
 
 passport.deserializeUser((user, done) => {
+  //console.log('IN DESERIALIZER, USER: ', user)
   done(null, user);
 })
 
@@ -59,25 +60,27 @@ passport.use(new GoogleStrategy({
   async function(request, accessToken, refreshToken, email, done) {
     //This cb function runs upon successful authentication
     //Insert into db
-    console.log('ACCOUNT AUTHENTICATED, NOW NEED DB INSERTION');
-    console.log('EMAIL SCOPE', email);
-    console.log('REQ SESSION IN GOOGLE CALLBACK BEFORE SERIALIZATION', request.session)
+    // console.log('ACCOUNT AUTHENTICATED, NOW NEED DB INSERTION');
+    // console.log('EMAIL SCOPE', email);
+    // console.log('REQ SESSION IN GOOGLE CALLBACK BEFORE SERIALIZATION', request.session)
     const googleID = email.id;
     try {
       const googleUser = await Auth.getUserByGoogleID(googleID);
+      let id;
+      // console.log('GOOGLE USER: ', googleUser)
       if(!googleUser) {
-        await Auth.registerGoogleUser(googleID);
+        id = await Auth.registerGoogleUser(googleID);
+      } else {
+        id = googleUser.id;
+        console.log('ID: ', id)
       }
-      const id = googleID;
+      //const id = googleID;
       const cookie = request.session.cookie;
       const user = { id, cookie };
       done(null, user);
     } catch(err) {
       done(err);
     }
-    // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-    //   return done(err, user);
-    // });
   }
 ));
 
