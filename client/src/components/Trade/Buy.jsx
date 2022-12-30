@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAssets, coins, setOrderAmount, setOrderUnits}) {
+function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAssets, coins, resetOrderForm, setOrderUnits}) {
 
   let [sellButton, setSellButton] = useState(<button className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
   );
   const nonCashAssets = getNonCashAssets();
   //if the user has no assets to sell, disable sell button
   if (nonCashAssets.length === 0) {
-    sellButton = <button disabled className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
+    //add tooltip
+    sellButton = <button disabled className="basis-1/2 border-2 text-xl grayscale text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
   } else {
     //the user has assets to sell
     sellButton = <button onClick={() => {
@@ -24,14 +25,14 @@ function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAsset
       }
       setOrderType('sell');
       setOrderUnits('usd');
-      setOrderAmount('');
+      resetOrderForm();
     }}
-      className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
+      className="basis-1/2 border-2 text-xl grayscale text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:grayscale-0">Sell</button>
   }
 
   return (
     <div className="flex w-full h-16">
-      <button disabled={true} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto">Buy</button>
+      <button disabled={true} className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Buy</button>
       {sellButton}
     </div>
   )

@@ -18,7 +18,7 @@ const session = require('./sessionConfig');
 const cors = require('cors');
 
 /**Controllers */
-const { auth, nf, home, trade, leaderboard, market, achievements, dropdown, watchlist} = require('./controllers/controllers.js');
+const { auth, nf, home, trade, leaderboard, market, achievements, dropdown, watchlist } = require('./controllers/controllers.js');
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
@@ -40,18 +40,20 @@ app.get('/auth/google', (req, res, next) => {
   console.log(req.sessionID);
   next();
 },
-  passport.authenticate('google', { scope:
-      [ 'email' ] }
-));
+  passport.authenticate('google', {
+    scope:
+      ['email']
+  }
+  ));
 
-app.get( '/auth/google/callback', (req, res, next)=> {
+app.get('/auth/google/callback', (req, res, next) => {
   console.log('HIT /auth/google/callback ENDPOINT');
   next();
-  },
-    passport.authenticate( 'google', {
-        successRedirect: '/',
-        //failureRedirect: '/auth/login' TODO: MAKE FAILED LOGIN COMPONENT FOR GOOGLE!
-}));
+},
+  passport.authenticate('google', {
+    successRedirect: '/',
+    //failureRedirect: '/auth/login' TODO: MAKE FAILED LOGIN COMPONENT FOR GOOGLE!
+  }));
 app.get('/getuser', (req, res) => {
   res.send(req.user);
 })
@@ -61,6 +63,8 @@ app.get('/logout', auth.logoutController);
 
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
+app.post('/users/:id/transactions/sellAll', trade.insertSellAllTransaction);
+app.post('/users/:id/transactions/buyAll', trade.insertBuyAllTransaction);
 app.get('/users/:id/balances/', home.getPortfolioAssets);
 app.get('/users/:id/transactions/', home.getTransactions);
 app.delete('/users/:id/portfolio/', home.clearPortfolio)

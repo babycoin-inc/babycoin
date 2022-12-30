@@ -5,7 +5,7 @@ import Newsfeed from '../Newsfeeds/newsfeed.jsx'
 import Graph from './Graph.jsx';
 import Confirmation from './Confirmation.jsx';
 
-function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, achievementsStatus, grantUserAchievement, setActivePage}) {
+function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, setSymbol, achievementsStatus, grantUserAchievement, setActivePage, getTradeHistory}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [transaction, setTransaction] = useState({});
 
@@ -17,12 +17,12 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, a
   return (
     //first element needs to be flex in order to organize containers on trade page
     <div className="flex flex-col justify-between gap-8">
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-4">
         <Confirmation modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} transaction={transaction} setActivePage={setActivePage}/>
         <div className="flex w-3/5 p-5">
           <Graph symbol={symbol}/>
         </div>
-        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openAndPopulateModal={openAndPopulateModal} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement}/>
+        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openAndPopulateModal={openAndPopulateModal} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} getTradeHistory={getTradeHistory} />
       </div>
       <Newsfeed coin={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement}/>
     </div>
