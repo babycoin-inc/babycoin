@@ -57,7 +57,7 @@ function Newsfeed(ticker) {
     console.log(n);
     var options = {
       method:'get',
-      url:  `/newsfeed/${tickers[coinState]}?n=${n}`
+      url:  `/newsfeed/${coinState.toUpperCase()}?n=${n}`
     }
     axios(options).then((result) => {
       // console.log('get news ran');
