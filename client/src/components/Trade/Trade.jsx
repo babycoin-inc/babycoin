@@ -5,7 +5,7 @@ import Newsfeed from '../Newsfeeds/newsfeed.jsx'
 import Graph from './Graph.jsx';
 import Confirmation from './Confirmation.jsx';
 
-function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, achievementsStatus, grantUserAchievement, setActivePage}) {
+function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, setSymbol, achievementsStatus, grantUserAchievement, setActivePage, getTradeHistory}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [transaction, setTransaction] = useState({});
 
@@ -22,7 +22,7 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, a
         <div className="flex w-3/5 p-5">
           <Graph symbol={symbol}/>
         </div>
-        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openAndPopulateModal={openAndPopulateModal} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement}/>
+        <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openAndPopulateModal={openAndPopulateModal} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} getTradeHistory={getTradeHistory} />
       </div>
       <Newsfeed coin={symbol}/>
     </div>
