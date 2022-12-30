@@ -3,16 +3,16 @@ const { query } = require('../../db/index.js');
 const getLeaderboard = async (duration, coin, page, search) => {
 	const Duration = duration || 'current_realized_gains';
 	const Coin = coin || 'usd';
-	const Page = page-1 || 0;
+	const Page = page - 1 || 0;
 	let Search = `%`;
-	if(search !== undefined) {
+	if (search !== undefined) {
 		Search = `%${search}%`;
 	}
 
 	let response = [];
 
 	const getCount =
-	`
+		`
 	SELECT
 		count(*) as idCount
 	FROM
@@ -22,12 +22,12 @@ const getLeaderboard = async (duration, coin, page, search) => {
 	WHERE
 		coins.acronym = '${Coin}' AND username LIKE '${Search}'
 	`;
-try {
-	const ret = await query(getCount);
-	response.push(ret.rows);
-} catch (err) {
-	console.log(err);
-}
+	try {
+		const ret = await query(getCount);
+		response.push(ret.rows);
+	} catch (err) {
+		console.log(err);
+	}
 
 	const Query =
 		`
