@@ -16,13 +16,8 @@ const runAPI = () => {
     params: {
       items:100,
       page:1,
-<<<<<<< HEAD
-//      date:'12012022-12302022',
-      date: 'last60min',
-=======
 //      date:'12012022-12212022',
       date: 'last30days',
->>>>>>> main
 //      type: 'video',
       token: process.env.CPNAPIKEY
     },
