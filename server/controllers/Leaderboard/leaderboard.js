@@ -2,9 +2,9 @@ const { Leaderboard } = require('../../../models/models.js');
 
 const getLeaderboard = async (req, res) => {
 	try {
-		const result = await Leaderboard.getLeaderboard(req.query.duration,req.query.coin,req.query.page);
+		const result = await Leaderboard.getLeaderboard(req.query.duration, req.query.coin, req.query.page, req.query.search);
 		res.send(result);
-	}catch  (err) {
+	} catch (err) {
 		console.log(err);
 	}
 };
