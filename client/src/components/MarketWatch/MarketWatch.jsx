@@ -90,4 +90,3 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
 }
 
 export default MarketWatch;
-// {prev_price[coin.name] - coin.latest_price}
