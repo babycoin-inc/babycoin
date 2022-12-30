@@ -11,6 +11,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   const [orderUnits, setOrderUnits] = useState('usd');
   const [orderAmount, setOrderAmount] = useState("");
   const [coin, setCoin] = useState(() => {
+    console.log('symbol: ', symbol);
     symbol = symbol.toUpperCase();
     if (symbol !== undefined) {
       //map symbol to its respective acronym in coins
@@ -206,7 +207,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} resetOrderForm={resetOrderForm} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} />
       <Price coin={coin} />
       <div>
-        <button disabled={!isOrderValid} name="submit" className={`text-lg mb-6 font-semibold border border-orange-500 rounded-3xl py-2 px-5 mx-auto active:border active:border-orange-400 h-14 w-44 ${isOrderValid ? "hover:bg-zinc-800 hover:border-zinc-800 hover:text-orange-500 bg-orange-400 text-orange-900" : "bg-zinc-800 text-orange-500"}`} onClick={submitOrder}>Submit Order</button>
+        <button disabled={!isOrderValid} name="submit" className={`text-lg mb-6 font-semibold border border-orange-500 rounded-3xl py-2 px-5 mx-auto active:border active:border-orange-400 h-14 w-44 ${isOrderValid ? "hover:bg-zinc-800 hover:border-zinc-800 hover:text-orange-500 bg-orange-400 text-orange-900" : "grayscale text-orange-500"}`} onClick={submitOrder}>Submit Order</button>
       </div>
     </div>
   )

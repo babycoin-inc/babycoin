@@ -7,7 +7,11 @@ function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAsset
   const nonCashAssets = getNonCashAssets();
   //if the user has no assets to sell, disable sell button
   if (nonCashAssets.length === 0) {
-    sellButton = <button disabled className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
+    //original
+    // sellButton = <button disabled className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
+
+    //add tooltip
+    sellButton = <button disabled className="basis-1/2 border-2 text-xl grayscale text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
   } else {
     //the user has assets to sell
     sellButton = <button onClick={() => {
@@ -26,15 +30,23 @@ function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAsset
       setOrderUnits('usd');
       resetOrderForm();
     }}
-      className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
+      // className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
+
+      className="basis-1/2 border-2 text-xl grayscale text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:grayscale-0">Sell</button>
   }
 
   return (
     <div className="flex w-full h-16">
-      <button disabled={true} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto">Buy</button>
+      <button disabled={true} className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Buy</button>
       {sellButton}
     </div>
   )
 }
 
 export default Buy;
+
+//original
+{/* <button disabled={true} className="basis-1/2 border-2 text-xl bg-zinc-800 text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto">Buy</button> */}
+
+//blends into grey background
+{/* <button disabled={true} className="basis-1/2 border-4 text-xl text-orange-500 bg-zinc-700 font-semibold border border-orange-500 border-b-zinc-700 rounded py-2 px-5 mx-auto">Buy</button> */}
