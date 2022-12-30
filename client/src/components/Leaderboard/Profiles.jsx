@@ -17,58 +17,57 @@ function Profiles(props) {
 		}
 		if (event.target.id === 'user') {
 			setSortGains(2);
-			setSortUser((sortUser + 1) % 2);
+			setSortUser((sortUser + 1) % 3);
 
 		}
 	}
 
 	let sorted = [];
 
-	if (Array.isArray(props.profiles)) {
-		if (sortUser === 0) {
-			sorted = props.profiles
-				.sort((a, b) => {
-					if (a.username > b.username) {
-						return 1;
-					} else {
-						return -1;
-					}
-				})
-		} else if (sortUser === 1) {
-			sorted = props.profiles
-				.sort((a, b) => {
-					if (a.username < b.username) {
-						return 1;
-					} else {
-						return -1;
-					}
-				})
-		} else if (sortUser === 2 || sortGains === 2) {
-			sorted = props.profiles;
-		}
-
-		if (sortGains === 0) {
-			sorted = props.profiles
-				.sort((a, b) => {
-					if (Number(a.row_number) > Number(b.row_number)) {
-						return 1;
-					} else {
-						return -1;
-					}
-
-				})
-		} else if (sortGains === 1) {
-			sorted = props.profiles
-				.sort((a, b) => {
-					if (Number(a.row_number) < Number(b.row_number)) {
-						return 1;
-					} else {
-						return -1;
-					}
-
-				})
-		}
+	if (sortUser === 0) {
+		sorted = props.profiles
+			.sort((a, b) => {
+				if (a.username > b.username) {
+					return 1;
+				} else {
+					return -1;
+				}
+			})
+	} else if (sortUser === 1) {
+		sorted = props.profiles
+			.sort((a, b) => {
+				if (a.username < b.username) {
+					return 1;
+				} else {
+					return -1;
+				}
+			})
+	} else if (sortUser === 2 || sortGains === 2) {
+		sorted = props.profiles;
 	}
+
+	if (sortGains === 0) {
+		sorted = props.profiles
+			.sort((a, b) => {
+				if (Number(a.row_number) > Number(b.row_number)) {
+					return 1;
+				} else {
+					return -1;
+				}
+
+			})
+	} else if (sortGains === 1) {
+		sorted = props.profiles
+			.sort((a, b) => {
+				if (Number(a.row_number) < Number(b.row_number)) {
+					return 1;
+				} else {
+					return -1;
+				}
+
+			})
+	}
+
 
 	let profiles = [];
 	if (Array.isArray(sorted)) {
@@ -79,10 +78,11 @@ function Profiles(props) {
 						<tr className='border-t border-zinc-600 hover:bg-zinc-400'>
 							<th>{user.row_number}</th>
 							<th className='Profile-user'>
-								<div>
+								<div className='flex flex-row items-center'>
 									<img src={anonymousPhoto} height='64' width='64'></img>
-									{user.username}
-
+									<div className='px-6'>
+										{user.username}
+									</div>
 								</div>
 							</th>
 							<th className='Profile-score'>${user[props.duration]}</th>
