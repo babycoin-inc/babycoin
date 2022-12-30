@@ -9,7 +9,7 @@ module.exports = {
       backgroundImage: {
         'dark-crypto': "url('../assets/DarkCrytoBG2.png')",
         'metallic': "url('../assets/metallic.jpg')",
-        'bitcoin-pattern': "url('../assets/bitcoin-pattern-2-mod-2.jpg')"
+        'bitcoin-pattern': "url('../assets/bitcoin-pattern-2-mod-3.jpg')"
       },
       scale: {
         '101': '1.01'
