@@ -26,6 +26,7 @@
     "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
+    "@testing-library/react": "^13.4.0",
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.10",
     "@types/react": "^18.0.26",
@@ -48,6 +49,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.13",
     "axios": "^1.2.1",
+    "babel-jest": "^29.3.1",
     "bcryptjs": "^2.4.3",
     "ci": "^2.2.0",
     "connect-pg-simple": "^8.0.0",

@@ -6,7 +6,7 @@ import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
 import axios from 'axios';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, achievementsStatus, grantUserAchievement}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, achievementsStatus, grantUserAchievement, getTradeHistory }) {
   const [orderType, setOrderType] = useState("buy");
   const [orderUnits, setOrderUnits] = useState('usd');
   const [orderAmount, setOrderAmount] = useState("");
@@ -124,6 +124,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
         coinName: coin.name
       })
       await getPortfolioData(authenticatedUser);
+      await getTradeHistory(authenticatedUser);
       openAndPopulateModal(
         {
           'coin': coin,
