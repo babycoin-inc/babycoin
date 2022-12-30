@@ -22,6 +22,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
+  const [coinName, setCoinName] = useState('Bitcoin');
 
   // watchlist:
   const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
@@ -159,7 +160,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   async function handleCoinClick (e) {
     e.preventDefault();
     try {
-      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? setSymbol(coin.acronym) : null));
+      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? (setSymbol(coin.acronym), setCoinName(coin.name)) : null));
     } catch (err) {
       console.log('ERR: forwarding to the trading page', err);
     }
@@ -231,7 +232,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage}/>);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} coinName={coinName}/>);
 
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TradingViewEmbed, widgetType, AdvancedChart } from "react-tradingview-embed";
 
-function Graph({ symbol }) {
+function Graph({coin}) {
 
   return (
     <div className="flex">
@@ -9,7 +9,7 @@ function Graph({ symbol }) {
           <AdvancedChart
             widgetProps={{
               "autosize": true,
-              "symbol": symbol + "USD",
+              "symbol": coin + "USD",
               "interval": "D",
               "timezone": "Etc/UTC",
               "theme": "dark",
@@ -28,4 +28,4 @@ function Graph({ symbol }) {
 
 }
 
-export default Graph;
+export default React.memo(Graph);
