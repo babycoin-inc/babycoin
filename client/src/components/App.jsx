@@ -169,7 +169,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
 
   // dropdown & watchlist & marketWatch
   async function handleCoinSelect (selectedOption) {
-    await setMultiValue([selectedOption]);
+    setMultiValue([selectedOption]);
     await coins.map(coin => (coin.name === selectedOption['value'] ? setSymbol(coin.acronym) : null));
     setActivePage('Trade');
   }
