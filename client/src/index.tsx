@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import '../dist/styles/tailwind.css'
-import Page from './components/Page.jsx'
+import '../dist/styles/tailwind.css';
+import Page from './components/Page.jsx';
 // import App from "./components/App.jsx"
 // import Login from './components/Login/Login.jsx'
 
