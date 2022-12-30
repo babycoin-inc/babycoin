@@ -6,16 +6,8 @@ import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
 import axios from 'axios';
 
-<<<<<<< HEAD
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, achievementsStatus, grantUserAchievement, getTradeHistory }) {
-  const [orderType, setOrderType] = useState("buy");
-  const [orderUnits, setOrderUnits] = useState('usd');
-  const [orderAmount, setOrderAmount] = useState("");
-  const [coin, setCoin] = useState(() => {
-=======
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, setSymbol, achievementsStatus, grantUserAchievement}) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, setSymbol, achievementsStatus, grantUserAchievement, getTradeHistory }) {
   const mapSymbolToCoinInCoins = () => {
->>>>>>> main
     symbol = symbol.toUpperCase();
     if (symbol !== undefined) {
       //map symbol to its respective acronym in coins
