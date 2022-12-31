@@ -20,9 +20,9 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
   }
 
   return (
-        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div className="overflow-x-auto relative shadow-md">
         <table className="w-full text-center table-auto">
-          <thead className="border-b bg-zinc-700 py-5">
+          <thead className="border-b bg-zinc-700 py-5 rounded-lg">
             <tr>
               <th className="text-lg text-right font-medium text-white py-1 w-1/12">
               </th>

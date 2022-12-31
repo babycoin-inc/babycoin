@@ -11,7 +11,7 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
 
   return (
     userWatchlist.length > 0 ?
-    <div className="relative text-center pt-3">
+    <div className="relative text-center pt-3 sm:rounded-lg">
       <table className="w-11/12 text-center table-auto ml-3 border">
         <thead className="border-b bg-zinc-800">
             <tr>
