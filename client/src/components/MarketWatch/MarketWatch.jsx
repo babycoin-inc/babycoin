@@ -48,12 +48,14 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                 coin.acronym !== 'usd' ?
                 <tr key={index} className="border border-gray-800 bg-zinc-900 hover:bg-zinc-800">
                   {userWatchlist.includes(coin.name) ? <td className="text-lg text-yellow-600 font-light text-right mr-2" onClick={toggleStars}>★</td> : <td className="text-lg text-white font-light text-right mr-2" onClick={toggleStars}>☆</td>}
-                  <td className="text-white font-light flex">
+                  <td className="text-white font-light">
+                    <div className="flex items-center">
                         <img className="w-7 ml-1 mr-1" src={coin.image}/>
                         <div href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
                           <span className="mr-1 font-semibold text-sm">{coin.name}</span>
                           <span className="text-xs">{coin.acronym.toUpperCase()}</span>
                         </div>
+                    </div>
                   </td>
                   { prev_price[coin.name] > coin.latest_price ? <td className="text-sm text-red-600 font-light py-1">${coin.latest_price}</td> :
                     prev_price[coin.name] === coin.latest_price ? <td className="text-sm text-white font-light py-1">${coin.latest_price}</td> :
