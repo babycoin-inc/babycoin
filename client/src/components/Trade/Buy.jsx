@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
-function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAssets, coins, resetOrderForm, setOrderUnits}) {
+function Buy({orderType, setOrderType, coin, setCoin, setSymbol, portfolio, getNonCashAssets, coins, resetOrderForm, setOrderUnits, setCoinT}) {
 
   let [sellButton, setSellButton] = useState(<button className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
   );
   const nonCashAssets = getNonCashAssets();
   //if the user has no assets to sell, disable sell button
   if (nonCashAssets.length === 0) {
-    //add tooltip
     sellButton = <button disabled className="basis-1/2 border-2 text-xl grayscale text-orange-500 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400">Sell</button>
   } else {
     //the user has assets to sell
@@ -17,11 +16,12 @@ function Buy({orderType, setOrderType, coin, setCoin, portfolio, getNonCashAsset
         let coinToSet;
         for (var i = 0; i < coins.length; i++) {
           if (coins[i].name === nonCashAssets[0].coin) {
-            coinToSet = coins[i]; // need coin from coins to update 'coin' state
+            coinToSet = coins[i];
             break;
           }
         }
-        setCoin(coinToSet);
+        setSymbol(coinToSet.acronym);
+        setCoinT(coinToSet);
       }
       setOrderType('sell');
       setOrderUnits('usd');
