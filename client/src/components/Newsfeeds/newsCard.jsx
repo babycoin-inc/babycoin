@@ -20,8 +20,8 @@ const News = function (props) {
         <div className="flex">
           <p className="text-gray-500 text-xs mr-3">{props.art.arthur}</p>
           <p className="text-gray-600 text-xs mr-3">{fdate}</p>
-          <div className="flex text-gray-600 text-xs mr-0.5">{props.art.tickers.map(val => {
-                return <div className="mr-1">{val}</div>
+          <div className="flex text-gray-600 text-xs mr-0.5">{props.art.tickers.map((val, i) => {
+                return <div className="mr-1" key={i}>{val}</div>
               })}</div>
           </div>
         </div>
@@ -42,8 +42,8 @@ const News = function (props) {
         <div className="flex">
           <p className="text-gray-500 text-xs mr-3">{props.art.arthur}</p>
           <p className="text-gray-600 text-xs mr-3">{fdate}</p>
-          <div className="flex text-gray-600 text-xs mr-0.5">{props.art.tickers.map(val => {
-                return <div className="mr-1">{val}</div>
+          <div className="flex text-gray-600 text-xs mr-0.5">{props.art.tickers.map((val, i) => {
+                return <div className="mr-1" key={i}>{val}</div>
               })}</div>
           </div>
         </div>

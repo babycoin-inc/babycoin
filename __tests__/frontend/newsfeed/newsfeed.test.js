@@ -7,7 +7,8 @@ import '@testing-library/jest-dom';
 describe("Newsfeed component should render", () => {
   it('Should 3 newscards to ', async () => {
     render(<Newsfeed coin={"BTC"}/>);
-    const titleElement = await screen.findByText(/QUESTIONS & ANSWERS/i);
+    const titleElement = await screen.findByText(/Newsfeed/i);
     expect(titleElement).toBeInTheDocument();
   })
+
 })

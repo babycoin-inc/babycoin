@@ -27,6 +27,7 @@ function Newsfeed(ticker) {
 
 
   useEffect(()=>{
+    console.log(ticker.coin.toUpperCase());
     var options = {
       method:'get',
       url:  `/newsfeed/${ticker.coin.toUpperCase()}?n=10`
@@ -80,8 +81,8 @@ function Newsfeed(ticker) {
 
   return (
     <div className="flex flex-col">
-        <h3 class="text-4xl font-extrabold dark:text-white pl-7">Newsfeed</h3>
-        <div class="w-full max-h-96 px-2 py-1 overflow-y-auto">
+        <h3 className="text-4xl font-extrabold dark:text-white pl-7">Newsfeed</h3>
+        <div className="w-full max-h-96 px-2 py-1 overflow-y-auto">
           {newsArr.slice(0, numNews).map((article, i) => {
             return <News key = {i} art = {article} achievementsStatus={ticker.achievementsStatus} grantUserAchievement={ticker.grantUserAchievement} />
           })}
