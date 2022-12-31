@@ -77,9 +77,9 @@ function Newsfeed(ticker) {
   const colbut = numNews>3?<div><a className="mr-2">|</a><button onClick = {collapse}>Collapse</button></div>:null
 
   return (
-    <div className="flex flex-col">
-        <h3 className="text-4xl font-extrabold dark:text-white">Newsfeed</h3>
-        <div className="w-full max-h-96 px-2 py-1 overflow-y-auto">
+    <div class="flex flex-col">
+        <h3 class="text-4xl font-extrabold dark:text-white pl-7">Newsfeed</h3>
+        <div class="w-full max-h-96 px-2 py-1 overflow-y-auto">
           {newsArr.slice(0, numNews).map((article, i) => {
             return <News key = {i} art = {article} achievementsStatus={ticker.achievementsStatus} grantUserAchievement={ticker.grantUserAchievement} />
           })}

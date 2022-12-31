@@ -23,6 +23,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
+  const [coin, setCoin] = useState({});
 
   // watchlist & marketWatch & dropdown:
   const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
@@ -207,8 +208,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   async function handleCoinClick (e) {
     e.preventDefault();
     try {
-      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? setSymbol(coin.acronym) : null));
-      // console.log(symbol);
+      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? (setSymbol(coin.acronym), setCoin(coin)) : null));
     } catch (err) {
       console.log('ERR: forwarding to the trading page', err);
     }
@@ -294,7 +294,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market sortConfig={sortConfig} coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} authenticatedUser={authenticatedUser} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} getTradeHistory={getTradeHistory} />);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} getTradeHistory={getTradeHistory} coin={coin}/>);
 
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
