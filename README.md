@@ -21,11 +21,11 @@ Getting started with BabyCoin is easy. Simply sign up for an account, fund it wi
 # Support
 If you have any questions or need assistance, please don't hesitate to reach out to our support team at support@babycoin.com.
 # The Team
-Duke Romkey aka "PortfolioUI_ProDuke"
-Dongning Song aka "MarketWatchlistWizardDongning"
-Fiona Ren aka "GraphGuruFiona"
-Morgan Harrison aka "BuySellBossMorgan"
-Alex Yeung aka "NewsNinjaAlex"
-David Chiu aka "LeaderboardMasterDavid"
-Abdiel Sanchez aka "AchievementAceAbdiel"
+- Duke Romkey aka "PortfolioUI_ProDuke"
+- Dongning Song aka "MarketWatchlistWizardDongning"
+- Fiona Ren aka "GraphGuruFiona"
+- Morgan Harrison aka "BuySellBossMorgan"
+- Alex Yeung aka "NewsNinjaAlex"
+- David Chiu aka "LeaderboardMasterDavid"
+- Abdiel Sanchez aka "AchievementAceAbdiel"
 Nicholas Hays aka "SecuritySpecialistNicholas"
