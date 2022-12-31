@@ -29,7 +29,7 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
             {coins.map((coinInfo, index) => (
               userWatchlist.length > 0 && userWatchlist.includes(coinInfo.name) ?
                 <tr key={index} className="bg-zinc-900 hover:bg-zinc-700">
-                  <td className="text-yellow-600" onClick={removeFromWatchlist} >★</td>
+                  <td className="text-yellow-600 cursor-pointer" onClick={removeFromWatchlist} >★</td>
                   <td className="text-xs text-white font-light px-1 py-1 flex items-center">
                     <span className="inline-flex"><img className="w-5 object-center mr-2" src={coinInfo.image}/></span>
                     <span href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
