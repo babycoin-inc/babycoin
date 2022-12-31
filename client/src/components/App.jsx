@@ -247,7 +247,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   }
 
   function toggleStars (e) {
-    const coin = e.target.parentNode.childNodes[1].childNodes[1].childNodes[0].innerText;
+    const coin = e.target.parentNode.childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerText;
     sendObj['addedList'] = [{value: coin, label: coin}];
     e.target.innerText === '★' ? deleteCoin(coin) : addToWatchlist();
   }
