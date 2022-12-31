@@ -299,7 +299,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
 
   return (
     <div className="flex m-0 p-0 max-w-screen-xl mx-auto min-h-screen text-neutral-100 bg-zinc-900 border-2 border-zinc-800">
-      <Sidebar handleNavClick={handleNavClick} activePage={activePage} setActivePage={setActivePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={e => removeFromWatchlist(e)} authenticatedUser={authenticatedUser} handleCoinClick={e => handleCoinClick(e)} goToMarketwatch={e => goToMarketwatch(e)} />
+      <Sidebar profits={profits} handleNavClick={handleNavClick} activePage={activePage} setActivePage={setActivePage} tradeHistory={tradeHistory} userWatchlist={userWatchlist} coins={coins} removeFromWatchlist={e => removeFromWatchlist(e)} authenticatedUser={authenticatedUser} handleCoinClick={e => handleCoinClick(e)} goToMarketwatch={e => goToMarketwatch(e)} />
       <div className="w-full h-full">
         <div className="h-1/6 sticky top-0 z-20">
           <Header activePage={activePage} setAuthorizedUser={setAuthorizedUser} tradeHistory={tradeHistory} addToWatchlist={addToWatchlist} handleCoinSelect={selectedOption => handleCoinSelect(selectedOption)} userWatchlist={userWatchlist} coins={coins} handleCoinClick={e => handleCoinClick(e)}/>
