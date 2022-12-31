@@ -123,6 +123,8 @@ CREATE TABLE IF NOT EXISTS newsfeed (
 --             SELECT portfolio.avg_price
 --             FROM portfolio
 --             WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
+--         WHEN NEW.order_type = 'buy'
+--           THEN current_realized_gains
 --       END)
 --       WHERE leaderboard.coin_id = NEW.coin_id AND leaderboard.trader_id = NEW.trader_id;
 
@@ -134,6 +136,8 @@ CREATE TABLE IF NOT EXISTS newsfeed (
 --             SELECT portfolio.avg_price
 --             FROM portfolio
 --             WHERE trader_id = NEW.trader_id AND coin_id = NEW.coin_id) - NEW.purchase_price))
+--         WHEN NEW.order_type = 'buy'
+--           THEN current_realized_gains
 --       END)
 --       WHERE leaderboard.coin_id = 1 AND leaderboard.trader_id = NEW.trader_id;
 
