@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BabyCoinLogo from '../../../dist/assets/BabyCoinDark.png';
+import BabyCoinX from '../../../dist/assets/BabyCoinX.png'
 import Watchlist from './Watchlist.jsx';
 
 const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
 
-function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch }) {
+function Sidebar({ profits, handleNavClick, activePage, setActivePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch }) {
+
+  const [clickCount, setClickCount] = useState(0);
 
   let hasMadeTrades = false;
   if (tradeHistory.length >= 1) {
     hasMadeTrades = true;
+  }
+
+  function babyClick(e) {
+    e.preventDefault;
+    setActivePage('Home');
+    setClickCount((clickCount)=> clickCount + 1);
+  }
+
+  let babyLogoImage;
+  if (clickCount >= 10 || profits < 0) {
+    babyLogoImage = <img src={BabyCoinX} width="110" className="relative mx-auto mt-2 cursor-pointer transform -rotate-90 active:translate-y-2" onClick={babyClick}/>;
+  } else {
+    babyLogoImage = <img src={BabyCoinLogo} width="110" className="relative mx-auto mt-2 cursor-pointer transform active:translate-y-2" onClick={babyClick}/>;
   }
 
   const navItems = pages.map((page, index) => {
@@ -33,7 +49,7 @@ function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coin
     <div className="w-64 border-r-2 border-zinc-800">
       <div className="sticky top-0">
         <div className="h-1/6">
-          <img src={BabyCoinLogo} width="110" className="relative mx-auto mt-2" />
+          {babyLogoImage}
         </div>
         <nav className="flex flex-col items-center mt-20 w-full text-2xl">
           {navItems}

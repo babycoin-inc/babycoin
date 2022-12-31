@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function TradeableCoins({coins, orderType, coin, tradeableCoins, setCoin, setSymbol, resetOrderForm}) {
+function TradeableCoins({coins, orderType, coin, tradeableCoins, setCoin, setSymbol, resetOrderForm, setCoinT}) {
 
   const capitalizeFirstLetter = (str) => {
     let word = str[0].toUpperCase();
@@ -22,6 +22,7 @@ function TradeableCoins({coins, orderType, coin, tradeableCoins, setCoin, setSym
       <select className="text-center bg-zinc-400 rounded-xl hover:bg-zinc-500" value={coin.name} onChange={(event) => {
         const coinIndex = coins.findIndex(coin => coin.name === event.target.value);
         setSymbol(coins[coinIndex].acronym);
+        setCoinT(coins[coinIndex]);
         resetOrderForm();
       }}>
         {coinsToDisplay}
