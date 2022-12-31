@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import babycoinLogo from '../../../dist/assets/BabyCoinHalfLogo.png';
 import babycoinblink from '../../../dist/assets/BabyCoinHalfLogoBlink.png';
@@ -10,13 +10,18 @@ import GoogleButton from './GoogleButton.jsx';
 const Auth = ({ updateUser }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [blinking, setBlinking] = useState(false);
+
   const [isSleeping, setIsSleeping] = useState(true);
   const [infoIsShown, setInfoIsShown] = useState(false);
+
+  const [isShowing, setIsShowing] = useState(false)
+
 
   const handleWhichForm = (e) => {
     e.preventDefault();
     setIsLoginForm(!isLoginForm);
   }
+
 
   const toggleInfo = () => {
     setInfoIsShown(!infoIsShown);
@@ -27,18 +32,27 @@ const Auth = ({ updateUser }) => {
 
   }
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setBlinking(true);
+  //     setTimeout(() => {
+  //       setBlinking(false);
+  //     }, 700);
+  //   }, 2000);
+  // },[])
+
   return (
     <div className={`relative w-full min-h-screen`}>
-      {/* Logo container */}
-      <div className='flex flex-col justify-center items-center pt-28 z-10 relative'> {/**z index doesn't work? why is border bg covering baby when it is opaque */}
+      <div className='flex flex-col justify-center items-center pt-28 z-10 relative'>
         {isSleeping ?
-          <img className= 'w-48 h-48' src={babycoinSleep} alt='babycoinsleep'/>
+          <img src={babycoinSleep} className='w-48 h-48'/>
         :
-          <div id='logoContainer' onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
-            {!blinking && <img className= 'w-48 h-48' src={babycoinLogo} alt='babycoin'/>}
-            {blinking && <img className= 'w-48 h-48' src={babycoinblink} alt='babycoin'/>}
-          </div>
+        <div className="will-change-contents" onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
+          {!blinking && <img className= 'w-48 h-48 transition-all' src={babycoinLogo} alt='babycoin'/>}
+          {blinking && <img className= 'w-48 h-48 transition-all' src={babycoinblink} alt='babycoin'/>}
+        </div>
         }
+
       </div>
 
       {/* Border */}

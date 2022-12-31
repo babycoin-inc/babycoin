@@ -6,7 +6,7 @@ import TradeableCoins from './TradeableCoins.jsx';
 import Price from './Price.jsx';
 import axios from 'axios';
 
-function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, setSymbol, achievementsStatus, grantUserAchievement, getTradeHistory }) {
+function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndPopulateModal, symbol, setSymbol, achievementsStatus, grantUserAchievement, getTradeHistory, setCoinT }) {
   const mapSymbolToCoinInCoins = () => {
     symbol = symbol.toUpperCase();
     if (symbol !== undefined) {
@@ -37,13 +37,35 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   let marketValueOfCoin;
   let sellAll = false;
 
+  const isCoinInPortfolio = () => {
+    let result = false;
+    portfolio.forEach((asset) => {
+      if (asset.acronym === coin.acronym) {
+        result = true;
+      }
+    });
+    return result;
+  }
+
+  useEffect(() => {
+    if (orderType === 'sell') {
+      const result = isCoinInPortfolio();
+      if (!result) {
+        setOrderType('buy');
+        setOrderAmount('');
+      } else {}
+    }
+  }, [coin])
+
   const setSellAll = (boolean) => {
     sellAll = boolean;
   }
 
   const getPortfolioQuantityOfCoin = () => {
     const index = portfolio.findIndex((asset, index) => { return asset.acronym === coin.acronym });
-    quantityOfCoin = portfolio[index].quantity;
+    if (index !== -1) {
+      quantityOfCoin = portfolio[index].quantity;
+    }
     return quantityOfCoin;
   };
 
@@ -62,7 +84,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   const roundToDecimalPlace = (num, decimalPlaceToRound) => {
     if (typeof num !== 'number') {
       return "";
-      // num = Number(string);
     }
     const roundTo = 10 ** decimalPlaceToRound;
     return Math.round(num * roundTo) / roundTo;
@@ -130,37 +151,38 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
   const cash = getCash().quantity;
   const maxCoinOrderAmount = cash / coin.latest_price;
 
-  //VALIDATION
-  if (orderAmount.length === 0 || orderAmount === '0') {
-    isOrderValid = false;
-  }
-
-  //BUY VALIDATION
-  if (orderType === 'buy' && orderUnits === 'usd'){
-    // if usd orderAmount exceeds available cash
-    if (total_trade_fiat > roundToDecimalPlace(cash, 2)) {
+  const validateOrderAmount = (() => {
+    if (orderAmount.length === 0 || orderAmount === '0') {
       isOrderValid = false;
     }
-  } else if (orderType === 'buy' && orderUnits === 'coin'){
-    // if coin orderAmount exceeds available cash
-    if (total_trade_coin > roundToDecimalPlace(maxCoinOrderAmount, 9)) {
-      isOrderValid = false;
-    }
-  }
 
-  //SELL VALIDATION
-  if (orderType === 'sell') {
-    getPortfolioQuantityOfCoin();
-    if (orderUnits === 'usd') {
-      if (total_trade_fiat > roundToDecimalPlace(quantityOfCoin * coin.latest_price, 2)) {
-        isOrderValid = false
+    //BUY VALIDATION
+    if (orderType === 'buy' && orderUnits === 'usd') {
+      // if usd orderAmount exceeds available cash
+      if (total_trade_fiat > roundToDecimalPlace(cash, 2)) {
+        isOrderValid = false;
       }
-    } else if (orderUnits === 'coin') {
-      if (total_trade_coin > roundToDecimalPlace(quantityOfCoin, 9)) {
+    } else if (orderType === 'buy' && orderUnits === 'coin') {
+      // if coin orderAmount exceeds available cash
+      if (total_trade_coin > roundToDecimalPlace(maxCoinOrderAmount, 9)) {
         isOrderValid = false;
       }
     }
-  }
+
+    //SELL VALIDATION
+    if (orderType === 'sell') {
+      getPortfolioQuantityOfCoin();
+      if (orderUnits === 'usd') {
+        if (total_trade_fiat > roundToDecimalPlace(quantityOfCoin * coin.latest_price, 2)) {
+          isOrderValid = false
+        }
+      } else if (orderUnits === 'coin') {
+        if (total_trade_coin > roundToDecimalPlace(quantityOfCoin, 9)) {
+          isOrderValid = false;
+        }
+      }
+    }
+  })();
 
   let useRemainingCash = false;
   if (total_trade_fiat === roundToDecimalPlace(cash, 2) || total_trade_coin === roundToDecimalPlace(maxCoinOrderAmount, 9)) {
@@ -183,7 +205,6 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       if (orderType === 'buy' && useRemainingCash) {
         const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/buyAll`, transaction);
       } else if (sellAll) {
-        //send to a new endpoint where we handle the divisible by 0 error and remove the asset from portfolio
         const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/sellAll`, transaction);
       } else {
         const orderResult = await axios.post(`/users/${authenticatedUser}/transactions/${orderType}`, transaction);
@@ -199,8 +220,17 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       if (!achievementsStatus[5] && orderType === 'sell') {
         grantUserAchievement(5);
       }
+      if (achievementsStatus[5] && !achievementsStatus[6] && orderType === 'sell') {
+        grantUserAchievement(6);
+      }
       if (!achievementsStatus[4] && orderType === 'buy' && total_trade_fiat <= 5) {
         grantUserAchievement(4);
+      }
+      if (!achievementsStatus[12] && orderType === 'sell') {
+        grantUserAchievement(12);
+      }
+      if (!achievementsStatus[3] && portfolio.length >= 4) {
+        grantUserAchievement(3);
       }
     } catch (e) {
     console.error(e);
@@ -208,10 +238,10 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
 };
 
   return (
-    <div className="flex flex-col items-center space-y-8 bg-zinc-700 rounded-xl w-1/3 h-3/4">
-      {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits} />}
+    <div className="flex flex-col items-center space-y-8 bg-zinc-700 rounded-xl w-1/3 h-3/4 mr-7">
+      {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} setSymbol={setSymbol} coin={coin} coins={coins} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits} setCoinT={setCoinT}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits} />}
       <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin} roundToDecimalPlace={roundToDecimalPlace} setSellAll={setSellAll} sellAll={sellAll}/>
-      <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} resetOrderForm={resetOrderForm} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} setSymbol={setSymbol}/>
+      <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} resetOrderForm={resetOrderForm} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} setSymbol={setSymbol} setCoinT={setCoinT}/>
       <Price coin={coin} />
       <div>
         <button disabled={!isOrderValid} name="submit" className={`text-lg mb-6 font-semibold border border-orange-500 rounded-3xl py-2 px-5 mx-auto active:border active:border-orange-400 h-14 w-44 ${isOrderValid ? "hover:bg-zinc-800 hover:border-zinc-800 hover:text-orange-500 bg-orange-400 text-orange-900" : "grayscale text-orange-500"}`} onClick={submitOrder}>Submit Order</button>
