@@ -4,6 +4,7 @@ import Header from './Header/Header.jsx';
 import Home from './Home/Home.jsx';
 import Leaderboard from "./Leaderboard/Leaderboard.jsx";
 import Achievements from "./Achievements/Achievements.jsx";
+import Notification from "./Achievements/Notification.jsx";
 import Trade from './Trade/Trade.jsx';
 import Market from './MarketWatch/Market.jsx';
 import axios from 'axios';
@@ -22,6 +23,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
+  const [coin, setCoin] = useState({});
 
   // watchlist & marketWatch & dropdown:
   const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
@@ -33,12 +35,15 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const [achievements, setAchievements] = useState([]);
   const [userAchievements, setUserAchievements] = useState([]);
   const [achievementsStatus, setAchievementsStatus] = useState({});
+  const [achievementNotif, setAchievementNotif] = useState(false);
+  const [latestAchievement, setLatestAchievement] = useState({});
 
   const getAchievements = async () => {
     try {
       const achievements = await axios.get(`/achievements`);
       setAchievements(achievements.data);
     } catch (err) {
+      console.log(err);
       setAchievements([]);
     }
   };
@@ -48,11 +53,14 @@ function App({ authenticatedUser, setAuthorizedUser }) {
       const userAchievements = await axios.get(`/users/${authenticatedUser}/achievements`);
       if (userAchievements.data?.length) {
         setUserAchievements(userAchievements.data);
+        return userAchievements.data;
       } else {
         await axios.post(`/users/${authenticatedUser}/achievements/1`);
         const retry = await axios.get(`/users/${authenticatedUser}/achievements`);
         if (retry.data?.length) {
           setUserAchievements(retry.data);
+          console.log(achievements);
+          showAchievementNotif(1);
         }
       }
     } catch(err) {
@@ -62,26 +70,63 @@ function App({ authenticatedUser, setAuthorizedUser }) {
 
   const grantUserAchievement = async (id) => {
     try {
-      await axios.post(`/users/${authenticatedUser}/achievements/${id}`);
-      getUserAchievements();
-    } catch(err) {
+      let curCount = userAchievements.length;
+      if (id === 12) {
+        let check = false;
+        const { data } = await axios.get(`/leaderboard`);
+        for (let i = 0; i < data[1].length; i++) {
+          if (data[1][i].id === authenticatedUser) {
+            check = true;
+            break;
+          }
+        }
+        if (!check) return;
+      }
+      axios.post(`/users/${authenticatedUser}/achievements/${id}`)
+      .then(() => getUserAchievements())
+      .then((data) => {
+          if (data.length !== curCount) {
+            showAchievementNotif(id);
+          }
+        });
+      } catch(err) {
       console.log(err);
     }
   };
+
+  const showAchievementNotif = (id) => {
+    if (!achievementNotif) {
+      for (let i = 0; i < achievements.length; i++) {
+        if (achievements[i].id === id) {
+          const latest = achievements[i];
+          setLatestAchievement(latest);
+          setAchievementNotif(true);
+          setTimeout(() => {
+            setAchievementNotif(false);
+          }, 9000);
+          break;
+        }
+      }
+    }
+  }
 
   //App On-Mount Effects
   useEffect(() => {
     getPortfolioData(authenticatedUser);
     getTradeHistory(authenticatedUser);
     getAchievements();
-    getUserAchievements();
     getCoins();
     watched_coins ? setUserWatchlist(watched_coins) : null;
   }, []);
 
   useEffect(() => {
+    if (achievements.length) {
+      getUserAchievements();
+    }
+  }, [achievements]);
+
+  useEffect(() => {
     const status = {};
-    console.log(userAchievements, userAchievements.length)
     if (userAchievements.length) {
       userAchievements.forEach((achievement) => {
       status[achievement.achievement_id] = true;
@@ -89,6 +134,18 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   };
     setAchievementsStatus(status);
   }, [userAchievements]);
+
+  useEffect(() => {
+    if (!achievementsStatus[9] && accountValue >= 550) {
+      grantUserAchievement(9);
+    }
+    if (!achievementsStatus[10] && profits >= 650) {
+      grantUserAchievement(10);
+    }
+    if (!achievementsStatus[11] && profits >= 1000) {
+      grantUserAchievement(11);
+    }
+  }, [accountValue]);
 
   useEffect(() => {
     getPortfolioData(authenticatedUser);
@@ -114,9 +171,6 @@ function App({ authenticatedUser, setAuthorizedUser }) {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
         setPortfolio(data.data);
-        if (!achievementsStatus[3] && data.data.length >= 4) {
-          grantUserAchievement(3);
-        }
         return data.data;
       })
       .then((portfolioData) => {
@@ -125,15 +179,6 @@ function App({ authenticatedUser, setAuthorizedUser }) {
         }, 0);
         setProfits((accVal - 500).toFixed(2));
         setAccountValue(accVal.toFixed(2));
-        if (!achievementsStatus[9] && profits >= 50) {
-          grantUserAchievement(9);
-        }
-        if (!achievementsStatus[10] && profits >= 100) {
-          grantUserAchievement(10);
-        }
-        if (!achievementsStatus[11] && profits >= 500) {
-          grantUserAchievement(11);
-        }
       })
       .catch(err => console.log(err));
   }
@@ -159,7 +204,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   async function handleCoinClick (e) {
     e.preventDefault();
     try {
-      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? setSymbol(coin.acronym) : null));
+      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? (setSymbol(coin.acronym), setCoin(coin)) : null));
     } catch (err) {
       console.log('ERR: forwarding to the trading page', err);
     }
@@ -181,6 +226,9 @@ function App({ authenticatedUser, setAuthorizedUser }) {
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
       setUserWatchlist(result.data);
+      if (!achievementsStatus[7]) {
+        grantUserAchievement(7);
+      }
     })
     .catch(err => console.log(err));
   }
@@ -241,7 +289,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} authenticatedUser={authenticatedUser} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} getTradeHistory={getTradeHistory} />);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} getTradeHistory={getTradeHistory} coin={coin}/>);
 
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
@@ -260,6 +308,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
           {activeComponent}
           <ResetModal showResetModal={showResetModal} setShowResetModal={setShowResetModal} handleResetClick={handleResetClick} />
         </div>
+          <Notification isVisible={achievementNotif} setIsVisible={setAchievementNotif} achievement={latestAchievement}/>
       </div>
     </div>
   )

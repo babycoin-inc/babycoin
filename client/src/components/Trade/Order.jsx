@@ -199,8 +199,17 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       if (!achievementsStatus[5] && orderType === 'sell') {
         grantUserAchievement(5);
       }
+      if (achievementsStatus[5] && !achievementsStatus[6] && orderType === 'sell') {
+        grantUserAchievement(6);
+      }
       if (!achievementsStatus[4] && orderType === 'buy' && total_trade_fiat <= 5) {
         grantUserAchievement(4);
+      }
+      if (!achievementsStatus[12] && orderType === 'sell') {
+        grantUserAchievement(12);
+      }
+      if (!achievementsStatus[3] && portfolio.length >= 4) {
+        grantUserAchievement(3);
       }
     } catch (e) {
     console.error(e);
@@ -208,7 +217,7 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
 };
 
   return (
-    <div className="flex flex-col items-center space-y-8 bg-zinc-700 rounded-xl w-1/3 h-3/4">
+    <div className="flex flex-col items-center space-y-8 bg-zinc-700 rounded-xl w-1/3 h-3/4 mr-7">
       {orderType === 'buy' ? <Buy orderType={orderType} setOrderType={setOrderType} getNonCashAssets={getNonCashAssets} setCoin={setCoin} coin={coin} coins={coins} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits}/> : <Sell Buy orderType={orderType} setOrderType={setOrderType} resetOrderForm={resetOrderForm} setOrderUnits={setOrderUnits} />}
       <OrderForm coin={coin} orderUnits={orderUnits} setOrderUnits={setOrderUnits} orderType={orderType} total_trade_fiat={total_trade_fiat} total_trade_coin={total_trade_coin} getCash={getCash} orderAmount={orderAmount} setOrderAmount={setOrderAmount} isOrderValid={isOrderValid} quantityOfCoin={quantityOfCoin} roundToDecimalPlace={roundToDecimalPlace} setSellAll={setSellAll} sellAll={sellAll}/>
       <TradeableCoins tradeableCoins={orderType === 'buy' ? getNonCashCoins() : getNonCashAssets()} resetOrderForm={resetOrderForm} orderType={orderType} coin={coin} setCoin={setCoin} coins={coins} setSymbol={setSymbol}/>
