@@ -18,11 +18,12 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, s
     //first element needs to be flex in order to organize containers on trade page
     <div className="flex flex-col justify-between gap-8">
       <div className="flex pl-8">
-        <img className="w-8" src={coin.image} />
-        <span className="text-4xl font-extrabold px-1">{coin.name}({symbol})</span>
+        <img className="w-10" src={coin.image === undefined ? "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579" : coin.image} />
+        <span className="text-4xl font-extrabold px-1">{coin.name === undefined ? "Bitcoins" : coin.name}({symbol.toUpperCase()})</span>
       </div>
       <div className="flex justify-between gap-4">
-        <div className="flex w-3/5 p-5">
+        <Confirmation modalIsOpen={modalIsOpen} setModalIsOpen={setModalIsOpen} transaction={transaction} setActivePage={setActivePage}/>
+        <div className="flex pl-7">
           <Graph coin={symbol} />
         </div>
         <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openAndPopulateModal={openAndPopulateModal} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} getTradeHistory={getTradeHistory} />

@@ -78,7 +78,7 @@ function Newsfeed(ticker) {
 
   return (
     <div class="flex flex-col">
-        <h3 class="text-4xl font-extrabold dark:text-white">Newsfeed</h3>
+        <h3 class="text-4xl font-extrabold dark:text-white pl-7">Newsfeed</h3>
         <div class="w-full max-h-96 px-2 py-1 overflow-y-auto">
           {newsArr.slice(0, numNews).map((article, i) => {
             return <News key = {i} art = {article}/>
