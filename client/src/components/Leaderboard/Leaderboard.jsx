@@ -91,7 +91,7 @@ function Leaderboard() {
 						<div>
 							<label>
 								CryptoCurrency:{'   '}
-								<select className='ml-4' onChange={handleCoinChange} value={coin}>
+								<select className='ml-4 text-zinc-800' onChange={handleCoinChange} value={coin}>
 									<option value='usd'>US Dollar</option>
 									<option value='btc'>BTC</option>
 									<option value='eth'>ETH</option>
@@ -119,7 +119,7 @@ function Leaderboard() {
 						<form value={search} onSubmit={handleSearchSubmit}>
 							<label>
 								Search:{'   '}
-								<input type="text" value={search} onChange={handleSearchChange} />
+								<input type="text" className="text-zinc-800 pl-2" value={search} onChange={handleSearchChange} />
 							</label>
 							<input type="submit" value='&#128269;' />
 						</form>
