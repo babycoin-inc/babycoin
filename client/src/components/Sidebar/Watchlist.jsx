@@ -5,7 +5,7 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
 
   const prev_price = {};
 
-  coins.map(coin => {
+  coins === undefined ? [] : coins.map(coin => {
     prev_price[coin.name] = JSON.parse(window.localStorage.getItem(`previous price of ${coin.name} for the ${authenticatedUser}:`));
   });
 
@@ -26,7 +26,7 @@ const Watchlist = ({ userWatchlist, coins, removeFromWatchlist, authenticatedUse
             </tr>
           </thead>
           <tbody>
-            {coins.map((coinInfo, index) => (
+            {coins === undefined ? [] : coins.map((coinInfo, index) => (
               userWatchlist.length > 0 && userWatchlist.includes(coinInfo.name) ?
                 <tr key={index} className="bg-zinc-900 hover:bg-zinc-700">
                   <td className="text-yellow-600 cursor-pointer" onClick={removeFromWatchlist} >★</td>

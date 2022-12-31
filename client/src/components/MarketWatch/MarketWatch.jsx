@@ -44,7 +44,7 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
             </tr>
           </thead>
           <tbody>
-              {coins.map((coin, index) => (
+              {coins === undefined ? [] : coins.map((coin, index) => (
                 coin.acronym !== 'usd' ?
                 <tr key={index} className="border border-gray-800 bg-zinc-900 hover:bg-zinc-800">
                   {userWatchlist.includes(coin.name) ? <td className="text-lg text-yellow-600 font-light text-right mr-2 cursor-pointer" onClick={toggleStars}>★</td> : <td className="text-lg text-white font-light text-right mr-2 cursor-pointer" onClick={toggleStars}>☆</td>}
