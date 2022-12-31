@@ -208,7 +208,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
     e.preventDefault();
     try {
       await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? setSymbol(coin.acronym) : null));
-      console.log(symbol);
+      // console.log(symbol);
     } catch (err) {
       console.log('ERR: forwarding to the trading page', err);
     }
@@ -227,7 +227,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   }
 
   function addToWatchlist () {
-    console.log('sendObj', sendObj);
+    // console.log('sendObj', sendObj);
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
       setUserWatchlist(result.data);
