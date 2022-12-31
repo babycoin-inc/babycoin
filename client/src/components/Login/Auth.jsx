@@ -5,7 +5,6 @@ import babycoinblink from '../../../dist/assets/BabyCoinHalfLogoBlink.png';
 import LoginForm from './LoginForm.jsx';
 import SignupForm from './SignupForm.jsx';
 import GoogleButton from './GoogleButton.jsx';
-import { Transition } from '@headlessui/react';
 
 const Auth = ({ updateUser }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
@@ -29,9 +28,9 @@ const Auth = ({ updateUser }) => {
   return (
     <div className={`relative w-full min-h-screen`}>
       <div className='flex flex-col justify-center items-center pt-28'>
-        <div onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
-          {!blinking && <img className= 'w-48 h-48' src={babycoinLogo} alt='babycoin'/>}
-          {blinking && <img className= 'w-48 h-48' src={babycoinblink} alt='babycoin'/>}
+        <div className="will-change-contents" onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
+          {!blinking && <img className= 'w-48 h-48 transition-all' src={babycoinLogo} alt='babycoin'/>}
+          {blinking && <img className= 'w-48 h-48 transition-all' src={babycoinblink} alt='babycoin'/>}
         </div>
       </div>
       {/* <div className='max-w-[400px] w-full mx-auto p-20 bg-gradient-to-br from-zinc-600 via-zinc-700 to-zinc-800 rounded-xl -mt-14 text-zinc-200'> */}
