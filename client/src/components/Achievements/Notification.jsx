@@ -7,7 +7,7 @@ const Notification = ( {isVisible, setIsVisible, achievement} ) => {
         <AnimatePresence>
             {isVisible && (
                 <motion.div
-                    className="absolute bottom-5 right-0 m-6 p-10 rounded-2xl bg-zinc-900 shadow-xl text-gray-300"
+                    className="fixed bottom-5 right-0 m-6 p-10 rounded-2xl bg-zinc-900 shadow-xl text-gray-300"
                     key="modal"
                     initial={{ x: '-40%', opacity: 0}}
                     animate={{ 

@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import BabyCoinLogo from '../../../dist/assets/BabyCoinDark.png';
-import BabyCoinBlink from '../../../dist/assets/BabyCoinDarkBlink.png';
 import Watchlist from './Watchlist.jsx';
 
 const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
 
 function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch }) {
-
-  const [blinking, setBlinking] = useState(false);
 
   let hasMadeTrades = false;
   if (tradeHistory.length >= 1) {
@@ -35,9 +32,8 @@ function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coin
   return (
     <div className="w-64 border-r-2 border-zinc-800">
       <div className="sticky top-0">
-        <div className="h-1/6" onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
-          {!blinking && <img src={BabyCoinLogo} width="110" className="relative mx-auto mt-2" />}
-          {blinking && <img src={BabyCoinBlink} width="110" className="relative mx-auto mt-2" />}
+        <div className="h-1/6">
+          <img src={BabyCoinLogo} width="110" className="relative mx-auto mt-2" />
         </div>
         <nav className="flex flex-col items-center mt-20 w-full text-2xl">
           {navItems}
