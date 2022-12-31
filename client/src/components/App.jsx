@@ -215,7 +215,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   async function handleCoinSelect (selectedOption) {
     setMultiValue([selectedOption]);
     try {
-      await coins.map(coin => coin.name === selectedOption['value'] ? setSymbol(coin.acronym) : null);
+      await coins.map(coin => coin.name === selectedOption['value'] ? (setSymbol(coin.acronym), setCoin(coin)) : null);
     } catch (err) {
       console.log('ERR: setSymbol error', err);
     }
