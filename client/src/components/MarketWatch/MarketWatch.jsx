@@ -35,7 +35,7 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
               <th className="text-lg font-medium text-white py-1 w-1/6">
                 24h
               </th>
-              <th className="text-lg font-medium text-white py-1 w-1/5">
+              <th className="text-lg font-medium text-white py-1 w-1/6">
                 Mkt Cap
               </th>
               <th className="text-justify text-lg font-medium text-white py-1 w-1/5">
