@@ -28,4 +28,4 @@ If you have any questions or need assistance, please don't hesitate to reach out
 - Alex Yeung aka "NewsNinjaAlex"
 - David Chiu aka "LeaderboardMasterDavid"
 - Abdiel Sanchez aka "AchievementAceAbdiel"
-Nicholas Hays aka "SecuritySpecialistNicholas"
+- Nicholas Hays aka "SecuritySpecialistNicholas"
