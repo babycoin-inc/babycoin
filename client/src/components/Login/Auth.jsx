@@ -60,7 +60,7 @@ const Auth = ({ updateUser }) => {
 
         {/* solid background card */}
         <div className='group'>
-          <div onMouseEnter={()=>setIsSleeping(false)} className='relative w-full h-full border-2 border-zinc-900 max-w-[375px] bg-bitcoin-pattern rounded-xl mx-[37.5px] mt-12 text-zinc-200 transition-all duration-700 group-hover:[transform:rotateY(180deg)] [transform-style:preserve-3d]'> {/* -mt-14 //// group-hover:[transform:rotateY(180deg)]*/}
+          <div onMouseEnter={()=>setIsSleeping(false)} className='relative w-full h-full border-2 border-zinc-900 max-w-[375px] bg-zinc-800 rounded-xl mx-[37.5px] mt-12 text-zinc-200 transition-all duration-700 group-hover:[transform:rotateY(180deg)] [transform-style:preserve-3d]'> {/* -mt-14 //// group-hover:[transform:rotateY(180deg)]*/}
 
             {/* INFO BOX */}
 
