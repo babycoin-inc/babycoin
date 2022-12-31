@@ -23,7 +23,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const [coins, setCoins] = useState([]);
   const [symbol, setSymbol] = useState('BTC');
   const [showResetModal, setShowResetModal] = useState(false);
-  const [coin, setCoin] = useState({});
+  const [coin, setCoinT] = useState({});
 
   // watchlist & marketWatch & dropdown:
   const watched_coins = JSON.parse(window.localStorage.getItem(`Watched_Coins for the user ${authenticatedUser}:`)) || [];
@@ -205,7 +205,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   async function handleCoinClick (e) {
     e.preventDefault();
     try {
-      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? (setSymbol(coin.acronym), setCoin(coin)) : null));
+      await coins.map(coin => (coin.name === e.target.innerText || coin.acronym.toLowerCase() === e.target.innerText.toLowerCase() ? (setSymbol(coin.acronym), setCoinT(coin)) : null));
     } catch (err) {
       console.log('ERR: forwarding to the trading page', err);
     }
@@ -216,7 +216,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   async function handleCoinSelect (selectedOption) {
     setMultiValue([selectedOption]);
     try {
-      await coins.map(coin => coin.name === selectedOption['value'] ? setSymbol(coin.acronym) : null);
+      await coins.map(coin => coin.name === selectedOption['value'] ? (setSymbol(coin.acronym), setCoinT(coin)) : null);
     } catch (err) {
       console.log('ERR: setSymbol error', err);
     }
@@ -291,7 +291,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   } else if (activePage === 'Market Watch') {
     activeComponent = (<Market sortConfig={sortConfig} coins={coins} handleCoinClick={e => handleCoinClick(e)} activePage={activePage} symbol={symbol} userWatchlist={userWatchlist} toggleStars={e=>toggleStars(e)} authenticatedUser={authenticatedUser} />);
   } else if (activePage === 'Trade') {
-    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} getTradeHistory={getTradeHistory} coin={coin}/>);
+    activeComponent = (<Trade authenticatedUser={authenticatedUser} coins={coins} portfolio={portfolio} getPortfolioData={getPortfolioData} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} setActivePage={setActivePage} getTradeHistory={getTradeHistory} coin={coin} setCoinT={setCoinT}/>);
 
   } else if (activePage === 'Leader Board') {
     activeComponent = (<Leaderboard />);
