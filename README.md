@@ -2,7 +2,6 @@
   <img src="https://user-images.githubusercontent.com/92281407/210127782-b31f1b22-0d57-4c1b-9d04-fc7242583ff4.png" width="300" height="300"/></br>
   <b><i>babycoin</i></b>
 </h1>
-
 Welcome to *babycoin*, a platform that allows you to trade practice currency and experience the ups and downs of the market without risking any real money.
 
 # Who is babycoin for?
