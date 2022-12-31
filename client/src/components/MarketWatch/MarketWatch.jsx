@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
-const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authenticatedUser, sortConfig }) => {
+const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authenticatedUser }) => {
 
   const prev_price = {};
 
@@ -11,27 +11,13 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
     }, [coin.latest_price]);
   });
 
-  // let sortedCoins = coins.slice();
 
-  // if (sortConfig !== null) {
-  //   sortedCoins.sort((a, b) => {
-  //     if (a[sortConfig.sortColumn] < b[sortConfig.sortColumn]) {
-  //       return sortConfig.direction === 'ascending' ? -1 : 1;
-  //     } else if (a[sortConfig.sortColumn] > b[sortConfig.sortColumn]) {
-  //       return sortConfig.direction === 'ascending' ? 1 : -1;
-  //     }
-  //     return 0;
-  //   })
-  // }
+  const [sortColumn, setSortColumn] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
-  // const requestSort = sortColumn => {
-  //   let direction = 'ascending';
-  //   if (sortConfig && sortConfig.sortColumn === sortColumn && sortConfig.direction === 'ascending') {
-  //     direction = 'descending';
-  //   }
-  //   setSortConfig({sortColumn, direction});
-  //   return {coins: sortedCoins, requestSort, sortConfig};
-  // }
+  const sorting = (e) => {
+    console.log(e.target);
+  }
 
   return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -43,7 +29,7 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
               <th className="text-justify text-lg font-medium text-white py-1 w-1/6">
                 Coin
               </th>
-              <th className="text-lg font-medium text-white py-1 w-1/6" >
+              <th className="text-lg font-medium text-white py-1 w-1/6" onClick = {(e) => sorting(e)}>
                 Price
               </th>
               <th className="text-lg font-medium text-white py-1 w-1/6">
@@ -62,12 +48,14 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
                 coin.acronym !== 'usd' ?
                 <tr key={index} className="border border-gray-800 bg-zinc-900 hover:bg-zinc-800">
                   {userWatchlist.includes(coin.name) ? <td className="text-lg text-yellow-600 font-light text-right mr-2" onClick={toggleStars}>★</td> : <td className="text-lg text-white font-light text-right mr-2" onClick={toggleStars}>☆</td>}
-                  <td className="text-sm text-white font-light flex">
+                  <td className="text-white font-light">
+                    <div className="flex items-center">
                         <img className="w-7 ml-1 mr-1" src={coin.image}/>
                         <div href="#hover" className="no-underline hover:underline cursor-pointer" onClick={handleCoinClick}>
-                          <span className="mr-1 font-semibold">{coin.name}</span>
-                          <span>{coin.acronym.toUpperCase()}</span>
+                          <span className="mr-1 font-semibold text-sm">{coin.name}</span>
+                          <span className="text-xs">{coin.acronym.toUpperCase()}</span>
                         </div>
+                    </div>
                   </td>
                   { prev_price[coin.name] > coin.latest_price ? <td className="text-sm text-red-600 font-light py-1">${coin.latest_price}</td> :
                     prev_price[coin.name] === coin.latest_price ? <td className="text-sm text-white font-light py-1">${coin.latest_price}</td> :

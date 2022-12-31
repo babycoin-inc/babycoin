@@ -1,6 +1,8 @@
 const pg = require('pg');
 const expressSession = require('express-session');
 const pgSession = require('connect-pg-simple')(expressSession);
+const { COOKIE_SECRET } = process.env
+const COOKIE_MAX_AGE = 1000 * 60 * 15; // 15 min
 
 const pgPool = new pg.Pool({
   user: process.env.PGUSER,
@@ -10,45 +12,18 @@ const pgPool = new pg.Pool({
   port: process.env.PGPORT,
 });
 
-// const options = {
-//   pool: pgPool,
-//   createTableIfMissing: true,
-// }
-
-// const pgSessionStore = new pgSession(options)
-
-// const session = expressSession({
-//   store: pgSessionStore,
-//   secret: 'secret',
-//   maxAge: 15000
-// });
-
 const session = expressSession({
   store: new pgSession({
     pool : pgPool,
     createTableIfMissing: true
   }),
-  secret: 'secret',
+  secret: COOKIE_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 45000,
+    maxAge: COOKIE_MAX_AGE,
     httpOnly: true,
   }
 })
-
-// const sessionOptions = {
-//   store: new pgSession({
-//   pool : pgPool,
-//   createTableIfMissing: true
-//   }),
-//   secret: 'secret',
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     httpOnly: true,
-//     maxAge: 15000,
-//   }
-// }
 
 module.exports = session;
