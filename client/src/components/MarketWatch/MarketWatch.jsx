@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
-const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authenticatedUser, sortConfig }) => {
+const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authenticatedUser }) => {
 
   const prev_price = {};
 
@@ -11,27 +11,13 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
     }, [coin.latest_price]);
   });
 
-  // let sortedCoins = coins.slice();
 
-  // if (sortConfig !== null) {
-  //   sortedCoins.sort((a, b) => {
-  //     if (a[sortConfig.sortColumn] < b[sortConfig.sortColumn]) {
-  //       return sortConfig.direction === 'ascending' ? -1 : 1;
-  //     } else if (a[sortConfig.sortColumn] > b[sortConfig.sortColumn]) {
-  //       return sortConfig.direction === 'ascending' ? 1 : -1;
-  //     }
-  //     return 0;
-  //   })
-  // }
+  const [sortColumn, setSortColumn] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
 
-  // const requestSort = sortColumn => {
-  //   let direction = 'ascending';
-  //   if (sortConfig && sortConfig.sortColumn === sortColumn && sortConfig.direction === 'ascending') {
-  //     direction = 'descending';
-  //   }
-  //   setSortConfig({sortColumn, direction});
-  //   return {coins: sortedCoins, requestSort, sortConfig};
-  // }
+  const sorting = (e) => {
+    console.log(e.target);
+  }
 
   return (
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -43,7 +29,7 @@ const MarketWatch = ({coins, handleCoinClick, userWatchlist, toggleStars, authen
               <th className="text-justify text-lg font-medium text-white py-1 w-1/6">
                 Coin
               </th>
-              <th className="text-lg font-medium text-white py-1 w-1/6" >
+              <th className="text-lg font-medium text-white py-1 w-1/6" onClick = {(e) => sorting(e)}>
                 Price
               </th>
               <th className="text-lg font-medium text-white py-1 w-1/6">
