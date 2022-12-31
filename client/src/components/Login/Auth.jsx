@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useForm } from 'react-hook-form';
 import babycoinLogo from '../../../dist/assets/BabyCoinHalfLogo.png';
 import babycoinblink from '../../../dist/assets/BabyCoinHalfLogoBlink.png';
+import babycoinSleep from '../../../dist/assets/BabyCoinBothEyesClosedHalf.png'
 import LoginForm from './LoginForm.jsx';
 import SignupForm from './SignupForm.jsx';
 import GoogleButton from './GoogleButton.jsx';
@@ -9,6 +10,7 @@ import GoogleButton from './GoogleButton.jsx';
 const Auth = ({ updateUser }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [blinking, setBlinking] = useState(false);
+  const [isSleeping, setIsSleeping] = useState(true);
   const [infoIsShown, setInfoIsShown] = useState(false);
 
   const handleWhichForm = (e) => {
@@ -29,10 +31,14 @@ const Auth = ({ updateUser }) => {
     <div className={`relative w-full min-h-screen`}>
       {/* Logo container */}
       <div className='flex flex-col justify-center items-center pt-28 z-10 relative'> {/**z index doesn't work? why is border bg covering baby when it is opaque */}
-        <div id='logoContainer' onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
-          {!blinking && <img className= 'w-48 h-48' src={babycoinLogo} alt='babycoin'/>}
-          {blinking && <img className= 'w-48 h-48' src={babycoinblink} alt='babycoin'/>}
-        </div>
+        {isSleeping ?
+          <img className= 'w-48 h-48' src={babycoinSleep} alt='babycoinsleep'/>
+        :
+          <div id='logoContainer' onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
+            {!blinking && <img className= 'w-48 h-48' src={babycoinLogo} alt='babycoin'/>}
+            {blinking && <img className= 'w-48 h-48' src={babycoinblink} alt='babycoin'/>}
+          </div>
+        }
       </div>
 
       {/* Border */}
@@ -40,7 +46,7 @@ const Auth = ({ updateUser }) => {
 
         {/* solid background card */}
         <div className='group'>
-          <div className='relative w-full h-full border-2 border-zinc-900 max-w-[375px] bg-bitcoin-pattern rounded-xl mx-[37.5px] mt-12 text-zinc-200 transition-all duration-700 group-hover:[transform:rotateY(180deg)] [transform-style:preserve-3d]'> {/* -mt-14 //// group-hover:[transform:rotateY(180deg)]*/}
+          <div onMouseEnter={()=>setIsSleeping(false)} className='relative w-full h-full border-2 border-zinc-900 max-w-[375px] bg-bitcoin-pattern rounded-xl mx-[37.5px] mt-12 text-zinc-200 transition-all duration-700 group-hover:[transform:rotateY(180deg)] [transform-style:preserve-3d]'> {/* -mt-14 //// group-hover:[transform:rotateY(180deg)]*/}
 
             {/* INFO BOX */}
 
