@@ -12,8 +12,8 @@ BabyCoin is for anyone who is interested in learning about crypto trading, or fo
 7. *Achievements:* Complete achievements to learn fundamental trading concepts and earn rewards.
 # Why babycoin?
 Many people are interested in learning about crypto trading, but it can be intimidating to start with real money. There is also a lack of educational resources for aspiring traders to learn the basics and improve their skills. 
-## babycoin fixes the problem.
-BabyCoin solves this problem by providing a sandbox environment for traders to practice and learn in a low-risk setting. With our platform, you can trade with practice currency and complete achievements to learn fundamental trading concepts. You can also track your portfolio and compete with other traders on the leaderboard to see how you stack up.
+
+*babycoin solves this problem* by providing a sandbox environment for traders to practice and learn in a low-risk setting. With our platform, you can trade with practice currency and complete achievements to learn fundamental trading concepts. You can also track your portfolio and compete with other traders on the leaderboard to see how you stack up.
 >"At BabyCoin, our goal is to make it easy and safe for aspiring traders to learn and practice their skills," says Duke Syskey, CEO of babycoin.
 # Getting Started
 Getting started with BabyCoin is easy. Simply sign up for an account, fund it with practice currency, and start trading. You can track your progress and improve your skills as you go.
