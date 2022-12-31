@@ -172,9 +172,6 @@ function App({ authenticatedUser, setAuthorizedUser }) {
     axios.get(`/users/${userId}/balances`)
       .then((data) => {
         setPortfolio(data.data);
-        if (!achievementsStatus[3] && data.data.length >= 4) {
-          grantUserAchievement(3);
-        }
         return data.data;
       })
       .then((portfolioData) => {
