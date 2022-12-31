@@ -1,5 +1,10 @@
-# babycoin
+<h1 align="center">
+  <img src="https://user-images.githubusercontent.com/92281407/210127782-b31f1b22-0d57-4c1b-9d04-fc7242583ff4.png" width="300" height="300"/></br>
+  <b>babycoin</b>
+</h1>
+
 Welcome to BabyCoin, a platform that allows you to trade practice currency and experience the ups and downs of the market without risking any real money.
+
 # Who is babycoin for?
 BabyCoin is for anyone who is interested in learning about crypto trading, or for experienced traders who want a safe sandbox environment to test out new strategies.
 # Features
