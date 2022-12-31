@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Buy({orderType, setOrderType, coin, setCoin, setSymbol, portfolio, getNonCashAssets, coins, resetOrderForm, setOrderUnits}) {
+function Buy({orderType, setOrderType, coin, setCoin, setSymbol, portfolio, getNonCashAssets, coins, resetOrderForm, setOrderUnits, setCoinT}) {
 
   let [sellButton, setSellButton] = useState(<button className="basis-1/2 border-2 text-xl bg-orange-400 text-orange-900 font-semibold border border-orange-500 rounded py-2 px-5 mx-auto active:border active:border-orange-400 hover:bg-orange-500">Sell</button>
   );
@@ -21,6 +21,7 @@ function Buy({orderType, setOrderType, coin, setCoin, setSymbol, portfolio, getN
           }
         }
         setSymbol(coinToSet.acronym);
+        setCoinT(coinToSet);
       }
       setOrderType('sell');
       setOrderUnits('usd');
