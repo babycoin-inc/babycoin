@@ -1,3 +1,5 @@
+import "../client/src/components/Newsfeeds/newsfeed.jsx"
+
 const sum = (a, b) => {
   return a + b
 }
