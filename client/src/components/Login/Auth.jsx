@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import babycoinLogo from '../../../dist/assets/BabyCoinHalfLogo.png';
 import babycoinblink from '../../../dist/assets/BabyCoinHalfLogoBlink.png';
@@ -9,18 +9,28 @@ import GoogleButton from './GoogleButton.jsx';
 const Auth = ({ updateUser }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [blinking, setBlinking] = useState(false);
+  const [isShowing, setIsShowing] = useState(false)
 
   const handleWhichForm = (e) => {
     e.preventDefault();
     setIsLoginForm(!isLoginForm);
   }
 
+  useEffect(() => {
+    setTimeout(() => {
+      setBlinking(true);
+      setTimeout(() => {
+        setBlinking(false);
+      }, 700);
+    }, 2000);
+  },[])
+
   return (
     <div className={`relative w-full min-h-screen`}>
       <div className='flex flex-col justify-center items-center pt-28'>
-        <div onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
-          {!blinking && <img className= 'w-48 h-48' src={babycoinLogo} alt='babycoin'/>}
-          {blinking && <img className= 'w-48 h-48' src={babycoinblink} alt='babycoin'/>}
+        <div className="will-change-contents" onMouseEnter={(() => setBlinking(true))} onMouseLeave={() => setBlinking(false)}>
+          {!blinking && <img className= 'w-48 h-48 transition-all' src={babycoinLogo} alt='babycoin'/>}
+          {blinking && <img className= 'w-48 h-48 transition-all' src={babycoinblink} alt='babycoin'/>}
         </div>
       </div>
       {/* <div className='max-w-[400px] w-full mx-auto p-20 bg-gradient-to-br from-zinc-600 via-zinc-700 to-zinc-800 rounded-xl -mt-14 text-zinc-200'> */}
