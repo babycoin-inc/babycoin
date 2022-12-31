@@ -5,7 +5,7 @@ import Watchlist from './Watchlist.jsx';
 
 const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
 
-function Sidebar({ profits, handleNavClick, activePage, setActivePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch }) {
+function Sidebar({ profits, handleNavClick, activePage, setActivePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch, achievementsStatus, grantUserAchievement }) {
 
   const [clickCount, setClickCount] = useState(0);
 
@@ -23,6 +23,9 @@ function Sidebar({ profits, handleNavClick, activePage, setActivePage, tradeHist
   let babyLogoImage;
   if (clickCount >= 10 || profits < 0) {
     babyLogoImage = <img src={BabyCoinX} width="110" className="relative mx-auto mt-2 cursor-pointer transform -rotate-90 active:translate-y-2" onClick={babyClick}/>;
+    if (!achievementsStatus[13]) {
+      grantUserAchievement(13);
+    }
   } else {
     babyLogoImage = <img src={BabyCoinLogo} width="110" className="relative mx-auto mt-2 cursor-pointer transform active:translate-y-2" onClick={babyClick}/>;
   }
