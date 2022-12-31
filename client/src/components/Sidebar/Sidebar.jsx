@@ -23,7 +23,7 @@ function Sidebar({ profits, handleNavClick, activePage, setActivePage, tradeHist
   let babyLogoImage;
   if (clickCount >= 10 || profits < 0) {
     babyLogoImage = <img src={BabyCoinX} width="110" className="relative mx-auto mt-2 cursor-pointer transform -rotate-90 active:translate-y-2" onClick={babyClick}/>;
-    if (!achievementsStatus[13]) {
+    if (!achievementsStatus[13] && clickCount >= 10 ) {
       grantUserAchievement(13);
     }
   } else {
