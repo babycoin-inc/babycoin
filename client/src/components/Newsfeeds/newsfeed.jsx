@@ -54,10 +54,10 @@ function Newsfeed(ticker) {
   }
 
   function getNews(n){
-    console.log(n);
+    // console.log(n);
     var options = {
       method:'get',
-      url:  `/newsfeed/${tickers[coinState]}?n=${n}`
+      url:  `/newsfeed/${coinState.toUpperCase()}?n=${n}`
     }
     axios(options).then((result) => {
       // console.log('get news ran');
@@ -74,18 +74,18 @@ function Newsfeed(ticker) {
     }
   },[newsArr])
 
-  const colbut = numNews>3?<div><a class="mr-2">|</a><button onClick = {collapse}>Collapse</button></div>:null
+  const colbut = numNews>3?<div><a className="mr-2">|</a><button onClick = {collapse}>Collapse</button></div>:null
 
   return (
     <div class="flex flex-col">
-        <h3 class="text-4xl font-extrabold dark:text-white">Newsfeed</h3>
+        <h3 class="text-4xl font-extrabold dark:text-white pl-7">Newsfeed</h3>
         <div class="w-full max-h-96 px-2 py-1 overflow-y-auto">
           {newsArr.slice(0, numNews).map((article, i) => {
-            return <News key = {i} art = {article}/>
+            return <News key = {i} art = {article} achievementsStatus={ticker.achievementsStatus} grantUserAchievement={ticker.grantUserAchievement} />
           })}
         </div>
-        <div class="flex justify-center">
-          <button class="mr-2" onClick = {loadmore}>Load More</button> {colbut}
+        <div className="flex justify-center">
+          <button className="mr-2" onClick = {loadmore}>Load More</button> {colbut}
         </div>
     </div>
   );
