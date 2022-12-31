@@ -46,7 +46,7 @@ const SignupForm = ({ updateUser }) => {
   }
 
   const strongPasswordRequirements = (
-    <ul className='text-red-600 italic list-disc list-inside bg-gradient-to-br  from-zinc-800 to-zinc-700  mt-2 pl-2 rounded-lg'>
+    <ul className='text-red-600 italic list-disc list-inside bg-zinc-800 mt-2 pl-2 rounded-lg'>
       <small><strong>Must contain:</strong></small>
       <li><small><strong>at least one lowercase letter</strong></small></li>
       <li><small><strong>at least one uppercase letter</strong></small></li>

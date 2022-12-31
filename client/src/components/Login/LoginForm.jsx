@@ -73,7 +73,11 @@ const LoginForm = ({ updateUser }) => {
       </div>
 
       {/* LOGIN BUTTON */}
-      <button className='w-full py-3 mt-6 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl hover:scale-105'>Log In</button>
+      <div className='pt-20'>
+        <button className='w-full py-3 mt-6 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl hover:scale-105'>
+          Log In
+        </button>
+      </div>
     </form>
   )
 }
