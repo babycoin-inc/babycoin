@@ -208,7 +208,9 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       if (!achievementsStatus[12] && orderType === 'sell') {
         grantUserAchievement(12);
       }
-
+      if (!achievementsStatus[3] && portfolio.length >= 4) {
+        grantUserAchievement(3);
+      }
     } catch (e) {
     console.error(e);
   }
