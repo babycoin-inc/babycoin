@@ -47,7 +47,7 @@ const LoginForm = ({ updateUser }) => {
           type='text'
           {...register('username', {required: 'Username is required'})}
         />
-        <label for="username" className="absolute text-md text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0 cursor-text">Username</label>
+        <label htmlFor="username" className="absolute text-md text-gray-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0 cursor-text">Username</label>
         <small className='text-red-600 italic'>{errors.username?.message}</small>
       </div>
 
@@ -64,7 +64,7 @@ const LoginForm = ({ updateUser }) => {
             }
             )}
             />
-          <label for="password" className="absolute text-md text-zinc-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0 cursor-text">Password</label>
+          <label htmlFor="password" className="absolute text-md text-zinc-400 duration-300 transform -translate-y-9 scale-75 top-3 z-10 origin-[0] peer-focus:left-0 peer-focus:text-zinc-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:translate-x-2 peer-focus:scale-75 peer-focus:-translate-y-9 peer-focus:-translate-x-0 cursor-text">Password</label>
           <button className='text-xl text-zinc-800 absolute top-3 right-2' type="button" onClick={handleClickShowPassword}>
             {showPassword ? <AiFillEye/> : <AiFillEyeInvisible/>}
           </button>
@@ -73,7 +73,11 @@ const LoginForm = ({ updateUser }) => {
       </div>
 
       {/* LOGIN BUTTON */}
-      <button className='w-full py-3 mt-8 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl hover:scale-105'>Log In</button>
+      <div className='pt-20'>
+        <button className='w-full py-3 mt-6 bg-orange-600 hover:bg-orange-500 relative text-white rounded-xl hover:scale-105'>
+          Log In
+        </button>
+      </div>
     </form>
   )
 }
