@@ -199,9 +199,16 @@ function Order({ authenticatedUser, portfolio, coins, getPortfolioData, openAndP
       if (!achievementsStatus[5] && orderType === 'sell') {
         grantUserAchievement(5);
       }
+      if (achievementsStatus[5] && !achievementsStatus[6] && orderType === 'sell') {
+        grantUserAchievement(6);
+      }
       if (!achievementsStatus[4] && orderType === 'buy' && total_trade_fiat <= 5) {
         grantUserAchievement(4);
       }
+      if (!achievementsStatus[12] && orderType === 'sell') {
+        grantUserAchievement(12);
+      }
+
     } catch (e) {
     console.error(e);
   }

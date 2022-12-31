@@ -28,7 +28,7 @@ function Trade({authenticatedUser, portfolio, coins, getPortfolioData, symbol, s
         </div>
         <Order authenticatedUser={authenticatedUser} portfolio={portfolio} coins={coins} getPortfolioData={getPortfolioData} openAndPopulateModal={openAndPopulateModal} symbol={symbol} setSymbol={setSymbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement} getTradeHistory={getTradeHistory} />
       </div>
-      <Newsfeed coin={symbol} />
+      <Newsfeed coin={symbol} achievementsStatus={achievementsStatus} grantUserAchievement={grantUserAchievement}/>
     </div>
   )
 }
