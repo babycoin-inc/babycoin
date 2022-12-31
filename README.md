@@ -16,7 +16,7 @@ Welcome to *babycoin*, a platform that allows you to trade practice currency and
 6. **Leaderboard for earnings:** See how you stack up against other traders on the leaderboard and compete for the top spot.
 7. **Achievements:** Complete achievements to learn fundamental trading concepts and earn rewards.
 
-<div class="grid">
+<div class="grid" align="center">
 
 <img width="300" height="180" alt="2022-12-31 at 12 18 33@2x" src="https://user-images.githubusercontent.com/92281407/210152401-10f1c7f1-1c65-4971-98b2-a7d832f8ff8b.png">
 <img width="300" height="180" alt="2022-12-31 at 12 12 11@2x" src="https://user-images.githubusercontent.com/92281407/210152276-b1643fc9-2a9a-4861-8e90-369ab8a41c0f.png">
