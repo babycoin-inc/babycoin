@@ -33,8 +33,8 @@ const Notification = ( {isVisible, setIsVisible, achievement} ) => {
                                 type: "spring" },
                           }}
                     />
-                    <div className="text-yellow-300 text-sm text-center">Achievement Unlocked:</div>
-                    <div className="text-center font-bold p-2">{achievement.title}</div>
+                    <div className="text-yellow-300 text-sm text-center py-2">Achievement Unlocked:</div>
+                    <div className="text-center font-bold text-lg p-2">{achievement.title}</div>
                     <div className="text-green-300 text-sm text-center">{achievement.points}+ AP</div>
                     <div
                         className="text-xs text-center pt-5 hover:cursor-pointer"

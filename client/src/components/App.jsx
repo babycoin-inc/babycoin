@@ -71,6 +71,17 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   const grantUserAchievement = async (id) => {
     try {
       let curCount = userAchievements.length;
+      if (id === 12) {
+        let check = false;
+        const { data } = await axios.get(`/leaderboard`);
+        for (let i = 0; i < data[1].length; i++) {
+          if (data[1][i].id === authenticatedUser) {
+            check = true;
+            break;
+          }
+        }
+        if (!check) return;
+      }
       axios.post(`/users/${authenticatedUser}/achievements/${id}`)
       .then(() => getUserAchievements())
       .then((data) => {
@@ -82,7 +93,7 @@ function App({ authenticatedUser, setAuthorizedUser }) {
       console.log(err);
     }
   };
-  
+
   const showAchievementNotif = (id) => {
     if (!achievementNotif) {
       for (let i = 0; i < achievements.length; i++) {
@@ -96,11 +107,6 @@ function App({ authenticatedUser, setAuthorizedUser }) {
           break;
         }
       }
-    } else {
-      setTimeout(() => {
-        console.log('hi');
-        showAchievementNotif(id)
-      }, 3500);
     }
   }
 
@@ -128,6 +134,18 @@ function App({ authenticatedUser, setAuthorizedUser }) {
   };
     setAchievementsStatus(status);
   }, [userAchievements]);
+
+  useEffect(() => {
+    if (!achievementsStatus[9] && accountValue >= 550) {
+      grantUserAchievement(9);
+    }
+    if (!achievementsStatus[10] && profits >= 650) {
+      grantUserAchievement(10);
+    }
+    if (!achievementsStatus[11] && profits >= 1000) {
+      grantUserAchievement(11);
+    }
+  }, [accountValue]);
 
   useEffect(() => {
     getPortfolioData(authenticatedUser);
@@ -164,15 +182,6 @@ function App({ authenticatedUser, setAuthorizedUser }) {
         }, 0);
         setProfits((accVal - 500).toFixed(2));
         setAccountValue(accVal.toFixed(2));
-        if (!achievementsStatus[9] && profits >= 50) {
-          grantUserAchievement(9);
-        }
-        if (!achievementsStatus[10] && profits >= 100) {
-          grantUserAchievement(10);
-        }
-        if (!achievementsStatus[11] && profits >= 500) {
-          grantUserAchievement(11);
-        }
       })
       .catch(err => console.log(err));
   }
@@ -222,6 +231,9 @@ function App({ authenticatedUser, setAuthorizedUser }) {
     axios.post(`/users/${authenticatedUser}/watchlist`, sendObj)
     .then(result => {
       setUserWatchlist(result.data);
+      if (!achievementsStatus[7]) {
+        grantUserAchievement(7);
+      }
     })
     .catch(err => console.log(err));
   }
