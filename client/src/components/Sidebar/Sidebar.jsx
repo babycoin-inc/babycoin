@@ -4,7 +4,7 @@ import Watchlist from './Watchlist.jsx';
 
 const pages = ['Home', 'Market Watch', 'Trade', 'Leader Board', 'Achievements'];
 
-function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch }) {
+function Sidebar({ handleNavClick, activePage, setActivePage, tradeHistory, userWatchlist, coins, removeFromWatchlist, authenticatedUser, handleCoinClick, goToMarketwatch }) {
 
   let hasMadeTrades = false;
   if (tradeHistory.length >= 1) {
@@ -33,7 +33,7 @@ function Sidebar({ handleNavClick, activePage, tradeHistory, userWatchlist, coin
     <div className="w-64 border-r-2 border-zinc-800">
       <div className="sticky top-0">
         <div className="h-1/6">
-          <img src={BabyCoinLogo} width="110" className="relative mx-auto mt-2" />
+          <img src={BabyCoinLogo} width="110" className="relative mx-auto mt-2 cursor-pointer transform active:translate-y-2" onClick={() => setActivePage('Home')}/>
         </div>
         <nav className="flex flex-col items-center mt-20 w-full text-2xl">
           {navItems}
