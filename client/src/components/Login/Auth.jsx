@@ -1,19 +1,30 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import babycoinLogo from '../../../dist/assets/BabyCoinHalfLogo.png';
 import babycoinblink from '../../../dist/assets/BabyCoinHalfLogoBlink.png';
 import LoginForm from './LoginForm.jsx';
 import SignupForm from './SignupForm.jsx';
 import GoogleButton from './GoogleButton.jsx';
+import { Transition } from '@headlessui/react';
 
 const Auth = ({ updateUser }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [blinking, setBlinking] = useState(false);
+  const [isShowing, setIsShowing] = useState(false)
 
   const handleWhichForm = (e) => {
     e.preventDefault();
     setIsLoginForm(!isLoginForm);
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setBlinking(true);
+      setTimeout(() => {
+        setBlinking(false);
+      }, 700);
+    }, 2000);
+  },[])
 
   return (
     <div className={`relative w-full min-h-screen`}>
