@@ -1,9 +1,11 @@
-const sum = (a, b) => {
-  return a + b
-}
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Sidebar from '../../../client/src/components/Sidebar/Sidebar.jsx';
 
-describe('dummy test', () => {
-  test('adds 2 + 4 to equal 6', () => {
-    expect(sum(2, 4)).toBe(6)
-  })
-})
+
+test('renders sidebar navigation', () => {
+  render(<Sidebar activePage='Home' />);
+  const sideNav = (screen.getByText(/market watch/i));
+  expect(sideNav).toBeInTheDocument();
+});
