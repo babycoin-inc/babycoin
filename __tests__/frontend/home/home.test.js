@@ -6,7 +6,7 @@ import AchievementWidget from '../../../client/src/components/Home/AchievementWi
 import Balance from '../../../client/src/components/Home/Balance.jsx';
 import Portfolio from '../../../client/src/components/Home/Portfolio.jsx';
 import TradeHistory from '../../../client/src/components/Home/TradeHistory.jsx';
-import { portfolioMockData, achivementsMock, tradeHist } from './homeMockData.js';
+import { portfolioMockData, achivementsMock, tradeHist } from '../mock/homeMockData.js';
 
 test('renders portfolio component on screen', () => {
   render(<Portfolio portfolio={portfolioMockData} />);
