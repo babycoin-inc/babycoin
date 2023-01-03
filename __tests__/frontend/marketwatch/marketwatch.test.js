@@ -7,3 +7,9 @@ describe('dummy test', () => {
     expect(sum(2, 4)).toBe(6)
   })
 })
+
+// import { screen, render } from '@testing-library/react';
+
+// describe("Component test", () => {
+//   it("should render MarketWatch Component")
+// })
