@@ -274,5 +274,6 @@ module.exports = {
         "order_type": "sell",
         "order_datetime": "2022-12-13T05:07:29.227Z"
     }
-  ]
+  ],
+  userWatchMock: ["Tether", "Bitcoin"]
 }
