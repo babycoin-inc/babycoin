@@ -2,7 +2,6 @@
   <img src="https://user-images.githubusercontent.com/92281407/210127782-b31f1b22-0d57-4c1b-9d04-fc7242583ff4.png" width="300" height="300"/></br>
   <b><i>babycoin</i></b>
 </h1>
-
 Welcome to *babycoin*, a platform that allows you to trade practice currency and experience the ups and downs of the market without risking any real money.
 
 # Who is babycoin for?
@@ -15,15 +14,9 @@ Welcome to *babycoin*, a platform that allows you to trade practice currency and
 5. **Newsfeed:** Stay informed about the latest developments in the crypto market with our built-in newsfeed.
 6. **Leaderboard for earnings:** See how you stack up against other traders on the leaderboard and compete for the top spot.
 7. **Achievements:** Complete achievements to learn fundamental trading concepts and earn rewards.
-
-<div class="grid">
-
-<img width="300" height="180" alt="2022-12-31 at 12 18 33@2x" src="https://user-images.githubusercontent.com/92281407/210152401-10f1c7f1-1c65-4971-98b2-a7d832f8ff8b.png">
-<img width="300" height="180" alt="2022-12-31 at 12 12 11@2x" src="https://user-images.githubusercontent.com/92281407/210152276-b1643fc9-2a9a-4861-8e90-369ab8a41c0f.png">
-  <img width="300" height="180" alt="2022-12-31 at 12 05 24@2x" src="https://user-images.githubusercontent.com/92281407/210152157-104486da-d722-4632-846d-8e694b0f9b82.png">
-  <img width="300" height="180" alt="2022-12-31 at 12 04 50@2x" src="https://user-images.githubusercontent.com/92281407/210152159-8452f1cb-40ab-444e-8ad4-2eb5100ad40e.png">
-  <img width="300" height="180" alt="2022-12-31 at 12 05 15@2x" src="https://user-images.githubusercontent.com/92281407/210152158-205b639e-9f0f-4574-a74a-fb1dea5db5db.png">
-  <img width="300" height="180" alt="2022-12-31 at 12 20 22@2x" src="https://user-images.githubusercontent.com/92281407/210152419-b589a2f0-c9c6-42da-892c-4e9ebcde9d9f.png">
+<br>
+<div align="center">
+  <img width="500" align="center" alt="2022-12-31 at 12 18 33@2x" src="https://github.com/babycoin-inc/babycoin/blob/main/BabycoinDemo.gif">
 </div>
 
 # Why babycoin?
