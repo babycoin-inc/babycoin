@@ -1,9 +1,12 @@
-const sum = (a, b) => {
-  return a + b
-}
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Header from '../../../client/src/components/Header/Header.jsx';
+import { portfolioMockData, achivementsMock, tradeHist } from '../mock/homeMockData.js';
 
-describe('dummy test', () => {
-  test('adds 2 + 4 to equal 6', () => {
-    expect(sum(2, 4)).toBe(6)
-  })
-})
+
+test('renders header', () => {
+  render(<Header activePage='Home' tradeHistory={tradeHist} />);
+  const sideNav = (screen.getByText(/home/i));
+  expect(sideNav).toBeInTheDocument();
+});
