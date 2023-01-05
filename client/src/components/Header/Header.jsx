@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
-import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embed";
+// import { TradingViewEmbed, widgetType, TickerTape } from "react-tradingview-embed";
 import Dropdown from './Dropdown.jsx';
 import axios from 'axios';
 import MoveTicker from './TickerTape.jsx';
