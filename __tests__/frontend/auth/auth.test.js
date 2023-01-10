@@ -2,6 +2,7 @@ import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import LoginForm from '../../../client/src/components/Login/LoginForm.jsx';
+import SignupForm from '../../../client/src/components/Login/SignupForm.jsx';
 
 afterEach(cleanup);
 
@@ -38,4 +39,15 @@ test('Login form is rendered correctly', () => {
   expect(getByText('Log In')).toBeInTheDocument();
 });
 
+test('Signup form is rendered correctly', () => {
+  const { getByLabelText, getByText } = render(<SignupForm />);
+
+  // check for the presence of the form inputs
+  expect(getByLabelText('Username')).toBeInTheDocument();
+  expect(getByLabelText('Password')).toBeInTheDocument();
+  expect(getByLabelText('Confirm Password')).toBeInTheDocument();
+
+  // check for the presence of the submit button
+  expect(getByText('Sign Up')).toBeInTheDocument();
+});
 
