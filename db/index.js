@@ -50,4 +50,5 @@ module.exports = {
   clientRollback: (client) => client.query('ROLLBACK'),
   clientRelease: (client) => client.release(),
   connect: () => pool.connect(),
+  end: () => pool.end()
 };
