@@ -13,7 +13,7 @@ function Header({ activePage, tradeHistory, setAuthorizedUser, addToWatchlist, h
     axios
       .get('/logout')
       .then(result => {
-        console.log('DATA FROM LOGOUT', result.data)
+        // console.log('DATA FROM LOGOUT', result.data)
         setAuthorizedUser(result.data)
       })
       .catch(err => console.log(err));
