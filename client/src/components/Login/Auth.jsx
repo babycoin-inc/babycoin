@@ -10,26 +10,11 @@ import GoogleButton from './GoogleButton.jsx';
 const Auth = ({ updateUser }) => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [blinking, setBlinking] = useState(false);
-
   const [isSleeping, setIsSleeping] = useState(true);
-  const [infoIsShown, setInfoIsShown] = useState(false);
-
-  const [isShowing, setIsShowing] = useState(false)
-
 
   const handleWhichForm = (e) => {
     e.preventDefault();
     setIsLoginForm(!isLoginForm);
-  }
-
-
-  const toggleInfo = () => {
-    setInfoIsShown(!infoIsShown);
-  }
-
-  const flipHandler = (e) => {
-    e.preventDefault();
-
   }
 
   return (
