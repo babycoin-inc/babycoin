@@ -23,7 +23,7 @@ Welcome to *babycoin*, a platform that allows you to trade practice currency and
 9. **Achievements:** Complete achievements to learn fundamental trading concepts and earn rewards.
 <p>
   <img width="500" alt="2022-12-31 at 12 18 33@2x" src="signup.png">
-  <img width="500" alt="2022-12-31 at 12 18 33@2x" src="newUsers.png">
+  <img width="500" alt="2022-12-31 at 12 18 33@2x" src="newUser.png">
   <img width="500" alt="2022-12-31 at 12 18 33@2x" src="portfolioShort.png">
   <img width="500" alt="2022-12-31 at 12 18 33@2x" src="trade.png">
   <img width="500" alt="2022-12-31 at 12 18 33@2x" src="marketwatch.png">
