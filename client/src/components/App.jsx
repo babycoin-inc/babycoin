@@ -12,7 +12,6 @@ import ResetModal from './Modal/ResetModal.jsx';
 
 function App({ authenticatedUser, setAuthorizedUser }) {
 
-  //const [authenticatedUser, setAuthenticatedUser] = useState(1);
   const [activePage, setActivePage] = useState('Home');
 
   //Home Component States
