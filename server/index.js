@@ -1,15 +1,13 @@
+require('dotenv').config();
 require('../db/index.js'); //tests db connection
 
 const express = require('express');
-require('dotenv').config();
-const passport = require('../passport.config.js');
-
 const app = express();
 const port = process.env.PORT || 3000;
 
+const passport = require('../passport.config.js');
 const flash = require('express-flash');
 const cookieParser = require('cookie-parser');
-
 const cron = require('node-cron');
 const session = require('./sessionConfig');
 const cors = require('cors');
@@ -29,28 +27,18 @@ app.use(passport.session())
 app.post('/auth/signup', auth.signupController);
 app.post('/auth/login', passport.authenticate('local'), auth.loginController);
 app.post('/auth/refresh', auth.refreshTokenController);
-app.get('/auth/google', (req, res, next) => {
-  passport.authenticate('google', { scope: ['email'] })
-});
-
-app.get('/auth/google/callback', (req, res, next) => {
-  passport.authenticate('google', {
-    successRedirect: '/',
-  })
-});
-
-app.get('/getuser', (req, res) => {
-  res.send(req.user);
-})
+app.get('/auth/google', (req, res, next) => passport.authenticate('google', { scope: ['email'] }));
+app.get('/auth/google/callback', (req, res, next) => passport.authenticate('google', { successRedirect: '/'}));
+app.get('/getuser', (req, res) => res.send(req.user));
 app.get('/logout', auth.logoutController);
 
-
+app.get('/users/:id/transactions/', home.getTransactions);
 app.post('/users/:id/transactions/buy', trade.insertBuyTransaction);
 app.post('/users/:id/transactions/sell', trade.insertSellTransaction);
 app.post('/users/:id/transactions/sellAll', trade.insertSellAllTransaction);
 app.post('/users/:id/transactions/buyAll', trade.insertBuyAllTransaction);
+
 app.get('/users/:id/balances/', home.getPortfolioAssets);
-app.get('/users/:id/transactions/', home.getTransactions);
 app.delete('/users/:id/portfolio/', home.clearPortfolio)
 app.get('/users/:id/achievements', achievements.getUserAchievements);
 app.post('/users/:id/achievements/:achievement', achievements.addUserAchievement);
@@ -70,8 +58,6 @@ app.get('/coins/markets', market.getCoins);
 app.post('/users/:id/watchlist', dropdown.addToWatchlist);
 app.delete('/users/:id/watchlist/:coin', watchlist.removeFromWatchlist);
 app.delete('/users/:id/watchlist', watchlist.clearWatchlist);
-
-
 app.get('/leaderboard', leaderboard.getLeaderboard);
 
 
