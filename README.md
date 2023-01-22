@@ -6,18 +6,20 @@ Welcome to *babycoin*, a platform that allows you to trade practice currency and
 
 # Who is babycoin for?
 *babycoin* is for anyone who is interested in learning about crypto trading, or for experienced traders who want a safe sandbox environment to test out new strategies.
-# Features
-1. **Crypto Portfolio:** Keep track of your holdings in various cryptocurrencies and view your overall portfolio performance.
-2. **Tracking different cryptocurrencies:** Stay up to date on the latest prices and market movements for the cryptocurrencies you are interested in.
-3. **Graph view:** Visualize price trends over time with interactive graphs.
-4. **Buying and selling crypto:** Use the platform to buy and sell cryptocurrencies with practice currency.
-5. **Newsfeed:** Stay informed about the latest developments in the crypto market with our built-in newsfeed.
-6. **Leaderboard for earnings:** See how you stack up against other traders on the leaderboard and compete for the top spot.
-7. **Achievements:** Complete achievements to learn fundamental trading concepts and earn rewards.
 <br>
 <div align="center">
   <img width="500" align="center" alt="2022-12-31 at 12 18 33@2x" src="https://github.com/babycoin-inc/babycoin/blob/main/BabycoinDemo.gif">
 </div>
+
+# Features
+1. **Crypto Portfolio:** Keep track of your holdings in various cryptocurrencies and view your overall portfolio performance.
+2. **User Friendly Interface:** Simple an easy to follow directions for brand new users to get started trading fast with a good experience.
+3. **Tracking different cryptocurrencies:** Stay up to date on the latest prices and market movements for the cryptocurrencies you are interested in.
+4. **Graph view:** Visualize price trends over time with interactive graphs.
+5. **Buying and selling crypto:** Use the platform to buy and sell cryptocurrencies with practice currency.
+6. **Newsfeed:** Stay informed about the latest developments in the crypto market with our built-in newsfeed.
+7. **Leaderboard for earnings:** See how you stack up against other traders on the leaderboard and compete for the top spot.
+8. **Achievements:** Complete achievements to learn fundamental trading concepts and earn rewards.
 
 # Why babycoin?
 Many people are interested in learning about crypto trading, but it can be intimidating to start with real money. There is also a lack of educational resources for aspiring traders to learn the basics and improve their skills. 
