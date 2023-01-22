@@ -63,7 +63,7 @@ const Auth = ({ updateUser }) => {
                   <small>
                     {isLoginForm ? 'Not' : 'Already'} a member?
                       <a className='text-orange-700 hover:text-orange-500 cursor-pointer'
-                         onClick={handleWhichForm}>{isLoginForm ? 'Sign Up Now!' : 'Login Now!'}
+                         onClick={handleWhichForm}>{isLoginForm ? ' Sign Up Now!' : ' Login Now!'}
                       </a>
                   </small>
                 </div>
