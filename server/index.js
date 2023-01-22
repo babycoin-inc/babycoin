@@ -36,7 +36,6 @@ app.get('/auth/google', (req, res, next) => {
 app.get('/auth/google/callback', (req, res, next) => {
   passport.authenticate('google', {
     successRedirect: '/',
-    //failureRedirect: '/auth/login' TODO: MAKE FAILED LOGIN COMPONENT FOR GOOGLE!
   })
 });
 
