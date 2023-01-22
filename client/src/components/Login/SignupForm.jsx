@@ -30,7 +30,6 @@ const SignupForm = ({ updateUser }) => {
         updateUser(data.id);
       })
       .catch(err => {
-        // console.log(err)
         if(err.response.status === 409) {
           setUsernameError(true);
           setTimeout(() => {

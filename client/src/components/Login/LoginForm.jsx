@@ -21,11 +21,9 @@ const LoginForm = ({ updateUser }) => {
         password: password
       })
       .then(({ data }) => {
-        // console.log('DATA FROM SERVER: ', data);
         updateUser(data.id);
       })
       .catch(err => {
-        // console.log(err)
         if(err.response.status === 401) {
           setLoginError(true)
           setTimeout(() => {

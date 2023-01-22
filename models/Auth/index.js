@@ -53,11 +53,7 @@ const Auth = {
       client.release();
     }
   },
-  // registerUser: (username, password) => {
-  //   return pool
-  //     .query('INSERT INTO trader(username, password) values($1, $2) RETURNING id', [username, password])
-  //     .then(result => result.rows[0].id);
-  // },
+
   registerGoogleUser: async (googleID) => {
     const client = await pool.connect();
     try {
@@ -75,11 +71,7 @@ const Auth = {
       client.release();
     }
   },
-  // registerGoogleUser: (googleID) => {
-  //   return pool
-  //     .query('INSERT INTO trader(googleid) values($1) RETURNING id', [googleID])
-  //     .then(result => result.rows[0].id);
-  // },
+
   isUsernameUnavailable: (username) => {
     return (
       pool
